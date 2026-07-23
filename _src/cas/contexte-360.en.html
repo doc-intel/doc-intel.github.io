@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 360 context: gathering all of a policyholder's information · Case study</title>
+<meta name="description" content="Gather and type every document of a policyholder into one up-to-date context, the foundation the chatbot, the dashboard and the audit all consume.">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.roadmap{counter-reset:rm;margin:16px 0 6px;padding:0;list-style:none}
+.roadmap li{position:relative;padding:12px 16px 12px 52px;border:1px solid var(--line,#e2e8f0);border-radius:12px;margin-bottom:10px;background:var(--card);font-size:14px;line-height:1.5}
+.roadmap li b{display:block;margin-bottom:2px}
+.roadmap li::before{counter-increment:rm;content:counter(rm);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--band);color:var(--band-fg);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.consumers{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:14px 0 6px}
+.cons{border:1px solid var(--line,#e2e8f0);border-radius:12px;padding:14px 16px;background:var(--card);font-size:13.5px;line-height:1.5}
+.cons b{display:block;margin-bottom:3px}
+.dep{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:980px;margin:0 6px 6px 0}
+.dep.int{background:var(--blue-b);color:var(--blue-s)} .dep.auth{background:var(--rose-b);color:var(--rose-s)} .dep.pub{background:var(--emer-b);color:var(--emer-s)}
+</style>
+</head>
+<body class="lang-en" data-fixed-lang="en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Case studies</a></div>
+      <div class="kicker">360 context · Foundation · Insurance</div>
+      <h1 class="mid">The 360 context: gathering all of a policyholder's information</h1>
+      <p class="lede">A policyholder is dozens of scattered documents. The 360 context gathers, parses and types them into one up-to-date whole. It is not a chatbot: it is what a chatbot, and many other uses, consume.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+      <div class="callout"><p>The first insurance brick is the <b>360 view</b>. It comes in four cases: the <a href="assistant-assurance.html">client 360 chatbot</a>, the <a href="assistant-agents.html">general-agent 360 chatbot</a>, the <b>360 context</b> that gathers everything known about a policyholder, and the <a href="contrats-360.html">360 contracts view</a>. The two chatbots consume the context; they are not its only output.</p></div>
+
+      <h2>The problem</h2>
+      <p>A policyholder is dozens of scattered documents: policies, endorsements, letters, receipts, statements, claim files. They live in several systems (a DMS, mailboxes, scans). Nobody has a complete, up-to-date picture of the policyholder. Yet that picture, that <b>context</b>, is exactly what everything downstream is missing.</p>
+
+      <h2>The approach</h2>
+      <p>Gather all of a policyholder's information into one clean, typed context. You collect all their documents, parse them whatever the format, type them (policy, endorsement, claim, letter), extract the key entities, and assemble a consolidated, up-to-date context. An AI-enriched DMS. It is not a chatbot: it is the material a chatbot, and many other uses, will consume.</p>
+
+      <div class="callout"><p>The key point: the 360 context is not just a chatbot brick. It is a foundation. The chatbot uses it, but a dashboard, an audit, a regulatory extraction or a risk score use it just as much.</p></div>
+
+      <h2>What the context feeds</h2>
+      <div class="consumers">
+        <div class="cons"><b>The 360 chatbot</b>Client as well as <a href="assistant-agents.html">general agent</a>: the context gives it enough to understand and answer well.</div>
+        <div class="cons"><b>The dashboard</b>The consolidated view of the policyholder for the case handler: policies, claims, due dates.</div>
+        <div class="cons"><b>Audit and compliance</b>The <a href="contrats-360.html">360 contracts view</a> and regulatory checks build on the same context.</div>
+        <div class="cons"><b>Extraction and scoring</b>Any downstream processing starts from a clean context rather than scattered raw documents.</div>
+      </div>
+
+      <h2>Technical vision</h2>
+      <p>The bricks already exist in the series. Multi-format parsing (Volume 2) reads each document. Classification types it. Structured extraction files the entities into a "policyholder" model. Long-format storage keeps every fact tied to its source. Aggregated views rebuild the file. The context is not frozen: a new document comes in, it updates.</p>
+      <p><span class="dep int">Internal data</span><span class="dep auth">Governed access</span> This case works on policyholders' documents: no public demo, the pieces of a file are confidential.</p>
+
+      <h2>Implementation roadmap</h2>
+      <ol class="roadmap">
+        <li><b>Collect and parse</b>Pull a policyholder's existing documents from the source systems and parse them in batch, format by format.</li>
+        <li><b>Type and extract</b>Classify each document (policy, endorsement, claim, letter) and extract the key entities.</li>
+        <li><b>Policyholder model</b>File the extracted facts into a single data model: policies, claims, due dates, contacts.</li>
+        <li><b>Expose the context</b>Make it consumable by the chatbot, the dashboard, the audit, the extraction.</li>
+        <li><b>Incremental update</b>On each new document, refresh the context without recomputing everything.</li>
+      </ol>
+
+      <h2>What it shows</h2>
+      <p>Before you build a 360 assistant, you need the 360 context. Gathering and typing the information is the real foundation; without it, a chatbot only guesses. And because it is a foundation, it serves well beyond the chatbot.</p>
+
+      <div class="callout"><p><b>Related cases:</b> <a href="assistant-assurance.html">client 360 chatbot</a>, <a href="assistant-agents.html">general-agent 360 chatbot</a>, <a href="contrats-360.html">360 contracts view</a>.</p></div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

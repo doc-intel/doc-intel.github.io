@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Déclarer un sinistre par chatbot, champ par champ · Étude de cas</title>
+<meta name="description" content="Un assistant conversationnel qui guide la déclaration de sinistre et remplit un formulaire typé, question après question, sans laisser de champ obligatoire vide.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Chatbot · Indemnisation · FR</div>
+      <h1 class="mid">Déclarer un sinistre par chatbot, champ par champ</h1>
+      <p class="lede">Un formulaire de déclaration fait fuir. Une conversation qui pose une question à la fois, garde le fil, et ne rend la main qu'une fois les champs obligatoires remplis, ça se termine.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Une déclaration de sinistre, c'est vingt champs : date, lieu, circonstances, dommages, tiers, témoins. Présentés d'un bloc dans un formulaire, l'assuré abandonne. Posés en vrac par un humain, il en manque toujours un. Il faut guider, une question à la fois, et savoir à tout moment ce qui reste à remplir.</p>
+
+      <h2>La démarche</h2>
+      <p>Le chatbot ne cause pas dans le vide : il vise un schéma de sortie typé (les champs de la déclaration). À chaque tour, il regarde ce qui est déjà rempli, pose la prochaine question manquante, interprète la réponse en langage naturel, et met à jour le formulaire. Quand tous les champs obligatoires sont là, il récapitule et propose une estimation. La conversation est au service d'une structure, pas l'inverse.</p>
+
+      <div class="callout">
+        <p>Le fil rouge : la sortie est un objet typé, pas un pavé de texte. Le dialogue n'existe que pour remplir ce contrat de données, champ par champ.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Définir le schéma de la déclaration</b><span>Les champs typés attendus (date, lieu, nature, dommages, tiers…) fixent ce que la conversation doit obtenir.</span></div>
+        <div class="step"><b>Poser la prochaine question utile</b><span>À chaque tour, l'assistant demande le champ manquant le plus prioritaire, pas une question au hasard.</span></div>
+        <div class="step"><b>Interpréter la réponse libre</b><span>La phrase de l'assuré est convertie en valeur typée et rangée dans le bon champ.</span></div>
+        <div class="step"><b>Suivre l'avancement</b><span>Le formulaire se remplit visiblement ; on voit ce qui reste obligatoire.</span></div>
+        <div class="step"><b>Récapituler et estimer</b><span>Une fois complet, l'assistant résume la déclaration et propose une estimation.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>Un bon chatbot métier n'est pas un modèle qui bavarde : c'est une conversation contrainte par un schéma. La structure garantit qu'aucun champ obligatoire ne passe à la trappe, et rend la sortie directement exploitable par le système de gestion.</p>
+
+      <h2>Livrables</h2>
+      <p>Un chatbot de déclaration guidé, avec le formulaire typé qui se remplit au fil du dialogue. Les données sont fictives.</p>
+
+      <div class="callout"><p><em>Démonstration statique sur données fictives ; elle s'ouvre en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/claim-declaration.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir la démo (pleine page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic coverage analysis on US flood insurance · Case study</title>
+<meta name="description" content="A tool-using agent reads two public FEMA NFIP flood forms, decides what to look up, and returns structured verdicts with programmatically verified citations.">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="canonical" href="https://doc-intel.github.io/en/cas/flood-agentic.html">
+<link rel="alternate" hreflang="en" href="https://doc-intel.github.io/en/cas/flood-agentic.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/en/cas/flood-agentic.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Agentic coverage analysis on US flood insurance · Case study">
+<meta property="og:description" content="A tool-using agent reads two public FEMA NFIP flood forms, decides what to look up, and returns structured verdicts with programmatically verified citations.">
+<meta property="og:url" content="https://doc-intel.github.io/en/cas/flood-agentic.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agentic coverage analysis on US flood insurance · Case study">
+<meta name="twitter:description" content="A tool-using agent reads two public FEMA NFIP flood forms, decides what to look up, and returns structured verdicts with programmatically verified citations.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Case studies</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="../../fr/cas/index.html">FR</a>
+      <a href="flood-agentic.html" class="active">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=assurance">← Case studies</a></div>
+      <div class="kicker">Agentic · Search · EN</div>
+      <h1 class="mid">Agentic coverage analysis on US flood insurance</h1>
+      <p class="lede">A tool-using agent reads two public FEMA flood-insurance forms, decides what to look up, and returns structured verdicts with every citation verified against the source.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>The problem</h2>
+      <p>Flood-insurance policies are full of traps: a coverage stated in one place, negated by an exclusion elsewhere, capped by a sub-limit three pages later. Answering "is this covered?" reliably means reading around the whole document, not grabbing the first matching paragraph. And an answer without the exact citation is worthless when money is on the line.</p>
+
+      <h2>The approach</h2>
+      <p>This is the English counterpart of the French contract-comparison study, specialized for the US National Flood Insurance Program. The agent works over two public-domain FEMA forms (the Dwelling Form and the General Property Form). It has tools, <code>search_page</code> and <code>read_page</code>, and it decides which pages to open. When it has enough context, it returns a structured verdict: coverage status, condition, exact citation, page. The citation is then checked programmatically against the source text, so a hallucinated quote cannot survive.</p>
+
+      <div class="callout">
+        <p>The point is not a bigger model. It is a bounded loop: the agent gathers evidence with tools, then commits to a verdict that must be backed by a real quote on a real page.</p>
+      </div>
+
+      <h2>The method, step by step</h2>
+      <div class="steps">
+        <div class="step"><b>Load the forms with page markers</b><span>Both public-domain FEMA forms are extracted with page markers so citations stay traceable.</span></div>
+        <div class="step"><b>Pick trap questions</b><span>Three coverage questions chosen to expose common failure modes: negation, exclusion elsewhere, sub-limit.</span></div>
+        <div class="step"><b>Let the agent use tools</b><span>It searches for keywords and reads specific pages, looping until it has enough context.</span></div>
+        <div class="step"><b>Return a structured verdict</b><span>Status, condition, exact citation, page, in a typed shape.</span></div>
+        <div class="step"><b>Verify the citation</b><span>Each quote is checked as a substring of the source text; unverifiable quotes are rejected.</span></div>
+      </div>
+
+      <h2>What it shows</h2>
+      <p>Agentic retrieval is not about letting a model roam free. It is a disciplined loop with tools, a typed output, and a verification gate. The same pattern that compares French home-insurance contracts transfers directly to US government forms, which is the point: the method travels, the documents change.</p>
+
+      <h2>Artifacts</h2>
+      <p>An agent implementation (model-agnostic, OpenAI or local), a benchmark comparing backends on cost and latency, several agent variants (basic, generic, specialized), and a visualization of the agent's reasoning loop.</p>
+
+      <div class="callout"><p><em>Demo on public documents; it opens in a full page.</em></p></div>
+      <p style="margin-top:18px"><a href="../../assets/demos/flood-agentic.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Open the interactive demo (full page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Written by Angela Shi, Kezhan Shi and Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=assurance">← Other cases</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

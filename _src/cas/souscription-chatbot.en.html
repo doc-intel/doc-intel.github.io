@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building a subscription chatbot: MVP first, then AI · Case study</title>
+<meta name="description" content="A subscription chatbot starts deterministic and verifiable (filling typed fields), before adding AI. The approach, from the MVP to a smarter assistant.">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.stack{display:grid;gap:12px;margin:16px 0 6px}
+.lvl{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--card)}
+.lvl .lab{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border-radius:980px;margin-bottom:8px}
+.lvl.mvp{border-top:3px solid var(--emer-s)} .lvl.mvp .lab{background:var(--emer-b);color:var(--emer-s)}
+.lvl.more{border-top:3px solid var(--blue-s)} .lvl.more .lab{background:var(--blue-b);color:var(--blue-s)}
+.lvl h3{margin:0 0 6px;font-size:1.05rem}
+.lvl p{margin:.3em 0;font-size:14px;line-height:1.55;color:var(--ink2)}
+.lvl ul{margin:.3em 0 0;padding-left:1.15em} .lvl li{margin:.25em 0;font-size:14px;color:var(--ink2)}
+</style>
+</head>
+<body class="lang-en" data-fixed-lang="en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Case studies</a></div>
+      <div class="kicker">Chatbot · Underwriting · Insurance</div>
+      <h1 class="mid">Building a subscription chatbot: MVP first, then AI</h1>
+      <p class="lede">Subscribing a product means filling a structured file. A useful chatbot starts <b>deterministic and verifiable</b>, before adding AI. Here is how you build it, from the simplest to the smartest.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <div class="callout"><p>To be clear: the demo is a <b>basic</b> chatbot, and we can do far better. That is precisely the point. The goal is not to impress, it is to show <b>how you build a chatbot</b> cleanly: a core that works, enriched afterwards, rather than an LLM API wired into everything.</p></div>
+
+      <h2>The problem</h2>
+      <p>A subscription is not free conversation: it is a form. You have to collect precise information (product, profile, property, level of cover, start date) in a usable format. Handing that straight to a large model that "chats" gives an unpredictable result: missed fields, badly typed values, invented answers. The risk is the same as everywhere else in the series: without structure, no reliability.</p>
+
+      <h2>The approach: start with a deterministic core</h2>
+      <p>The MVP of a good subscription chatbot needs no LLM. It is a <b>slot-filling</b> flow: you know the fields to fill in advance, you ask for them in order, you offer numbered choices where possible, you validate each answer, and you end with a verifiable recap and an indicative estimate. Everything is traceable and testable, without a single line of AI. That is exactly what the demo does.</p>
+
+      <div class="stack">
+        <div class="lvl mvp">
+          <span class="lab">Step 1 — the MVP (the demo)</span>
+          <h3>A deterministic slot-filling flow</h3>
+          <p>A typed schema describes the fields of the subscription. The chatbot walks them in order.</p>
+          <ul>
+            <li>Choices offered as numbers (1, 2, 3…): far more reliable than free text.</li>
+            <li>Simple per-field validation (a postcode is five digits, a floor area is a number).</li>
+            <li><b>Estimates the sum to insure</b> (the home contents value) from a deterministic table based on the dwelling, rather than asking the policyholder who does not know it. You can keep it or adjust it.</li>
+            <li>Editable recap, then confirmation; output as structured JSON.</li>
+            <li>No server, no model: the behaviour is predictable and replayable.</li>
+          </ul>
+        </div>
+        <div class="lvl more">
+          <span class="lab">Step 2 — going further</span>
+          <h3>Add AI where it genuinely helps</h3>
+          <p>With the core in place, you enrich it without throwing away the schema. AI comes as a layer on top, not a replacement.</p>
+          <ul>
+            <li>Understand natural-language answers ("a three-room flat, around 70 m²") and file them into the right fields.</li>
+            <li>Branch the flow by chosen product (home, motor, health have different fields).</li>
+            <li>Pre-fill from the <a href="contexte-360.html">360 context</a> when the client is already known.</li>
+            <li>Handle digressions and coverage questions via the <a href="assistant-assurance.html">360 chatbot</a>, then return to the form.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>The method, step by step</h2>
+      <div class="steps">
+        <div class="step"><b>Define the schema</b><span>List the subscription fields and their types before writing the dialogue.</span></div>
+        <div class="step"><b>Ask in order</b><span>One question per field, numbered choices when the value is in a list.</span></div>
+        <div class="step"><b>Validate each answer</b><span>Simple, deterministic rules catch mistakes right away.</span></div>
+        <div class="step"><b>Recap and confirm</b><span>The user checks, corrects, confirms; the output is typed JSON, not a conversation.</span></div>
+      </div>
+
+      <h2>The principle</h2>
+      <p>You do not wire an LLM API into everything. You start from a deterministic, verifiable core you can test and replay, then add intelligence where it brings real value, without ever losing the structure or the traceability. That holds for a subscription chatbot as for the rest of the series: reliability comes from structure, not from the model.</p>
+
+      <h2>A journey that links several chatbots</h2>
+      <p>Subscription does not live alone. While subscribing, the client asks coverage questions, and sometimes you need to estimate what they own. The same assistant can call on the other bricks, without the client switching tools.</p>
+      <ul>
+        <li><b>Estimate the inventory.</b> By default we offer an estimate of the contents value (the table above) so as not to bother the client. If they want to be precise, we can help them do a real, room-by-room inventory.</li>
+        <li><b>Answer coverage questions.</b> "My bike, stolen outside my home, is it covered?" The assistant calls the <a href="homeowners-qa.html">sourced answer on the policy</a> and cites the relevant guarantee (off-premises theft, personal effects) when the household policy provides for it.</li>
+        <li><b>Compare with competitors.</b> On that precise point, the <a href="policy-comparison.html">policy comparison</a> shows which competitor contracts cover the bike stolen outside, and which do not. A concrete, sourced argument, right when subscribing.</li>
+      </ul>
+      <p>The <a href="assistant-assurance.html">360 chatbot</a> orchestrates this back-and-forth: subscribe, answer, compare, in one conversation.</p>
+
+      <h2>Deliverables</h2>
+      <p>A static demo of the subscription chatbot (MVP), filling a quote field by field down to an indicative estimate. No server, no model.</p>
+
+      <div class="callout"><p><em>Static demonstration (frozen flow, MVP); it opens full page. The dialogue is in French.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/souscription-chatbot.html" style="display:inline-block;padding:14px 24px;background:var(--btn-bg);color:var(--btn-fg);text-decoration:none;border-radius:12px;font-weight:600">Open the chatbot (full page) →</a></p>
+
+      <div class="callout"><p><b>Related cases:</b> the <a href="assistant-assurance.html">client 360 chatbot</a> that routes to this flow, the <a href="homeowners-qa.html">sourced answer on a policy</a>, and the <a href="policy-comparison.html">policy comparison</a>.</p></div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

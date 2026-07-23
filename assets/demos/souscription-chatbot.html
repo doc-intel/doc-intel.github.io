@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Souscription — chatbot statique (HTML seul)</title>
+<style>
+  :root { --navy:#1F4E78; --navy-d:#163a5a; --bg:#f3f4f6; --bot:#eef4ff; --user:#d1fae5; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+         background:var(--bg); color:#1f2937; }
+  header { background:var(--navy); color:#fff; padding:14px 20px; display:flex;
+           align-items:center; gap:10px; }
+  header h1 { font-size:1.05rem; margin:0; font-weight:600; }
+  header .tag { margin-left:auto; font-size:.75rem; opacity:.75; }
+  .wrap { max-width:760px; margin:20px auto; padding:0 14px; }
+  .note { background:#fff7ed; border:1px solid #fed7aa; color:#9a3412;
+          font-size:.8rem; padding:8px 12px; border-radius:8px; margin-bottom:12px; }
+  #chat { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:14px;
+          height:56vh; overflow-y:auto; }
+  .row { display:flex; margin:6px 0; }
+  .row.user { justify-content:flex-end; }
+  .bubble { max-width:78%; padding:9px 13px; border-radius:14px; font-size:.92rem;
+            line-height:1.35; white-space:pre-wrap; }
+  .bot .bubble  { background:var(--bot); border:1px solid #dbeafe; border-bottom-left-radius:4px; }
+  .user .bubble { background:var(--user); border:1px solid #a7f3d0; border-bottom-right-radius:4px; }
+  .who { font-size:.68rem; color:#6b7280; margin:0 6px 2px; }
+  .inputbar { display:flex; gap:8px; margin-top:10px; }
+  #answer { flex:1; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:.95rem; }
+  button { background:var(--navy); color:#fff; border:none; border-radius:8px;
+           padding:10px 16px; font-size:.9rem; cursor:pointer; }
+  button:hover { background:var(--navy-d); }
+  button.ghost { background:#fff; color:var(--navy); border:1px solid var(--navy); }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .chip { background:#eef2ff; color:#3730a3; border:1px solid #c7d2fe; border-radius:16px;
+          padding:5px 11px; font-size:.82rem; cursor:pointer; }
+  .chip:hover { background:#e0e7ff; }
+  .recap { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:14px; margin-top:12px; }
+  .recap h3 { margin:0 0 8px; color:var(--navy); font-size:1rem; }
+  .recap table { width:100%; border-collapse:collapse; font-size:.9rem; }
+  .recap td { padding:6px 8px; border-bottom:1px solid #f1f5f9; vertical-align:top; }
+  .recap td.k { color:#6b7280; width:38%; }
+  .recap td.act { text-align:right; width:90px; }
+  .quote { margin-top:12px; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:10px;
+           padding:12px 14px; color:#065f46; font-size:.9rem; }
+  .quote b { font-size:1.15rem; }
+  button.mini { padding:4px 10px; font-size:.78rem; }
+  .actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .saved { font-size:.78rem; color:#6b7280; margin-top:8px; }
+</style>
+</head>
+<body>
+<div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../fr/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../fr/cas/" style="color:#cbd5e1;text-decoration:none">Études de cas</a><a href="../../fr/cas/souscription-chatbot.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Retour au cas</a></div>
+<header>
+  <span>📝</span>
+  <h1>Souscription — chatbot statique</h1>
+  <span class="tag">HTML seul · aucun serveur</span>
+</header>
+
+<div class="wrap">
+  <div class="note">
+    Le <b>degré zéro</b> du chatbot de souscription : <b>100% statique</b>, aucun LLM, aucun serveur.
+    Un flux déterministe qui remplit un devis <b>champ par champ</b>, et qui <b>estime lui-même
+    la valeur à assurer</b> (le capital mobilier) à partir du logement, plutôt que de vous la demander.
+    Pour les choix, on répond par un <b>numéro</b> (1, 2, 3…). À la fin, un récapitulatif et une
+    <b>estimation indicative</b> à vérifier. C'est le socle ; l'intelligence (LLM) se rajoute par-dessus, pas à la place.
+  </div>
+
+  <div id="chat"></div>
+
+  <div class="inputbar">
+    <input id="answer" placeholder="Votre réponse…" autocomplete="off">
+    <button id="send">Envoyer</button>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div id="recapZone"></div>
+  <div class="saved" id="saved"></div>
+</div>
+
+<script>
+// ---- La seule "intelligence" : un schéma de champs à remplir, dans l'ordre ----
+const QUESTIONS = [
+  { key:"nom",         label:"Nom du souscripteur", q:"Bonjour ! Je prépare votre souscription. Quel est votre nom et prénom ?" },
+  { key:"produit",     label:"Produit",             q:"Quel produit souhaitez-vous souscrire ?",
+    choices:["Assurance habitation","Assurance auto","Complémentaire santé","Prévoyance"] },
+  { key:"statut",      label:"Statut d'occupation",  q:"Pour le logement, vous êtes ?",
+    choices:["Locataire","Propriétaire occupant","Propriétaire non-occupant"] },
+  { key:"type_bien",   label:"Type de bien",         q:"S'agit-il d'un appartement ou d'une maison ?",
+    choices:["Appartement","Maison"] },
+  { key:"surface",     label:"Surface (m²)",         q:"Quelle est la surface habitable, en m² ?" },
+  { key:"pieces",      label:"Pièces principales",   q:"Combien de pièces principales ?" },
+  { key:"capital_mobilier", label:"Capital mobilier à assurer", computed:true },
+  { key:"code_postal", label:"Code postal",          q:"Quel est le code postal du logement ?" },
+  { key:"niveau",      label:"Niveau de garantie",   q:"Quel niveau de garantie souhaitez-vous ?",
+    choices:["Essentiel","Confort","Tous risques"] },
+  { key:"debut",       label:"Début souhaité",       q:"À partir de quelle date souhaitez-vous être couvert ? (JJ/MM/AAAA)" },
+  { key:"contact",     label:"Contact",              q:"Enfin, un email pour vous envoyer le devis ?" },
+];
+
+const chat   = document.getElementById("chat");
+const input  = document.getElementById("answer");
+const sendBtn= document.getElementById("send");
+const chips  = document.getElementById("chips");
+const recapZone = document.getElementById("recapZone");
+let step = 0;
+let editingKey = null;
+let capitalMode = null;      // "manual" = l'utilisateur saisit son propre capital
+const answers = {};
+
+function fmt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+function addChip(label, onclick){
+  const el = document.createElement("div");
+  el.className = "chip"; el.textContent = label; el.onclick = onclick;
+  chips.appendChild(el);
+}
+
+// Barème déterministe : capital mobilier ≈ surface × (type) + pièces, arrondi au millier.
+// Pas de modèle : une règle simple, lisible, rejouable. C'est ça, l'estimation "MVP".
+function estimateCapital(){
+  const surf = parseFloat(answers.surface) || 50;
+  const pieces = parseInt(answers.pieces, 10) || 3;
+  const kType = answers.type_bien === "Maison" ? 350 : 300;
+  return Math.round((surf * kType + pieces * 2000) / 1000) * 1000;
+}
+
+function addBubble(text, who) {
+  const row = document.createElement("div");
+  row.className = "row " + who;
+  const col = document.createElement("div");
+  const name = document.createElement("div");
+  name.className = "who"; name.textContent = who === "bot" ? "Assistant" : "Vous";
+  const b = document.createElement("div");
+  b.className = "bubble"; b.textContent = text;
+  col.appendChild(name); col.appendChild(b); row.appendChild(col);
+  chat.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function activeQuestion() {
+  if (editingKey) return QUESTIONS.find(x => x.key === editingKey);
+  return step < QUESTIONS.length ? QUESTIONS[step] : null;
+}
+function questionText(q) {
+  let t = q.q;
+  if (q.choices) t += "\n" + q.choices.map((c, i) => `${i + 1}. ${c}`).join("   ");
+  return t;
+}
+function renderChips() {
+  chips.innerHTML = "";
+  const q = activeQuestion();
+  if (q && q.choices) q.choices.forEach((c, i) => addChip((i + 1) + ". " + c, () => { input.value = String(i + 1); submit(); }));
+}
+
+// étape "capital mobilier" : le bot ESTIME, l'utilisateur retient ou ajuste
+function askCapital() {
+  const est = estimateCapital();
+  answers._capital_estime = est;
+  const bien = (answers.type_bien || "logement").toLowerCase();
+  addBubble("D'après votre logement (" + (answers.surface || "?") + " m², " + (answers.pieces || "?") +
+            " pièces, " + bien + "), j'estime le mobilier à assurer à environ " + fmt(est) + " €.\n" +
+            "Je retiens cette estimation, ou vous préférez saisir votre propre montant ?", "bot");
+  chips.innerHTML = "";
+  addChip("Retenir ≈ " + fmt(est) + " €", () => setCapital(est, true));
+  addChip("Saisir mon montant", () => {
+    capitalMode = "manual";
+    addBubble("Saisir mon montant", "user");
+    addBubble("Indiquez le capital mobilier à assurer, en euros.", "bot");
+    chips.innerHTML = ""; input.focus();
+  });
+}
+function setCapital(val, estimated) {
+  answers.capital_mobilier = val;
+  addBubble(fmt(val) + " €" + (estimated ? " (estimation retenue)" : ""), "user");
+  capitalMode = null;
+  if (editingKey) { editingKey = null; addBubble("C'est modifié.", "bot"); showRecap(); }
+  else { step++; ask(); }
+}
+
+function ask() {
+  const q = activeQuestion();
+  if (!q) { showRecap(); return; }
+  if (q.computed) { askCapital(); return; }
+  addBubble(questionText(q), "bot"); renderChips();
+}
+
+function resolveChoice(q, raw) {
+  const n = parseInt(raw, 10);
+  if (n >= 1 && n <= q.choices.length) return q.choices[n - 1];
+  const hit = q.choices.find(c => c.toLowerCase() === raw.toLowerCase());
+  return hit || null;
+}
+function validate(q, val) {
+  if (q.key === "surface" || q.key === "pieces") {
+    if (!/^\d{1,4}$/.test(val)) return "Répondez par un nombre entier (ex. 72).";
+  }
+  if (q.key === "code_postal" && !/^\d{5}$/.test(val)) return "Un code postal fait 5 chiffres.";
+  return null;
+}
+
+function submit() {
+  const q = activeQuestion();
+  if (!q) return;
+  const raw = input.value.trim();
+  if (!raw) return;
+
+  if (q.computed) {
+    if (capitalMode === "manual") {
+      const clean = raw.replace(/[ .]/g, "");
+      if (!/^\d{3,7}$/.test(clean)) {
+        addBubble(raw, "user"); addBubble("Indiquez un montant en euros (au moins 3 chiffres).", "bot");
+        input.value = ""; return;
+      }
+      input.value = ""; setCapital(parseInt(clean, 10), false); return;
+    }
+    addBubble(raw, "user");
+    addBubble("Choisissez : « Retenir » l'estimation, ou « Saisir mon montant ».", "bot");
+    input.value = ""; return;
+  }
+
+  let val = raw;
+  if (q.choices) {
+    val = resolveChoice(q, raw);
+    if (!val) {
+      addBubble(raw, "user");
+      addBubble(`Répondez par un numéro entre 1 et ${q.choices.length}.`, "bot");
+      input.value = ""; return;
+    }
+  } else {
+    const err = validate(q, raw);
+    if (err) { addBubble(raw, "user"); addBubble(err, "bot"); input.value = ""; return; }
+  }
+  addBubble(val, "user");
+  answers[q.key] = val;
+  input.value = "";
+
+  if (editingKey) {
+    editingKey = null; chips.innerHTML = "";
+    addBubble("C'est modifié.", "bot");
+    showRecap();
+  } else {
+    step++; ask();
+  }
+}
+
+// estimation INDICATIVE, purement déterministe (illustration, pas un vrai tarif)
+function computeQuote() {
+  const nivF  = { "Essentiel":1.0, "Confort":1.3, "Tous risques":1.6 }[answers.niveau] || 1.2;
+  const statF = { "Locataire":1.0, "Propriétaire occupant":1.15, "Propriétaire non-occupant":1.25 }[answers.statut] || 1.1;
+  const cap   = parseInt(answers.capital_mobilier, 10) || estimateCapital();
+  const base  = (parseFloat(answers.surface) || 50) * 1.6 + (parseInt(answers.pieces, 10) || 3) * 22 + 60;
+  return Math.round((base + cap / 1000 * 1.1) * nivF * statF);
+}
+
+function dispVal(key) {
+  if (key === "capital_mobilier" && answers[key]) return fmt(answers[key]) + " €";
+  return answers[key] || "—";
+}
+
+function showRecap() {
+  chips.innerHTML = "";
+  const rows = QUESTIONS.map(x =>
+    `<tr><td class="k">${x.label}</td><td>${dispVal(x.key)}</td>` +
+    `<td class="act"><button class="ghost mini" onclick="editField('${x.key}')">modifier</button></td></tr>`
+  ).join("");
+  const qv = computeQuote();
+  recapZone.innerHTML = `
+    <div class="recap">
+      <h3>Vérifiez votre demande de souscription</h3>
+      <table>${rows}</table>
+      <div class="quote">Estimation indicative : <b>≈ ${fmt(qv)} €/an</b><br>
+        <span style="opacity:.8">Calcul déterministe d'illustration (surface, pièces, statut, niveau, capital mobilier). Ce n'est pas un tarif réel.</span></div>
+      <div class="actions">
+        <button onclick="confirmSub()">✅ Confirmer la demande</button>
+      </div>
+    </div>`;
+  addBubble("Voici le récapitulatif et une estimation indicative. Vérifiez, modifiez si besoin, puis confirmez.", "bot");
+}
+function editField(key) {
+  editingKey = key;
+  recapZone.innerHTML = "";
+  const q = QUESTIONS.find(x => x.key === key);
+  if (q.computed) {
+    capitalMode = "manual";
+    addBubble("Modification — indiquez le capital mobilier à assurer, en euros.", "bot");
+    chips.innerHTML = ""; input.focus(); return;
+  }
+  addBubble("Modification — " + questionText(q), "bot");
+  renderChips(); input.focus();
+}
+function confirmSub() {
+  const ref = "DEV-" + new Date().getFullYear() + "-" + String(Date.now()).slice(-4);
+  answers._reference = ref;
+  answers._estimation_eur_an = computeQuote();
+  const all = JSON.parse(localStorage.getItem("souscriptions") || "[]");
+  all.push(answers);
+  localStorage.setItem("souscriptions", JSON.stringify(all));
+
+  input.disabled = true; sendBtn.disabled = true; chips.innerHTML = "";
+  addBubble("Merci, demande enregistrée (" + ref + "). Un conseiller la reprend pour finaliser le devis.", "bot");
+
+  const rows = QUESTIONS.map(x => `<tr><td class="k">${x.label}</td><td>${dispVal(x.key)}</td></tr>`).join("");
+  recapZone.innerHTML = `
+    <div class="recap">
+      <h3>Demande ${ref}</h3>
+      <table>${rows}</table>
+      <div class="quote">Estimation indicative : <b>≈ ${fmt(answers._estimation_eur_an)} €/an</b></div>
+      <div class="actions">
+        <button onclick="download()">Télécharger (.json)</button>
+        <button class="ghost" onclick="copyJson()">Copier</button>
+        <button class="ghost" onclick="location.reload()">Nouvelle souscription</button>
+      </div>
+    </div>`;
+  showSaved();
+}
+function showSaved() {
+  const all = JSON.parse(localStorage.getItem("souscriptions") || "[]");
+  document.getElementById("saved").textContent =
+    all.length + " demande(s) enregistrée(s) dans ce navigateur.";
+}
+function download() {
+  const blob = new Blob([JSON.stringify(answers, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = (answers._reference || "souscription") + ".json";
+  a.click();
+}
+function copyJson() { navigator.clipboard.writeText(JSON.stringify(answers, null, 2)); }
+
+sendBtn.onclick = submit;
+input.addEventListener("keydown", e => { if (e.key === "Enter") submit(); });
+
+showSaved();
+ask();
+</script>
+<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Démonstration <b>statique</b> (flux figé, MVP), <b>pas l'outil dynamique</b>. Pour un outil sur vos propres produits, <b>contactez-nous</b>. · <a href="../../fr/cas/" style="color:#1d4ed8;text-decoration:none">Études de cas</a></div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turning CVs into Markdown: four methods compared · Case study</title>
+<meta name="description" content="Docling, Azure Document Intelligence, GPT-4.1 and GPT-5-nano compared on synthetic CV images, with a similarity score and per-layout failure modes.">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="canonical" href="https://doc-intel.github.io/en/cas/cv-parsing.html">
+<link rel="alternate" hreflang="en" href="https://doc-intel.github.io/en/cas/cv-parsing.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/en/cas/cv-parsing.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Turning CVs into Markdown: four methods compared · Case study">
+<meta property="og:description" content="Docling, Azure Document Intelligence, GPT-4.1 and GPT-5-nano compared on synthetic CV images, with a similarity score and per-layout failure modes.">
+<meta property="og:url" content="https://doc-intel.github.io/en/cas/cv-parsing.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Turning CVs into Markdown: four methods compared · Case study">
+<meta name="twitter:description" content="Docling, Azure Document Intelligence, GPT-4.1 and GPT-5-nano compared on synthetic CV images, with a similarity score and per-layout failure modes.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Case studies</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="../../fr/cas/index.html">FR</a>
+      <a href="cv-parsing.html" class="active">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=rh">← Case studies</a></div>
+      <div class="kicker">Benchmark · Parsing · EN</div>
+      <h1 class="mid">Turning CVs into Markdown: four methods compared</h1>
+      <p class="lede">Docling, Azure Document Intelligence, GPT-4.1 and GPT-5-nano on synthetic CV images, scored against ground truth, with the failure modes mapped per layout.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>The problem</h2>
+      <p>"Just OCR the CV" hides a hard question: which method, on which layout? A single-column CV, a two-column CV with a sidebar, a dense academic format, a Europass table, a degraded scan, each breaks a different tool in a different way. Without a controlled test, you pick a parser on vibes.</p>
+
+      <h2>The approach</h2>
+      <p>Five synthetic CVs are generated to cover five layout archetypes, each with its own ground-truth Markdown. Four methods run on all five: local OCR (Docling), cloud OCR (Azure Document Intelligence), and two vision-language models (GPT-4.1 and GPT-5-nano). Every output is scored against ground truth with a simple, transparent word-level similarity, and the failures are read qualitatively per layout.</p>
+
+      <div class="callout">
+        <p>Everything here is synthetic: the CVs are generated, so there is no personal data. That is also what makes the benchmark repeatable, the ground truth is known exactly.</p>
+      </div>
+
+      <h2>The method, step by step</h2>
+      <div class="steps">
+        <div class="step"><b>Generate synthetic CVs</b><span>Five layout archetypes built programmatically, each with a ground-truth Markdown.</span></div>
+        <div class="step"><b>Run four methods</b><span>Docling locally, Azure DI, GPT-4.1 and GPT-5-nano on each CV.</span></div>
+        <div class="step"><b>Score against ground truth</b><span>Word-level similarity after lowercasing and stripping punctuation.</span></div>
+        <div class="step"><b>Read the failures per layout</b><span>Vision models tend to destroy tables; OCR tends to scramble sidebars.</span></div>
+        <div class="step"><b>Publish the evidence</b><span>Raw outputs, a side-by-side verification view, and a scoring matrix.</span></div>
+      </div>
+
+      <h2>What it shows</h2>
+      <p>There is no single best parser, only a best parser for a given layout. A vision model reads a degraded scan a local OCR cannot, but flattens a clean table a layout parser would preserve. The lesson feeds straight into the parsing brick of the series: escalate deliberately, and match the method to what the document actually is.</p>
+
+      <h2>Artifacts</h2>
+      <p>Twenty method-by-CV outputs, per-CV scoring reports, the synthetic images with their ground truth, and a written analysis of the failure modes.</p>
+
+      <div class="callout emer">
+        <p>The side-by-side comparison view for this case will be published here soon.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Written by Angela Shi, Kezhan Shi and Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=rh">← Other cases</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

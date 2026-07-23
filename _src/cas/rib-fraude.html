@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redirection de virement : l'IBAN retapé d'un RIB · Étude de cas</title>
+<meta name="description" content="Détecter une fraude au virement à partir du fichier : un IBAN retapé sur un RIB laisse l'IBAN d'origine dans une révision enfouie, qu'on reconstruit.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Extraction · Fraude · FR</div>
+      <h1 class="mid">Redirection de virement : l'IBAN retapé d'un RIB</h1>
+      <p class="lede">Un fraudeur intercepte un RIB, masque l'IBAN et en tape un autre : le virement part sur son compte. La fraude ne se voit pas à la lecture. Elle est dans le fichier : l'IBAN d'origine y survit.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Un gestionnaire reçoit un RIB pour payer un bénéficiaire. Le document paraît normal. Mais l'IBAN a peut-être été remplacé après coup, pour rediriger le paiement. La page imprimée ne dit rien de cette manipulation : la preuve est dans le fichier, pas dessus.</p>
+
+      <h2>L'approche</h2>
+      <p>Le détecteur lit le document lui-même, pas seulement son texte. Il regarde les métadonnées (logiciel producteur, dates de création et de modification, fuseaux horaires) et l'historique de révisions du PDF. Un enregistrement incrémental peut laisser une version antérieure enfouie dans le fichier — ici, le RIB avec son IBAN d'origine. Chaque signal est circonstanciel seul, donc le verdict est gradué : vert quand rien ne ressort, ambre quand l'indice n'est que circonstanciel, rouge quand le document a été démontrablement édité après création avec l'état antérieur toujours à l'intérieur.</p>
+
+      <div class="callout">
+        <p>Le fil : une révision enfouie n'est pas une heuristique. Le fichier contient les deux IBAN. On reconstruit celui d'avant retouche et on le lit — la preuve la plus directe d'une redirection de virement.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Lire les métadonnées</b><span>Logiciel producteur, dates création vs modification, fuseaux — le premier fil à tirer.</span></div>
+        <div class="step"><b>Inspecter les révisions</b><span>Un enregistrement incrémental laisse une version antérieure enfouie ; la reconstruire donne l'IBAN d'origine.</span></div>
+        <div class="step"><b>Graduer le verdict</b><span>Vert (propre), ambre (circonstanciel, à revoir), rouge (édité après création, état antérieur à l'intérieur).</span></div>
+        <div class="step"><b>Rester déterministe</b><span>Métadonnées et révisions se lisent dans le fichier, sans modèle ; la réponse est reproductible.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>La fraude au virement se détecte sans base externe : le RIB trafiqué porte les deux IBAN. La détection commence avant tout modèle de langage — la structure du fichier porte la preuve.</p>
+
+      <h2>Livrables</h2>
+      <p>Un rapport sur deux RIB synthétiques (authentique, IBAN retapé) avec un verdict gradué et les signaux exacts qui se sont déclenchés. Toutes les pièces sont fabriquées.</p>
+
+      <div class="callout"><p><em>Démonstration statique sur des fixtures synthétiques ; s'ouvre en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/rib-fraude.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir le rapport (pleine page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

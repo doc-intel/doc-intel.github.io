@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Un chatbot 360 pour l'agent général · Étude de cas</title>
+<meta name="description" content="Un chatbot 360 taillé pour l'agent général : ton métier, périmètre multi-clients, outils de devis et de comparaison, sur le même moteur que le chatbot client.">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+.roadmap{counter-reset:rm;margin:16px 0 6px;padding:0;list-style:none}
+.roadmap li{position:relative;padding:12px 16px 12px 52px;border:1px solid var(--line,#e2e8f0);border-radius:12px;margin-bottom:10px;background:var(--card);font-size:14px;line-height:1.5}
+.roadmap li b{display:block;margin-bottom:2px}
+.roadmap li::before{counter-increment:rm;content:counter(rm);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--band);color:var(--band-fg);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.consumers{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:14px 0 6px}
+.cons{border:1px solid var(--line,#e2e8f0);border-radius:12px;padding:14px 16px;background:var(--card);font-size:13.5px;line-height:1.5}
+.cons b{display:block;margin-bottom:3px}
+.dep{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:980px;margin:0 6px 6px 0}
+.dep.int{background:var(--blue-b);color:var(--blue-s)} .dep.auth{background:var(--rose-b);color:var(--rose-s)} .dep.pub{background:var(--emer-b);color:var(--emer-s)}
+.insights{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:16px 0 6px}
+.ins{border:1px solid var(--line);border-radius:14px;padding:15px 17px;background:var(--card);border-top:3px solid var(--blue-s)}
+.ins.life{border-top-color:var(--emer-s)} .ins.churn{border-top-color:var(--rose-s)} .ins.sell{border-top-color:var(--amber-s)} .ins.fraud{border-top-color:var(--violet-s)} .ins.value{border-top-color:var(--blue-s)}
+.ins h4{margin:0 0 4px;font-size:1rem;letter-spacing:-.01em}
+.ins p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+</style>
+<link rel="canonical" href="https://doc-intel.github.io/fr/cas/assistant-agents.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/cas/assistant-agents.html">
+<link rel="alternate" hreflang="en" href="https://doc-intel.github.io/en/cas/assistant-agents.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/en/cas/assistant-agents.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Un chatbot 360 pour l'agent général · Étude de cas">
+<meta property="og:description" content="Un chatbot 360 taillé pour l'agent général : ton métier, périmètre multi-clients, outils de devis et de comparaison, sur le même moteur que le chatbot client.">
+<meta property="og:url" content="https://doc-intel.github.io/fr/cas/assistant-agents.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Un chatbot 360 pour l'agent général · Étude de cas">
+<meta name="twitter:description" content="Un chatbot 360 taillé pour l'agent général : ton métier, périmètre multi-clients, outils de devis et de comparaison, sur le même moteur que le chatbot client.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Études de cas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="assistant-agents.html" class="active">FR</a>
+      <a href="../../en/cas/assistant-agents.html">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=assurance">← Études de cas</a></div>
+      <div class="kicker">Chatbot 360 · Agents généraux · Assurance</div>
+      <h1 class="mid">Un chatbot 360 pour l'agent général, pas seulement pour l'assuré</h1>
+      <p class="lede">L'agent général ne pose pas les mêmes questions que l'assuré. Il gère un portefeuille, prépare des devis, compare des produits. Le même moteur, mais un assistant taillé pour son métier, qui remonte aussi des insights (moments de vie, résiliation, upsell, fraude, valeur client) que l'agent valide avant d'agir.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+      <div class="callout"><p>Deux chatbots 360, deux publics. Celui-ci vise l'<b>agent général</b>. Le <a href="assistant-assurance.html">chatbot 360 pour le client</a> a un autre ton et un autre périmètre. Tous deux s'appuient sur le même <a href="contexte-360.html">contexte 360</a>.</p></div>
+
+      <h2>Le problème</h2>
+      <p>L'agent général ne pose pas les mêmes questions que l'assuré. Il gère un portefeuille de clients, prépare des devis, compare des produits, répond à des questions techniques toute la journée, et jongle entre plusieurs outils métier. Un assistant grand public, rassurant et prudent, ne lui sert pas : il lui faut un outil de travail rapide et précis.</p>
+
+      <h2>La démarche</h2>
+      <p>Le moteur est le même que pour le chatbot client, mais l'assistant est taillé pour le métier de l'agent. Le ton est professionnel, direct, sans vulgarisation. Le périmètre est plus large : plusieurs clients, plusieurs contrats, accès aux outils de tarification et de comparaison. La conversation sert à faire avancer un dossier, pas seulement à répondre à une question.</p>
+
+      <h2>Au-delà des réponses : des insights à valider</h2>
+      <p>L'agent ne vient pas seulement chercher une réponse, il vient chercher ce qu'il n'a pas le temps de calculer. Des algorithmes tournent en interne sur le contexte d'un client et remontent des <b>insights par thématique</b>. L'assistant les présente à l'agent, qui les vérifie avant d'agir.</p>
+      <p>Pourquoi côté agent d'abord ? Parce que ces signaux sont parfois délicats, et qu'il n'est pas prudent de les pousser bruts au client. L'agent valide un insight compliqué ; une fois qu'il s'avère fiable, certaines alertes ou certains messages peuvent être poussés directement au client. L'humain reste dans la boucle, surtout quand ça engage la relation.</p>
+      <div class="insights">
+        <div class="ins life"><h4>Moments de vie</h4><p>Déménagement, nouvel animal, naissance, achat immobilier… détectés dans les échanges et le dossier. Chacun ouvre sur un produit adapté. Ce signal vaut aussi côté client.</p></div>
+        <div class="ins churn"><h4>Risque de résiliation</h4><p>Repérer un client sur le départ et proposer à l'agent un geste de rétention, avant qu'il ne parte.</p></div>
+        <div class="ins sell"><h4>Upsell &amp; cross-sell</h4><p>Le prochain produit pertinent pour ce client, selon son profil et ses moments de vie, pas au hasard.</p></div>
+        <div class="ins fraud"><h4>Signaux de fraude</h4><p>Des anomalies sur un dossier remontées à l'agent pour vérification, jamais une accusation automatique.</p></div>
+        <div class="ins value"><h4>Valeur client</h4><p>Pourquoi c'est un bon client, détaillé : ancienneté, multi-équipement, sinistralité. De quoi ajuster le traitement.</p></div>
+      </div>
+      <div class="callout"><p>Le principe : l'algorithme propose, l'agent dispose. Un insight sensible est vérifié par un humain avant d'atteindre le client ; une fois éprouvé, il peut être automatisé. C'est ce garde-fou qui fait de l'agent général le bon premier destinataire.</p></div>
+
+      <h2>Ce qui change par rapport au chatbot client</h2>
+      <div class="consumers">
+        <div class="cons"><b>Le ton</b>Professionnel et concis pour l'agent ; pédagogique et rassurant pour l'assuré.</div>
+        <div class="cons"><b>Le périmètre</b>Multi-clients et multi-contrats côté agent ; un seul dossier côté assuré.</div>
+        <div class="cons"><b>Les actions</b>Devis, comparaison, préparation d'acte côté agent ; questions et déclarations côté assuré.</div>
+        <div class="cons"><b>Les accès</b>Plus larges côté agent (outils métier), avec l'authentification et la traçabilité qui vont avec.</div>
+      </div>
+
+      <h2>Vision technique</h2>
+      <p>Même orchestrateur agentique, mêmes briques spécialisées, mais un contexte enrichi côté agent : son portefeuille, ses clients, ses produits. L'assistant s'appuie sur le <a href="contexte-360.html">contexte 360</a> et sur les outils de <a href="emprunteur-comparison.html">comparaison</a> et de tarification. Par-dessus, des algorithmes d'insight (scoring de résiliation, détection de moment de vie, next best product, signaux de fraude) tournent sur ce contexte et remontent leurs résultats dans la conversation, chacun tracé jusqu'à ses données d'origine.</p>
+      <p><span class="dep int">API interne · outils métier</span><span class="dep auth">Authentification</span> Comme tout accès à un portefeuille, l'authentification et la piste d'audit sont essentielles.</p>
+
+      <h2>Roadmap de mise en œuvre</h2>
+      <ol class="roadmap">
+        <li><b>Réutiliser l'orchestrateur</b>Repartir du chatbot client : le routage d'intention est déjà en place.</li>
+        <li><b>Enrichir le contexte agent</b>Brancher le portefeuille de l'agent : ses clients, ses contrats, ses produits.</li>
+        <li><b>Ajouter les outils métier</b>Comparaison, tarification, préparation de devis, comme actions de l'assistant.</li>
+        <li><b>Authentification et traçabilité</b>Sécuriser l'accès au portefeuille et tracer chaque consultation.</li>
+      </ol>
+
+      <h2>Ce que ça montre</h2>
+      <p>Un même moteur sert deux assistants différents. Ce qui change n'est pas la technique de fond, c'est le public : le ton, le périmètre, les actions et les accès. Et surtout, côté agent, le chatbot cesse d'être un simple répondeur : il devient le point d'entrée d'insights métier (moments de vie, résiliation, upsell, fraude, valeur client) que l'humain valide avant qu'ils n'atteignent le client. Construire « un chatbot 360 » sans préciser pour qui, ni qui valide ses recommandations, c'est se tromper de cahier des charges.</p>
+
+      <div class="callout"><p><b>Cas associés :</b> <a href="assistant-assurance.html">chatbot 360 client</a>, <a href="contexte-360.html">contexte 360</a>, <a href="emprunteur-comparison.html">comparaison à la souscription</a>, <a href="claim-declaration.html">déclaration de sinistre</a>.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=assurance">← Autres cas</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

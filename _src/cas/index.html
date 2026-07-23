@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Études de cas / Case studies · Enterprise Document Intelligence</title>
+<meta name="description" content="Real document-intelligence case studies on public documents: contract comparison, extraction, agentic search, version diffing, ETL.">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.axis-nav{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin:0 0 24px}
+.fbtn{border:1px solid var(--line);background:var(--card);font:inherit;font-size:13.5px;font-weight:600;color:var(--muted);padding:8px 15px;border-radius:980px;cursor:pointer;transition:.15s}
+.fbtn:hover{color:var(--ink)}
+.fbtn.on{background:var(--fbg,var(--btn-bg));color:var(--fink,var(--btn-fg));border-color:transparent;font-weight:800}
+.metier-lab{color:var(--muted);font-size:13px;font-weight:700;margin-left:10px}
+.axis-hint{text-align:center;color:var(--muted);font-size:13px;margin:0 0 22px}
+/* secondary facet filters (audience / difficulty), AND-combined with the primary grouping */
+.facet-nav{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;margin:-10px 0 26px}
+.facet-lab{color:var(--muted);font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin:0 3px 0 14px}
+.facet-nav .facet-lab:first-child{margin-left:0}
+.fchip{border:1px solid var(--line);background:var(--card);font:inherit;font-size:12.5px;font-weight:600;color:var(--muted);padding:5px 12px;border-radius:980px;cursor:pointer;transition:.15s}
+.fchip:hover{color:var(--ink)}
+.fchip.on{background:var(--band);color:var(--band-fg);border-color:transparent}
+.fchip.on[data-tone="client"]{background:#1d4ed8}
+.fchip.on[data-tone="interne"]{background:#0f766e}
+.freset{border:none;background:none;color:var(--blue-s);font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;margin-left:10px;text-decoration:underline}
+/* label-left / cards-right group layout (fills horizontal space, keeps single-card groups tight) */
+.cards.axis-managed{display:block}
+.axis-row{display:grid;grid-template-columns:190px 1fr;gap:26px;padding:26px 0;border-top:1px solid var(--line)}
+.axis-row:first-child{border-top:0;padding-top:4px}
+.axis-side{position:sticky;top:74px;align-self:start;display:flex;flex-direction:column;gap:8px}
+.axis-side .pill{display:inline-block;width:fit-content;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:6px 13px;border-radius:980px}
+.axis-desc{color:var(--muted);font-size:12.5px;line-height:1.4;margin-top:1px}
+.axis-count{color:var(--muted);font-size:11.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;margin-top:2px}
+.axis-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:18px}
+.axis-cards .card{position:relative}
+.card .olang{position:absolute;top:12px;right:12px;font-size:10px;font-weight:800;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 6px;background:var(--card);line-height:1}
+.axis-empty{text-align:center;padding:56px 20px 64px;border:1px dashed var(--line);border-radius:16px;background:var(--soft)}
+.axis-empty h3{margin:0 0 6px;font-size:1.1rem;color:var(--ink)}
+.axis-empty p{margin:0 0 18px;color:var(--muted);font-size:14px}
+.axis-empty a{display:inline-block;font-weight:700;font-size:13.5px;color:var(--blue-s);text-decoration:none;border:1px solid var(--line);background:var(--card);padding:9px 16px;border-radius:980px}
+.axis-empty a:hover{border-color:var(--blue-s)}
+@media(max-width:760px){
+  .axis-row{grid-template-columns:1fr;gap:14px;padding:20px 0}
+  .axis-side{position:static;flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+  .axis-desc{flex-basis:100%;margin-top:0}
+  .axis-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap">
+      <div class="kicker"><span class="fr">Études de cas</span><span class="en">Case studies</span></div>
+      <h1 class="mid"><span class="fr">L'IA documentaire, sur des cas réels</span><span class="en">Document AI, on real cases</span></h1>
+      <p class="lede">
+        <span class="fr blk">Chaque cas montre une brique du pipeline à l'œuvre, du document brut à la réponse sourcée. À parcourir par <b>technique</b> (comparaison, extraction, recherche agentique, résumé, diff de versions…) ou par <b>métier</b> (assurance, RH, finance). Sur documents publics ou synthétiques, chaque cas dans sa langue d'origine.</span>
+        <span class="en blk">Each case shows one brick of the pipeline at work, from the raw document to a sourced answer. Browse by <b>technique</b> (comparison, extraction, agentic search, summarization, version diffing…) or by <b>business domain</b> (insurance, HR, finance). On public or synthetic documents, each case in its original language.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap">
+      <div class="axis-nav" id="filterRow" role="group" aria-label="filtre"></div>
+      <div class="facet-nav" id="facetRow" role="group" aria-label="facettes"></div>
+      <div class="cards">
+
+        <a class="card" href="assistant-hr.html" data-domaine="rh" data-technique="agentique" data-metier="orchestration" data-audience="interne" data-niveau="avance" data-item data-lang="en">
+          <span class="tag d"><span class="fr">Chatbot 360</span><span class="en">360 chatbot</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Agentique</span><span class="en">Agentic</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Un assistant RH qui fait tout, en déclenchant le bon processus</span><span class="en">One HR assistant for everything, triggering the right process</span></h3>
+          <p><span class="fr">Il détecte l'intention et enclenche le bon flux : sourcing, requête candidats, annonce, analyse CV, RGPD.</span><span class="en">It detects intent and triggers the right flow: sourcing, candidate query, posting, CV screening, GDPR.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="assistant-assurance.html" data-domaine="assurance" data-technique="agentique" data-metier="orchestration" data-audience="client" data-niveau="avance" data-item data-lang="fr en">
+          <span class="tag d"><span class="fr">Chatbot 360</span><span class="en">360 chatbot</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Client</span><span class="en">Client</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Un chatbot qui répond au client, en déclenchant le bon processus</span><span class="en">A chatbot that answers the client, triggering the right process</span></h3>
+          <p><span class="fr">Côté assuré : détecte l'intention et enclenche le bon processus (souscription, contrat, sinistre, suivi), au ton grand public.</span><span class="en">Client-side: detects the intent and triggers the right flow (underwriting, policy, claim, tracking), in a plain-language tone.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="assistant-agents.html" data-domaine="assurance" data-technique="agentique" data-metier="orchestration" data-audience="interne" data-niveau="avance" data-item data-lang="fr en">
+          <span class="tag d"><span class="fr">Chatbot 360</span><span class="en">360 chatbot</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Agents généraux</span><span class="en">General agents</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Un chatbot 360 pour l'agent général, pas seulement pour l'assuré</span><span class="en">A 360 chatbot for the general agent, not just the insured</span></h3>
+          <p><span class="fr">Même moteur, autre public : ton métier, multi-clients, et surtout des insights (moments de vie, résiliation, upsell, fraude, valeur client) que l'agent valide avant de pousser au client.</span><span class="en">Same engine, another audience: professional tone, multi-client, and above all insights (life events, churn, upsell, fraud, client value) the agent validates before pushing to the client.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="contexte-360.html" data-domaine="assurance" data-technique="extraction" data-metier="orchestration" data-audience="interne" data-niveau="avance" data-item data-lang="fr en">
+          <span class="tag d"><span class="fr">Contexte 360</span><span class="en">360 context</span></span>
+          <div class="meta"><span class="chip"><span class="fr">GED enrichie</span><span class="en">AI-enriched DMS</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Le contexte 360 : réunir toutes les informations d'un assuré</span><span class="en">The 360 context: gathering all of an insured's information</span></h3>
+          <p><span class="fr">La fondation : collecter, parser et typer tous les documents d'un assuré. Pas qu'un chatbot ; ce que tout usage aval consomme. Vision technique + roadmap.</span><span class="en">The foundation: collect, parse and type every document of an insured. Not just a chatbot; what every downstream use consumes. Technical vision + roadmap.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="contrats-360.html" data-domaine="assurance" data-technique="extraction" data-metier="orchestration" data-audience="interne" data-niveau="avance" data-item data-lang="fr en">
+          <span class="tag d"><span class="fr">Vision 360</span><span class="en">360 view</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Contrats</span><span class="en">Contracts</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Tous les contrats d'un assuré, dans une seule vue</span><span class="en">Every contract of an insured, in one view</span></h3>
+          <p><span class="fr">Réunir les contrats d'un même assuré, sous les contraintes réglementaires d'accès et de partage. Vision technique + roadmap.</span><span class="en">Gather one insured's contracts under regulatory access and sharing constraints. Technical vision + roadmap.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="souscription-chatbot.html" data-domaine="assurance" data-technique="chatbot" data-metier="souscription" data-audience="client" data-niveau="simple" data-item data-lang="fr en">
+          <span class="tag e"><span class="fr">Chatbot</span><span class="en">Chatbot</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Souscription</span><span class="en">Underwriting</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Un chatbot de souscription, du MVP à l'IA</span><span class="en">A subscription chatbot, from MVP to AI</span></h3>
+          <p><span class="fr">Remplir un devis champ par champ, déterministe et vérifiable, avant d'ajouter de l'IA. Comment on construit un chatbot proprement.</span><span class="en">Fill a quote field by field, deterministic and verifiable, before adding AI. How to build a chatbot the right way.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="emprunteur-comparison.html" data-domaine="assurance" data-technique="comparaison" data-metier="souscription" data-audience="client" data-niveau="intermediaire" data-item data-lang="fr">
+          <span class="tag b"><span class="fr">Comparaison</span><span class="en">Comparison</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Équivalence CCSF</span><span class="en">CCSF equivalence</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Comparer des contrats d'assurance emprunteur</span><span class="en">Comparing borrower-insurance contracts</span></h3>
+          <p><span class="fr">Huit notices projetées sur les 18 critères d'équivalence CCSF, avec un verdict d'équivalence par contrat.</span><span class="en">Eight notices projected onto the 18 CCSF equivalence criteria, with a per-contract verdict.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="mrh-comparison.html" data-domaine="assurance" data-technique="comparaison" data-metier="souscription" data-audience="client" data-niveau="intermediaire" data-item data-lang="fr">
+          <span class="tag b"><span class="fr">Comparaison</span><span class="en">Comparison</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Agentique</span><span class="en">Agentic</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Comparer 10 contrats habitation, clause par clause</span><span class="en">Comparing 10 home-insurance contracts, clause by clause</span></h3>
+          <p><span class="fr">Dix conditions générales MRH, cinq scénarios sensibles, un verdict sourcé par assureur avec la page exacte.</span><span class="en">Ten MRH general conditions, five gray-zone scenarios, a sourced verdict per insurer with the exact page.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="prevoyance-comparison.html" data-domaine="assurance" data-technique="comparaison" data-metier="souscription" data-audience="client" data-niveau="intermediaire" data-item data-lang="fr">
+          <span class="tag b"><span class="fr">Comparaison</span><span class="en">Comparison</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Catalogue</span><span class="en">Catalog</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Comparer des contrats de prévoyance</span><span class="en">Comparing life-insurance (prévoyance) contracts</span></h3>
+          <p><span class="fr">Dix notices de bancassureurs, trois contrats alignés sur onze garanties communes, avec citations et pages.</span><span class="en">Ten bancassurer notices, three contracts aligned on eleven common guarantees, with citations and pages.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="mutuelle-comparison.html" data-domaine="assurance" data-technique="comparaison" data-metier="souscription" data-audience="client" data-niveau="intermediaire" data-item data-lang="fr">
+          <span class="tag b"><span class="fr">Comparaison</span><span class="en">Comparison</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Santé</span><span class="en">Health</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Comparer des mutuelles santé, poste par poste</span><span class="en">Comparing health-insurance plans, line by line</span></h3>
+          <p><span class="fr">Les garanties remises dans la même unité : montant numérisé pour trier, pourcentages de la base Sécu convertis en euros via une base ajustable.</span><span class="en">Guarantees brought to one unit: amounts as sortable numbers, percentages of the social-security base converted to euros via an adjustable base.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="mrh-qa.html" data-domaine="assurance" data-technique="qa" data-metier="gestion-contrat" data-audience="client" data-niveau="simple" data-item data-lang="fr">
+          <span class="tag a"><span class="fr">Q&amp;A</span><span class="en">Q&amp;A</span></span>
+          <div class="meta"><span class="chip"><span class="fr">RAG</span><span class="en">RAG</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Répondre sur une CG habitation, citation à l'appui</span><span class="en">Answering on a home-insurance policy, with citations</span></h3>
+          <p><span class="fr">Les quatre briques du RAG sur des CG publiques, jusqu'à une réponse sourcée avec la page. Six assureurs, une seule chaîne.</span><span class="en">The four RAG bricks on public policies, down to a sourced answer with the exact page. Six insurers, one chain.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="mrh-agentic.html" data-domaine="assurance" data-technique="agentique" data-metier="souscription" data-audience="interne" data-niveau="avance" data-item data-lang="fr">
+          <span class="tag d"><span class="fr">Agentique</span><span class="en">Agentic</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Glass-box</span><span class="en">Glass-box</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Recherche agentique sur une CG habitation</span><span class="en">Agentic search over a home-insurance policy</span></h3>
+          <p><span class="fr">Un agent qui cherche, lit page par page et vérifie ses citations, en montrant chaque étape de son raisonnement.</span><span class="en">An agent that searches, reads page by page and verifies its citations, showing every reasoning step.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="claims-sql-agent.html" data-domaine="assurance" data-technique="sql-agent" data-metier="indemnisation" data-audience="interne" data-niveau="intermediaire" data-item data-lang="fr">
+          <span class="tag c"><span class="fr">Agent SQL</span><span class="en">SQL agent</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Sinistres</span><span class="en">Claims</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Interroger une base sinistres en langage naturel</span><span class="en">Querying a claims database in plain language</span></h3>
+          <p><span class="fr">Une question en français traduite en une requête SQL bornée, exécutée, avec la requête générée visible à côté du résultat.</span><span class="en">A French question turned into a bounded SQL query, executed, with the generated query shown next to the result.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="claim-declaration.html" data-domaine="assurance" data-technique="chatbot" data-metier="indemnisation" data-audience="client" data-niveau="simple" data-item data-lang="fr">
+          <span class="tag e"><span class="fr">Chatbot</span><span class="en">Chatbot</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Sinistres</span><span class="en">Claims</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Déclarer un sinistre par chatbot, champ par champ</span><span class="en">Filing a claim by chatbot, field by field</span></h3>
+          <p><span class="fr">Un assistant qui guide la déclaration et remplit un formulaire typé, question après question, sans laisser de champ obligatoire vide.</span><span class="en">An assistant that guides the declaration and fills a typed form, question by question, leaving no required field empty.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="regulatory-summary.html" data-domaine="assurance" data-technique="resume" data-metier="conformite" data-audience="interne" data-niveau="simple" data-item data-lang="fr">
+          <span class="tag a"><span class="fr">Résumé</span><span class="en">Summary</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Conformité</span><span class="en">Compliance</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Synthétiser un texte réglementaire, sans rien inventer</span><span class="en">Summarizing a regulatory text, faithfully</span></h3>
+          <p><span class="fr">Une synthèse structurée section par section, où chaque assertion reste adossée à ses lignes d'origine ; zéro assertion non sourcée.</span><span class="en">A structured, section-by-section summary where every claim stays tied to its source lines; zero unsupported claims.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="compliance-check.html" data-domaine="assurance" data-technique="extraction" data-metier="conformite" data-audience="interne" data-niveau="intermediaire" data-item data-lang="fr">
+          <span class="tag c"><span class="fr">Extraction</span><span class="en">Extraction</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Conformité</span><span class="en">Compliance</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Vérifier la conformité d'une attestation d'assurance</span><span class="en">Checking an insurance certificate for compliance</span></h3>
+          <p><span class="fr">Extraire les mentions clés d'une attestation RC, les confronter à un référentiel, surligner la preuve sur le PDF, trancher OK/KO.</span><span class="en">Extract the key items from a liability certificate, check them against a ruleset, highlight the proof on the PDF, decide OK/KO.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="funds-chatbot.html" data-domaine="assurance" data-technique="extraction" data-metier="gestion-contrat" data-audience="interne" data-niveau="avance" data-item data-lang="fr">
+          <span class="tag c"><span class="fr">Extraction</span><span class="en">Extraction</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Agent SQL</span><span class="en">SQL agent</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">484 supports d'investissement, extraits puis interrogeables</span><span class="en">484 investment funds, extracted then queryable</span></h3>
+          <p><span class="fr">Extraire les supports d'un contrat d'épargne, les enrichir, et laisser un agent traduire une question en SQL.</span><span class="en">Extract the funds from a savings contract, enrich them, and let an agent turn a question into SQL.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="version-diff.html" data-domaine="assurance" data-technique="version-diff" data-metier="conformite" data-audience="interne" data-niveau="intermediaire" data-item data-lang="fr">
+          <span class="tag v"><span class="fr">Versioning</span><span class="en">Versioning</span></span>
+          <div class="meta"><span class="chip">Diff</span></div>
+          <h3 style="margin-top:12px"><span class="fr">Ce qui a changé entre deux éditions d'un contrat</span><span class="en">What changed between two editions of a contract</span></h3>
+          <p><span class="fr">Aligner deux versions d'un contrat auto au paragraphe, écarter le cosmétique, ne garder que le fond.</span><span class="en">Align two editions of an auto contract at paragraph level, drop the cosmetic, keep the substance.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="translation.html" data-domaine="assurance" data-technique="traduction" data-metier="gestion-contrat" data-audience="interne" data-niveau="simple" data-item data-lang="fr">
+          <span class="tag a"><span class="fr">Traduction</span><span class="en">Translation</span></span>
+          <div class="meta"><span class="chip"><span class="fr">FR → EN</span><span class="en">FR → EN</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Traduire un document, sans trahir les termes</span><span class="en">Translating a document without betraying its terms</span></h3>
+          <p><span class="fr">Segment par segment, termes techniques et montants préservés, la source affichée en regard pour tout vérifier.</span><span class="en">Segment by segment, technical terms and figures preserved, the source shown alongside to check everything.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="claims-etl.html" data-domaine="assurance" data-technique="etl" data-metier="indemnisation" data-audience="interne" data-niveau="intermediaire" data-item data-lang="fr">
+          <span class="tag a">ETL</span>
+          <div class="meta"><span class="chip"><span class="fr">Nettoyage</span><span class="en">Cleaning</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Ingérer des fichiers de sinistres hétérogènes</span><span class="en">Ingesting heterogeneous claims files</span></h3>
+          <p><span class="fr">Détecter l'en-tête, mapper les colonnes, fiabiliser montants et dates, normaliser les libellés.</span><span class="en">Detect the header, map columns, harden amounts and dates, normalize labels.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="reinsurance-slips.html" data-domaine="assurance" data-technique="extraction" data-metier="reassurance" data-audience="interne" data-niveau="intermediaire" data-item data-lang="fr">
+          <span class="tag c"><span class="fr">Extraction</span><span class="en">Extraction</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Base de données</span><span class="en">Database</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Des slips de réassurance à une base interrogeable</span><span class="en">From reinsurance slips to a queryable database</span></h3>
+          <p><span class="fr">Remplacer des Excel épars par un schéma relationnel et une interface de tarification tracée.</span><span class="en">Replace scattered Excel files with a relational schema and a traceable pricing interface.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="flood-agentic.html" data-domaine="assurance" data-technique="agentique" data-metier="souscription" data-audience="interne" data-niveau="avance" data-item data-lang="en">
+          <span class="tag b"><span class="fr">Agentique</span><span class="en">Agentic</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Recherche</span><span class="en">Search</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Analyse agentique sur l'assurance inondation US</span><span class="en">Agentic coverage analysis on US flood insurance</span></h3>
+          <p><span class="fr">Un agent avec outils lit les formulaires FEMA, décide quoi chercher, et vérifie chaque citation.</span><span class="en">A tool-using agent reads the FEMA forms, decides what to look up, and verifies every citation.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="cv-parsing.html" data-domaine="rh" data-technique="extraction" data-metier="recrutement" data-audience="interne" data-niveau="intermediaire" data-item data-lang="en">
+          <span class="tag v"><span class="fr">Benchmark</span><span class="en">Benchmark</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Parsing</span><span class="en">Parsing</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Transformer des CV en Markdown : quatre méthodes</span><span class="en">Turning CVs into Markdown: four methods</span></h3>
+          <p><span class="fr">Docling, Azure DI, GPT-4.1 et GPT-5-nano sur des CV synthétiques, avec scoring et modes d'échec.</span><span class="en">Docling, Azure DI, GPT-4.1 and GPT-5-nano on synthetic CVs, with scoring and failure modes.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="invoice-fraud.html" data-domaine="assurance" data-technique="extraction" data-metier="fraude" data-audience="interne" data-niveau="avance" data-item data-lang="en">
+          <span class="tag c"><span class="fr">Extraction</span><span class="en">Extraction</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Fraude</span><span class="en">Fraud</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Repérer une facture trafiquée avant de la payer</span><span class="en">Catching a tampered invoice before it is paid</span></h3>
+          <p><span class="fr">La preuve est dans le fichier, pas sur la page : métadonnées d'éditeur, révision antérieure enfouie, verdict vert / ambre / rouge.</span><span class="en">The proof is in the file, not on the page: editor metadata, a buried earlier revision, a green / amber / red verdict.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="rib-fraude.html" data-domaine="assurance" data-technique="extraction" data-metier="fraude" data-audience="interne" data-niveau="avance" data-item data-lang="fr">
+          <span class="tag c"><span class="fr">Extraction</span><span class="en">Extraction</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Fraude</span><span class="en">Fraud</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Redirection de virement : l'IBAN retapé d'un RIB</span><span class="en">Payment redirection: a RIB's over-typed IBAN</span></h3>
+          <p><span class="fr">L'IBAN a été retapé, mais l'original survit comme révision enfouie dans le fichier. On le reconstruit : la preuve la plus directe.</span><span class="en">The IBAN was over-typed, but the original survives as a buried revision. We recover it: the most direct proof.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="photo-fraude.html" data-domaine="assurance" data-technique="extraction" data-metier="fraude" data-audience="interne" data-niveau="avance" data-item data-lang="fr">
+          <span class="tag c"><span class="fr">Extraction</span><span class="en">Extraction</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Fraude</span><span class="en">Fraud</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Forensique image : une photo de reçu retouchée</span><span class="en">Image forensics: a doctored receipt photo</span></h3>
+          <p><span class="fr">Pas de révision de fichier ici : la retouche se lit dans les pixels et l'EXIF — logiciel d'édition, coutures ELA.</span><span class="en">No file revision here: the edit shows in the pixels and EXIF — editing software, ELA seams.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="pii-redaction.html" data-domaine="rh" data-technique="redaction" data-metier="rgpd" data-audience="interne" data-niveau="simple" data-item data-lang="en">
+          <span class="tag c"><span class="fr">Anonymisation</span><span class="en">Redaction</span></span>
+          <div class="meta"><span class="chip"><span class="fr">RH</span><span class="en">HR</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Masquer les données personnelles d'un CV</span><span class="en">Redacting personal data from a CV</span></h3>
+          <p><span class="fr">Une passe déterministe masque les entités à forme régulière (emails, téléphones) avant tout modèle ; le reste part à une couche plus fine.</span><span class="en">A deterministic pass masks regularly-shaped entities (emails, phones) before any model; the rest goes to a finer layer.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="proofreading.html" data-domaine="assurance" data-technique="proofread" data-metier="redaction-qualite" data-audience="interne" data-niveau="simple" data-item data-lang="en">
+          <span class="tag a"><span class="fr">Relecture</span><span class="en">Proofreading</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Qualité</span><span class="en">Quality</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Relire un document, erreur par erreur</span><span class="en">Proofreading a document, error by error</span></h3>
+          <p><span class="fr">Une liste typée de corrections, chacune localisée, plutôt qu'un texte réécrit : l'humain garde la main sur ce qui change.</span><span class="en">A typed list of corrections, each located, instead of a rewritten blob: the human keeps control of what changes.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="table-diff.html" data-domaine="finance" data-technique="table-diff" data-metier="portefeuille" data-audience="interne" data-niveau="simple" data-item data-lang="en">
+          <span class="tag v"><span class="fr">Diff de table</span><span class="en">Table diff</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Portefeuille</span><span class="en">Portfolio</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Comparer deux versions d'une table de portefeuille</span><span class="en">Diffing two versions of a portfolio table</span></h3>
+          <p><span class="fr">Aligné sur la clé, pas sur le texte : lignes ajoutées, retirées, valeurs modifiées, ligne par ligne.</span><span class="en">Aligned on the key, not the text: rows added, removed, values changed, row by row.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="paper-summary.html" data-domaine="recherche" data-technique="resume" data-metier="analyse" data-audience="interne" data-niveau="simple" data-item data-lang="en">
+          <span class="tag a"><span class="fr">Résumé</span><span class="en">Summary</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Recherche</span><span class="en">Research</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Résumer un article entier en assertions sourcées</span><span class="en">Summarizing a full paper into anchored claims</span></h3>
+          <p><span class="fr">Chaque assertion reste rattachée aux lignes d'origine, avec un compte d'assertions non sourcées.</span><span class="en">Every claim stays tied to its source lines, with a count of unsupported claims.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="homeowners-qa.html" data-domaine="assurance" data-technique="qa" data-metier="gestion-contrat" data-audience="client" data-niveau="simple" data-item data-lang="en">
+          <span class="tag a"><span class="fr">Q&amp;A</span><span class="en">Q&amp;A</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Insurance</span><span class="en">Insurance</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Répondre sur une police habitation US</span><span class="en">Answering questions on a US homeowners policy</span></h3>
+          <p><span class="fr">Les quatre briques du RAG sur une police publique, jusqu'à une réponse citée avec la page.</span><span class="en">The four RAG bricks on a public policy, down to a cited answer with its page.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="claims-query.html" data-domaine="assurance" data-technique="sql-agent" data-metier="indemnisation" data-audience="interne" data-niveau="intermediaire" data-item data-lang="en">
+          <span class="tag c"><span class="fr">Agent SQL</span><span class="en">SQL agent</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Sinistres</span><span class="en">Claims</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Interroger une base sinistres en anglais</span><span class="en">Querying a claims database in plain English</span></h3>
+          <p><span class="fr">Une question en anglais → un SELECT borné, exécuté, avec la requête à côté du résultat.</span><span class="en">An English question into a bounded SELECT, run, with the query beside the result.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="claim-chat.html" data-domaine="assurance" data-technique="chatbot" data-metier="indemnisation" data-audience="client" data-niveau="simple" data-item data-lang="en">
+          <span class="tag e"><span class="fr">Chatbot</span><span class="en">Chatbot</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Sinistres</span><span class="en">Claims</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Déclarer un sinistre par chatbot (EN)</span><span class="en">Filing an insurance claim by chatbot</span></h3>
+          <p><span class="fr">Un formulaire typé rempli question après question, sans champ obligatoire vide.</span><span class="en">A typed form filled one question at a time, no required field left empty.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="claims-ingest.html" data-domaine="assurance" data-technique="etl" data-metier="indemnisation" data-audience="interne" data-niveau="intermediaire" data-item data-lang="en">
+          <span class="tag a"><span class="fr">ETL</span><span class="en">ETL</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Sinistres</span><span class="en">Claims</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Ingérer des fichiers de sinistres hétérogènes (EN)</span><span class="en">Ingesting heterogeneous claims files</span></h3>
+          <p><span class="fr">En-tête détecté, colonnes mappées, montants et dates fiabilisés, libellés normalisés.</span><span class="en">Header detected, columns mapped, amounts and dates hardened, labels normalized.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="paper-redline.html" data-domaine="recherche" data-technique="version-diff" data-metier="analyse" data-audience="interne" data-niveau="intermediaire" data-item data-lang="en">
+          <span class="tag v"><span class="fr">Diff de versions</span><span class="en">Version diff</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Recherche</span><span class="en">Research</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Redline entre deux versions d'un document</span><span class="en">Redlining two versions of a document</span></h3>
+          <p><span class="fr">Aligné au paragraphe : le fond des changements, pas le bruit de mise en forme.</span><span class="en">Aligned by paragraph: the substance of the changes, not formatting noise.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="abstract-translation.html" data-domaine="recherche" data-technique="traduction" data-metier="analyse" data-audience="interne" data-niveau="simple" data-item data-lang="en">
+          <span class="tag a"><span class="fr">Traduction</span><span class="en">Translation</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Recherche</span><span class="en">Research</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Traduire un document, terme pour terme</span><span class="en">Translating a document, term for term</span></h3>
+          <p><span class="fr">Segment par segment, termes et nombres préservés, la source affichée en regard.</span><span class="en">Segment by segment, terms and figures preserved, the source shown alongside.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="anonymisation.html" data-domaine="assurance" data-technique="redaction" data-metier="conformite" data-audience="interne" data-niveau="simple" data-item data-lang="fr">
+          <span class="tag c"><span class="fr">Anonymisation</span><span class="en">Redaction</span></span>
+          <div class="meta"><span class="chip"><span class="fr">RGPD</span><span class="en">GDPR</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Anonymiser un document, avant tout traitement</span><span class="en">Anonymizing a document before any processing</span></h3>
+          <p><span class="fr">Une couche déterministe masque emails, numéros et coordonnées bancaires ; les noms partent à une couche plus fine. Document fictif.</span><span class="en">A deterministic layer masks emails, numbers and bank details; names go to a finer layer. Fictional document.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="table-diff-fr.html" data-domaine="assurance" data-technique="table-diff" data-metier="gestion-contrat" data-audience="interne" data-niveau="simple" data-item data-lang="fr">
+          <span class="tag v"><span class="fr">Diff de table</span><span class="en">Table diff</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Garanties</span><span class="en">Coverage</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Comparer deux versions d'un tableau de garanties</span><span class="en">Diffing two versions of a coverage table</span></h3>
+          <p><span class="fr">Aligné sur la garantie, pas sur le texte : plafonds et franchises modifiés, ajouts, retraits.</span><span class="en">Aligned on the coverage line, not the text: changed caps and deductibles, additions, removals.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="proofreading-fr.html" data-domaine="assurance" data-technique="proofread" data-metier="gestion-contrat" data-audience="interne" data-niveau="simple" data-item data-lang="fr">
+          <span class="tag a"><span class="fr">Relecture</span><span class="en">Proofreading</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Qualité</span><span class="en">Quality</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Relire un document, erreur par erreur</span><span class="en">Proofreading a document, error by error</span></h3>
+          <p><span class="fr">Une liste de corrections localisées, pas un texte réécrit : l'humain garde la main.</span><span class="en">A list of located corrections, not a rewritten text: the human keeps control.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="classification.html" data-domaine="assurance" data-technique="classification" data-metier="gestion-contrat" data-audience="interne" data-niveau="simple" data-item data-lang="fr">
+          <span class="tag e"><span class="fr">Classification</span><span class="en">Classification</span></span>
+          <div class="meta"><span class="chip"><span class="fr">E-mails</span><span class="en">Emails</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Trier les e-mails entrants par intention</span><span class="en">Routing incoming emails by intent</span></h3>
+          <p><span class="fr">Chaque e-mail classé dans une intention métier (attestation, résiliation, sinistre…) pour router. Mails fictifs.</span><span class="en">Each email sorted into a business intent (certificate, cancellation, claim…) to route. Fictional emails.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="policy-comparison.html" data-domaine="assurance" data-technique="comparaison" data-metier="souscription" data-audience="client" data-niveau="intermediaire" data-item data-lang="en">
+          <span class="tag b"><span class="fr">Comparaison</span><span class="en">Comparison</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Habitation</span><span class="en">Home</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Comparer deux polices habitation, critère par critère</span><span class="en">Comparing two homeowners policies, criterion by criterion</span></h3>
+          <p><span class="fr">Alignées sur des critères communs, exclusions comprises ; les cellules qui divergent ressortent.</span><span class="en">Aligned on common criteria, exclusions included; the cells that differ stand out.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="candidate-query.html" data-domaine="rh" data-technique="sql-agent" data-metier="requete" data-audience="interne" data-niveau="intermediaire" data-item data-lang="en">
+          <span class="tag c"><span class="fr">Agent SQL</span><span class="en">SQL agent</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Candidats</span><span class="en">Candidates</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Interroger le vivier de candidats en langage naturel</span><span class="en">Querying the candidate pool in plain English</span></h3>
+          <p><span class="fr">Une demande en anglais → un SELECT borné sur les candidats, exécuté, requête visible. Données synthétiques.</span><span class="en">A request into a bounded SELECT over candidates, run, query shown. Synthetic data.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+        <a class="card" href="job-posting.html" data-domaine="rh" data-technique="chatbot" data-metier="publication" data-audience="interne" data-niveau="simple" data-item data-lang="en">
+          <span class="tag e"><span class="fr">Chatbot</span><span class="en">Chatbot</span></span>
+          <div class="meta"><span class="chip"><span class="fr">Annonce</span><span class="en">Posting</span></span></div>
+          <h3 style="margin-top:12px"><span class="fr">Rédiger une annonce à partir d'un brief</span><span class="en">Drafting a job posting from a short brief</span></h3>
+          <p><span class="fr">Un brief d'une ligne → une annonce structurée, prête à relire, dans le ton maison. Exemple synthétique.</span><span class="en">A one-line brief into a structured draft, ready to review, in the house tone. Synthetic example.</span></p>
+          <span class="go">→ <span class="fr">Voir le cas</span><span class="en">See the case</span></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="../index.html"><span class="fr">Accueil</span><span class="en">Home</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="https://github.com/doc-intel/notebooks-vol1">GitHub</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script>
+(function(){
+  var TECH=[
+    ['qa','Question / réponse','Q&A','#e0f2fe','#0369a1',"Répondre à une question, citation à l'appui",'Answer a question, with citations'],
+    ['extraction','Extraction','Extraction','#ccfbf1','#0f766e',"Extraire des champs structurés d'un document",'Pull structured fields from a document'],
+    ['comparaison','Comparaison','Comparison','#dbeafe','#1e40af','Aligner plusieurs documents, critère par critère','Align several documents, criterion by criterion'],
+    ['version-diff','Diff de versions','Version diff','#ede9fe','#6d28d9','Ce qui a changé entre deux versions','What changed between two versions'],
+    ['resume','Résumé','Summary','#e0e7ff','#4338ca','Synthétiser un texte, chaque assertion sourcée','Summarize a text, every claim sourced'],
+    ['traduction','Traduction','Translation','#dcfce7','#15803d','Traduire en préservant les termes','Translate while preserving the terms'],
+    ['classification','Classification','Classification','#fee2e2','#b91c1c','Trier les documents par intention','Sort documents by intent'],
+    ['redaction','Anonymisation','Redaction','#ffedd5','#c2410c','Masquer les données personnelles avant traitement','Mask personal data before processing'],
+    ['proofread','Relecture','Proofreading','#fae8ff','#a21caf','Relire, erreur par erreur, localisée','Proofread, error by error, located'],
+    ['table-diff','Diff de table','Table diff','#ecfccb','#4d7c0f','Comparer deux tableaux, aligné sur la clé','Compare two tables, aligned on the key'],
+    ['sql-agent','Agent SQL','SQL agent','#cffafe','#0e7490','Interroger une base en langage naturel','Query a database in plain language'],
+    ['etl','ETL','ETL','#f1f5f9','#475569','Ingérer des fichiers hétérogènes proprement','Ingest heterogeneous files cleanly'],
+    ['agentique','Agentique','Agentic','#f3e8ff','#7e22ce','Un agent qui cherche et vérifie, étape par étape','An agent that searches and verifies, step by step'],
+    ['chatbot','Chatbot','Chatbot','#ffe4e6','#be123c','Guider une démarche, champ par champ','Guide a task, field by field']];
+  var MET=[
+    ['orchestration','Vision 360','360 vision','#0f172a','#ffffff',"Réunir le contexte d'un assuré et le servir : chatbots client et agents, contexte, contrats","Gather an insured's context and serve it: client and agent chatbots, context, contracts"],
+    ['prospection','Prospection','Prospecting','#fce7f3','#be185d','Trouver et qualifier des prospects','Find and qualify prospects'],
+    ['souscription','Souscription','Underwriting','#dbeafe','#1e40af','Choisir et souscrire le bon contrat','Choose and underwrite the right policy'],
+    ['tarification','Tarification','Pricing','#e0e7ff','#4338ca','Établir un prix à partir des risques','Set a price from the risks'],
+    ['gestion-contrat','Gestion de contrat','Policy admin','#ccfbf1','#0f766e','Répondre et agir sur un contrat en vigueur','Answer and act on an in-force policy'],
+    ['indemnisation','Indemnisation / sinistres','Claims','#fef3c7','#b45309','Déclarer et instruire un sinistre','File and process a claim'],
+    ['fraude','Détection de fraude','Fraud','#fee2e2','#b91c1c','Repérer les anomalies avant de payer','Spot anomalies before paying'],
+    ['conformite','Conformité','Compliance','#f3e8ff','#7e22ce','Vérifier le respect des règles et référentiels','Check compliance with rules and references'],
+    ['reassurance','Réassurance','Reinsurance','#e0f2fe','#0369a1','Structurer et interroger les traités de réassurance','Structure and query reinsurance treaties'],
+    ['recrutement','Analyse de CV','CV screening','#f3e8ff','#7e22ce','Lire et évaluer des CV','Read and score CVs'],
+    ['requete','Requête candidats','Candidate query','#cffafe','#0e7490','Interroger un vivier de candidats','Query a candidate pool'],
+    ['publication','Publication','Job posting','#ffe4e6','#be123c','Rédiger et publier une annonce','Draft and publish a posting'],
+    ['rgpd','RGPD','GDPR','#ffedd5','#c2410c','Protéger les données personnelles','Protect personal data'],
+    ['portefeuille','Portefeuille','Portfolio','#dcfce7','#15803d',"Suivre l'évolution d'un portefeuille",'Track a portfolio over time'],
+    ['redaction-qualite','Qualité documentaire','Document quality','#fae8ff','#a21caf','Fiabiliser la qualité documentaire','Harden document quality'],
+    ['analyse','Analyse','Analysis','#e0e7ff','#4338ca','Analyser des documents de recherche','Analyze research documents']];
+  var grid=document.querySelector('.cards'); if(!grid) return;
+  var en=document.body.classList.contains('lang-en');
+  var tpl=[].slice.call(grid.querySelectorAll('.card')).map(function(c){return c.cloneNode(true);});
+  function has(card,attr,slug){return (' '+(card.getAttribute('data-'+attr)||'')+' ').indexOf(' '+slug+' ')>=0;}
+  function grouprow(label,desc,bg,ink,items){
+    var r=document.createElement('div');r.className='axis-row';
+    var side=document.createElement('div');side.className='axis-side';
+    var p=document.createElement('span');p.className='pill';p.textContent=label;p.style.background=bg;p.style.color=ink;side.appendChild(p);
+    if(desc){var d=document.createElement('span');d.className='axis-desc';d.textContent=desc;side.appendChild(d);}
+    var n=document.createElement('span');n.className='axis-count';n.textContent=items.length+(en?(items.length>1?' cases':' case'):' cas');side.appendChild(n);
+    var box=document.createElement('div');box.className='axis-cards';
+    items.forEach(function(k){box.appendChild(k.cloneNode(true));});
+    r.appendChild(side);r.appendChild(box);grid.appendChild(r);
+  }
+  // secondary facets (audience, difficulty), AND-combined with the primary grouping
+  var FAC=[
+    {dim:'audience',lab:['Type','Type'],opts:[['client','Client','Client'],['interne','Interne','Internal']]},
+    {dim:'niveau',lab:['Niveau','Level'],opts:[['simple','Simple','Simple'],['intermediaire','Intermédiaire','Intermediate'],['avance','Avancé','Advanced']]}
+  ];
+  var active={audience:{},niveau:{}}, curPrimary='all';
+  function anyActive(){return Object.keys(active.audience).length+Object.keys(active.niveau).length>0;}
+  function facetOK(k){
+    for(var d in active){if(Object.keys(active[d]).length && !active[d][k.getAttribute('data-'+d)]) return false;}
+    return true;
+  }
+  function render(filter){
+    curPrimary=filter;
+    grid.classList.add('axis-managed');
+    grid.innerHTML='';
+    var byTech=(filter==='all');
+    var cards=byTech?tpl.slice():tpl.filter(function(k){return has(k,'domaine',filter);});
+    var domainEmpty=!cards.length;
+    cards=cards.filter(facetOK);
+    if(!cards.length){
+      var em=document.createElement('div');em.className='axis-empty';
+      var h=document.createElement('h3'),pp=document.createElement('p'),a=document.createElement('a');a.href='#';
+      if(!domainEmpty && anyActive()){
+        h.textContent=en?'No match':'Aucun cas';
+        pp.textContent=en?'No case matches these filters. Try loosening them.':'Aucun cas ne correspond à ces filtres. Essayez de les assouplir.';
+        a.textContent=en?'Reset filters':'Réinitialiser les filtres';
+        a.addEventListener('click',function(ev){ev.preventDefault();resetFacets();});
+      }else{
+        h.textContent=en?'Coming soon':'Bientôt disponible';
+        pp.textContent=en?'Cases for this domain are on the way. In the meantime, the same techniques are already shown on the other domains.':'Des cas arrivent bientôt pour ce domaine. En attendant, les mêmes techniques sont déjà illustrées sur les autres métiers.';
+        a.textContent=en?'Browse every case by technique':'Parcourir tous les cas par technique';
+        a.addEventListener('click',function(ev){ev.preventDefault();var first=row.querySelector('.fbtn');if(first)first.click();});
+      }
+      em.appendChild(h);em.appendChild(pp);em.appendChild(a);grid.appendChild(em);return;
+    }
+    var list=byTech?TECH:MET, attr=byTech?'technique':'metier', placed={};
+    list.forEach(function(c){
+      var mine=cards.filter(function(k){return has(k,attr,c[0]);});
+      if(!mine.length) return;
+      mine.forEach(function(k){placed[k.getAttribute('href')]=1;});
+      grouprow(en?c[2]:c[1],en?c[6]:c[5],c[3],c[4],mine);
+    });
+    var rest=cards.filter(function(k){return !placed[k.getAttribute('href')];});
+    if(rest.length){grouprow(en?'Other':'Autres','','#f1f5f9','#475569',rest);}
+  }
+  var row=document.getElementById('filterRow'); if(!row) return;
+  function mkbtn(f,label,bg,ink,active_){
+    var b=document.createElement('button');b.className='fbtn'+(active_?' on':'');b.type='button';b.textContent=label;
+    if(bg){b.style.setProperty('--fbg',bg);b.style.setProperty('--fink',ink);}
+    b.addEventListener('click',function(){var all=row.querySelectorAll('.fbtn');for(var i=0;i<all.length;i++)all[i].classList.remove('on');b.classList.add('on');render(f);});
+    return b;
+  }
+  var DOM=[['assurance','Assurance','Insurance','#dbeafe','#1e40af'],['rh','RH','HR','#f3e8ff','#7e22ce'],['finance','Finance','Finance','#dcfce7','#15803d']];
+  // deep-link: /cas/?d=assurance opens directly on that domain (so "back" from a case returns to its domain)
+  var initial='all', mq=(location.search+location.hash).match(/[?&#]d=([a-z-]+)/);
+  if(mq){var dv=mq[1];for(var i=0;i<DOM.length;i++){if(DOM[i][0]===dv){initial=dv;break;}}}
+  row.appendChild(mkbtn('all', en?'By technique':'Par technique','','',initial==='all'));
+  var lab=document.createElement('span');lab.className='metier-lab';lab.textContent=en?'By domain:':'Par métier :';row.appendChild(lab);
+  DOM.forEach(function(c){ row.appendChild(mkbtn(c[0], en?c[2]:c[1], c[3], c[4], initial===c[0])); });
+  // facet chips
+  var frow=document.getElementById('facetRow'), rst=null;
+  function updateReset(){ if(rst) rst.style.display=anyActive()?'':'none'; }
+  function resetFacets(){ active={audience:{},niveau:{}}; if(frow){var ch=frow.querySelectorAll('.fchip');for(var i=0;i<ch.length;i++)ch[i].classList.remove('on');} updateReset(); render(curPrimary); }
+  if(frow){
+    FAC.forEach(function(g){
+      var lb=document.createElement('span');lb.className='facet-lab';lb.textContent=en?g.lab[1]:g.lab[0];frow.appendChild(lb);
+      g.opts.forEach(function(o){
+        var c=document.createElement('button');c.className='fchip';c.type='button';c.textContent=en?o[2]:o[1];c.setAttribute('data-tone',o[0]);
+        c.addEventListener('click',function(){
+          if(active[g.dim][o[0]]){delete active[g.dim][o[0]];c.classList.remove('on');}
+          else{active[g.dim][o[0]]=1;c.classList.add('on');}
+          updateReset();render(curPrimary);
+        });
+        frow.appendChild(c);
+      });
+    });
+    rst=document.createElement('button');rst.className='freset';rst.type='button';rst.textContent=en?'Reset':'Réinitialiser';rst.style.display='none';
+    rst.addEventListener('click',resetFacets);frow.appendChild(rst);
+  }
+  render(initial);
+})();
+</script>
+
+</body>
+</html>

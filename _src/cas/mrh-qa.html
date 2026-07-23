@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Répondre sur une condition générale habitation, citation à l'appui · Étude de cas</title>
+<meta name="description" content="Les quatre briques d'un RAG sur une condition générale MRH publique : texte extrait, mots-clés, retrieval, et une réponse sourcée avec la page exacte.">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.subcases{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:18px 0 8px}
+.subcase{border:1px solid var(--line,#e2e8f0);border-radius:14px;padding:16px 18px;background:var(--card)}
+.subcase .sc-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.subcase .sc-head b{font-size:1rem}
+.subcase .sc-head span{font-size:11.5px;color:var(--muted,#64748b);font-weight:600}
+.subcase p{margin:.35em 0;font-size:13.5px;line-height:1.5}
+.subcase i{color:var(--blue-s);font-style:normal;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.03em;margin-right:4px}
+</style>
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Q&amp;A · Gestion de contrat · FR</div>
+      <h1 class="mid">Répondre sur une CG habitation, citation à l'appui</h1>
+      <p class="lede">« La garantie dégât des eaux, qu'est-ce qu'elle couvre exactement ? » Les quatre briques d'un RAG sur une condition générale publique, jusqu'à une réponse adossée à la page. La même chaîne, passée sur six assureurs, chacun avec sa propre mise en page.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Une condition générale d'assurance habitation fait plusieurs dizaines de pages. La réponse à une question précise (que couvre la garantie dégât des eaux, quelles exclusions) est noyée dedans, et une réponse sans la page exacte ne vaut rien pour l'assuré comme pour le conseiller.</p>
+
+      <h2>La démarche</h2>
+      <p>On déroule les quatre briques du RAG sur une CG publique. Le document est extrait ligne par ligne avec son numéro de page. La question est analysée en mots-clés. Le retrieval filtre les passages pertinents plutôt que de tout envoyer au modèle. La génération produit une réponse structurée, avec la citation exacte et sa page. Chaque étape est visible, pour montrer que la réponse est le bout d'une chaîne traçable, pas une intuition du modèle.</p>
+
+      <div class="callout">
+        <p>Le fil rouge : la page n'est pas un ornement, c'est la preuve. Une réponse RAG utile pointe la ligne du contrat qui la justifie.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Extraire le texte, garder la page</b><span>La CG est extraite ligne par ligne, chaque ligne porte son numéro de page.</span></div>
+        <div class="step"><b>Analyser la question</b><span>La question de l'assuré est transformée en mots-clés pour guider la recherche.</span></div>
+        <div class="step"><b>Filtrer les passages</b><span>Le retrieval ramène les lignes pertinentes plutôt que d'inonder le modèle.</span></div>
+        <div class="step"><b>Générer une réponse sourcée</b><span>La réponse cite le passage exact et sa page ; la citation est vérifiable.</span></div>
+      </div>
+
+      <h2>Assureur par assureur</h2>
+      <p>La démarche ne change pas d'un assureur à l'autre : ce sont toujours les quatre mêmes briques. Ce qui change, c'est le document, sa mise en page et son vocabulaire. On a passé la même chaîne, sans la retoucher, sur six conditions générales habitation publiques. Voici, pour chacune, le document traité et ce que la chaîne en tire. La spécificité de chaque assureur est dans le document, pas dans le code.</p>
+      <div class="subcases">
+        <div class="subcase">
+          <div class="sc-head"><b>Crédit Agricole</b><span>Pacifica · éd. 2015</span></div>
+          <p><i>Document</i> CG MRH portée par Pacifica, édition de janvier 2015. La plus ancienne du lot, vocabulaire d'une génération antérieure.</p>
+          <p><i>Résultat</i> La même chaîne y répond, clause citée avec sa page, sans règle écrite pour cette édition.</p>
+        </div>
+        <div class="subcase">
+          <div class="sc-head"><b>MAIF</b><span>Conditions Générales MAIF</span></div>
+          <p><i>Document</i> CG habitation d'une mutuelle sans intermédiaire, publiée telle quelle.</p>
+          <p><i>Résultat</i> La réponse pointe le passage exact ; la garantie interrogée remonte avec sa page.</p>
+        </div>
+        <div class="subcase">
+          <div class="sc-head"><b>Generali</b><span>réf. GA5X25J · éd. 2022</span></div>
+          <p><i>Document</i> Contrat récent identifié par une référence produit codée (GA5X25J), édition 2022.</p>
+          <p><i>Résultat</i> Le retrieval isole le bon passage ; la citation remonte seule, pas le chapitre entier.</p>
+        </div>
+        <div class="subcase">
+          <div class="sc-head"><b>AXA</b><span>CG Habitation « maison »</span></div>
+          <p><i>Document</i> Conditions générales habitation AXA, gamme « maison ».</p>
+          <p><i>Résultat</i> La chaîne retrouve la garantie et sa définition, chacune sourcée sur sa page.</p>
+        </div>
+        <div class="subcase">
+          <div class="sc-head"><b>GMF</b><span>Conditions Générales GMF</span></div>
+          <p><i>Document</i> CG habitation GMF, publiée telle quelle.</p>
+          <p><i>Résultat</i> La réponse distingue ce qui est de base de ce qui est en option, chaque point cité.</p>
+        </div>
+        <div class="subcase">
+          <div class="sc-head"><b>MMA</b><span>gamme 410s</span></div>
+          <p><i>Document</i> CG habitation MMA, gamme produit 410s.</p>
+          <p><i>Résultat</i> La chaîne rattache le montant lu au plafond à la bonne garantie, avec la page.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>Le fil rouge : une seule chaîne, six mises en page. Aucun code spécifique par assureur ; l'adaptation se fait dans le parsing et le retrieval, pas dans des règles écrites à la main.</p>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>Un RAG d'entreprise n'est pas une boîte qui « comprend » le contrat : c'est une chaîne de quatre briques où chaque maillon est inspectable. La même chaîne, sans retouche, répond sur six assureurs aux mises en page différentes. C'est ça, la robustesse d'un pipeline documentaire : elle se mesure au nombre de documents qu'il encaisse sans code sur mesure.</p>
+      <div class="callout"><p>Cette brique est réutilisée par les autres chatbots : quand un client en pleine <a href="souscription-chatbot.html">souscription</a> demande si une garantie s'applique (« mon vélo volé dehors ? »), c'est cette chaîne que le <a href="assistant-assurance.html">chatbot 360</a> appelle pour répondre, citation à l'appui.</p></div>
+
+      <h2>Livrables</h2>
+      <p>Une démo des quatre briques sur une condition générale habitation publique, jusqu'à la réponse citée avec sa page ; et une démo interactive qui rejoue les six assureurs côte à côte.</p>
+
+      <div class="callout"><p><em>Démos sur documents publics (conditions générales MRH) ; elles s'ouvrent en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/mrh-qa.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir la démo Q&amp;R (pleine page) →</a>
+      &nbsp;<a href="../assets/demos/mrh.html" style="display:inline-block;padding:14px 24px;background:#fff;color:var(--ink);border:1px solid var(--line,#e2e8f0);text-decoration:none;border-radius:12px;font-weight:600">Les six assureurs côte à côte →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

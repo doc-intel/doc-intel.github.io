@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apps - Enterprise Document Intelligence</title>
+<meta name="description" content="The document-intelligence engine in real interfaces: an Electron desktop app that indexes a folder and answers, and ShipAI web demos.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="canonical" href="https://doc-intel.github.io/en/apps.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/apps.html">
+<link rel="alternate" hreflang="en" href="https://doc-intel.github.io/en/apps.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/en/apps.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Apps - Enterprise Document Intelligence">
+<meta property="og:description" content="The document-intelligence engine in real interfaces: an Electron desktop app that indexes a folder and answers, and ShipAI web demos.">
+<meta property="og:url" content="https://doc-intel.github.io/en/apps.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Apps - Enterprise Document Intelligence">
+<meta name="twitter:description" content="The document-intelligence engine in real interfaces: an Electron desktop app that indexes a folder and answers, and ShipAI web demos.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="articles.html">Articles</a>
+      <a href="apps.html">Apps</a>
+      <a href="cas/index.html">Case studies</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="../fr/apps.html">FR</a>
+      <a href="apps.html" class="active">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap">
+      <div class="kicker">Apps</div>
+      <h1 class="mid">The engine, in real interfaces</h1>
+      <p class="lede">
+        
+        The same four bricks from the articles, put to work. A desktop app that indexes a folder of documents and answers, and per-article web demos. In both, every step stays visible.
+      </p>
+    </div>
+  </section>
+
+  <!-- Electron -->
+  <section class="block first" id="electron">
+    <div class="wrap">
+      <div class="lab">Desktop app · Electron</div>
+      <h2>The document workstation</h2>
+      <p class="sub">
+        
+        A desktop application that indexes a folder of documents and answers your questions, on your machine. The engine runs locally through a Python sidecar.
+      </p>
+
+      <figure class="shotfig">
+        <img class="shot" loading="lazy" src="../assets/img/electron/scenario-preview.gif"
+             alt="Opening a project, then a PDF document displayed inside the desktop app">
+        <figcaption>From a folder of documents to a PDF open and readable in the app.</figcaption>
+      </figure>
+
+      <div class="showcase" style="margin-top:44px">
+        <div>
+          <h3 style="font-size:1.2rem;letter-spacing:-.01em;margin:0 0 8px;font-weight:700">Every answer shows its process</h3>
+          <p class="sub" style="margin-bottom:0">
+            
+            The "how this answer was produced" panel unfolds the four bricks: document parsing, question parsing, retrieval, generation. Nothing is hidden, everything is replayable.
+          </p>
+        </div>
+        <figure class="shotfig">
+          <img class="shot" loading="lazy" src="../assets/img/electron/electron-pipeline.png"
+               alt="The pipeline panel: document parsing, question parsing, retrieval and generation, traced for one answer">
+        </figure>
+      </div>
+
+      <div class="showcase rev" style="margin-top:44px">
+        <figure class="shotfig">
+          <img class="shot" loading="lazy" src="../assets/img/electron/electron-document.png"
+               alt="Document preview with the annotations panel open on a parsed PDF">
+        </figure>
+        <div>
+          <h3 style="font-size:1.2rem;letter-spacing:-.01em;margin:0 0 8px;font-weight:700">The document stays at the center</h3>
+          <p class="sub" style="margin-bottom:0">
+            
+            The PDF is shown as-is, with parsed text, annotations and chat alongside. You read the source, you never lose sight of it.
+          </p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.2rem;letter-spacing:-.01em;margin:48px 0 6px;font-weight:700">
+        In action
+      </h3>
+      <p class="sub">A few scenarios, from corpus-wide chat to typed intents.</p>
+      <div class="gallery">
+        <figure>
+          <img class="shot" loading="lazy" src="../assets/img/electron/scenario-chat.gif" alt="Corpus-wide chat answering a question across all project documents">
+          <figcaption>Corpus-wide chat</figcaption>
+        </figure>
+        <figure>
+          <img class="shot" loading="lazy" src="../assets/img/electron/scenario-annotations.gif" alt="Annotating a parsed document">
+          <figcaption>Annotations</figcaption>
+        </figure>
+        <figure>
+          <img class="shot" loading="lazy" src="../assets/img/electron/scenario-translation.gif" alt="Translating a document">
+          <figcaption>Translation</figcaption>
+        </figure>
+        <figure>
+          <img class="shot" loading="lazy" src="../assets/img/electron/scenario-compare.gif" alt="Comparing documents">
+          <figcaption>Comparison</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="font-size:1.2rem;letter-spacing:-.01em;margin:48px 0 6px;font-weight:700">
+        How it works
+      </h3>
+      <div class="steps">
+        <div class="step">
+          <b>Pick a folder</b>
+          
+          The app scans the folder and finds the documents to process.
+        </div>
+        <div class="step">
+          <b>Prepare the corpus</b>
+          
+          Each document is parsed into relational tables, classified and indexed.
+        </div>
+        <div class="step">
+          <b>Ask questions</b>
+          
+          The chat parses the question, filters the corpus, and composes a sourced answer.
+        </div>
+        <div class="step">
+          <b>Check the process</b>
+          
+          Every answer points back to the exact passages that produced it.
+        </div>
+      </div>
+
+      <div class="callout emer">
+        <p>Everything stays local: the index lives in a folder next to the scanned files, nothing leaves for a server.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ShipAI -->
+  <section class="block" id="shipai">
+    <div class="wrap">
+      <div class="showcase">
+        <div>
+          <div class="lab">ShipAI</div>
+          <h2>A web demo per article</h2>
+          <p class="sub">
+            
+            Alongside the desktop app, each article gets its own web demo: you watch the brick run on a real document, not a screenshot. Parsing, question parsing, retrieval, generation.
+          </p>
+          <ul class="prose">
+            <li>Drop a PDF, ask a question, watch the pipeline answer.</li>
+            <li>The answer is sourced: it traces back to the exact line in the document.</li>
+          </ul>
+        </div>
+        <div class="frame">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <div class="screen">
+            <div class="pipe" style="margin:0;gap:6px">
+              <div class="node in" style="min-width:64px;padding:8px"><small>PDF</small></div>
+              <div class="arrow">→</div>
+              <div class="node mid" style="min-width:64px;padding:8px"><small>RAG</small></div>
+              <div class="arrow">→</div>
+              <div class="node out" style="min-width:64px;padding:8px"><small>Answer</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <p>The interactive web demos are rolling out article by article.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Written by Angela Shi, Kezhan Shi and Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="articles.html">Articles</a>
+      <a href="cas/index.html">Cases</a>
+      <a href="https://github.com/doc-intel/notebooks-vol1" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://ko-fi.com/angelashi" target="_blank" rel="noopener noreferrer">Ko-fi</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

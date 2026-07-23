@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anonymiser un document : détecter les données personnelles · Étude de cas</title>
+<meta name="description" content="Détecter et masquer les données personnelles (emails, numéros, coordonnées bancaires) d'un document, par une couche déterministe, avant tout traitement.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Anonymisation · Conformité · FR</div>
+      <h1 class="mid">Anonymiser un document, avant tout traitement</h1>
+      <p class="lede">Avant qu'un document parte vers un modèle ou soit partagé, les données personnelles évidentes doivent disparaître : emails, numéros, coordonnées bancaires. Une passe déterministe attrape les formes régulières, tout de suite et sans appel de modèle.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Une déclaration, une pièce de dossier, un courrier : dès qu'on veut les traiter en masse ou les faire lire par un modèle, les données personnelles sortent de leur contexte. Une bonne partie suit des formes régulières : un email est un email, un IBAN est un IBAN. Celles-là doivent être masquées de façon déterministe, avant tout le reste.</p>
+
+      <h2>La démarche</h2>
+      <p>La couche déterministe balaie le document et repère les entités à forme régulière (emails, séquences de type téléphone, coordonnées bancaires), puis les masque sur place. C'est reproductible (même entrée, même sortie), gratuit, et vérifiable : chaque masque correspond à une correspondance qu'on peut pointer. Le détecteur est volontairement large sur les séquences structurées ; les cas plus ambigus (noms, prénoms, adresses) sont laissés à une couche plus fine.</p>
+
+      <div class="callout">
+        <p>Le fil rouge : l'anonymisation commence avant le modèle. La couche déterministe retire ce qui a une forme régulière, la couche fine ne voit que ce qui demande vraiment un jugement.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Repérer les formes connues</b><span>Emails, numéros, coordonnées bancaires sont détectés par motif, de façon déterministe.</span></div>
+        <div class="step"><b>Masquer sur place</b><span>Chaque correspondance est remplacée, le document reste lisible, chaque masque reste traçable.</span></div>
+        <div class="step"><b>Laisser les cas difficiles</b><span>Noms, prénoms, adresses, plus ambigus, sont renvoyés à une couche plus fine.</span></div>
+        <div class="step"><b>Rester hors modèle</b><span>Cette couche ne fait aucun appel de modèle ; la sortie est reproductible.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>L'anonymisation est une cascade, pas un appel unique. La première couche est déterministe et gratuite, et doit tourner avant que quoi que ce soit atteigne un modèle. Ne reste pour le modèle que ce qui demande réellement un jugement.</p>
+
+      <h2>Livrables</h2>
+      <p>Un rapport de détection sur un document fictif, montrant les données repérées et le texte masqué. Le document est 100 % synthétique.</p>
+
+      <div class="callout"><p><em>Démonstration statique sur un document fictif (aucune personne réelle) ; elle s'ouvre en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/anonymisation.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir le rapport (pleine page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

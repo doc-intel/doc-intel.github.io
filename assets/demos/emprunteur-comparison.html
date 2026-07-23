@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparateur assurance emprunteur — équivalence CCSF</title>
+<style>
+ :root{--ink:#16181d;--ink2:#5b616e;--ink3:#8a909c;--line:#e2e4ea;--line2:#eef0f4;--soft:#f6f7f9;
+  --ca:#0a7d3e;--ca-soft:#e7f5ec;--red:#c0392b;--red-soft:#fdecea;--amber:#b45309;--amber-soft:#fff5e6;--blue:#1d4ed8}
+ *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--soft);font-size:13.5px;line-height:1.45;-webkit-font-smoothing:antialiased}
+ .wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+ header{background:#fff;border-bottom:1px solid var(--line)}header .wrap{padding:24px 20px 18px}
+ h1{font-size:25px;font-weight:700;margin:0 0 5px;letter-spacing:-.02em}.sub{color:var(--ink2);font-size:15px;margin:0}
+ .note{background:#fff8e6;border:1px solid #fde68a;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#7a5b08;margin:14px 0 0;line-height:1.5}
+ .ref{background:#fff;border:1px solid var(--line);border-radius:12px;margin:16px 0 0;padding:14px 16px}
+ .ref h2{font-size:14px;margin:0 0 2px;font-weight:700}
+ .refhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin:0 0 10px}
+ .refhead .h3{font-size:12px;color:var(--ink3);margin:0}
+ .count{font-size:12px;font-weight:700;color:var(--ca);background:var(--ca-soft);padding:2px 10px;border-radius:980px}
+ .count.over{color:var(--red);background:var(--red-soft)}
+ .thr{display:inline-flex;gap:6px;align-items:center;font-size:11.5px;color:var(--ink2)}
+ .thr input{width:66px;border:1px solid var(--line);border-radius:7px;padding:4px 7px;font:inherit;font-size:12px}
+ .cgroups{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px 20px}
+ .grp{break-inside:avoid}
+ .grp .gt{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--ink3);margin:6px 0 4px;border-bottom:1px solid var(--line2);padding-bottom:2px}
+ .crit{display:flex;gap:7px;align-items:flex-start;padding:2px 0;font-size:12.5px;line-height:1.35}
+ .crit input{margin-top:2px}.crit .id{color:var(--ink3);font-variant-numeric:tabular-nums;min-width:16px}
+ .crit.auto .tx::after{content:" ⚙";color:var(--blue);font-size:10px}
+ .wrap.tbl{padding:16px 20px 60px}
+ table{width:100%;border-collapse:collapse;background:#fff;font-size:13px}
+ thead th{position:sticky;top:0;background:#fff;border-bottom:2px solid var(--line);padding:9px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.02em;color:var(--ink3);text-align:left;white-space:nowrap}
+ tbody td{border-bottom:1px solid var(--line2);padding:9px 10px;vertical-align:middle}
+ tbody tr.main{cursor:pointer}tbody tr.main:hover td{background:#fafbfc}
+ .ctr .car{color:var(--ink3);font-size:10px;margin-right:5px}.ctr b{font-weight:700}.ctr .m{color:var(--ink3);font-size:11px}
+ .badge{display:inline-block;padding:3px 11px;border-radius:980px;font-weight:700;font-size:12px;white-space:nowrap}
+ .badge.ok{background:var(--ca-soft);color:var(--ca)}.badge.ko{background:var(--red-soft);color:var(--red)}.badge.warn{background:var(--amber-soft);color:var(--amber)}
+ .vsub{font-size:11px;color:var(--ink3);margin-top:2px}
+ .tally{font-variant-numeric:tabular-nums;white-space:nowrap}
+ .tally .ok{color:var(--ca);font-weight:700}.tally .ko{color:var(--red);font-weight:700}.tally .man{color:var(--amber);font-weight:700}
+ tr.detrow td{background:#fbfcfd;padding:4px 14px 12px}
+ .dl{list-style:none;margin:6px 0 0;padding:0;columns:2;column-gap:26px}
+ .dl li{break-inside:avoid;padding:3px 0;font-size:12px;line-height:1.4;display:flex;gap:7px}
+ .mk{font-weight:800;min-width:14px}.mk.ok{color:var(--ca)}.mk.ko{color:var(--red)}.mk.man{color:var(--amber)}
+ .dl .cl{color:var(--ink)}.dl .cv{color:var(--ink3)}
+ .foot{font-size:11.5px;color:var(--ink3);margin:8px 0 0}
+</style></head><body><div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../fr/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../fr/cas/" style="color:#cbd5e1;text-decoration:none">Études de cas</a><a href="../../fr/cas/emprunteur-comparison.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Retour au cas</a></div>
+<header><div class="wrap">
+ <h1>Comparateur assurance emprunteur — équivalence CCSF</h1>
+ <p class="sub">Vos exigences (référence Crédit Agricole) parmi les <b>18 critères CCSF</b>, vérifiées sur chaque contrat. Verdict d'<b>équivalence de garanties</b>.</p>
+ <div class="note"><b>Données de test.</b> Modèle réel : accord <b>CCSF 2015</b>, la banque choisit <b>au plus 11 critères parmi 18</b> (Fiche Standardisée d'Information) ; un contrat externe est accepté (loi Lemoine) s'il satisfait <b>tous</b> les critères exigés. La référence <b>Crédit Agricole</b> (PREDICA / CNP) est ici <b>paramétrable</b>. Seuls les critères marqués ⚙ sont <b>vérifiables automatiquement</b> depuis les CG (page source au survol) ; les autres sont <b>« à vérifier »</b> (jamais de verdict inventé). Critères CCSF d'après les guides d'équivalence publics. Ne pas citer d'assureur par nom en support publié.</div>
+ <div class="ref">
+  <div class="refhead"><h2>Vos exigences — référence Crédit Agricole</h2><span class="count" id="count"></span>
+   <span class="h3">Pré-cochés = critères réellement exigés par le CA (fiches Pyrénées-Gascogne &amp; Champagne-Bourgogne, prêt résidence principale, identiques). Ajustables. Plafond CCSF : 11.</span>
+   <span class="thr">Franchise ITT max <input type="number" id="thr_fr" min="0" step="15" value="90"> j</span>
+   <span class="thr">Âge cessation Décès ≥ <input type="number" id="thr_age" min="0" step="1" value="70"></span>
+   <span class="thr">Âge cessation PTIA ≥ <input type="number" id="thr_ptia" min="0" step="1" value="70"></span>
+  </div>
+  <div class="cgroups" id="cgroups"></div>
+ </div>
+</div></header>
+<div class="wrap tbl"><table id="tbl"><thead><tr><th>Contrat</th><th>Verdict d'équivalence</th><th>Bilan</th></tr></thead><tbody id="tb"></tbody></table>
+ <div class="foot" id="foot"></div>
+</div>
+<script>
+
+const DATA=[{"fichier": "SocieteGenerale_Emprunteur", "assureur_risque": "SOGECAP (Décès/PTIA/Invalidité/Incapacité) et SOGESSUR (Perte d'Emploi)", "marque_distributeur": "Société Générale", "reference_contrat": "contrats n° 90.197 et n° 98.001 ; Réf 539 312 J - 12/2015", "deces": "oui (p.1)", "ptia": "oui (p.1)", "ipt": "oui (p.1)", "ipp": "oui (p.1)", "itt": "oui (p.1)", "perte_emploi": "option", "itt_indemnisation": "indemnitaire (p.3)", "itt_franchise_jours": "90 jours (p.3)", "ipt_seuil": "66% (p.4)", "ipp_seuil": "33% à <66% ; en dessous de 33% pas d'intervention (p.4)", "age_limite_adhesion": "<60 ans (Formule 1), <65 ans (Formule 2) ; <75 ans au terme du prêt (p.2)", "age_cessation_deces": "31/12 suivant le 75e anniversaire (p.5)", "age_cessation_itt_ipt": "31/12 suivant le 65e anniversaire (p.5)", "exclusions_dos_psy": "Affections psychiques exclues sauf hospitalisation psychiatrique >=5 jours continus ou tutelle/curatelle ; affections dorsales exclues sauf hospitalisation >=5 jours ou intervention chirurgicale (p.6)", "delai_carence": null, "quotite": "quotité indiquée à l'adhésion, appliquée au prêt et aux échéances (p.1, p.3)", "assistance": "non", "notes": "Contrat groupe SG/Sogécap-Sogessur, 2 formules ; ITT 90j indemnitaire à 50% des échéances ; plafond 1 700 000 €."}, {"fichier": "BanquePopulaire_A340G", "assureur_risque": "CNP Assurances (50%) et BPCE Vie (50%), CNP apériteur", "marque_distributeur": "Banque Populaire / réseau BPCE", "reference_contrat": "Contrat d'assurance de groupe n°A340G", "deces": "oui (p.5)", "ptia": "oui (p.7)", "ipt": "oui sauf TNS/Inactifs ; option conso/locatif (p.8)", "ipp": "option (p.8)", "itt": "oui sauf TNS/Inactifs ; option conso/locatif (p.6)", "perte_emploi": "non", "itt_indemnisation": "mixte : indemnitaire (salariés/fonctionnaires/chômeurs indemnisés), forfaitaire si option ou TNS/Inactifs (p.7-8)", "itt_franchise_jours": "90 jours par défaut ; 30 jours en option (p.6)", "ipt_seuil": "66% (p.8)", "ipp_seuil": "33% à <66% (p.8)", "age_limite_adhesion": "<65 ans à l'adhésion (p.4)", "age_cessation_deces": "80e anniversaire (p.6)", "age_cessation_itt_ipt": "67e anniversaire (PTIA/IA/IPT/ITT/IPP) (p.6)", "exclusions_dos_psy": "Aucune exclusion spécifique dos/psy dans les risques exclus (art.16, p.6) : ni exclues d'office ni sous condition d'hospitalisation", "delai_carence": "Pas de délai de carence général ; exclusion suicide 1re année (plafond 120 000 € résidence principale)", "quotite": "1% à 100% par assuré, max 100% du prêt ; encours max 1 500 000 €/assuré (p.4)", "assistance": "non", "notes": "Notice A340G multi-garanties ; garanties hors Décès selon nature du prêt/qualité emprunteur ; pas de perte d'emploi ni assistance."}, {"fichier": "HarmonieMutuelle_ProtectionEmprunteur", "assureur_risque": "Harmonie Mutuelle", "marque_distributeur": "Harmonie Mutuelle (Protection Emprunteur)", "reference_contrat": "HM.NI.PE-2022 / V-10-2023 ; contrat collectif N°HM-202201-J0001", "deces": "oui (p.5)", "ptia": "oui (p.5)", "ipt": "oui (p.5)", "ipp": "oui (p.6)", "itt": "oui (p.5)", "perte_emploi": "non", "itt_indemnisation": "forfaitaire (p.7)", "itt_franchise_jours": "30 / 60 / 90 / 120 / 180 jours au choix (p.6)", "ipt_seuil": "66% (p.3)", "ipp_seuil": "33% à 66% (p.3)", "age_limite_adhesion": "79 ans (Décès) ; 68 ans (PTIA/ITT/IPT/IPP) (p.4)", "age_cessation_deces": "90e anniversaire (Décès) ; 70e (PTIA) (p.5)", "age_cessation_itt_ipt": "retraite, au plus tard 70e anniversaire (p.5)", "exclusions_dos_psy": "Affections dorsales et psychiatriques exclues, rachetables via surcotisation (options Dos/Psy) ; dorsales couvertes si tumeur/fracture ou hospitalisation >=5 j continus, psy si hospitalisation >=9 j continus en milieu psychiatrique (p.9)", "delai_carence": null, "quotite": "max 100% par assuré ; quotités distinctes DC/PTIA vs ITT/IPP/IPT possibles (p.4)", "assistance": "non", "notes": "Contrat mutualiste ; pas de perte d'emploi ni assistance ; décès accidentel provisoire 300 000 € ; Invalidité AERAS subsidiaire (franchise 90 j)."}, {"fichier": "Thelem_Emprunteur", "assureur_risque": "Thélem prévoyance", "marque_distributeur": "Thélem assurances (gestion Multi-Impact)", "reference_contrat": "Contrat collectif N° 2A2P001 - Assurance Emprunteur N°488", "deces": "oui (p.11, formules 1/2/3)", "ptia": "oui (p.11)", "ipt": "oui en formule 2 et 3 (p.11)", "ipp": "oui en formule 3 uniquement (p.11)", "itt": "oui en formule 2 et 3 (p.11)", "perte_emploi": "non", "itt_indemnisation": "indemnitaire - échéances dues, max 7500 €/mois (p.16)", "itt_franchise_jours": "90 jours (p.8, p.16)", "ipt_seuil": "66% (p.9, p.11)", "ipp_seuil": "33% à <66% (p.9, p.11)", "age_limite_adhesion": "Décès 80 ans (66 si in-fine), PTIA 70 ans, ITT/IPT/IPP 66 ans (p.13)", "age_cessation_deces": "85e anniversaire (67e si in-fine) ; PTIA 70e (67e si in-fine) (p.25)", "age_cessation_itt_ipt": "retraite, au plus tard 67e anniversaire (p.25)", "exclusions_dos_psy": "En base : dos (disco/paravertébrales) et psy (fibromyalgie, burn-out, bipolarité) garanties uniquement si hospitalisation >=10 j consécutifs, sinon exclues ; rachetables via l'option Intégrale (sans condition) (p.20)", "delai_carence": "Pas de carence à l'adhésion initiale ; délai d'attente 6 mois pour adjonction ITT/IPT/IPP/option Intégrale ou hausse de quotité (p.27)", "quotite": "<=100% par assuré ; Décès/PTIA 17 000 € à 1 500 000 €, ITT/IPP/IPT max 7500 €/mois (p.9, p.12)", "assistance": "non", "notes": "Contrat groupe Thélem, 3 formules ; IPT/IPP via table croisée invalidité fonctionnelle x professionnelle ; option Intégrale rachète dos/psy."}, {"fichier": "MAIF_AvantageEmprunteur", "assureur_risque": "MAIF VIE", "marque_distributeur": "MAIF - Avantage Emprunteur (gestion Multi-Impact)", "reference_contrat": "Contrat collectif (Association pour l'union et le recours en assurances)", "deces": "oui (p.13)", "ptia": "oui (p.13)", "ipt": "oui (p.14)", "ipp": "option - formule 4 uniquement (p.14)", "itt": "oui (p.14)", "perte_emploi": "non", "itt_indemnisation": "forfaitaire (p.14)", "itt_franchise_jours": "90 jours (indemnités dès le 91e jour) (p.7, p.14)", "ipt_seuil": "66% (p.7, p.14)", "ipp_seuil": ">33% et <66% (p.7, p.15)", "age_limite_adhesion": "<80 ans (Décès), <70 (PTIA), <66 (ITT/IPT/IPP) (p.8)", "age_cessation_deces": "85e anniversaire (p.13)", "age_cessation_itt_ipt": "67e anniversaire (retraite) (p.15)", "exclusions_dos_psy": "Exclues en ITT/IPT/IPP sauf hospitalisation >=9 j continus (psychiatrique pour le psy) ; rachetables via l'option Confort (formules 3 et 4) (p.18)", "delai_carence": null, "quotite": "<=100% par tête, toutes garanties d'un même prêt (p.6, p.10)", "assistance": "non", "notes": "Notice MAIF VIE / Multi-Impact ; 4 formules ; ITT plafond 7500 €/mois, durée max 1095 j."}, {"fichier": "BanqueFrancaiseMutualiste_Emprunteur", "assureur_risque": "CNP Assurances / CNP IAM (10%) et MFPrévoyance (90%)", "marque_distributeur": "Banque Française Mutualiste", "reference_contrat": "7371 M", "deces": "oui (p.4)", "ptia": "oui (p.5)", "ipt": "non - remplacée par Invalidité AERAS (taux >=70%) si ITT refusée médicalement (p.6)", "ipp": "non (p.1)", "itt": "oui (p.5)", "perte_emploi": "non", "itt_indemnisation": "indemnitaire - échéances entières échues (p.5)", "itt_franchise_jours": "90 ou 180 jours au choix (fonctionnaire/salarié cotisant chômage) ; 180 uniquement sinon (p.2, p.5)", "ipt_seuil": null, "ipp_seuil": null, "age_limite_adhesion": "65 ans (p.2)", "age_cessation_deces": "75 ans (Décès) ; 65e (PTIA) (p.3)", "age_cessation_itt_ipt": "65 ans ou retraite (ITT/IA) (p.4)", "exclusions_dos_psy": "Aucune clause spécifique dos/psy ; non listées dans les risques exclus (art.23, p.8) : pas d'exclusion ni condition d'hospitalisation", "delai_carence": "Délai d'attente 365 j pour PTIA sauf accident (p.5) ; suicide non couvert 1re année sauf résidence principale plafonné 120 000 € (p.8)", "quotite": "Encours max 900 000 €/assuré ; quotité du prêt non modifiable ; 2 têtes max (p.1, p.2)", "assistance": "non", "notes": "Contrat CNP/MFPrévoyance réservé fonctionnaires/agents publics ; pas d'IPT/IPP classique (Invalidité AERAS) ; prêts in fine exclus ; tarif 01/07/2015."}, {"fichier": "CNP_PretHabitat_IPID", "assureur_risque": "CNP Assurances", "marque_distributeur": "IGESA (Ministère des armées)", "reference_contrat": "n°4371B", "deces": "oui (p.1)", "ptia": "oui (p.1)", "ipt": "non - Invalidité AERAS (IA) à la place (p.1)", "ipp": "non", "itt": "oui (p.1)", "perte_emploi": "non", "itt_indemnisation": null, "itt_franchise_jours": "90 jours (p.1)", "ipt_seuil": null, "ipp_seuil": null, "age_limite_adhesion": "<75 ans (p.3)", "age_cessation_deces": "73e anniversaire ; Décès seul 85e (p.2)", "age_cessation_itt_ipt": "ITT au plus tard 66e ; PTIA 31/12 suivant 65e ; IA 65e (p.2)", "exclusions_dos_psy": "Non mentionné en exclusion dans l'IPID ; dos/psy figurent au questionnaire de santé seulement", "delai_carence": null, "quotite": "100% obligatoire (p.3)", "assistance": "non", "notes": "IPID contrat groupe IGESA n°4371B ; Invalidité AERAS (IA) au lieu d'IPT/IPP ; plafond 25 000 €/assuré sur 15 ans max."}, {"fichier": "Cetelem_BNPPF_DIP", "assureur_risque": "Cardif Assurance Vie et Cardif Assurances Risques Divers", "marque_distributeur": "BNP Paribas Personal Finance / Cetelem", "reference_contrat": "Convention d'assurance collective n° 2800/693 - ADE Conso", "deces": "oui (p.1)", "ptia": "option (p.1)", "ipt": "non (p.1)", "ipp": "non (p.1)", "itt": "option (p.1)", "perte_emploi": "option", "itt_indemnisation": "forfaitaire (p.1)", "itt_franchise_jours": "90 jours consécutifs ; indemnisation dès le 91e jour (p.1)", "ipt_seuil": null, "ipp_seuil": null, "age_limite_adhesion": null, "age_cessation_deces": "fin du mois du 81e anniversaire (p.2)", "age_cessation_itt_ipt": "fin du mois du 67e anniversaire (ITT et PTIA) (p.2)", "exclusions_dos_psy": "Atteintes disco-vertébrales exclues sauf intervention chirurgicale dans les 3 mois suivant le 1er jour d'arrêt ; troubles anxio-dépressifs/psychiques exclus sauf hospitalisation >=30 jours continus dans les 3 mois (p.1)", "delai_carence": "180 jours (Décès/PTIA/ITT sans questionnaire médical, et Perte d'emploi) (p.1-2)", "quotite": null, "assistance": "non", "notes": "DIP synthétique (IPID 2 pages) : IPT/IPP non couverts ; Décès systématique, PTIA/ITT/PE en option ; plafond ITT/PE 18 mensualités."}];
+
+const esc=s=>(s==null?"":String(s)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+// --- Les 18 critères CCSF (source : guides d'équivalence publics) ---
+// ev: type d'évaluation ; 'manuel' = non structurable depuis les CG -> "à vérifier".
+const CCSF=[
+ {id:1,g:"Transversaux",t:"Sports à risque couverts",ev:"manuel"},
+ {id:2,g:"Transversaux",t:"Maintien de la couverture à l'étranger",ev:"manuel"},
+ {id:3,g:"Décès / PTIA",t:"Âge limite de la couverture décès",ev:"age_deces"},
+ {id:4,g:"Décès / PTIA",t:"Âge de couverture pour la PTIA",ev:"age_ptia"},
+ {id:5,g:"ITT / IPT",t:"Couverture pendant toute la durée du prêt",ev:"manuel"},
+ {id:6,g:"ITT / IPT",t:"Délai de franchise ITT",ev:"franchise"},
+ {id:7,g:"ITT / IPT",t:"Incapacité évaluée selon la profession exercée",ev:"manuel"},
+ {id:8,g:"ITT / IPT",t:"Prestation ITT forfaitaire (sans réf. perte de revenu)",ev:"forfait_itt"},
+ {id:9,g:"ITT / IPT",t:"Invalidité évaluée selon la profession exercée",ev:"manuel"},
+ {id:10,g:"ITT / IPT",t:"Prestation forfaitaire pour l'invalidité",ev:"manuel"},
+ {id:11,g:"ITT / IPT",t:"Prise en charge des inactifs au jour du sinistre",ev:"manuel"},
+ {id:12,g:"Maladies non objectivables",t:"Affections dorsales sans condition d'hospitalisation",ev:"dos"},
+ {id:13,g:"Maladies non objectivables",t:"Affections dorsales sans condition d'imagerie médicale",ev:"manuel"},
+ {id:14,g:"Maladies non objectivables",t:"Affections psychiques sans condition d'hospitalisation",ev:"psy"},
+ {id:15,g:"Maladies non objectivables",t:"Affections psychiques sans durée min. d'hospitalisation",ev:"manuel"},
+ {id:16,g:"IPP / mi-temps",t:"Mi-temps thérapeutique couvert",ev:"manuel"},
+ {id:17,g:"IPP / mi-temps",t:"Invalidité permanente partielle (IPP) couverte",ev:"ipp"},
+ {id:18,g:"IPT / psy",t:"Affections psychiques couvertes pour l'IPT",ev:"manuel"},
+];
+const GROUPS=["Transversaux","Décès / PTIA","ITT / IPT","Maladies non objectivables","IPP / mi-temps","IPT / psy"];
+// Sélection = critères RÉELLEMENT exigés par le Crédit Agricole (prêt résidence principale),
+// d'après les fiches publiées des Caisses Pyrénées-Gascogne (CAMPG 2020) et Champagne-Bourgogne
+// (CR810), qui sont IDENTIQUES : sports amateurs (1), monde entier (2), franchise ITT <=90 (6),
+// ITT selon la profession (7), ITT forfaitaire (8), invalidité forfaitaire (10), inactifs (11),
+// dorsales sans condition (12), psy ITT sans condition (14), psy invalidité/IPT (18).
+// Pour le locatif / la durée, le CA exige en plus les âges (3,4) et la durée (5) au 70e anniversaire.
+const SEL=new Set([1,2,6,7,8,10,11,12,14,18]);
+const REQ={franchise_max:90,age_deces_min:70,age_ptia_min:70};
+
+function normGar(v){ if(!v)return"na"; const s=v.toLowerCase().trim();
+  if(s.startsWith("oui"))return"socle"; if(s.startsWith("option"))return"option"; if(s.startsWith("non"))return"non"; return"autre"; }
+function stripPages(v){ return (v||"").replace(/\(?\bp\.\s*[\d ,.\-]+\)?/gi," "); }
+function ageOf(v){ const s=stripPages(v); const re=/(\d{2})\s*(?:e|è|ᵉ|ème|\s*ans\b|e?\s*anniversaire)/gi;
+  let m,vals=[]; while((m=re.exec(s)))vals.push(+m[1]); if(vals.length)return Math.max(...vals);
+  const f=s.replace(/\s/g,"").match(/\d{2,3}/); return f?+f[0]:null; }
+function minFranchise(v){ const m=stripPages(v).match(/\d{2,3}/g); return m?Math.min(...m.map(Number)):null; }
+// Âge de cessation PTIA : souvent rangé dans les champs d'âge ou les notes, pas dans un champ dédié.
+// On isole la/les clause(s) qui mentionnent "PTIA" et on y lit l'âge.
+function ptiaAge(r){
+  const txt=stripPages([r.age_cessation_deces,r.age_cessation_itt_ipt,r.notes].filter(Boolean).join(" ; "));
+  let best=null,src="";
+  for(const cl of txt.split(/;/)){ if(!/ptia/i.test(cl))continue; const a=ageOf(cl);
+    if(a!=null&&(best==null||a>best)){best=a;src=cl.trim();} }
+  return{a:best,src};
+}
+function catDosPsy(v){ if(!v)return"na"; const s=v.toLowerCase();
+  if(/aucune|pas d'exclusion|non mentionn|ni exclues|figurent au questionnaire/.test(s))return"couvert";
+  if(/rachet|rachat|option (confort|intégrale|dos|psy)/.test(s))return"rachat";
+  if(/sauf hospitalisation|sauf intervention|exclu/.test(s))return"cond";
+  return"autre"; }
+
+const kv=(st,txt)=>({st,txt});
+function evalCrit(cr,r){
+  switch(cr.ev){
+   case "franchise":{ if(normGar(r.itt)==="non")return kv("ko","ITT non couverte");
+     const d=minFranchise(r.itt_franchise_jours); if(d==null)return kv("man",r.itt_franchise_jours||"non précisé");
+     return kv(d<=REQ.franchise_max?"ok":"ko", r.itt_franchise_jours); }
+   case "forfait_itt":{ if(normGar(r.itt)==="non")return kv("ko","ITT non couverte");
+     const s=(r.itt_indemnisation||"").toLowerCase(); if(!s)return kv("man","indemnisation non précisée");
+     return kv(/forfaitaire|mixte/.test(s)?"ok":"ko", r.itt_indemnisation); }
+   case "age_deces":{ const a=ageOf(r.age_cessation_deces); if(a==null)return kv("man",r.age_cessation_deces||"—");
+     return kv(a>=REQ.age_deces_min?"ok":"ko", r.age_cessation_deces); }
+   case "age_ptia":{ const p=ptiaAge(r); if(p.a==null)return kv("man","âge PTIA non précisé (à vérifier)");
+     return kv(p.a>=REQ.age_ptia_min?"ok":"ko", `PTIA ~${p.a} ans — ${p.src}`); }
+   case "dos":{ const c=catDosPsy(r.exclusions_dos_psy); if(c==="na")return kv("man","non précisé");
+     return kv(c==="couvert"?"ok":"ko", r.exclusions_dos_psy); }
+   case "psy":{ const c=catDosPsy(r.exclusions_dos_psy); if(c==="na")return kv("man","non précisé");
+     return kv(c==="couvert"?"ok":"ko", r.exclusions_dos_psy); }
+   case "ipp":{ const n=normGar(r.ipp); return kv((n==="socle"||n==="option")?"ok":"ko", r.ipp||"—"); }
+   default: return kv("man","à vérifier dans la notice");
+  }
+}
+function verdict(r){
+  let ko=0,man=0,ok=0,tot=0;
+  for(const cr of CCSF){ if(!SEL.has(cr.id))continue; tot++; const e=evalCrit(cr,r);
+    if(e.st==="ko")ko++; else if(e.st==="man")man++; else ok++; }
+  if(tot===0)return{cls:"warn",txt:"Aucun critère exigé",sub:"",ok,ko,man};
+  if(ko>0)return{cls:"ko",txt:"Non équivalent",sub:`${ko} critère${ko>1?"s":""} non satisfait${ko>1?"s":""}`+(man?` · ${man} à vérifier`:""),ok,ko,man};
+  if(man>0)return{cls:"warn",txt:"À vérifier",sub:`${man} critère${man>1?"s":""} à confirmer dans la notice`,ok,ko,man};
+  return{cls:"ok",txt:"Équivalent",sub:`${tot} critère${tot>1?"s":""} satisfait${tot>1?"s":""}`,ok,ko,man};
+}
+
+function refreshCount(){
+  const n=SEL.size, c=document.getElementById("count");
+  c.textContent=`${n} / 11 exigés`; c.classList.toggle("over",n>11);
+}
+function initReq(){
+  const box=document.getElementById("cgroups");
+  box.innerHTML=GROUPS.map(g=>{
+    const items=CCSF.filter(c=>c.g===g).map(c=>{
+      const auto=c.ev!=="manuel";
+      return `<label class="crit${auto?" auto":""}"><input type="checkbox" data-id="${c.id}"${SEL.has(c.id)?" checked":""}>
+        <span class="id">${c.id}.</span><span class="tx">${esc(c.t)}</span></label>`;
+    }).join("");
+    return `<div class="grp"><div class="gt">${esc(g)}</div>${items}</div>`;
+  }).join("");
+  box.querySelectorAll("input[data-id]").forEach(cb=>cb.onchange=()=>{
+    const id=+cb.dataset.id; cb.checked?SEL.add(id):SEL.delete(id); refreshCount(); render();});
+  document.getElementById("thr_fr").onchange=e=>{REQ.franchise_max=parseInt(e.target.value)||0;render();};
+  document.getElementById("thr_age").onchange=e=>{REQ.age_deces_min=parseInt(e.target.value)||0;render();};
+  document.getElementById("thr_ptia").onchange=e=>{REQ.age_ptia_min=parseInt(e.target.value)||0;render();};
+  refreshCount();
+}
+
+const MARK={ok:"✓",ko:"✗",man:"?"};
+function render(){
+  const rows=DATA.map((r,i)=>({r,i,v:verdict(r)}))
+    .sort((a,b)=>(a.v.ko-b.v.ko)||(a.v.man-b.v.man)||a.i-b.i);
+  document.getElementById("tb").innerHTML=rows.map(({r,v})=>{
+    const items=CCSF.filter(c=>SEL.has(c.id)).map(c=>{const e=evalCrit(c,r);
+      return `<li><span class="mk ${e.st}">${MARK[e.st]}</span><span><span class="cl">${c.id}. ${esc(c.t)}</span> <span class="cv">— ${esc(e.txt)}</span></span></li>`;}).join("");
+    return `<tr class="main">
+       <td class="ctr"><span class="car">▸</span><b>${esc(r.marque_distributeur)}</b><br><span class="m">${esc(r.assureur_risque)}</span></td>
+       <td><span class="badge ${v.cls}">${v.txt}</span><div class="vsub">${esc(v.sub)}</div></td>
+       <td class="tally"><span class="ok">${v.ok} ✓</span> · <span class="ko">${v.ko} ✗</span> · <span class="man">${v.man} ?</span></td></tr>
+       <tr class="detrow" style="display:none"><td colspan="3"><ul class="dl">${items}</ul></td></tr>`;
+  }).join("");
+  document.querySelectorAll("tr.main").forEach(tr=>tr.onclick=()=>{
+    const n=tr.nextElementSibling, open=n.style.display!=="none";
+    n.style.display=open?"none":"table-row"; tr.querySelector(".car").textContent=open?"▸":"▾";});
+  document.getElementById("foot").innerHTML=
+    `<b>✓</b> critère satisfait · <b>✗</b> non satisfait · <b>?</b> à vérifier dans la notice (critère non structurable depuis les CG). `+
+    `⚙ = critère vérifié automatiquement. Cliquez une ligne pour le détail critère par critère (valeur + page source au survol).`;
+}
+initReq();render();
+
+</script><div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Démonstration <b>statique</b> (données figées), <b>pas l'outil dynamique</b>. Pour un outil sur vos propres documents, <b>contactez-nous</b>. · <a href="../../fr/cas/" style="color:#1d4ed8;text-decoration:none">Études de cas</a></div></body></html>

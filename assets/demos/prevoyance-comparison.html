@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prévoyance — conseil personnalisé (Crédit Agricole)</title>
+<style>
+  :root{
+    --ink:#16181d;--ink-2:#5b616e;--ink-3:#878d9a;--line:#e2e4ea;--line-2:#eef0f4;
+    --bg:#fff;--soft:#f6f7f9;--panel:#fbfbfd;--ca:#1a7a47;--ca-soft:#eaf5ef;
+    --inc:#1a7a47;--opt:#b06a00;--abs:#c2c6cf;--blue:#1d4ed8;--star:#b8860b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","SF Pro Text","Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:13.5px;line-height:1.45;display:flex;flex-direction:column;height:100vh;overflow:hidden;letter-spacing:-0.005em}
+  .spacer{flex:1}
+  .top{flex:0 0 auto;height:50px;display:flex;align-items:center;gap:14px;padding:0 16px;border-bottom:1px solid var(--line);background:#fff}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;white-space:nowrap}
+  .brand .dot{width:18px;height:18px;border-radius:5px;background:var(--ca)}
+  .brand small{color:var(--ink-3);font-weight:400}
+  .tabs{display:flex;gap:3px}
+  .tabbtn{display:flex;align-items:center;gap:7px;border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:13px;font-weight:500;padding:6px 13px;border-radius:8px;cursor:pointer}
+  .tabbtn:hover{color:var(--ink)} .tabbtn.on{background:var(--ink);color:#fff}
+  .tabbtn .n{width:17px;height:17px;border-radius:50%;border:1.5px solid currentColor;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+  .tabbtn.on .n{border-color:rgba(255,255,255,.6)}
+  .toolbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;color:var(--ink-2);font:inherit;font-size:12.5px;font-weight:500;padding:6px 11px;border-radius:8px;cursor:pointer}
+
+  .dash{flex:1;min-height:0;display:grid;grid-template-columns:1fr min(44%,720px)}
+  .dash.doc-collapsed{grid-template-columns:1fr}
+  .dash.doc-collapsed .right{display:none}
+  .left{min-height:0;overflow:auto;background:var(--bg)}
+  .right{min-height:0;border-left:1px solid var(--line);display:flex;flex-direction:column;background:var(--panel)}
+  .lbody{padding:16px 18px 60px;max-width:960px}
+  .panel{display:none} .panel.on{display:block}
+
+  h2{font-size:20px;font-weight:600;margin:2px 0 3px}
+  .lead{color:var(--ink-2);font-size:14px;margin:0 0 16px}
+
+  /* form */
+  .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fcard{background:var(--soft);border:1px solid var(--line-2);border-radius:13px;padding:16px 17px}
+  .fcard h3{font-size:14px;font-weight:600;margin:0 0 3px}
+  .fcard .fsub{font-size:12px;color:var(--ink-3);margin:0 0 13px}
+  .field{margin-bottom:13px}
+  .field>label{display:block;font-size:12px;color:var(--ink-2);font-weight:500;margin-bottom:6px}
+  .seg{display:inline-flex;flex-wrap:wrap;gap:4px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:3px}
+  .seg button{border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;padding:5px 10px;border-radius:7px;cursor:pointer}
+  .seg button.on{background:var(--ink);color:#fff;font-weight:600}
+  .rng{display:flex;align-items:center;gap:11px}
+  .rng input[type=range]{flex:1;accent-color:var(--ca)}
+  .rng .v{font-weight:600;min-width:96px;text-align:right;font-size:13px}
+  .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:12.5px;font-weight:500;padding:6px 11px;border-radius:980px;cursor:pointer;transition:.12s}
+  .chip:hover{border-color:#c4c8d2} .chip.on{background:var(--ca);color:#fff;border-color:var(--ca)}
+  .chiprow{display:flex;flex-wrap:wrap;gap:8px}
+  .regsel{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font:inherit;font-size:13px;background:#fff;color:var(--ink)}
+  .recap{background:var(--ca-soft);border:1px solid #cfe6da;border-radius:12px;padding:14px 16px;margin-top:16px;font-size:13.5px;line-height:1.6}
+  .recap b{font-weight:600}
+  .cta{border:0;background:var(--ca);color:#fff;font:inherit;font-size:13.5px;font-weight:600;padding:10px 20px;border-radius:9px;cursor:pointer;margin-top:14px}
+  .crmtag{font-size:11px;color:var(--blue);background:#eff4ff;border:1px solid #dbe6ff;padding:2px 9px;border-radius:980px;font-weight:600}
+
+  /* fit banner */
+  .fitbar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+  .fit{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+  .fit.ref{border-color:var(--ca);background:linear-gradient(180deg,rgba(26,122,71,.05),#fff)}
+  .fit .fn{font-weight:600;font-size:14px}
+  .fit .fp{font-size:11.5px;color:var(--ink-3)}
+  .fit .bar{height:7px;border-radius:980px;background:var(--line-2);margin:9px 0 5px;overflow:hidden}
+  .fit .bar>i{display:block;height:100%;background:var(--ca);border-radius:980px}
+  .fit .fs{font-size:12px;color:var(--ink-2)}
+  .fit .fs b{color:var(--ink)}
+  .reco{background:#fff8e6;border:1px solid #fde68a;border-radius:12px;padding:13px 16px;margin-bottom:16px;font-size:13.5px;line-height:1.6;color:#5a4406}
+  .reco b{color:#3f2f04}
+
+  .ltoolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+  .glabel{font-size:11px;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .lt-toggle{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-2);cursor:pointer}
+  .lt-toggle input{accent-color:var(--ca)}
+
+  table.cmp{width:100%;border-collapse:collapse;font-size:13px}
+  table.cmp th,table.cmp td{text-align:left;padding:0;vertical-align:top}
+  .colhead th{padding:9px 8px;border-bottom:2px solid var(--line);font-size:13.5px;font-weight:600;text-align:center;vertical-align:bottom}
+  .colhead th.crit{text-align:left;width:32%;color:var(--ink-3);font-weight:600;font-size:11px;text-transform:uppercase}
+  .colhead th .ed{display:block;font-size:10.5px;color:var(--ink-3);font-weight:400}
+  .colhead th.refcol{color:var(--ca)}
+  .cathead td{padding:16px 6px 6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+  .grow td{border-bottom:1px solid var(--line-2);padding:9px 8px}
+  .grow.need td{background:#fffdf3}
+  .grow:hover td{background:#fafbfc}
+  .gname{cursor:pointer}
+  .gname .gt{font-weight:500}
+  .gname .star{color:var(--star);font-size:11px;margin-left:5px}
+  .gname .gi{font-size:11px;color:var(--ink-3)}
+  .gname .chev{color:var(--ink-3);font-size:10px;margin-right:5px;display:inline-block;transition:.15s}
+  .grow.open .chev{transform:rotate(90deg)}
+  td.cell{text-align:center}
+  td.cell.ref{background:linear-gradient(180deg,rgba(26,122,71,.045),rgba(26,122,71,.012))}
+  .mk{font-size:16px;font-weight:700;line-height:1.1}
+  .mk.inc{color:var(--inc)} .mk.opt{color:var(--opt)} .mk.abs{color:var(--abs)} .mk.unk{color:var(--ink-3);font-size:12px}
+  .lab{font-size:10.5px;font-weight:600;margin-top:1px}
+  .lab.inc{color:var(--inc)} .lab.opt{color:var(--opt)} .lab.abs{color:var(--ink-3)} .lab.unk{color:var(--ink-3)}
+  .fig{font-size:10.5px;color:var(--ink-2);margin-top:2px}
+  tr.detailrow td{padding:0;border-bottom:1px solid var(--line-2);background:var(--soft)}
+  .detgrid{display:grid;gap:10px;padding:12px 8px 14px}
+  .dcard{background:#fff;border:1px solid var(--line-2);border-radius:9px;padding:10px 12px}
+  .dcard .dh{display:flex;align-items:center;gap:7px;font-weight:600;font-size:12.5px;margin-bottom:4px}
+  .badge{font-size:9.5px;font-weight:700;padding:1px 7px;border-radius:6px}
+  .badge.inc{background:#e7f3ec;color:var(--inc)} .badge.opt{background:#fbf0e0;color:var(--opt)} .badge.abs{background:#eef0f4;color:var(--ink-2)} .badge.unk{background:#eef0f4;color:var(--ink-2)}
+  .dcard .dtxt{font-size:12.5px;line-height:1.4}
+  .dcard .kv{font-size:11.5px;color:var(--ink-2);margin-top:5px}.dcard .kv b{color:var(--ink)}
+  .dcard .cit{font-size:11.5px;color:var(--ink-3);font-style:italic;margin-top:6px;border-left:2px solid var(--line);padding-left:8px}
+  .srcbtn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:11px;color:var(--blue);background:#eff4ff;border:1px solid #dbe6ff;padding:3px 9px;border-radius:7px;cursor:pointer}.srcbtn .pin{font-weight:800}
+
+  /* scenarios */
+  .scnpick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .scn{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 12px;cursor:pointer;font-size:12.5px}
+  .scn.on{border-color:var(--ca);background:var(--ca-soft)} .scn .ic{font-size:15px}
+  .scnhead{font-size:14px;color:var(--ink-2);margin-bottom:12px}
+  .rcards{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+  .rcard{border:1px solid var(--line);border-radius:12px;padding:14px 15px} .rcard.ref{border-color:var(--ca)} .rcard.best{box-shadow:0 0 0 2px var(--ca-soft)}
+  .rcard .rn{font-weight:600;font-size:14px} .rcard .rn .vous{font-size:10px;color:var(--ca);background:var(--ca-soft);padding:1px 7px;border-radius:6px;margin-left:6px;font-weight:700}
+  .eur{font-size:23px;font-weight:800;letter-spacing:-.02em;margin-top:6px} .eur.ok{color:var(--inc)} .eur.no{color:var(--ink-3)} .eur.warn{color:var(--opt)}
+  .eursub{font-size:11px;color:var(--ink-3)} .rwhy{font-size:12px;color:var(--ink-2);margin-top:9px;border-top:1px solid var(--line-2);padding-top:9px;line-height:1.45}
+  .rwhy .srcbtn{margin-top:6px}
+
+  .rhead{flex:0 0 auto;height:46px;display:flex;align-items:center;gap:9px;padding:0 12px;border-bottom:1px solid var(--line);background:#fff}
+  .rhead .rti{font-weight:600;font-size:13px} .rhead .rmeta{font-size:11.5px;color:var(--ink-3)}
+  .rhead a.tab,.rhead .dclose{margin-left:auto;border:1px solid var(--line);background:#fff;width:28px;height:28px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-2);text-decoration:none;cursor:pointer}
+  .rhead .dclose{margin-left:6px}
+  #docFrame{flex:1;width:100%;border:0;background:var(--soft)}
+  .rplace{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--ink-3);font-size:13px;padding:30px;line-height:1.6}
+  .chatpane{flex:1;min-height:0;display:none;flex-direction:column;background:#fff}
+  .chatmsgs{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:90%;padding:9px 12px;border-radius:12px;font-size:12.8px;line-height:1.5}
+  .msg.bot{background:var(--soft);align-self:flex-start;border:1px solid var(--line-2)}
+  .msg.user{background:var(--ca);color:#fff;align-self:flex-end}
+  .msg b{font-weight:600}
+  .msg .src{display:inline-block;margin-top:7px;font-size:11px;color:var(--blue);cursor:pointer;background:#eff4ff;border:1px solid #dbe6ff;border-radius:7px;padding:2px 8px}
+  .chatchips{display:flex;flex-wrap:wrap;gap:6px;padding:9px 14px 4px;border-top:1px solid var(--line-2)}
+  .chatchips .c{font-size:11.5px;color:var(--ink-2);background:var(--soft);border:1px solid var(--line-2);border-radius:980px;padding:5px 10px;cursor:pointer}
+  .chatchips .c:hover{border-color:var(--ca);color:var(--ca)}
+  .chatinput{display:flex;gap:8px;padding:10px 14px;align-items:center}
+  .chatinput input{flex:1;border:1px solid var(--line);border-radius:980px;padding:9px 14px;font:inherit;font-size:13px;outline:none}
+  .chatinput button{border:0;background:var(--ca);color:#fff;border-radius:50%;width:34px;height:34px;font-size:15px;cursor:pointer}
+  .chatnote{font-size:10.5px;color:var(--ink-3);padding:0 16px 10px}
+
+  @media (max-width:1000px){
+    .dash{grid-template-columns:1fr}
+    .formgrid,.fitbar,.rcards{grid-template-columns:1fr}
+    .right{position:fixed;top:50px;right:0;bottom:0;width:min(560px,94vw);z-index:30;transform:translateX(101%);transition:transform .25s;box-shadow:-10px 0 30px rgba(0,0,0,.12)}
+    .right.show{transform:none}
+  }
+</style>
+</head>
+<body><div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../fr/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../fr/cas/" style="color:#cbd5e1;text-decoration:none">Études de cas</a><a href="../../fr/cas/prevoyance-comparison.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Retour au cas</a></div>
+
+<div class="top">
+  <span class="brand"><span class="dot"></span>Crédit Agricole <small>· Prévoyance · conseil</small></span>
+  <div class="tabs">
+    <button class="tabbtn on" data-tab="client"><span class="n">1</span>Le client</button>
+    <button class="tabbtn" data-tab="compare"><span class="n">2</span>Comparateur adapté</button>
+    <button class="tabbtn" data-tab="sinistre"><span class="n">3</span>Sinistres</button>
+  </div>
+  <span class="spacer"></span>
+  <button class="toolbtn" id="rtoggle">📄 Document</button>
+  <button class="toolbtn" id="chatBtn">💬 Assistant</button>
+</div>
+
+<div class="dash doc-collapsed" id="dash">
+  <div class="left">
+    <!-- TAB 1 : CLIENT -->
+    <div class="lbody panel on" id="tab-client">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <h2 style="margin:0">Profil du client</h2><span class="crmtag">⟳ pré-rempli depuis le CRM (démo)</span>
+      </div>
+      <p class="lead">Le conseiller ajuste le profil et coche les besoins exprimés par le client. Le comparateur et les scénarios s'adaptent ensuite à ces besoins.</p>
+      <div class="formgrid">
+        <div class="fcard">
+          <h3>Situation</h3><p class="fsub">Ce qui conditionne l'éligibilité et les montants.</p>
+          <div class="field"><label>Statut professionnel</label><div class="seg" data-f="statut">
+            <button data-v="tns" class="on">TNS</button><button data-v="liberal">Profession libérale</button><button data-v="createur">Créateur / repreneur</button><button data-v="salarie">Salarié</button></div></div>
+          <div class="field"><label>Âge</label><div class="rng"><input type="range" id="age" min="25" max="64" value="42"><span class="v" id="ageV">42 ans</span></div></div>
+          <div class="field"><label>Foyer</label><div class="seg" data-f="foyer">
+            <button data-v="couple" class="on">En couple</button><button data-v="seul">Célibataire</button></div>
+            <div class="rng" style="margin-top:9px"><label style="margin:0 8px 0 0">Enfants</label><input type="range" id="enfants" min="0" max="4" value="2"><span class="v" id="enfantsV">2</span></div></div>
+        </div>
+        <div class="fcard">
+          <h3>Revenus & charges</h3><p class="fsub">Base de calcul des indemnités et du capital.</p>
+          <div class="field"><label>Revenu net mensuel</label><div class="rng"><input type="range" id="revenu" min="1500" max="12000" step="100" value="3500"><span class="v" id="revenuV">3 500 €</span></div></div>
+          <div class="field"><label>Charges fixes pro (mensuelles)</label><div class="rng"><input type="range" id="charges" min="0" max="8000" step="100" value="2200"><span class="v" id="chargesV">2 200 €</span></div></div>
+          <div class="field"><label>Capital décès souhaité</label><div class="rng"><input type="range" id="capdeces" min="0" max="300000" step="10000" value="100000"><span class="v" id="capdecesV">100 000 €</span></div></div>
+          <div class="field"><label>Indemnité journalière du contrat (en plus du régime obligatoire)</label><div class="rng"><input type="range" id="ij" min="30" max="500" step="10" value="120"><span class="v" id="ijV">120 €/j</span></div></div>
+          <div class="field"><label>Rente d'invalidité du contrat (en plus du régime)</label><div class="rng"><input type="range" id="renteInval" min="900" max="15000" step="100" value="3500"><span class="v" id="renteInvalV">3 500 €/mois</span></div></div>
+          <div class="fsub" style="margin-top:2px">Ces montants sont <b>forfaitaires</b> : ils <b>s'ajoutent</b> au régime obligatoire, dans la limite du revenu (règle d'over-indemnisation, contrats Madelin).</div>
+        </div>
+      </div>
+      <div class="fcard" style="margin-top:14px" id="regimeCard"></div>
+      <div class="fcard" style="margin-top:14px">
+        <h3>Besoins prioritaires du client</h3><p class="fsub">Ce que le client veut protéger en priorité. Ces choix pilotent le comparateur.</p>
+        <div class="chiprow" id="needs"></div>
+      </div>
+      <div class="recap" id="recap"></div>
+      <button class="cta" onclick="showTab('compare')">Voir le comparateur adapté →</button>
+    </div>
+
+    <!-- TAB 2 : COMPARATEUR -->
+    <div class="lbody panel" id="tab-compare">
+      <h2>Comparateur adapté au client</h2>
+      <p class="lead">Les <b>besoins du client</b> sont marqués d'une ★ et surlignés. Chaque contrat affiche son taux de couverture <em>de ces besoins</em>.</p>
+      <div id="insurerPills" class="chiprow" style="margin-bottom:14px"></div>
+      <div class="reco" id="reco"></div>
+      <div class="fitbar" id="fitbar"></div>
+      <div class="ltoolbar">
+        <span class="glabel">3 contrats de prévoyance</span><span class="spacer"></span>
+        <label class="lt-toggle"><input type="checkbox" id="needsOnly">Besoins du client seulement</label>
+        <label class="lt-toggle"><input type="checkbox" id="figChk" checked>Montants</label>
+      </div>
+      <div id="cmpTable"></div>
+    </div>
+
+    <!-- TAB 3 : SINISTRES -->
+    <div class="lbody panel" id="tab-sinistre">
+      <h2>Sinistres — ce que verse chaque contrat</h2>
+      <p class="lead">Cas concrets chiffrés à partir du profil du client. Estimations pédagogiques, à confirmer aux Conditions Particulières.</p>
+      <div class="scnpick" id="scnPick"></div>
+      <div class="scnhead" id="scnHead"></div>
+      <div class="rcards" id="scnCards"></div>
+    </div>
+  </div>
+
+  <div class="right" id="right">
+    <div class="rhead"><span class="rti" id="rti">Document source</span><span class="rmeta" id="rmeta"></span>
+      <a class="tab" id="rtab" target="_blank" rel="noopener" title="Ouvrir dans un onglet" style="display:none">⤢</a>
+      <button class="dclose" id="rclose" title="Fermer">✕</button></div>
+    <div class="rplace" id="rplace">Cliquez sur une <b>source</b> (↳ p.N) pour afficher la notice ici, à la bonne page.</div>
+    <iframe id="docFrame" title="Document source" style="display:none"></iframe>
+    <div class="chatpane" id="chatpane">
+      <div class="chatmsgs" id="chatmsgs"></div>
+      <div class="chatchips" id="chatchips"></div>
+      <div class="chatinput"><input id="chatq" placeholder="Question du client…"><button id="chatsend" title="Envoyer">↑</button></div>
+      <div class="chatnote">Réponses préparées à partir des notices et des régimes (hors ligne). La version LLM lira les CG en direct.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const INSURERS=[
+ {id:"ca",name:"Crédit Agricole",carrier:"Predica",product:"Protection Revenus PRO Optimum",file:"CA - prévoyance.pdf",ref:true},
+ {id:"bnp",name:"BNP Paribas",carrier:"Cardif",product:"Solution Prévoyance Pro",file:"BNP_Solution-Prevoyance-Pro.pdf"},
+ {id:"sg",name:"Société Générale",carrier:"Sogécap",product:"Généa (décès)",file:"SG_Genea_Prevoyance-Deces.pdf"},
+ {id:"bpce_pro",name:"BPCE / Caisse d'Épargne",carrier:"Natixis (BPCE Vie)",product:"Prévoyance Pro (Pro Plus)",file:"BPCE_Prevoyance-Pro-Plus.pdf"},
+ {id:"bpce_fam",name:"BPCE",carrier:"Natixis (BPCE Vie)",product:"Sécur'Famille",file:"BPCE_Secur-Famille.pdf"},
+ {id:"sg_obs",name:"Société Générale",carrier:"Sogécap",product:"Providis Obsèques",file:"SG_Providis-Obseques.pdf"},
+ {id:"sg_certi",name:"Société Générale",carrier:"Sogécap",product:"Certi Épargne (décès accidentel)",file:"SG_Certi-Epargne.pdf"},
+];
+const CATS=[
+ {id:"revenu",label:"Protection du revenu",rows:["arret_travail","invalidite","frais_generaux","exoneration"]},
+ {id:"deces",label:"Capital décès & famille",rows:["deces","deces_accident","ptia","obseques","rente_education"]},
+ {id:"sante",label:"Aléa de santé",rows:["maladie_redoutee"]},
+ {id:"services",label:"Services",rows:["assistance"]},
+];
+const G={
+ arret_travail:{label:"Arrêt de travail",gi:"Indemnités journalières",need:"Protéger mon revenu si arrêt de travail"},
+ invalidite:{label:"Invalidité permanente",gi:"Rente (IPP / IPT)",need:"Protéger mon revenu si invalidité"},
+ frais_generaux:{label:"Frais généraux pro",gi:"Charges fixes de l'activité",need:"Couvrir les charges de mon activité"},
+ exoneration:{label:"Exonération des cotisations",gi:"Pendant l'arrêt",need:null},
+ deces:{label:"Décès (toutes causes)",gi:"Capital au décès",need:"Laisser un capital à mes proches"},
+ deces_accident:{label:"Décès accidentel",gi:"Capital majoré en cas d'accident",need:"Capital majoré en cas d'accident"},
+ ptia:{label:"PTIA",gi:"Perte totale et irréversible d'autonomie",need:"Perte totale d'autonomie"},
+ obseques:{label:"Obsèques",gi:"Capital / prestation funéraire",need:"Financer mes obsèques"},
+ rente_education:{label:"Rente éducation / conjoint",gi:"Revenu pour les proches",need:"Rente pour mes enfants / mon conjoint"},
+ maladie_redoutee:{label:"Maladie redoutée",gi:"Capital au diagnostic",need:"Anticiper une maladie grave"},
+ assistance:{label:"Assistance",gi:"Aide à domicile, soutien",need:"Assistance / services"},
+};
+const DATA={
+ ca:{
+  arret_travail:{s:"incluse",m:"30 € à 500 € par jour",c:"franchise au choix 7/15/30/90/365 j, jusqu'au 1095e jour",d:"Indemnités journalières forfaitaires en incapacité temporaire totale, montant et franchise au choix.",q:"montant au choix est compris entre 30 € et 500 € par jour jusqu'au 1095e jour",p:1},
+  invalidite:{s:"incluse",m:"rente 900 € à 15 000 €/mois",c:"seuil d'intervention dès un taux d'invalidité croisée de 30 %",d:"Rente mensuelle forfaitaire en invalidité permanente croisée, partielle dès 30 %, totale à 60 %.",q:"rente mensuelle (compris entre 900 € et 15 000 € par mois)",p:1},
+  frais_generaux:{s:"optionnelle",m:"10 € à 470 €/jour",c:"jusqu'au 365e jour, incompatible avec la franchise 365 jours",d:"Option « Frais professionnels et de remplacement » majorant les indemnités journalières.",q:"Frais professionnels et de remplacement Choix du montant : 10 € à 470 € par jour",p:17},
+  exoneration:{s:"incluse",m:"intégralité de la cotisation",c:"incapacité temporaire totale > 90 jours, ou invalidité permanente totale",d:"Exonération des cotisations pendant l'arrêt prolongé ou l'invalidité permanente totale.",q:"Vous êtes exonérés de l'intégralité de votre cotisation",p:10},
+  deces:{s:"absente",m:null,c:null,d:"Le contrat exclut expressément le décès : c'est une prévoyance de revenus.",q:"Le décès.",p:1},
+  deces_accident:{s:"absente",m:null,c:null,d:"Aucun capital décès accidentel (le décès n'est pas couvert).",q:null,p:null},
+  ptia:{s:"absente",m:null,c:null,d:"Pas de garantie PTIA ; le contrat couvre l'incapacité et l'invalidité permanente.",q:null,p:null},
+  obseques:{s:"absente",m:null,c:null,d:"Aucune garantie obsèques.",q:null,p:null},
+  rente_education:{s:"absente",m:null,c:null,d:"Pas de rente éducation ni de rente de conjoint.",q:null,p:null},
+  maladie_redoutee:{s:"absente",m:null,c:null,d:"Pas de garantie maladie redoutée.",q:null,p:null},
+  assistance:{s:"optionnelle",m:"aide-ménagère, soutien psy",c:"hospitalisation > 3 j ou immobilisation > 5 j",d:"Assistance (Europ Assistance) proposée en option : aide-ménagère, soutien psychologique, retour à l'emploi.",q:"est proposée en option aux adhérents du contrat",p:5},
+ },
+ bnp:{
+  arret_travail:{s:"optionnelle",m:"IJ ≤ 500 €/jour (60 €/j créateurs)",c:"franchise 30 j ; carence 3 mois (maladie) / 12 mois (dos, psy) ; max 1095 j",d:"Garantie complémentaire facultative : indemnités journalières, indissociable de l'Invalidité.",q:"Le montant de l'indemnité journalière (…) est au maximum de 500 €",p:26},
+  invalidite:{s:"optionnelle",m:"rente ≤ 15 000 €/mois",c:"IPT ≥ 66 % (100 %) ; IPP 33–66 % (N/66) ; rien si < 33 %",d:"Garantie complémentaire facultative : rente d'invalidité (IPT/IPP), indissociable de l'arrêt de travail.",q:"Le montant maximum de la prise en charge est de 15000 € par mois",p:28},
+  frais_generaux:{s:"optionnelle",m:"IJ ≤ 500 €/jour",c:"franchise 30 j ; limité à 1 an ; exclut créateurs / micro-entrepreneurs",d:"Garantie « Frais Fixes » facultative : loyers, salaires, charges en cas d'arrêt de travail.",q:"Le montant de l'indemnité est au maximum égal à 500 € par jour",p:29},
+  exoneration:{s:"incluse",m:"remboursement des cotisations pendant le sinistre",c:"garanties Arrêt de travail, Invalidité ou Frais fixes",d:"Remboursement des cotisations pendant toute la durée du sinistre.",q:"vous êtes remboursé des cotisations (…) durant toute la durée de la prise en charge",p:33},
+  deces:{s:"incluse",m:"capital min = max(2 × revenu ; 10 000 €)",c:"souscription ≤ 64 ans ; couverture jusqu'à 75 ans",d:"Garantie décès incluse : capital ou rente temporaire (5/10/15 ans) au(x) bénéficiaire(s).",q:"Capital minimum = au montant le plus élevé entre 2 fois le revenu de référence et 10000 €",p:10},
+  deces_accident:{s:"incluse",m:"≤ 500 000 €",c:"pendant l'accomplissement des formalités d'adhésion, max 60 jours",d:"Couverture décès accidentel pendant les formalités d'adhésion, plafonnée à 500 000 €.",q:"assuré(e) en cas de décès accidentel (…) dans la limite de 500000 €",p:26},
+  ptia:{s:"incluse",m:"= garantie Décès",c:"souscription ≤ 64 ans",d:"Garantie PTIA incluse : capital ou rente égal à la garantie Décès.",q:"montant égal au montant du capital assuré (…) au titre de la garantie Décès",p:26},
+  obseques:{s:"absente",m:null,c:null,d:"Pas de capital obsèques ; seule une assistance « organisation des funérailles ».",q:null,p:null},
+  rente_education:{s:"absente",m:null,c:null,d:"Pas de rente éducation dédiée (capital décès en rente temporaire possible).",q:null,p:null},
+  maladie_redoutee:{s:"incluse",m:"capital forfaitaire 5 000 €",c:"versé une fois, 1re maladie diagnostiquée",d:"Garantie incluse : 5 000 € pour AVC, cancer, infarctus aigu ou sclérose en plaques.",q:"nous versons (…) un capital forfaitaire de 5000 € (…) Maladie Redoutée",p:26},
+  assistance:{s:"incluse",m:"enveloppe 1 000 €/an et par garantie",c:"24h/24, 7j/7 (Mondial Assistance)",d:"Assistance incluse : aide à domicile, soutien familial, soutien psychologique.",q:"dans la limite d'une enveloppe de 1000 € par an et par garantie",p:6},
+ },
+ sg:{
+  arret_travail:{s:"absente",m:null,c:null,d:"Le contrat ne couvre que le décès et la PTIA ; aucune indemnité d'arrêt de travail.",q:null,p:null},
+  invalidite:{s:"absente",m:null,c:null,d:"Aucune garantie invalidité distincte ; seule la PTIA (invalidité totale) est couverte.",q:null,p:null},
+  frais_generaux:{s:"absente",m:null,c:null,d:"Aucune garantie frais généraux : capital décès individuel sans volet pro.",q:null,p:null},
+  exoneration:{s:"absente",m:null,c:null,d:"Aucune exonération de cotisations mentionnée.",q:null,p:null},
+  deces:{s:"incluse",m:"capital choisi 30 000 € à < 150 000 €",c:"adhésion 18–69 ans ; exclusion suicide 1re année ; fin à 79 ans",d:"Capital versé au(x) bénéficiaire(s) au décès, avance de 10 % plafonnée à 5 000 €.",q:"le versement d'un capital en cas de décès ou de Perte Totale et Irréversible d'Autonomie",p:1},
+  deces_accident:{s:"optionnelle",m:"capital doublé / triplé (circulation)",c:"option à l'adhésion ou en cours",d:"Option majoration accidentelle : double ou triple le capital décès/PTIA.",q:"doubler le montant du capital (…) tripler (…) en cas d'Accident de la circulation",p:2},
+  ptia:{s:"incluse",m:"= capital Décès",c:"adhésion 18–64 ans ; cesse à 64 ans",d:"Capital versé en PTIA (3 des 6 actes de la vie quotidienne).",q:"une garantie capital Décès/P.T.I.A",p:2},
+  obseques:{s:"absente",m:null,c:null,d:"Aucune garantie obsèques : capital libre d'affectation.",q:null,p:null},
+  rente_education:{s:"absente",m:null,c:null,d:"Aucune rente éducation (rente viagère possible au bénéficiaire).",q:null,p:null},
+  maladie_redoutee:{s:"absente",m:null,c:null,d:"Aucune garantie maladie redoutée.",q:null,p:null},
+  assistance:{s:"absente",m:null,c:null,d:"Aucune prestation d'assistance.",q:null,p:null},
+ },
+ bpce_pro:{
+  arret_travail:{s:"incluse",m:"indemnité ≤ 20 000 €/mois (10 000 € conjoint, 3 000 € créateur)",c:"ITT, carence 3 mois sauf accident, âge ≤ 67 ans",d:"Incapacité temporaire totale incluse dans les 3 formules.",q:"Incapacité Temporaire Totale de travail (ITT)",p:1},
+  invalidite:{s:"optionnelle",m:null,c:"IPT ≥ 66 % / IPP ≥ 33 %, formules Confort et Premium (absente en Essentiel)",d:"Invalidité (IPT/IPP) complémentaire selon la formule.",q:null,p:1},
+  frais_generaux:{s:"optionnelle",m:"IJ ≤ 1/365 des frais (2 derniers exercices), ≤ 8 000 €",c:"option FEP, ≥ 2 ans d'activité, carence 3 mois",d:"Frais d'Exploitation Permanents (FEP) en option.",q:null,p:2},
+  exoneration:{s:"absente",m:null,c:null,d:"Aucune exonération de cotisations dans l'IPID.",q:null,p:null},
+  deces:{s:"incluse",m:null,c:"rente (Madelin) ou rente/capital (Non Madelin), ≤ 50 mensualités, âge ≤ 75 ans",d:"Décès couvert dans les 3 formules (Essentiel/Confort/Premium).",q:"en cas de décès, versement d'une rente (…) ou d'un capital",p:1},
+  deces_accident:{s:"optionnelle",m:"doublement des prestations",c:"décès/PTIA dans les 12 mois d'un accident ; formule Premium",d:"Doublement décès/PTIA en cas d'accident (formule Premium).",q:null,p:1},
+  ptia:{s:"incluse",m:null,c:"rente/capital ≤ 50 mensualités, âge ≤ 75 ans",d:"PTIA couverte dans les 3 formules, versée à l'assuré.",q:null,p:1},
+  obseques:{s:"absente",m:null,c:null,d:"Pas de garantie obsèques.",q:null,p:null},
+  rente_education:{s:"absente",m:null,c:null,d:"Pas de rente éducation.",q:null,p:null},
+  maladie_redoutee:{s:"absente",m:null,c:null,d:"Pas de garantie maladie redoutée.",q:null,p:null},
+  assistance:{s:"absente",m:null,c:null,d:"Pas d'assistance dans l'IPID.",q:null,p:null},
+ },
+ bpce_fam:{
+  arret_travail:{s:"absente",m:null,c:null,d:"Produit décès/famille : pas d'arrêt de travail.",q:null,p:null},
+  invalidite:{s:"absente",m:null,c:null,d:"Hors PTIA, pas de garantie invalidité.",q:null,p:null},
+  frais_generaux:{s:"absente",m:null,c:null,d:"Produit non professionnel : pas de frais généraux.",q:null,p:null},
+  exoneration:{s:"absente",m:null,c:null,d:"Pas d'exonération de cotisations.",q:null,p:null},
+  deces:{s:"incluse",m:null,c:"capital et/ou rente éducation, 3 formules, cesse à 89 ans",d:"Décès : capital garanti et/ou rente aux bénéficiaires.",q:"versement d'un capital garanti et/ou d'une rente éducation",p:1},
+  deces_accident:{s:"optionnelle",m:"doublement du capital",c:"formule Optimal",d:"Doublement du capital en décès/PTIA accidentel (Optimal).",q:null,p:1},
+  ptia:{s:"incluse",m:null,c:"capital à l'assuré, 3 formules, cesse à 70 ans",d:"PTIA : capital versé à l'assuré.",q:null,p:1},
+  obseques:{s:"absente",m:null,c:null,d:"Capital décès libre, pas de prestation obsèques.",q:null,p:null},
+  rente_education:{s:"optionnelle",m:null,c:"conversion d'une partie du capital, enfants < 26 ans",d:"Option : convertir une partie du capital en rente éducation.",q:null,p:2},
+  maladie_redoutee:{s:"optionnelle",m:"20 % à la survenance + 80 % ensuite",c:"formules Confort/Optimal, liste limitative, carence 3 mois, une seule fois",d:"Maladie redoutée : 20 % puis 80 % du capital.",q:"survenance de maladie redoutée (…) 20 % (…) 80 %",p:1},
+  assistance:{s:"incluse",m:null,c:"IMA Assurances (annexes CG)",d:"Assistance via IMA Assurances.",q:null,p:1},
+ },
+ sg_obs:{
+  arret_travail:{s:"absente",m:null,c:null,d:"Contrat obsèques : pas d'arrêt de travail.",q:null,p:null},
+  invalidite:{s:"absente",m:null,c:null,d:"Pas de garantie invalidité.",q:null,p:null},
+  frais_generaux:{s:"absente",m:null,c:null,d:"Pas de frais généraux.",q:null,p:null},
+  exoneration:{s:"absente",m:null,c:null,d:"Pas d'exonération.",q:null,p:null},
+  deces:{s:"incluse",m:"3 000 €",c:"délai d'attente 1 an (décès non accidentel) ; suicide 1re année",d:"Capital décès 3 000 € (cœur du contrat obsèques).",q:"Ce capital décès est de 3 000 € à l'adhésion",p:2},
+  deces_accident:{s:"incluse",m:"3 000 €",c:"acquis dès la prise d'effet, sans délai d'attente",d:"Décès accidentel : capital dû immédiatement.",q:null,p:2},
+  ptia:{s:"absente",m:null,c:null,d:"Pas de garantie PTIA.",q:null,p:null},
+  obseques:{s:"incluse",m:"3 000 €",c:"versé aux pompes funèbres (frais engagés), solde aux héritiers, règlement sous 2 j",d:"Capital obsèques 3 000 € + services funéraires associés.",q:"l'entreprise de pompes funèbres ayant réalisé les prestations d'obsèques",p:2},
+  rente_education:{s:"absente",m:null,c:null,d:"Pas de rente éducation.",q:null,p:null},
+  maladie_redoutee:{s:"absente",m:null,c:null,d:"Pas de garantie maladie redoutée.",q:null,p:null},
+  assistance:{s:"incluse",m:null,c:"info 24/7, transport de corps > 50 km, soutien psychologique (2 consultations)",d:"Assistance funéraire et psychologique.",q:null,p:1},
+ },
+ sg_certi:{
+  arret_travail:{s:"absente",m:null,c:null,d:"Contrat décès accidentel : pas d'arrêt de travail.",q:null,p:null},
+  invalidite:{s:"absente",m:null,c:null,d:"Pas de garantie invalidité.",q:null,p:null},
+  frais_generaux:{s:"absente",m:null,c:null,d:"Pas de frais généraux.",q:null,p:null},
+  exoneration:{s:"absente",m:null,c:null,d:"Pas d'exonération.",q:null,p:null},
+  deces:{s:"incluse",m:"≤ 50 000 € (min 5 000 €)",c:"décès ACCIDENTEL uniquement ; capital = encours d'épargne ; décès dans les 12 mois de l'accident",d:"Capital versé uniquement en cas de décès accidentel (= encours d'épargne).",q:"en cas de décès accidentel (…) un Capital Garanti",p:1},
+  deces_accident:{s:"incluse",m:"≤ 50 000 € (min 5 000 €)",c:"accident = cause extérieure ; exclut AVC/cardio",d:"Le décès accidentel est l'unique risque couvert.",q:null,p:1},
+  ptia:{s:"absente",m:null,c:null,d:"Pas de garantie PTIA.",q:null,p:null},
+  obseques:{s:"absente",m:null,c:null,d:"Capital lié à l'épargne, pas d'obsèques.",q:null,p:null},
+  rente_education:{s:"absente",m:null,c:null,d:"Pas de rente éducation.",q:null,p:null},
+  maladie_redoutee:{s:"absente",m:null,c:null,d:"Pas de garantie maladie redoutée.",q:null,p:null},
+  assistance:{s:"absente",m:null,c:null,d:"Pas d'assistance.",q:null,p:null},
+ },
+};
+
+/* ---- state ---- */
+const client={statut:"tns",regime:"ssi",age:42,foyer:"couple",enfants:2,revenu:3500,charges:2200,capdeces:100000,ij:120,renteInval:3500,needs:new Set(["arret_travail","invalidite","deces"])};
+// Régime obligatoire = socle sous la prévoyance individuelle. Chiffres base 2024 (indexé PASS),
+// sourcés dans regimes_obligatoires/README.md (Légifrance CSS Livre VI + arrêté 01/08/2023).
+const REGIMES={
+ ssi:{group:"Indépendant",label:"TNS — artisan / commerçant (SSI)",ijCap:63.52,year:"2024",
+   ij:"≈ 63,52 €/j (1/730 du revenu moyen, plafond PASS) · carence 3-7 j",inval:"30 % (partielle) / 50 % (totale) du revenu, plafond 30/50 % PASS (13 910 / 23 184 €/an)",deces:"20 % du PASS = 9 273,60 €",decesCap:9273.6,
+   note:"Régime des indépendants : couverture faible, la prévoyance individuelle prend le relais."},
+ general:{group:"Salarié",label:"Salarié — régime général + CCN",ijCap:null,year:"2024",
+   ij:"50 % du salaire journalier (plafond 1,8 SMIC) + maintien employeur",inval:"pension 3 catégories, plafond PASS",deces:"forfait ≈ 3 700 € + socle CCN (cadres ≥ 1,50 % T1)",decesCap:3738,
+   note:"Le socle CCN / contrat collectif complète le régime général ; la prévoyance individuelle vient au-dessus."},
+ carmf:{group:"Professions libérales",label:"Médecin (CARMF)",ijCap:null,year:"2026",
+   ij:"65,84 → 197,51 €/j (1/730), dès le 91e jour, max 36 mois",inval:"23 662 → 31 549 €/an selon revenu (invalidité totale)",deces:"71 500 €",decesCap:71500,
+   note:"Médecins (CARMF). Classes A/B/C supprimées en 2025 → proportionnel au revenu."},
+ cnbf:{group:"Professions libérales",label:"Avocat (CNBF)",ijCap:null,year:"2026",
+   ij:"90 €/j, dès le 91e jour (90 premiers = contrat LPA/AON), max 3 ans",inval:"50 % de la retraite de base au taux plein (~9 577 €/an)",deces:"50 000 €",decesCap:50000,
+   note:"Avocats (CNBF). Régime forfaitaire."},
+ carcdsf_dent:{group:"Professions libérales",label:"Chirurgien-dentiste (CARCDSF)",ijCap:null,year:"2026",
+   ij:"113,22 €/j, dès le 91e jour, max 3 ans",inval:"~32 464 €/an (invalidité totale)",deces:"~19 220 € + rente conjoint 20 450 €/an",decesCap:19220,
+   note:"Chirurgiens-dentistes (CARCDSF). Cotisation RID 1 235 €."},
+ carcdsf_sf:{group:"Professions libérales",label:"Sage-femme (CARCDSF)",ijCap:null,year:"2026",
+   ij:"49,70 €/j, dès le 91e jour",inval:"~13 729 €/an (invalidité totale)",deces:"14 831 € (pas de rente conjoint)",decesCap:14831,
+   note:"Sages-femmes (CARCDSF). Régime distinct des dentistes."},
+ cavp:{group:"Professions libérales",label:"Pharmacien (CAVP)",ijCap:63.52,ijMax90:true,year:"2024",
+   ij:"≈ 63,52 €/j via la CPAM (1/730 du revenu, plafond PASS), carence 3 j, max 90 jours — rien au-delà (pas d'IJ de caisse)",inval:"16 345 €/an — invalidité TOTALE uniquement",deces:"24 517,50 € + rente conjoint 16 345 €/an",decesCap:24517.5,
+   note:"Pharmaciens (CAVP). Ne couvre pas l'invalidité partielle."},
+ carpimko:{group:"Professions libérales",label:"Auxiliaire médical — infirmier, kiné… (CARPIMKO)",ijCap:null,year:"2026",
+   ij:"55,44 €/j, dès le 91e jour, max 3 ans",inval:"10 080 €/an (≥66 %) / 20 160 €/an (total)",deces:"18 144 → 54 432 € selon ayants droit",decesCap:36288,
+   note:"Infirmiers, kinés, orthophonistes… (CARPIMKO). Forfaitaire, cotisation 1 022 €."},
+ carpv:{group:"Professions libérales",label:"Vétérinaire (CARPV)",ijCap:63.52,ijMax90:true,year:"~2024-26",
+   ij:"≈ 63,52 €/j via la CPAM (1/730 du revenu, plafond PASS), carence 3 j, max 90 jours — rien au-delà (pas d'IJ de caisse)",inval:"~13 375 → 40 125 €/an selon la classe (≥66 %)",deces:"37 985 / 75 970 / 113 955 € (classes A/B/C)",decesCap:75970,
+   note:"Vétérinaires (CARPV). 3 classes ; montants via courtiers (site sans chiffres)."},
+ cavec:{group:"Professions libérales",label:"Expert-comptable (CAVEC)",ijCap:null,year:"2026",
+   ij:"130 €/j, dès le 91e jour, max 36 mois",inval:"12 465 → 49 860 €/an (≥66 %, selon classe)",deces:"72 713 → 290 850 € (4 classes)",decesCap:96950,
+   note:"Experts-comptables (CAVEC). 4 classes ; pas de rente conjoint mais rente enfant."},
+ cipav:{group:"Professions libérales",label:"Libéral non réglementé — architecte, consultant… (CIPAV)",ijCap:63.52,ijMax90:true,year:"2026",
+   ij:"≈ 63,52 €/j via la CPAM (1/730 du revenu, plafond PASS), carence 3 j, max 90 jours — rien au-delà (pas d'IJ de caisse)",inval:"forfait 2 403 €/an (5 % PASS) + part proportionnelle (≥66 %)",deces:"forfait 7 209 € (15 % PASS) + part proportionnelle",decesCap:7209,
+   note:"Libéraux non réglementés — architectes, consultants, ostéos… (CIPAV). Classes supprimées en 2023 → points."},
+};
+function regimeFromStatut(s){return s==="liberal"?"carmf":(s==="salarie"?"general":"ssi");}
+let tab="client", needsOnly=false, showFig=true, docOpen=false, scnId="arret6", paneMode="doc", docLoaded=false;
+const openRows=new Set();
+const MARK={incluse:{mk:"✓",cls:"inc",lab:"Inclus"},optionnelle:{mk:"○",cls:"opt",lab:"Option"},absente:{mk:"—",cls:"abs",lab:"Non prévu"},inconnu:{mk:"?",cls:"unk",lab:"À vérifier"}};
+const NEEDABLE=Object.keys(G).filter(g=>G[g].need);
+const byId=id=>INSURERS.find(i=>i.id===id);
+let selected=["ca","bnp","sg"]; const MAXSEL=4;
+function SEL(){return INSURERS.filter(i=>selected.includes(i.id));}
+function parseEuroP(s){if(!s)return null;const m=(""+s).replace(/ /g," ").match(/(\d[\d \.]*\d|\d)\s*€/);if(!m)return null;return parseInt(m[1].replace(/[ .]/g,""),10);}
+function renderPills(){const host=document.getElementById("insurerPills");if(!host)return;host.innerHTML='<span class="glabel" style="margin-right:4px">Comparer (max 4) :</span>'+INSURERS.map(ins=>{const on=selected.includes(ins.id);const dis=(!on&&selected.length>=MAXSEL)||(ins.ref&&on);return `<button class="chip${on?' on':''}" data-ins="${ins.id}"${dis?' disabled':''}>${esc(ins.name)} <span style="opacity:.6;font-size:11px">· ${esc(ins.product)}</span></button>`;}).join("");host.querySelectorAll("[data-ins]").forEach(b=>b.onclick=()=>toggleIns(b.dataset.ins));}
+function toggleIns(id){const ins=byId(id);if(selected.includes(id)){if(ins.ref)return;selected=selected.filter(x=>x!==id);}else{if(selected.length>=MAXSEL){const drop=selected.find(x=>!byId(x).ref);selected=selected.filter(x=>x!==drop);}selected.push(id);}renderCompare();}
+const esc=s=>(s==null?"":String(s));
+const fEuro=n=>Math.round(n).toLocaleString("fr-FR").replace(/ /g," ")+" €";
+function pdfHref(f,p){return encodeURI("sources/"+f)+(p?("#page="+p):"");}
+
+/* ---- doc pane ---- */
+function openDoc(f,p){const fr=document.getElementById("docFrame");fr.src=pdfHref(f,p);docLoaded=true;document.getElementById("rmeta").textContent=f+(p?" · p."+p:"");document.getElementById("rtab").href=pdfHref(f,p);paneMode="doc";docOpen=true;applyDoc();}
+function applyDoc(){
+  const r=document.getElementById("right"),d=document.getElementById("dash");const allow=(tab!=="client");
+  if(!(docOpen&&allow)){d.classList.add("doc-collapsed");r.classList.remove("show");return;}
+  d.classList.remove("doc-collapsed");r.classList.add("show");
+  const doc=(paneMode==="doc");
+  document.getElementById("docFrame").style.display=(doc&&docLoaded)?"block":"none";
+  document.getElementById("rplace").style.display=(doc&&!docLoaded)?"flex":"none";
+  document.getElementById("chatpane").style.display=doc?"none":"flex";
+  document.getElementById("rti").textContent=doc?"Document source":"Assistant — questions du client";
+  document.getElementById("rtab").style.display=(doc&&docLoaded)?"inline-flex":"none";
+  document.getElementById("rmeta").style.display=doc?"inline":"none";
+}
+/* ---- Chatbot hors-ligne (niveau 1 : préparé ; niveau 2 : LLM live plus tard) ---- */
+const FAQ=[
+ {k:["capital minimum","capital mini","montant du capital","capital deces minimum","capital deces"],a:"Le capital décès minimum dépend du contrat. <b>BNP</b> : le plus élevé entre 2× le revenu de référence et 10 000 € (≈ 84 000 € pour 3 500 €/mois). <b>Généa</b> : le client choisit (30 000 à 150 000 €). Le <b>régime obligatoire</b> ne verse que 9 273,60 € (SSI). <b>Crédit Agricole</b> ne couvre pas le ",p:10},
+ {k:["net ou brut","revenu net","revenu brut","revenu de reference","comment se calcule le revenu"],a:"Pour les indemnités du <b>régime obligatoire</b> (SSI), la base est le <b>revenu professionnel net</b> (bénéfice), en moyenne sur les 3 dernières années — pas le chiffre d'affaires. Les IJ = 1/730 de cette moyenne. Chez l'assureur, le « revenu de référence » est défini dans la notice, en général le bénéfice net déclaré.",f:null,p:null},
+ {k:["calcule l ij","calcul ij","comment marche l ij","comment se calcule l indemnite","indemnite journaliere calcul"],a:"<b>Régime obligatoire</b> : IJ = 1/730 du revenu moyen (3 ans), plafond ≈ 63,52 €/jour (SSI, 2024). <b>Contrat Crédit Agricole</b> : vous choisissez l'IJ, de 30 à 500 €/jour, avec la franchise (7 à 365 jours).",f:"CA - ",p:1},
+ {k:["carence","delai de carence","a partir de quel jour","franchise"],a:"<b>Régime obligatoire</b> (SSI) : carence 3 jours (accident) / 7 jours (maladie). <b>Professions libérales</b> : souvent rien avant le 91e jour (jours 4-90 = CPAM). <b>Contrat</b> : franchise au choix (CA : 7/15/30/90/365 j ; BNP : 30 j).",f:null,p:null},
+ {k:["ptia","perte totale","autonomie","irreversible"],a:"<b>PTIA</b> = Perte Totale et Irréversible d'Autonomie : vous ne pouvez plus travailler et avez besoin d'une tierce personne pour les actes de la vie courante. Assimilée au décès (versement du capital). Incluse chez BNP et Généa ; pas chez Crédit ",p:26},
+ {k:["maladie redoutee","maladie grave","cancer","capital diagnostic"],a:"Capital versé dès le <b>diagnostic</b> d'une maladie grave listée (cancer, AVC, infarctus, sclérose en plaques). <b>BNP</b> : 5 000 €. Crédit Agricole et Généa : non ",p:26},
+ {k:["exoneration","dispense de cotisation","plus payer"],a:"Pendant un arrêt/invalidité pris en charge, vous ne payez plus vos cotisations tout en restant couvert. Incluse chez <b>Crédit Agricole</b> (arrêt > 90 j ou invalidité totale) et <b>BNP</b>. Généa : non.",f:"CA - ",p:10},
+ {k:["regime obligatoire","securite sociale","que couvre la secu","socle"],a:"Le régime obligatoire du TNS (SSI) couvre peu : IJ ≈ 63,52 €/jour, capital décès 9 273,60 €, pension invalidité 30 % (partielle) à 50 % (totale) du revenu, plafonnée. D'où la prévoyance individuelle qui complète.",f:null,p:null},
+ {k:["credit agricole deces","ca deces","pourquoi ca ne couvre"],a:"Le contrat <b>Crédit Agricole</b> (Protection Revenus Pro) protège le <b>revenu</b> (arrêt de travail, invalidité), <b>pas le décès</b>. Pour laisser un capital, il faut un contrat décès (BNP l'inclut, ou Généa).",f:"CA - ",p:1},
+ {k:["madelin","deduction","fiscal","impot","deductible"],a:"<b>Loi Madelin</b> : un travailleur non salarié peut déduire ses cotisations de prévoyance de son revenu imposable, dans des plafonds, si le contrat est « Madelin ». Les IJ Madelin ne doivent pas dépasser la perte de revenu réelle.",f:null,p:null},
+ {k:["pass","plafond securite sociale","plafond annuel"],a:"Le <b>PASS</b> (Plafond Annuel de la Sécurité Sociale) = 46 368 € en 2024. Beaucoup de prestations obligatoires s'expriment en % du PASS (ex. capital décès SSI = 20 % du PASS = 9 273,60 €).",f:null,p:null},
+ {k:["medecin","carmf"],a:"Un <b>médecin</b> relève de la <b>CARMF</b> : capital décès 71 500 €, IJ 65,84 → 197,51 €/j dès le 91e jour, pension invalidité 23 662 → 31 549 €/an. Le contrat individuel complète (franchise courte, invalidité partielle…). Sélectionnez « Médecin » dans le profil.",f:null,p:null},
+ {k:["avocat","cnbf"],a:"Un <b>avocat</b> relève de la <b>CNBF</b> : capital décès 50 000 €, IJ 90 €/jour dès le 91e jour (les 90 premiers = contrat LPA/AON). Sélectionnez « Avocat » dans le profil.",f:null,p:null},
+];
+function normQ(s){return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");}
+function addMsg(who,html,f,p){const m=document.createElement("div");m.className="msg "+who;m.innerHTML=html+(f?`<span class="src" data-file="${esc(f)}" data-page="${p||''}">↳ ${esc(f)}${p?" · p."+p:""}</span>`:"");const box=document.getElementById("chatmsgs");box.appendChild(m);if(f)m.querySelector(".src").onclick=()=>openDoc(f,p);box.scrollTop=box.scrollHeight;}
+function askChat(q){if(!q||!q.trim())return;addMsg("user",esc(q));const nq=normQ(q);let best=null,bs=0;FAQ.forEach(it=>{let s=0;it.k.forEach(kw=>{if(nq.includes(normQ(kw)))s+=kw.length;});if(s>bs){bs=s;best=it;}});if(best&&bs>0)addMsg("bot",best.a,best.f,best.p);else addMsg("bot","Je réponds sur : capital décès, calcul des IJ, délai de carence, revenu net/brut, PTIA, maladie redoutée, exonération, régime obligatoire, Madelin, PASS, et les caisses (médecin, avocat…). Reformulez ou cliquez une suggestion.");document.getElementById("chatq").value="";}
+const CHATSUGG=["Le capital minimum, comment ça marche ?","Le revenu, c'est net ou brut ?","Comment se calcule l'IJ ?","Quel délai de carence ?","Qu'est-ce que la PTIA ?","Le régime obligatoire couvre quoi ?"];
+function initChat(){const c=document.getElementById("chatchips");c.innerHTML=CHATSUGG.map(s=>`<span class="c">${esc(s)}</span>`).join("");c.querySelectorAll(".c").forEach(el=>el.onclick=()=>askChat(el.textContent));addMsg("bot","Bonjour 👋 Posez une question sur les garanties, les montants ou le régime obligatoire. Je réponds à partir des notices et des régimes.");}
+document.getElementById("chatBtn").onclick=()=>{ if(docOpen&&paneMode==="chat"){docOpen=false;}else{paneMode="chat";docOpen=true;} applyDoc(); if(docOpen&&paneMode==="chat")setTimeout(()=>document.getElementById("chatq").focus(),60); };
+document.getElementById("chatsend").onclick=()=>askChat(document.getElementById("chatq").value);
+document.getElementById("chatq").addEventListener("keydown",e=>{if(e.key==="Enter")askChat(e.target.value);});
+
+/* ---- tabs ---- */
+function showTab(t){tab=t;document.querySelectorAll(".tabbtn").forEach(b=>b.classList.toggle("on",b.dataset.tab===t));document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id==="tab-"+t));document.getElementById("rtoggle").style.visibility=(t==="client")?"hidden":"visible";applyDoc();if(t==="compare")renderCompare();if(t==="sinistre")renderScenarios();window.scrollTo(0,0);}
+document.querySelectorAll(".tabbtn").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+
+/* ---- TAB 1 : client ---- */
+function renderNeeds(){const host=document.getElementById("needs");host.innerHTML="";NEEDABLE.forEach(g=>{const on=client.needs.has(g);const b=document.createElement("button");b.className="chip"+(on?" on":"");b.textContent=G[g].need;b.onclick=()=>{on?client.needs.delete(g):client.needs.add(g);renderNeeds();renderRecap();};host.appendChild(b);});}
+function derived(){const ij=Math.max(30,Math.min(500,Math.round(client.revenu/30)));const rente=Math.max(900,Math.min(15000,client.revenu));return {ij,rente};}
+function renderRecap(){
+  const st={tns:"TNS",liberal:"profession libérale",createur:"créateur/repreneur",salarie:"salarié"}[client.statut];
+  const dv=derived();
+  const needs=[...client.needs].map(g=>G[g].need);
+  document.getElementById("recap").innerHTML=`<b>Client :</b> ${st}, ${client.age} ans, ${client.foyer==="couple"?"en couple":"célibataire"}, ${client.enfants} enfant(s). Revenu ${fEuro(client.revenu)}/mois, charges ${fEuro(client.charges)}/mois.<br><b>Objectifs :</b> capital décès ${fEuro(client.capdeces)} · IJ choisie ${fEuro(client.ij)}/jour · rente invalidité ${fEuro(client.renteInval)}/mois.<br><b>Régime de base :</b> ${REGIMES[client.regime].label}.<br><b>Besoins prioritaires :</b> ${needs.length?needs.join(" · "):"aucun sélectionné"}.`;
+}
+function renderRegime(){
+  const el=document.getElementById("regimeCard"); if(!el)return; const r=REGIMES[client.regime];
+  const order=["Indépendant","Salarié","Professions libérales"];
+  const groups={}; order.forEach(g=>groups[g]=[]);
+  Object.keys(REGIMES).forEach(k=>groups[REGIMES[k].group].push(k));
+  const opts=order.map(g=>`<optgroup label="${g==='Professions libérales'?'Professions libérales (une caisse par profession)':g}">${groups[g].map(k=>`<option value="${k}"${client.regime===k?" selected":""}>${REGIMES[k].label}</option>`).join("")}</optgroup>`).join("");
+  el.innerHTML=`<h3>Régime obligatoire de base</h3><p class="fsub">La profession détermine le régime obligatoire (identique pour tous les confrères). Choisissez-la : le socle s'affiche.</p>
+   <div class="field"><label>Profession / régime du client</label><select id="regSel" class="regsel">${opts}</select></div>
+   <div style="display:grid;gap:6px;font-size:12.5px;color:var(--ink-2)">
+     <div>🩹 <b>Arrêt de travail :</b> ${r.ij}</div>
+     <div>♿ <b>Invalidité :</b> ${r.inval}</div>
+     <div>⚰️ <b>Décès :</b> ${r.deces}</div>
+   </div>
+   <div class="fsub" style="margin-top:9px">${r.note} <span style="color:var(--ink-3)">Base ${r.year||'2024'} — sources : <code>regimes_obligatoires/</code> (Légifrance + caisses).</span></div>`;
+  document.getElementById("regSel").onchange=e=>{client.regime=e.target.value;renderRegime();renderRecap();};
+}
+document.querySelectorAll(".seg[data-f]").forEach(seg=>seg.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;client[seg.dataset.f]=b.dataset.v;seg.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));if(seg.dataset.f==="statut"){client.regime=regimeFromStatut(b.dataset.v);renderRegime();}renderRecap();}));
+function bindRange(id,key,fmt){const el=document.getElementById(id);el.value=client[key];document.getElementById(id+"V").textContent=fmt(client[key]);el.addEventListener("input",e=>{client[key]=+e.target.value;document.getElementById(id+"V").textContent=fmt(client[key]);renderRecap();});}
+bindRange("age","age",v=>v+" ans");bindRange("enfants","enfants",v=>""+v);bindRange("revenu","revenu",fEuro);bindRange("charges","charges",fEuro);bindRange("capdeces","capdeces",fEuro);bindRange("ij","ij",v=>fEuro(v)+"/j");bindRange("renteInval","renteInval",v=>fEuro(v)+"/mois");
+
+/* ---- TAB 2 : comparateur ---- */
+function covVal(s){return s==="incluse"?1:(s==="optionnelle"?0.6:0);}
+function fitOf(id){const ns=[...client.needs];if(!ns.length)return{pct:0,inc:0,opt:0,gap:0,n:0};let inc=0,opt=0,gap=0,sum=0;ns.forEach(g=>{const s=DATA[id][g].s;if(s==="incluse")inc++;else if(s==="optionnelle")opt++;else gap++;sum+=covVal(s);});return{pct:Math.round(sum/ns.length*100),inc,opt,gap,n:ns.length};}
+function rowVisible(g){if(needsOnly&&!client.needs.has(g))return false;return true;}
+function cellHtml(id,g){const d=DATA[id][g],m=MARK[d.s],ref=byId(id).ref?" ref":"";const covers=d.s==="incluse"||d.s==="optionnelle";const lacks=SEL().some(o=>o.id!==id&&(DATA[o.id][g].s==="absente"||DATA[o.id][g].s==="inconnu"));const at=(covers&&lacks)?`<div class="fig" style="color:var(--ca);font-weight:700">+ atout</div>`:"";let fig=(showFig&&d.m)?`<div class="fig">${esc(d.m)}</div>`:"";return `<td class="cell${ref}"><div class="mk ${m.cls}">${m.mk}</div><div class="lab ${m.cls}">${m.lab}</div>${at}${fig}</td>`;}
+function detailRow(g,ncol){const cards=SEL().map(ins=>{const d=DATA[ins.id][g],m=MARK[d.s];let kv="";if(d.m)kv+=`<div class="kv">Montant : <b>${esc(d.m)}</b></div>`;if(d.c)kv+=`<div class="kv">Conditions : ${esc(d.c)}</div>`;const cit=d.q?`<div class="cit">« ${esc(d.q)} »</div>`:"";const src=d.p?`<span class="srcbtn" data-file="${esc(ins.file)}" data-page="${d.p}"><span class="pin">↳</span> ${esc(ins.file)} · p.${d.p}</span>`:"";return `<div class="dcard"><div class="dh">${esc(ins.name)} <span class="badge ${m.cls}">${m.lab}</span></div><div class="dtxt">${esc(d.d)}</div>${kv}${cit}${src}</div>`;}).join("");return `<tr class="detailrow"><td colspan="${ncol}"><div class="detgrid" style="grid-template-columns:repeat(${SEL().length},1fr)">${cards}</div></td></tr>`;}
+function renderCompare(){
+  renderPills();
+  // reco banner
+  const ns=[...client.needs];
+  const caCov=ns.filter(g=>DATA.ca[g].s!=="absente"), caGap=ns.filter(g=>DATA.ca[g].s==="absente");
+  let reco;
+  if(!ns.length) reco=`Sélectionnez les besoins du client dans l'onglet « Le client » pour adapter la recommandation.`;
+  else{
+    reco=`<b>Pour ce client, Crédit Agricole couvre :</b> ${caCov.length?caCov.map(g=>G[g].label).join(", "):"aucun des besoins listés"}.`;
+    if(caGap.length){const fillers=[];if(caGap.some(g=>["deces","deces_accident","ptia","obseques","rente_education"].includes(g)))fillers.push("un contrat décès (BNP inclut le décès/PTIA, ou Généa)");if(caGap.includes("maladie_redoutee"))fillers.push("la maladie redoutée (incluse chez BNP)");reco+=`<br><b>À compléter</b> (non couvert par CA) : ${caGap.map(g=>G[g].label).join(", ")}${fillers.length?` → orienter vers ${fillers.join(" et ")}.`:"."}`;}
+    else reco+=` Le contrat répond à tous les besoins prioritaires exprimés.`;
+  }
+  document.getElementById("reco").innerHTML=reco;
+  // fit bar
+  document.getElementById("fitbar").innerHTML=SEL().map(ins=>{const f=fitOf(ins.id);return `<div class="fit${ins.ref?' ref':''}"><div class="fn">${esc(ins.name)}</div><div class="fp">${esc(ins.product)}</div><div class="bar"><i style="width:${f.pct}%"></i></div><div class="fs"><b>${f.inc+f.opt}/${f.n}</b> besoins couverts <span style="color:var(--ink-3)">· ${f.inc} inclus, ${f.opt} option${f.gap?`, ${f.gap} manquant`:""}</span></div></div>`;}).join("");
+  // table
+  const ncol=SEL().length+1;
+  let h=`<table class="cmp"><thead class="colhead"><tr><th class="crit">Garantie</th>`+SEL().map(ins=>`<th class="${ins.ref?'refcol':''}">${esc(ins.name)}<span class="ed">${esc(ins.product)}</span></th>`).join("")+`</tr></thead><tbody>`;
+  CATS.forEach(c=>{const rows=c.rows.filter(rowVisible);if(!rows.length)return;h+=`<tr class="cathead"><td colspan="${ncol}">${esc(c.label)}</td></tr>`;rows.forEach(g=>{const meta=G[g],open=openRows.has(g),need=client.needs.has(g);h+=`<tr class="grow${open?' open':''}${need?' need':''}"><td class="gname" data-tg="${g}"><span class="chev">›</span><span class="gt">${esc(meta.label)}</span>${need?'<span class="star">★ besoin</span>':''}<div class="gi">${esc(meta.gi)}</div></td>`;SEL().forEach(ins=>h+=cellHtml(ins.id,g));h+=`</tr>`;if(open)h+=detailRow(g,ncol);});});
+  h+=`</tbody></table>`;
+  const host=document.getElementById("cmpTable");host.innerHTML=h;
+  host.querySelectorAll("[data-tg]").forEach(el=>el.onclick=()=>{const g=el.dataset.tg;openRows.has(g)?openRows.delete(g):openRows.add(g);renderCompare();});
+  host.querySelectorAll(".srcbtn").forEach(el=>el.onclick=e=>{e.stopPropagation();openDoc(el.dataset.file,el.dataset.page||null);});
+}
+document.getElementById("needsOnly").onchange=e=>{needsOnly=e.target.checked;renderCompare();};
+document.getElementById("figChk").onchange=e=>{showFig=e.target.checked;renderCompare();};
+
+/* ---- TAB 3 : sinistres ---- */
+const SCENARIOS=[
+ {id:"arret6",icon:"🤕",title:"Arrêt de travail — 6 mois",g:"arret_travail"},
+ {id:"deces",icon:"⚰️",title:"Décès",g:"deces"},
+ {id:"invalidite",icon:"♿",title:"Invalidité permanente (taux 50 %)",g:"invalidite"},
+ {id:"maladie",icon:"🎗️",title:"Maladie grave (cancer)",g:"maladie_redoutee"},
+];
+function scenarioResult(id,scn){
+  const dv=derived();
+  const cov=g=>{const s=DATA[id][g].s;return s==="incluse"?"inc":(s==="optionnelle"?"opt":"abs");};
+  const d=DATA[id][scn.g];
+  if(scn.id==="arret6"){
+    const days=180-30; // 6 mois moins franchise 30 j
+    if(cov("arret_travail")==="inc"){const v=client.ij*days;return {cls:"ok",eur:fEuro(v),sub:`IJ ${fEuro(client.ij)}/j × ${days} j`,why:`Arrêt de travail inclus. Après une franchise de 30 j, versement des indemnités journalières choisies (ici ≈ revenu/30).`,est:true,p:d.p,f:byId(id).file};}
+    if(cov("arret_travail")==="opt")return {cls:"warn",eur:"0 €*",sub:"option non souscrite",why:`Disponible en option (IJ ≤ 500 €/j). Si le client la souscrit, versement comparable après franchise 30 j.`,p:d.p,f:byId(id).file};
+    return {cls:"no",eur:"0 €",sub:"pas de garantie revenu",why:`Ce contrat ne couvre pas l'arrêt de travail (contrat décès).`,p:d.p,f:byId(id).file};
+  }
+  if(scn.id==="deces"){
+    const dd=DATA[id].deces;
+    if(dd.s==="absente"||dd.s==="inconnu")return {cls:"no",eur:"0 €",sub:"décès non couvert",why:dd.d,p:dd.p||1,f:byId(id).file};
+    const accOnly=/accidentel uniquement/i.test(dd.c||"");
+    let cap,sub;
+    if(id==="bnp"){cap=Math.max(2*client.revenu*12,10000);sub="min. 2 × revenu annuel";}
+    else if(/choisi/i.test(dd.m||"")){cap=Math.max(30000,Math.min(149000,client.capdeces));sub="capital choisi";}
+    else if(parseEuroP(dd.m)!=null){cap=parseEuroP(dd.m);sub="capital du contrat";}
+    else{cap=client.capdeces;sub="capital choisi";}
+    if(accOnly)return {cls:"warn",eur:fEuro(cap),sub:"si décès accidentel uniquement",why:dd.d,est:true,p:dd.p,f:byId(id).file};
+    return {cls:"ok",eur:fEuro(cap),sub,why:dd.d,est:true,p:dd.p||1,f:byId(id).file};
+  }
+  if(scn.id==="invalidite"){
+    const st=cov("invalidite");
+    if(st==="inc"){const v=client.renteInval*0.6;return {cls:"ok",eur:fEuro(v)+"/mois",sub:"rente, dès 30 % d'invalidité",why:`Invalidité incluse. À 50 %, rente partielle (≈ ${fEuro(v)}/mois sur la base choisie).`,est:true,p:d.p||1,f:byId(id).file};}
+    if(st==="opt")return {cls:"warn",eur:"0 €*",sub:"option non souscrite",why:`Disponible en option (IPP 33–66 % : rente = taux/66). À 50 %, ≈ 76 % de la rente si souscrite.`,p:d.p||1,f:byId(id).file};
+    if(DATA[id].ptia.s==="incluse")return {cls:"no",eur:"0 €",sub:"seule la PTIA (invalidité totale)",why:`Ce contrat ne couvre que la PTIA (invalidité totale). Une invalidité à 50 % ne déclenche rien.`,p:DATA[id].ptia.p||1,f:byId(id).file};
+    return {cls:"no",eur:"0 €",sub:"non couvert",why:`Ce contrat ne couvre pas l'invalidité.`,p:d.p||1,f:byId(id).file};
+  }
+  if(scn.id==="maladie"){
+    const st=cov("maladie_redoutee");const dd=DATA[id].maladie_redoutee;
+    if(st==="inc"){const v=parseEuroP(dd.m)||5000;return {cls:"ok",eur:fEuro(v),sub:"capital au diagnostic",why:dd.d,p:dd.p,f:byId(id).file};}
+    if(st==="opt")return {cls:"warn",eur:"— *",sub:"en option (selon formule)",why:dd.d,p:dd.p,f:byId(id).file};
+    return {cls:"no",eur:"0 €",sub:"non couvert",why:dd.d,p:dd.p||d.p,f:byId(id).file};
+  }
+}
+function renderScenarios(){
+  document.getElementById("scnPick").innerHTML=SCENARIOS.map(s=>`<button class="scn${s.id===scnId?' on':''}" data-scn="${s.id}"><span class="ic">${s.icon}</span>${esc(s.title)}</button>`).join("");
+  const scn=SCENARIOS.find(s=>s.id===scnId);
+  const rg=REGIMES[client.regime];let socle;
+  if(scn.id==="arret6"){
+    if(rg.ijMax90)socle=`Socle obligatoire (${rg.label}) : ≈ ${fEuro(rg.ijCap*87)} (CPAM ~63 €/j, jours 4-90) PUIS <b>plus rien après 90 jours</b>. Le contrat individuel prend le relais dès la fin de la CPAM.`;
+    else if(rg.ijCap)socle=`Socle obligatoire (${rg.label}) : IJ ${rg.ij} → ≈ ${fEuro(rg.ijCap*150)} sur ~5 mois indemnisés. Le contrat individuel complète.`;
+    else socle=`Socle obligatoire (${rg.label}) : ${rg.ij}. Le contrat individuel complète.`;
+  }
+  else if(scn.id==="deces")socle=`Socle obligatoire (${rg.label}) : capital décès ${rg.deces}. Le contrat individuel s'ajoute.`;
+  else if(scn.id==="invalidite")socle=`Socle obligatoire (${rg.label}) : ${rg.inval}. Le contrat individuel complète.`;
+  else socle=`Socle obligatoire : pas de prestation dédiée à ce cas.`;
+  document.getElementById("scnHead").innerHTML=`Profil : <b>${{tns:"TNS",liberal:"profession libérale",createur:"créateur/repreneur",salarie:"salarié"}[client.statut]}</b>, revenu ${fEuro(client.revenu)}/mois. Ce que verse chaque contrat :<div style="margin-top:7px;font-size:12.5px;color:var(--ink-2);background:var(--soft);border-radius:8px;padding:9px 12px">🏛️ ${socle}</div>`;
+  const res=SEL().map(ins=>({ins,r:scenarioResult(ins.id,scn)}));
+  const nums=res.map(x=>parseInt((""+x.r.eur).replace(/[^0-9]/g,""))||0);
+  const best=Math.max(...nums), showBest=best>0 && nums.filter(n=>n===best).length<3;
+  document.getElementById("scnCards").innerHTML=res.map(({ins,r},i)=>{const isBest=showBest&&nums[i]===best&&nums[i]>0;return `<div class="rcard${ins.ref?' ref':''}${isBest?' best':''}"><div class="rn">${esc(ins.name)}${ins.ref?'<span class="vous">réf.</span>':''}${isBest?'<span class="vous" style="background:#eef;color:#1d4ed8">le + élevé</span>':''}</div><div class="eur ${r.cls}">${r.eur}</div><div class="eursub">${esc(r.sub)}</div><div class="rwhy">${esc(r.why)}${r.est?' <i style="color:var(--opt)">· estimation</i>':''}${r.p?`<br><span class="srcbtn" data-file="${esc(r.f)}" data-page="${r.p}"><span class="pin">↳</span> ${esc(r.f)} · p.${r.p}</span>`:''}</div></div>`;}).join("");
+  document.querySelectorAll("#scnPick [data-scn]").forEach(el=>el.onclick=()=>{scnId=el.dataset.scn;renderScenarios();});
+  document.querySelectorAll("#scnCards .srcbtn").forEach(el=>el.onclick=()=>openDoc(el.dataset.file,el.dataset.page||null));
+}
+
+document.getElementById("rtoggle").onclick=()=>{ if(docOpen&&paneMode==="doc"){docOpen=false;}else{paneMode="doc";docOpen=true;} applyDoc(); };
+document.getElementById("rclose").onclick=()=>{docOpen=false;applyDoc();};
+
+renderNeeds();renderRegime();renderRecap();initChat();
+</script>
+<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Démonstration <b>statique</b> (données figées), <b>pas l'outil dynamique</b>. Pour un outil sur vos propres documents, <b>contactez-nous</b>. · <a href="../../fr/cas/" style="color:#1d4ed8;text-decoration:none">Études de cas</a></div></body>
+</html>

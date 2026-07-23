@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La vue 360 d'un assuré, tous ses documents réunis · Étude de cas</title>
+<meta name="description" content="Une GED enrichie par l'IA qui collecte, parse et type tous les documents d'un assuré pour en construire un contexte complet et à jour.">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+.roadmap{counter-reset:rm;margin:16px 0 6px;padding:0;list-style:none}
+.roadmap li{position:relative;padding:12px 16px 12px 52px;border:1px solid var(--line,#e2e8f0);border-radius:12px;margin-bottom:10px;background:#fff;font-size:14px;line-height:1.5}
+.roadmap li b{display:block;margin-bottom:2px}
+.roadmap li::before{counter-increment:rm;content:counter(rm);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:#0f172a;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.reg{background:#fff8e6;border:1px solid #fde68a;border-radius:14px;padding:16px 18px;margin:16px 0}
+.reg h3{margin:0 0 6px;font-size:1rem;color:#7a5b08}
+.reg ul{margin:.3em 0 0;padding-left:1.15em} .reg li{margin:.25em 0;font-size:14px}
+.dep{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:980px;margin:0 6px 6px 0}
+.dep.int{background:#eff6ff;color:#1d4ed8} .dep.auth{background:#fef2f2;color:#b91c1c}
+</style>
+<link rel="canonical" href="https://doc-intel.github.io/fr/cas/dashboard-360.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/cas/dashboard-360.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/fr/cas/dashboard-360.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="La vue 360 d'un assuré, tous ses documents réunis · Étude de cas">
+<meta property="og:description" content="Une GED enrichie par l'IA qui collecte, parse et type tous les documents d'un assuré pour en construire un contexte complet et à jour.">
+<meta property="og:url" content="https://doc-intel.github.io/fr/cas/dashboard-360.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La vue 360 d'un assuré, tous ses documents réunis · Étude de cas">
+<meta name="twitter:description" content="Une GED enrichie par l'IA qui collecte, parse et type tous les documents d'un assuré pour en construire un contexte complet et à jour.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Études de cas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="dashboard-360.html" class="active">FR</a>
+      <a href="../../en/cas/index.html">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Vision 360 · Tableau de bord interne · FR</div>
+      <h1 class="mid">La vue 360 d'un assuré, tous ses documents réunis</h1>
+      <p class="lede">Un assuré, ce sont des dizaines de documents éparpillés. La vue 360 interne les rassemble, les parse et les type pour en construire un contexte unique, à jour, consultable par le gestionnaire.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+      <div class="callout"><p>Il y a trois « vues 360 » qu'on confond souvent. Le <a href="assistant-assurance.html">chatbot 360</a> est la porte d'entrée qui répond et route. Le <b>tableau de bord 360</b> (cette page) construit le contexte complet d'un assuré. La <a href="contrats-360.html">vue 360 des contrats</a> rassemble ses contrats sous contraintes réglementaires.</p></div>
+
+      <h2>Le problème</h2>
+      <p>Un assuré, ce sont des dizaines de documents éparpillés : contrats, avenants, courriers, quittances, constats, pièces de sinistre. Ils vivent dans plusieurs systèmes (GED, boîtes mail, scans). Pour instruire un dossier, le gestionnaire reconstitue à la main une image qui n'existe nulle part. Rien n'est typé, rien n'est relié.</p>
+
+      <h2>La démarche</h2>
+      <p>Une GED enrichie par l'IA. On collecte tous les documents d'un assuré, on les parse quel que soit le format, on les type (contrat, avenant, sinistre, courrier), on en extrait les entités clés, et on assemble un contexte consolidé et à jour. Le tableau de bord montre l'assuré vu de haut : ses contrats en cours, ses sinistres, ses échéances, son historique. Le contexte n'est pas figé : un nouveau document entre, le contexte se met à jour.</p>
+
+      <h2>Vision technique</h2>
+      <p>Les briques existent déjà dans la série. Le parsing multi-format (Volume 2) lit chaque document. La classification le type. L'extraction structurée range les entités dans un modèle « assuré ». Le stockage long-format garde chaque fait rattaché à sa source. Des vues agrégées reconstituent le dossier. Le <a href="assistant-assurance.html">chatbot 360</a> s'appuie ensuite sur ce contexte pour répondre.</p>
+      <p><span class="dep int">Données internes</span><span class="dep auth">Accès gouvernés</span> Ce cas travaille sur des documents d'assurés : pas de démo publique, les pièces d'un dossier sont confidentielles.</p>
+
+      <h2>Roadmap de mise en œuvre</h2>
+      <ol class="roadmap">
+        <li><b>Collecte et parsing</b>Rapatrier les documents existants d'un assuré depuis les systèmes source et les parser en lot, format par format.</li>
+        <li><b>Typage et extraction</b>Classer chaque document (contrat, avenant, sinistre, courrier) et en extraire les entités clés.</li>
+        <li><b>Modèle assuré</b>Ranger les faits extraits dans un modèle de données unique : contrats, sinistres, échéances, interlocuteurs.</li>
+        <li><b>Tableau de bord et recherche</b>Exposer la vue consolidée au gestionnaire, avec recherche et remontée à la source.</li>
+        <li><b>Mise à jour incrémentale</b>À chaque nouveau document, réactualiser le contexte sans tout recalculer.</li>
+      </ol>
+
+      <h2>Ce que ça montre</h2>
+      <p>Le 360 « tableau de bord » n'est pas le 360 « chatbot ». Ici on <b>construit</b> le contexte, là on l'<b>interroge</b>. La GED enrichie par l'IA est la fondation : sans contexte propre et typé, un chatbot 360 ne fait que deviner.</p>
+
+      <div class="callout"><p><em>Cas de vision : il décrit l'architecture cible sur données internes. Pas de démonstration publique, les documents d'un assuré étant confidentiels.</em></p></div>
+
+      <p style="margin-top:18px"><a href="../articles.html" style="color:var(--blue-s,#1d4ed8);text-decoration:none;font-weight:600">↗ Approfondir : les articles de la série</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Écrit par Angela &amp; Kezhan Shi.</span>
+    <span class="foot-links">
+      <a href="index.html">← Autres cas</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

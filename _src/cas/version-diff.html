@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ce qui a changé entre deux éditions d'un contrat · Étude de cas</title>
+<meta name="description" content="Diff au paragraphe entre deux éditions d'un contrat auto, en écartant le cosmétique pour ne garder que les changements de fond, avec les pages.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Versioning · Diff · FR</div>
+      <h1 class="mid">Ce qui a changé entre deux éditions d'un contrat</h1>
+      <p class="lede">Aligner deux versions d'un contrat auto au paragraphe, écarter les changements cosmétiques, et ne remonter que le fond, avec le numéro de page d'origine.</p>
+      <p style="margin-top:18px"><a href="../assets/demos/version-diff.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir la démo interactive (pleine page) →</a></p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Un contrat est réédité chaque année. Entre l'édition de juin 2024 et celle de juin 2025, qu'est-ce qui a vraiment changé ? Un diff brut sur le texte extrait noie le lecteur sous les différences de casse, d'espaces et de retours à la ligne, alors que seules les modifications de sens comptent.</p>
+
+      <h2>La démarche</h2>
+      <p>On extrait les paragraphes des deux PDF, on retire les en-têtes et pieds de page récurrents, puis on normalise chaque paragraphe (tirets conditionnels, espaces, casse, ponctuation) pour en tirer une clé. On aligne les deux versions au paragraphe, on filtre les différences purement cosmétiques, et on ne garde que les ajouts, suppressions et remplacements de fond, chacun rattaché à sa page.</p>
+
+      <div class="callout">
+        <p>La normalisation est le cœur du travail : sans elle, tout ressort comme « modifié ». Avec elle, il ne reste que les changements qui méritent une lecture.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Extraire les paragraphes</b><span>Parcours des blocs des deux PDF avec PyMuPDF.</span></div>
+        <div class="step"><b>Retirer le bruit récurrent</b><span>Les en-têtes et pieds de page qui reviennent à chaque page sont écartés.</span></div>
+        <div class="step"><b>Normaliser pour comparer</b><span>Une clé par paragraphe : tirets conditionnels retirés, espaces compactés, casse et ponctuation neutralisées.</span></div>
+        <div class="step"><b>Aligner et filtrer</b><span>Alignement des paragraphes puis suppression des différences seulement cosmétiques.</span></div>
+        <div class="step"><b>Rattacher à la page</b><span>Chaque changement retenu pointe vers sa page dans le document source, puis un rapport visuel le met en évidence.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>Comparer deux versions d'un document, ce n'est pas comparer deux chaînes de caractères. C'est aligner deux structures et distinguer le bruit d'édition du changement de sens. Le résultat est directement exploitable : la liste courte de ce qui a réellement bougé, page à l'appui.</p>
+
+      <h2>Livrables</h2>
+      <p>Un diff structuré en JSON (type de changement, ancien et nouveau texte, pages) et un rapport HTML de diff visuel avec les changements surlignés.</p>
+
+      <div class="callout emer">
+        <p>Le rapport de diff interactif de ce cas sera publié ici prochainement.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

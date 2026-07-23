@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vérifier la conformité d'une attestation d'assurance · Étude de cas</title>
+<meta name="description" content="Extraire les informations clés d'une attestation d'assurance RC, vérifier leur conformité à un référentiel, surligner la justification sur le PDF, et valider OK/KO.">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.shot{max-width:100%;border-radius:12px;border:1px solid var(--line);margin:10px 0 4px;display:block}
+.shotcap{color:var(--muted);font-size:14px;font-style:italic;margin:0 0 22px}
+</style>
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Extraction · Conformité · FR</div>
+      <h1 class="mid">Vérifier la conformité d'une attestation d'assurance</h1>
+      <p class="lede">Extraire les informations clés d'une attestation RC, vérifier qu'elles respectent un référentiel, surligner la justification sur le PDF, et trancher OK / KO. L'extraction ne suffit pas : il faut le verdict, et la preuve.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Un service reçoit des dizaines d'attestations d'assurance de ses fournisseurs ou partenaires. Chacune doit prouver que certaines mentions sont présentes et conformes : un assuré nommé, une période de validité qui couvre le marché, un plafond de responsabilité civile suffisant, une étendue géographique adéquate. Lire chaque attestation à la main est long, et une simple extraction ne dit pas si le document est <em>conforme</em>, seulement ce qu'il contient.</p>
+
+      <h2>La démarche</h2>
+      <p>Le document est parsé ligne par ligne, avec les coordonnées de chaque ligne. Pour chaque information attendue, un LLM répond en pointant les lignes justificatives, ce qui permet de <b>surligner la preuve sur le PDF</b>. Chaque réponse est ensuite confrontée à un référentiel de conformité (présence obligatoire, seuil minimal, conversion de devise) qui rend un verdict conforme ou non. Un humain valide OK / KO. Le tout se compare entre plusieurs modèles et deux méthodes de parsing.</p>
+
+      <div class="callout">
+        <p>Le fil rouge : la conformité n'est pas de l'extraction. On extrait un champ, puis on le confronte à une règle, et le verdict est adossé à la ligne exacte du document.</p>
+      </div>
+
+      <h2>La méthode, en images</h2>
+      <p>Les attestations montrées ici sont des <b>spécimens anonymisés</b>. Chaque réponse extraite renvoie à ses lignes justificatives, avec la page.</p>
+
+      <img class="shot" src="../assets/cases/compliance-check/01_extraction.png" alt="Vue principale : à gauche le PDF de l'attestation, à droite les champs extraits (assureur, période, assuré, plafond RC) avec leur statut et la page justificative">
+      <p class="shotcap">Le document à gauche, les informations clés extraites à droite, chacune avec sa page justificative.</p>
+
+      <img class="shot" src="../assets/cases/compliance-check/02_surlignage.png" alt="Un clic sur une réponse surligne la ligne justificative correspondante directement sur le PDF">
+      <p class="shotcap">Cliquer une réponse surligne, sur le PDF, la ligne exacte qui la justifie.</p>
+
+      <img class="shot" src="../assets/cases/compliance-check/03_validation.png" alt="Chaque critère porte un verdict de conformité et une validation humaine OK ou KO">
+      <p class="shotcap">Chaque critère reçoit un verdict de conformité, puis une validation humaine OK / KO.</p>
+
+      <img class="shot" src="../assets/cases/compliance-check/04_comparaison.png" alt="Vue côte à côte comparant les réponses de plusieurs modèles LLM sur la même attestation">
+      <p class="shotcap">La même attestation passée par plusieurs modèles, comparés côte à côte.</p>
+
+      <h2>Ce que ça montre</h2>
+      <p>Le contrôle de conformité documentaire est un couple : extraire, puis vérifier contre une règle. La justification surlignée rend chaque verdict auditable, et la comparaison de modèles montre que le référentiel, lui, ne bouge pas : c'est la règle métier qui tranche, pas le modèle.</p>
+
+      <h2>Livrables</h2>
+      <p>Une application de bureau qui extrait, surligne, vérifie la conformité et exporte les résultats. Les attestations utilisées en démonstration sont des spécimens anonymisés.</p>
+
+      <div class="callout"><p><em>Application de bureau (données locales) ; démonstration sur spécimens anonymisés. Nous contacter pour une démonstration sur vos propres documents.</em></p></div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

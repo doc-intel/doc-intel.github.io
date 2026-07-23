@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enterprise Document Intelligence: RAG on real documents</title>
+<meta name="description" content="Building enterprise RAG brick by brick, from a single PDF to corpus scale. Articles, desktop and web apps, and real case studies on public documents.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="apps.html">Apps</a>
+      <a href="cas/index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker"><span class="fr">De l'ingénierie, pas de la magie</span><span class="en">Engineering, not magic</span></div>
+      <h1 class="big">
+        <span class="fr blk">Le RAG sur de vrais documents, brique par brique.</span>
+        <span class="en blk">Enterprise RAG on real documents, brick by brick.</span>
+      </h1>
+      <p class="lede">
+        <span class="fr blk">D'un seul PDF jusqu'à l'échelle du corpus. Une position claire, du code qui tourne, des apps, et des cas réels sur documents publics.</span>
+        <span class="en blk">From a single PDF to corpus scale. A clear stance, code that runs, apps, and real case studies on public documents.</span>
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="cas/index.html"><span class="fr">Voir les cas d'usage</span><span class="en">Browse the use cases</span></a>
+        <a class="btn ghost" href="articles.html"><span class="fr">Lire les articles</span><span class="en">Read the articles</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE DOORS -->
+  <section class="block first">
+    <div class="wrap">
+      <div class="lab"><span class="fr">Par où commencer</span><span class="en">Where to start</span></div>
+      <h2><span class="fr">Trois façons d'entrer</span><span class="en">Three ways in</span></h2>
+      <div class="cards" style="margin-top:26px">
+        <a class="card" href="articles.html">
+          <span class="tag a">01</span>
+          <h3><span class="fr">Les articles</span><span class="en">The articles</span></h3>
+          <p><span class="fr">Le RAG expliqué brique par brique : parsing, question, retrieval, génération. Position claire, exemples concrets.</span><span class="en">RAG explained brick by brick: parsing, question, retrieval, generation. Clear stance, concrete examples.</span></p>
+          <span class="go">→ <span class="fr">Lire</span><span class="en">Read</span></span>
+        </a>
+        <a class="card" href="apps.html">
+          <span class="tag b">02</span>
+          <h3>Apps</h3>
+          <p><span class="fr">Le moteur dans de vraies interfaces : une app bureau qui indexe un dossier et répond, et des démos web.</span><span class="en">The engine in real interfaces: a desktop app that indexes a folder and answers, plus web demos.</span></p>
+          <span class="go">→ <span class="fr">Voir</span><span class="en">See</span></span>
+        </a>
+        <a class="card" href="cas/index.html">
+          <span class="tag c">03</span>
+          <h3><span class="fr">Études de cas</span><span class="en">Case studies</span></h3>
+          <p><span class="fr">La méthode sur des cas réels : comparaison de contrats, extraction, recherche agentique, diff de versions.</span><span class="en">The method on real cases: contract comparison, extraction, agentic search, version diffing.</span></p>
+          <span class="go">→ <span class="fr">Explorer</span><span class="en">Explore</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANCE -->
+  <section class="manifesto">
+    <div class="wrap">
+      <h2><span class="fr">Quatre positions qu'on ne lâche pas</span><span class="en">Four positions we won't drop</span></h2>
+      <div class="stances">
+        <div class="stance"><span class="fr blk">Le RAG n'est pas du <b>machine learning</b>.</span><span class="en blk">RAG is not <b>machine learning</b>.</span></div>
+        <div class="stance"><span class="fr blk">Les embeddings ne sont pas <b>magiques</b>.</span><span class="en blk">Embeddings aren't <b>magic</b>.</span></div>
+        <div class="stance"><span class="fr blk">Le retrieval, c'est du <b>filtrage</b>, pas de la recherche.</span><span class="en blk">Retrieval is <b>filtering</b>, not search.</span></div>
+        <div class="stance"><span class="fr blk">On <b>amplifie l'expert</b>, on ne le remplace pas.</span><span class="en blk">You <b>amplify the expert</b>, you don't replace them.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERIES ROADMAP -->
+  <section class="block">
+    <div class="wrap">
+      <div class="lab"><span class="fr">La série</span><span class="en">The series</span></div>
+      <h2><span class="fr">Sept volumes, un même moteur</span><span class="en">Seven volumes, one engine</span></h2>
+      <p class="sub">
+        <span class="fr blk">Les volumes 1 à 4 construisent le moteur, couche par couche. Les volumes 5 à 7 l'embarquent dans trois produits : une app web, une app bureau, un SaaS.</span>
+        <span class="en blk">Volumes 1 to 4 build the engine, layer by layer. Volumes 5 to 7 embed it into three products: a web app, a desktop app, a SaaS.</span>
+      </p>
+      <div class="vols">
+        <div class="vol on">
+          <span class="st live"><span class="fr">En cours</span><span class="en">Live</span></span>
+          <div class="vn">Vol. 1</div>
+          <h4><span class="fr">RAG sur PDF</span><span class="en">PDF RAG</span></h4>
+          <p><span class="fr">Les quatre briques (parsing, question, retrieval, génération), d'un seul PDF jusqu'à l'échelle du corpus. Chaque réponse reste sourcée, avec la page exacte.</span><span class="en">The four bricks (parsing, question, retrieval, generation), from a single PDF to corpus scale. Every answer stays sourced, down to the exact page.</span></p>
+        </div>
+        <div class="vol">
+          <span class="st soon"><span class="fr">À venir</span><span class="en">Soon</span></span>
+          <div class="vn">Vol. 2</div>
+          <h4><span class="fr">Multi-format, multi-intention</span><span class="en">Multi-format, multi-intent</span></h4>
+          <p><span class="fr">Word, Excel, PowerPoint et mail rejoignent le PDF, chacun avec son parseur. De nouvelles intentions arrivent : traduire, résumer, comparer, relire.</span><span class="en">Word, Excel, PowerPoint and mail join the PDF, each with its own parser. New intents arrive: translate, summarize, compare, proofread.</span></p>
+        </div>
+        <div class="vol">
+          <span class="st soon"><span class="fr">À venir</span><span class="en">Soon</span></span>
+          <div class="vn">Vol. 3</div>
+          <h4><span class="fr">Production avec outils</span><span class="en">Production with tools</span></h4>
+          <p><span class="fr">Le document n'est plus seulement lu, il est produit : formulaire rempli, tableau généré, fichier réécrit. Un catalogue d'outils que le moteur sait appeler.</span><span class="en">The document is no longer just read, it is produced: a form filled, a table generated, a file rewritten. A catalog of tools the engine knows how to call.</span></p>
+        </div>
+        <div class="vol">
+          <span class="st soon"><span class="fr">À venir</span><span class="en">Soon</span></span>
+          <div class="vn">Vol. 4</div>
+          <h4><span class="fr">RAG agentique audité</span><span class="en">Agentic RAG with audit</span></h4>
+          <p><span class="fr">Un agent choisit ses actions, garde en mémoire ce qu'il a fait, et laisse une trace lisible. Boîte de verre : chaque étape est vérifiable et rejouable.</span><span class="en">An agent picks its actions, remembers what it did, and leaves a readable trail. Glass box: every step is verifiable and replayable.</span></p>
+        </div>
+        <div class="vol">
+          <span class="st soon"><span class="fr">À venir</span><span class="en">Soon</span></span>
+          <div class="vn">Vol. 5</div>
+          <h4><span class="fr">App web (Streamlit)</span><span class="en">Web app (Streamlit)</span></h4>
+          <p><span class="fr">Le moteur derrière une interface data-scientist : déposer un dossier, poser une question, lire la réponse sourcée. Pensé pour prototyper vite.</span><span class="en">The engine behind a data-scientist UI: drop a folder, ask a question, read the sourced answer. Built to prototype fast.</span></p>
+        </div>
+        <div class="vol">
+          <span class="st soon"><span class="fr">À venir</span><span class="en">Soon</span></span>
+          <div class="vn">Vol. 6</div>
+          <h4><span class="fr">App bureau (Electron)</span><span class="en">Desktop app (Electron)</span></h4>
+          <p><span class="fr">Un poste de travail local qui indexe un dossier scanné et répond hors-ligne. Sidecar Python, données qui ne quittent pas la machine.</span><span class="en">A local workstation that indexes a scanned folder and answers offline. Python sidecar, data that never leaves the machine.</span></p>
+        </div>
+        <div class="vol">
+          <span class="st soon"><span class="fr">À venir</span><span class="en">Soon</span></span>
+          <div class="vn">Vol. 7</div>
+          <h4><span class="fr">SaaS multi-tenant</span><span class="en">Multi-tenant SaaS</span></h4>
+          <p><span class="fr">L'édition serveur, multi-tenant : Postgres, S3, authentification OIDC, facturation. Le même moteur, exploité à l'échelle.</span><span class="en">The server edition, multi-tenant: Postgres, S3, OIDC auth, billing. The same engine, run at scale.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CODE -->
+  <section class="block">
+    <div class="wrap">
+      <div class="lab"><span class="fr">Le code</span><span class="en">The code</span></div>
+      <h2><span class="fr">Du code qui tourne</span><span class="en">Code that runs</span></h2>
+      <p class="sub">
+        <span class="fr blk">Les notebooks runnable qui accompagnent les articles, et le package complet.</span>
+        <span class="en blk">The runnable notebooks that accompany the articles, and the full package.</span>
+      </p>
+      <div class="cta">
+        <a class="btn ghost" href="https://github.com/doc-intel/notebooks-vol1">Notebooks (GitHub)</a>
+        <a class="btn ghost" href="https://ko-fi.com/angelashi">Ko-fi</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="articles.html">Articles</a>
+      <a href="apps.html">Apps</a>
+      <a href="cas/index.html"><span class="fr">Cas</span><span class="en">Cases</span></a>
+      <a href="https://towardsdatascience.com/author/angela-shi/">TDS · Angela</a>
+      <a href="https://towardsdatascience.com/author/kezhanshi/">TDS · Kezhan</a>
+      <a href="https://medium.com/@angela.shi">Medium</a>
+      <a href="https://github.com/doc-intel/notebooks-vol1">GitHub</a>
+      <a href="https://ko-fi.com/angelashi">Ko-fi</a>
+    </span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synthétiser un texte réglementaire, sans rien inventer · Étude de cas</title>
+<meta name="description" content="Résumé fidèle d'un texte réglementaire d'assurance, section par section, où chaque assertion reste adossée à ses lignes d'origine dans le document.">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="canonical" href="https://doc-intel.github.io/fr/cas/regulatory-summary.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/cas/regulatory-summary.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/fr/cas/regulatory-summary.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Synthétiser un texte réglementaire, sans rien inventer · Étude de cas">
+<meta property="og:description" content="Résumé fidèle d'un texte réglementaire d'assurance, section par section, où chaque assertion reste adossée à ses lignes d'origine dans le document.">
+<meta property="og:url" content="https://doc-intel.github.io/fr/cas/regulatory-summary.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Synthétiser un texte réglementaire, sans rien inventer · Étude de cas">
+<meta name="twitter:description" content="Résumé fidèle d'un texte réglementaire d'assurance, section par section, où chaque assertion reste adossée à ses lignes d'origine dans le document.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Études de cas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="regulatory-summary.html" class="active">FR</a>
+      <a href="../../en/cas/index.html">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=assurance">← Études de cas</a></div>
+      <div class="kicker">Résumé · Conformité · FR</div>
+      <h1 class="mid">Synthétiser un texte réglementaire, sans rien inventer</h1>
+      <p class="lede">Un texte réglementaire de dizaines de pages ramené à une synthèse structurée, section par section, où chaque assertion reste rattachée à ses lignes d'origine. Une synthèse dont on peut vérifier chaque phrase.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Une convention collective, une circulaire, un règlement : des dizaines de pages qu'un responsable conformité doit comprendre vite, sans lire l'intégralité. Le réflexe « donne le PDF à un modèle et résume » produit un texte fluide mais invérifiable, où l'on ne sait pas quelle phrase du résumé vient de quelle partie du document, ni si le modèle a inventé.</p>
+
+      <h2>La démarche</h2>
+      <p>Le document est parsé ligne par ligne, puis découpé par sa structure. Chaque section est résumée en un petit nombre d'assertions, et chaque assertion garde le lien vers les lignes qui la fondent. Les résumés de sections sont ensuite agrégés en une synthèse d'ensemble. Le point clé : une assertion qui ne s'appuie sur aucune ligne du document est comptée comme « non sourcée » et signalée. Sur cet exemple, le compteur d'assertions non sourcées est à zéro.</p>
+
+      <div class="callout">
+        <p>Le fil rouge : une synthèse n'est utile en conformité que si elle est fidèle. Chaque phrase reste adossée au texte, et ce qui ne l'est pas est signalé plutôt que caché.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Parser et découper</b><span>Le texte est extrait ligne par ligne, puis segmenté par sa structure (chapitres, articles).</span></div>
+        <div class="step"><b>Résumer chaque section</b><span>Chaque section produit quelques assertions, chacune reliée aux lignes qui la justifient.</span></div>
+        <div class="step"><b>Agréger vers le haut</b><span>Les résumés de sections sont combinés en une synthèse d'ensemble, sans perdre les liens.</span></div>
+        <div class="step"><b>Vérifier la fidélité</b><span>Toute assertion sans appui dans le texte est comptée « non sourcée » et signalée.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>Résumer, en conformité, ce n'est pas produire un joli paragraphe : c'est une synthèse traçable, où le lecteur peut remonter de chaque assertion au texte. La fidélité devient une propriété mesurée (le nombre d'assertions non sourcées), pas une promesse.</p>
+
+      <h2>Livrables</h2>
+      <p>Une fiche de synthèse structurée du texte réglementaire, avec le compte d'assertions et la garantie de fidélité. Démonstration sur les premières sections d'un document public.</p>
+
+      <div class="callout"><p><em>Démo sur un document public (convention collective assurances Luxembourg 2024, legilux) ; elle s'ouvre en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../../assets/demos/regulatory-summary.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir la fiche de synthèse (pleine page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=assurance">← Autres cas</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

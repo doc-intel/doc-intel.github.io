@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Every contract of a policyholder, in one view · Case study</title>
+<meta name="description" content="Bring a single policyholder's contracts into one unified view, applying the regulatory constraints on access, protection and sharing.">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+.roadmap{counter-reset:rm;margin:16px 0 6px;padding:0;list-style:none}
+.roadmap li{position:relative;padding:12px 16px 12px 52px;border:1px solid var(--line,#e2e8f0);border-radius:12px;margin-bottom:10px;background:var(--card);font-size:14px;line-height:1.5}
+.roadmap li b{display:block;margin-bottom:2px}
+.roadmap li::before{counter-increment:rm;content:counter(rm);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--band);color:var(--band-fg);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.reg{background:var(--amber-b);border:1px solid var(--amber-f);border-radius:14px;padding:16px 18px;margin:16px 0}
+.reg h3{margin:0 0 6px;font-size:1rem;color:var(--amber-s)}
+.reg ul{margin:.3em 0 0;padding-left:1.15em} .reg li{margin:.25em 0;font-size:14px}
+.dep{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:980px;margin:0 6px 6px 0}
+.dep.int{background:var(--blue-b);color:var(--blue-s)} .dep.auth{background:var(--rose-b);color:var(--rose-s)}
+</style>
+<link rel="canonical" href="https://doc-intel.github.io/en/cas/contrats-360.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/cas/contrats-360.html">
+<link rel="alternate" hreflang="en" href="https://doc-intel.github.io/en/cas/contrats-360.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/en/cas/contrats-360.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Every contract of a policyholder, in one view · Case study">
+<meta property="og:description" content="Bring a single policyholder's contracts into one unified view, applying the regulatory constraints on access, protection and sharing.">
+<meta property="og:url" content="https://doc-intel.github.io/en/cas/contrats-360.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Every contract of a policyholder, in one view · Case study">
+<meta name="twitter:description" content="Bring a single policyholder's contracts into one unified view, applying the regulatory constraints on access, protection and sharing.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Case studies</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="../../fr/cas/contrats-360.html">FR</a>
+      <a href="contrats-360.html" class="active">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=assurance">← Case studies</a></div>
+      <div class="kicker">360 view · Contracts · Insurance</div>
+      <h1 class="mid">Every contract of a policyholder, in one view</h1>
+      <p class="lede">One policyholder often holds several contracts, managed in silos. The 360 contracts view brings them together technically, under the regulatory constraints on access and sharing.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+      <div class="callout"><p>The <b>360 view</b> comes in four cases. The two 360 chatbots (<a href="assistant-assurance.html">client</a> and <a href="assistant-agents.html">general agents</a>) answer and route. The <a href="contexte-360.html">360 context</a> gathers everything known about a policyholder. The <b>360 contracts view</b> (this page) is its compliance facet: bringing their contracts together under regulatory constraints.</p></div>
+
+      <h2>The problem</h2>
+      <p>One policyholder often holds several contracts: motor, home, health, protection. They are managed in separate systems, sometimes by different entities. Nobody sees the whole relationship at once. And you cannot simply open everything up: each product, each entity, has its own access rules.</p>
+
+      <h2>The approach</h2>
+      <p>Bring the contract data together into a unified view, while applying the regulatory restrictions. You extract each contract into a common schema, reconcile the contracts of a single policyholder, and place an authorisation layer on top: who is allowed to see what. Centralising the data is not centralising the rights.</p>
+
+      <h2>Technical vision</h2>
+      <p>A common, multi-product contract schema, fed by extraction from each source system. An identity resolution reconciles the contracts of a single policyholder. An access layer filters every read by role and entity. Every access is traced. The consolidated view only exposes what the user is allowed to see.</p>
+      <p><span class="dep int">Internal data</span><span class="dep auth">Access control</span> The data is centralised technically; the rights, though, stay compartmentalised.</p>
+
+      <div class="reg">
+        <h3>Regulatory constraints</h3>
+        <ul>
+          <li><b>Access control</b>: every read filtered by role and entity; no global view by default.</li>
+          <li><b>Data protection</b>: minimisation, encryption, bounded retention.</li>
+          <li><b>Sharing rules</b>: sharing between entities follows the regulation, not technical convenience.</li>
+        </ul>
+      </div>
+
+      <h2>Implementation roadmap</h2>
+      <ol class="roadmap">
+        <li><b>Unified contract schema</b>Define a common model able to represent the different products.</li>
+        <li><b>Per-system extraction</b>Feed the schema from each source system, contract by contract.</li>
+        <li><b>Identity resolution</b>Reliably reconcile the contracts of a single policyholder.</li>
+        <li><b>Access layer and audit</b>Filter every read by role and entity, trace the accesses.</li>
+        <li><b>Consolidated view</b>Expose the full relationship, within the limits allowed to each user.</li>
+      </ol>
+
+      <h2>What it shows</h2>
+      <p>The 360 contracts view is as much a data-architecture matter as a compliance one. The challenge is not bringing things together, it is bringing them together <b>while respecting the regulatory walls</b>. Technical centralisation and the compartmentalisation of rights are not at odds: they are designed together.</p>
+
+      <div class="callout"><p><b>Related cases:</b> <a href="contexte-360.html">360 context</a>, <a href="assistant-assurance.html">client 360 chatbot</a>, <a href="assistant-agents.html">general-agent 360 chatbot</a>.</p></div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Written by Angela Shi, Kezhan Shi and Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=assurance">← Other cases</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

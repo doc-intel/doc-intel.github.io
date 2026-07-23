@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le contexte 360 : réunir toutes les informations d'un assuré · Étude de cas</title>
+<meta name="description" content="Réunir et typer tous les documents d'un assuré en un contexte unique et à jour, la fondation que le chatbot, le tableau de bord et l'audit consomment.">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+.roadmap{counter-reset:rm;margin:16px 0 6px;padding:0;list-style:none}
+.roadmap li{position:relative;padding:12px 16px 12px 52px;border:1px solid var(--line,#e2e8f0);border-radius:12px;margin-bottom:10px;background:var(--card);font-size:14px;line-height:1.5}
+.roadmap li b{display:block;margin-bottom:2px}
+.roadmap li::before{counter-increment:rm;content:counter(rm);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--band);color:var(--band-fg);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.consumers{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:14px 0 6px}
+.cons{border:1px solid var(--line,#e2e8f0);border-radius:12px;padding:14px 16px;background:var(--card);font-size:13.5px;line-height:1.5}
+.cons b{display:block;margin-bottom:3px}
+.dep{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:980px;margin:0 6px 6px 0}
+.dep.int{background:var(--blue-b);color:var(--blue-s)} .dep.auth{background:var(--rose-b);color:var(--rose-s)} .dep.pub{background:var(--emer-b);color:var(--emer-s)}
+</style>
+<link rel="canonical" href="https://doc-intel.github.io/fr/cas/contexte-360.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/cas/contexte-360.html">
+<link rel="alternate" hreflang="en" href="https://doc-intel.github.io/en/cas/contexte-360.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/en/cas/contexte-360.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Le contexte 360 : réunir toutes les informations d'un assuré · Étude de cas">
+<meta property="og:description" content="Réunir et typer tous les documents d'un assuré en un contexte unique et à jour, la fondation que le chatbot, le tableau de bord et l'audit consomment.">
+<meta property="og:url" content="https://doc-intel.github.io/fr/cas/contexte-360.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Le contexte 360 : réunir toutes les informations d'un assuré · Étude de cas">
+<meta name="twitter:description" content="Réunir et typer tous les documents d'un assuré en un contexte unique et à jour, la fondation que le chatbot, le tableau de bord et l'audit consomment.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Études de cas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="contexte-360.html" class="active">FR</a>
+      <a href="../../en/cas/contexte-360.html">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=assurance">← Études de cas</a></div>
+      <div class="kicker">Contexte 360 · Fondation · Assurance</div>
+      <h1 class="mid">Le contexte 360 : réunir toutes les informations d'un assuré</h1>
+      <p class="lede">Un assuré, ce sont des dizaines de documents éparpillés. Le contexte 360 les réunit, les parse et les type pour en faire une matière unique et à jour. Ce n'est pas un chatbot : c'est ce qu'un chatbot, et bien d'autres usages, consomment.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+      <div class="callout"><p>La première brique de l'assurance, la <b>Vision 360</b>, se décline en quatre cases : le <a href="assistant-assurance.html">chatbot 360 pour le client</a>, le <a href="assistant-agents.html">chatbot 360 pour les agents généraux</a>, le <b>contexte 360</b> qui réunit toutes les informations d'un assuré, et la <a href="contrats-360.html">vue 360 des contrats</a>. Les deux chatbots consomment le contexte ; ils n'en sont pas la seule sortie.</p></div>
+
+      <h2>Le problème</h2>
+      <p>Un assuré, ce sont des dizaines de documents et d'informations éparpillés : contrats, avenants, courriers, quittances, constats, pièces de sinistre. Ils vivent dans plusieurs systèmes (GED, boîtes mail, scans). Personne ne dispose d'une vue complète et à jour de l'assuré. Or c'est cette vue, ce <b>contexte</b>, qui manque à tout ce qu'on veut faire ensuite.</p>
+
+      <h2>La démarche</h2>
+      <p>Réunir toutes les informations d'un assuré en un contexte unique, propre et typé. On collecte tous ses documents, on les parse quel que soit le format, on les type (contrat, avenant, sinistre, courrier), on en extrait les entités clés, et on assemble un contexte consolidé et à jour. Une GED enrichie par l'IA. Ce n'est pas un chatbot : c'est la matière que le chatbot, et bien d'autres usages, vont consommer.</p>
+
+      <div class="callout"><p>Le point important : le contexte 360 n'est pas qu'une brique de chatbot. C'est une fondation. Le chatbot l'utilise, mais un tableau de bord, un audit, une extraction réglementaire ou un score de risque l'utilisent tout autant.</p></div>
+
+      <h2>Ce que le contexte alimente</h2>
+      <div class="consumers">
+        <div class="cons"><b>Le chatbot 360</b>Client comme <a href="assistant-agents.html">agent général</a> : le contexte lui donne de quoi comprendre et répondre juste.</div>
+        <div class="cons"><b>Le tableau de bord</b>La vue consolidée de l'assuré pour le gestionnaire : contrats, sinistres, échéances.</div>
+        <div class="cons"><b>L'audit et la conformité</b>La <a href="contrats-360.html">vue 360 des contrats</a> et les contrôles réglementaires s'appuient sur le même contexte.</div>
+        <div class="cons"><b>L'extraction et le scoring</b>Tout traitement aval part d'un contexte propre plutôt que de documents bruts épars.</div>
+      </div>
+
+      <h2>Vision technique</h2>
+      <p>Les briques existent déjà dans la série. Le parsing multi-format (Volume 2) lit chaque document. La classification le type. L'extraction structurée range les entités dans un modèle « assuré ». Le stockage long-format garde chaque fait rattaché à sa source. Des vues agrégées reconstituent le dossier. Le contexte n'est pas figé : un nouveau document entre, il se met à jour.</p>
+      <p><span class="dep int">Données internes</span><span class="dep auth">Accès gouvernés</span> Ce cas travaille sur des documents d'assurés : pas de démo publique, les pièces d'un dossier sont confidentielles.</p>
+
+      <h2>Roadmap de mise en œuvre</h2>
+      <ol class="roadmap">
+        <li><b>Collecte et parsing</b>Rapatrier les documents existants d'un assuré depuis les systèmes source et les parser en lot, format par format.</li>
+        <li><b>Typage et extraction</b>Classer chaque document (contrat, avenant, sinistre, courrier) et en extraire les entités clés.</li>
+        <li><b>Modèle assuré</b>Ranger les faits extraits dans un modèle de données unique : contrats, sinistres, échéances, interlocuteurs.</li>
+        <li><b>Exposition du contexte</b>Le rendre consommable par le chatbot, le tableau de bord, l'audit, l'extraction.</li>
+        <li><b>Mise à jour incrémentale</b>À chaque nouveau document, réactualiser le contexte sans tout recalculer.</li>
+      </ol>
+
+      <h2>Ce que ça montre</h2>
+      <p>Avant de construire un assistant 360, il faut le contexte 360. Réunir et typer l'information est la vraie fondation ; sans elle, un chatbot ne fait que deviner. Et parce que c'est une fondation, elle sert bien au-delà du chatbot.</p>
+
+      <div class="callout"><p><b>Cas associés :</b> <a href="assistant-assurance.html">chatbot 360 client</a>, <a href="assistant-agents.html">chatbot 360 agents généraux</a>, <a href="contrats-360.html">vue 360 des contrats</a>.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=assurance">← Autres cas</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

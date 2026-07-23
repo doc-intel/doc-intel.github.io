@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redacting personal data from a CV · Case study</title>
+<meta name="description" content="Detecting and masking personal data (emails, phones, names) in a resume with a deterministic regex layer, before anything reaches a model.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-en" data-fixed-lang="en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Case studies</a></div>
+      <div class="kicker">Redaction · HR · EN</div>
+      <h1 class="mid">Redacting personal data from a CV</h1>
+      <p class="lede">Before a résumé reaches any model or gets shared, the obvious personal data has to go: emails, phone numbers, names. A deterministic pass catches the easy, high-confidence cases first, cheaply and reproducibly.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>The problem</h2>
+      <p>A recruiter's pipeline processes hundreds of résumés. Sending them to a model, or sharing them across a team, means personal data leaves its original context. Much of that data follows regular shapes: an email is an email, a phone number is a phone number. Those should be masked deterministically, before anything more expensive or less predictable runs.</p>
+
+      <h2>The approach</h2>
+      <p>A regex layer scans the document and flags the personal-data entities it recognizes with high confidence, then masks them in place. It is deterministic (same input, same output), cheap, and auditable: each masked span is a match you can point to. The harder, ambiguous cases (a name that looks like a common word, an address split across lines) are left to a later, model-based pass; the regex layer's job is to remove the easy 80% for free.</p>
+
+      <div class="callout">
+        <p>The thread: redaction starts before the model. The cheap, deterministic layer removes what has a regular shape, so the expensive layer only sees what actually needs judgement.</p>
+      </div>
+
+      <h2>The method, step by step</h2>
+      <div class="steps">
+        <div class="step"><b>Scan for known shapes</b><span>Emails, phone numbers and other regularly-shaped entities are matched by pattern.</span></div>
+        <div class="step"><b>Mask in place</b><span>Each match is replaced, keeping the document readable, every masked span traceable to its match.</span></div>
+        <div class="step"><b>Leave the hard cases</b><span>Ambiguous entities are deferred to a later model-based pass, not forced through regex.</span></div>
+        <div class="step"><b>Stay deterministic</b><span>Same input, same output; no model call for the easy layer.</span></div>
+      </div>
+
+      <h2>What it shows</h2>
+      <p>Anonymization is a cascade, not a single call. The first layer is deterministic and free, and it should run before anything reaches a model. What is left for the model is only what genuinely needs judgement.</p>
+
+      <h2>Deliverables</h2>
+      <p>A redaction report over a synthetic résumé, showing the detected entities and the masked output. The CV is fabricated.</p>
+
+      <div class="callout"><p><em>Static demonstration on a synthetic résumé; opens full-page.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/pii-redaction.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Open the report (full page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

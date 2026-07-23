@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparer 10 contrats habitation clause par clause · Étude de cas</title>
+<meta name="description" content="Comparaison agentique de 10 conditions générales MRH sur cinq scénarios sensibles, avec verdict sourcé et page exacte par assureur.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Comparaison · Agentique · FR</div>
+      <h1 class="mid">Comparer 10 contrats habitation, clause par clause</h1>
+      <p class="lede">Dix conditions générales MRH, cinq scénarios sensibles, un verdict sourcé par assureur avec la page exacte. Le tout construit pour ne rien inventer.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Deux contrats d'assurance habitation se ressemblent sur la brochure et divergent sur les cas limites. Le vol du vélo hors du domicile, l'infiltration par la toiture, le gel d'une canalisation, la perte des aliments d'un congélateur, le vol sans effraction : c'est là que les garanties se séparent. Lire dix conditions générales à la main pour répondre à ces cinq questions prend des heures, et une réponse sans la citation exacte ne vaut rien pour un client.</p>
+
+      <h2>La démarche</h2>
+      <p>On part de dix conditions générales publiques (des documents produit que les assureurs publient), on injecte un marqueur de page dans le texte extrait, puis on lance un agent par scénario. Chaque agent lit les dix contrats et rend un verdict structuré : couvert, sous conditions, plafonné, en option, exclu, ou non prévu. À chaque verdict est attachée la citation exacte et son numéro de page. La citation est vérifiée par programme contre le texte source, donc l'agent ne peut pas inventer une phrase qui n'existe pas.</p>
+
+      <div class="callout">
+        <p>Le fil rouge : une réponse n'est utile que si on peut remonter à la ligne du contrat qui la justifie. La page n'est pas un détail, c'est la preuve.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Extraire avec des marqueurs de page</b><span>Le texte de chaque PDF est extrait avec un marqueur « PAGE N » réinjecté, pour que chaque citation reste traçable jusqu'à sa page.</span></div>
+        <div class="step"><b>Choisir des scénarios en zone grise</b><span>Cinq situations connues pour diverger entre assureurs, plutôt que des garanties que tout le monde couvre à l'identique.</span></div>
+        <div class="step"><b>Sonder par mots-clés</b><span>Une recherche rapide sur les dix contrats confirme la présence du sujet et localise les passages à lire de près.</span></div>
+        <div class="step"><b>Un agent par scénario</b><span>L'agent lit les dix contrats et renvoie un verdict typé : statut, condition, citation exacte, page.</span></div>
+        <div class="step"><b>Synthétiser</b><span>Une carte de chaleur et un tableau détaillé, avec les liens vers les PDF et les avantages qualitatifs au-delà du simple remboursement.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>La comparaison de documents n'est pas une recherche sémantique floue : c'est une extraction structurée, question par question, où chaque case du tableau est adossée à une phrase du contrat. L'approche par agent avec vérification de citation supprime le risque le plus grave dans ce genre de tâche, la réponse plausible mais fausse.</p>
+      <div class="callout"><p>Au-delà de l'analyse, cette brique sert d'argument de vente : pendant une <a href="souscription-chatbot.html">souscription</a>, le <a href="assistant-assurance.html">chatbot 360</a> l'appelle pour montrer, sur un point précis (le vélo volé dehors, une exclusion…), ce que le contrat proposé couvre et que certains concurrents ne couvrent pas.</p></div>
+
+      <h2>Livrables</h2>
+      <p>Une carte de chaleur des cinq scénarios sur les dix assureurs, un comparateur interactif avec visionneuse du PDF en regard, une chaîne de raisonnement montrant le travail de l'agent, et un rapport de méthodologie complet.</p>
+
+      <div class="callout"><p><em>Démo sur documents publics ; elle s'ouvre en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/mrh.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir la démo interactive (pleine page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Summarizing a full paper into anchored claims · Case study</title>
+<meta name="description" content="Reducing a full research paper to a set of claims, each anchored to the lines it came from, with a count of unsupported claims.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-en" data-fixed-lang="en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Case studies</a></div>
+      <div class="kicker">Summarization · Research · EN</div>
+      <h1 class="mid">Summarizing a full paper into anchored claims</h1>
+      <p class="lede">A long paper reduced to a set of claims, section by section, where each claim points back to the lines it came from. A summary you can check, not just read.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+      <h2>The problem</h2>
+      <p>A model summary of a long document reads well but is hard to trust: you cannot tell which sentence came from which part, or whether the model invented a detail. For anything you will rely on, a fluent paragraph is not enough.</p>
+      <h2>The approach</h2>
+      <p>The document is parsed line by line and summarized by section, each claim carrying the lines that support it. The section summaries are aggregated into an overall one without losing the links. A claim that rests on no line is counted as unsupported and flagged.</p>
+      <div class="callout"><p>The thread: a faithful summary keeps every claim tied to the source. Faithfulness becomes a number, not a promise.</p></div>
+      <h2>What it shows</h2>
+      <p>Summarization for real use is traceable: the reader can walk from any claim back to the text, and the count of unsupported claims measures how faithful the summary is.</p>
+      <h2>Deliverables</h2>
+      <p>A structured summary of a full paper, with claims anchored to their source lines and a count of unsupported claims. The paper is public.</p>
+      <div class="callout"><p><em>Demonstration on a public paper; opens full-page.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/paper-summary.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Open the report (full page) →</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interroger une base sinistres en langage naturel · Étude de cas</title>
+<meta name="description" content="Une question en français traduite en une requête SQL bornée, exécutée sur une base sinistres, avec le résultat et la requête générée visibles côte à côte.">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="canonical" href="https://doc-intel.github.io/fr/cas/claims-sql-agent.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/cas/claims-sql-agent.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/fr/cas/claims-sql-agent.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Interroger une base sinistres en langage naturel · Étude de cas">
+<meta property="og:description" content="Une question en français traduite en une requête SQL bornée, exécutée sur une base sinistres, avec le résultat et la requête générée visibles côte à côte.">
+<meta property="og:url" content="https://doc-intel.github.io/fr/cas/claims-sql-agent.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Interroger une base sinistres en langage naturel · Étude de cas">
+<meta name="twitter:description" content="Une question en français traduite en une requête SQL bornée, exécutée sur une base sinistres, avec le résultat et la requête générée visibles côte à côte.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Études de cas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="claims-sql-agent.html" class="active">FR</a>
+      <a href="../../en/cas/index.html">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=assurance">← Études de cas</a></div>
+      <div class="kicker">Agent SQL · Indemnisation · FR</div>
+      <h1 class="mid">Interroger une base sinistres en langage naturel</h1>
+      <p class="lede">« Combien de dégâts des eaux de plus de 5 000 € cette année ? » L'agent traduit la question en une requête SQL bornée, l'exécute, et montre la requête autant que le résultat.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Le gestionnaire connaît sa question métier mais pas le schéma de la base ni le SQL. L'analyste, lui, réécrit les mêmes requêtes toute la journée. Entre les deux, il faut un pont : comprendre la demande en français et la traduire en une requête juste, sans laisser l'utilisateur écrire quoi que ce soit de dangereux.</p>
+
+      <h2>La démarche</h2>
+      <p>L'agent reçoit la question, connaît le schéma de la table sinistres, et génère un SELECT. La requête est bornée : lecture seule, pas d'écriture, colonnes et tables validées. Elle est exécutée, et le résultat est renvoyé avec la requête générée bien visible, pour que l'utilisateur voie exactement ce qui a été demandé à la base. La confiance vient de la transparence, pas de la magie.</p>
+
+      <div class="callout">
+        <p>Le fil rouge : l'agent ne fait que traduire une intention en SQL borné. La requête est montrée, donc vérifiable ; ce n'est pas une boîte noire qui « répond ».</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Décrire le schéma</b><span>Les tables, colonnes et types de la base sinistres sont donnés à l'agent comme contexte.</span></div>
+        <div class="step"><b>Traduire la question</b><span>La demande en français devient un SELECT, avec les filtres et agrégations correspondants.</span></div>
+        <div class="step"><b>Borner la requête</b><span>Lecture seule, tables et colonnes validées : aucune écriture, aucune requête hors périmètre.</span></div>
+        <div class="step"><b>Exécuter et rendre</b><span>Le résultat s'affiche à côté de la requête générée, pour que l'utilisateur voie ce qui a été demandé.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>Un document ou une base n'a pas besoin d'un moteur sémantique flou pour être interrogé : une fois la table typée, la question de l'utilisateur pilote une requête déterministe, bien plus fiable et vérifiable qu'une recherche approximative sur du texte.</p>
+
+      <h2>Livrables</h2>
+      <p>Une interface qui prend une question en français, montre le SQL généré et le résultat. Les données de sinistres sont synthétiques.</p>
+
+      <div class="callout"><p><em>Démonstration statique sur données synthétiques ; elle s'ouvre en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../../assets/demos/claims-sql-agent.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir la démo (pleine page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=assurance">← Autres cas</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>
