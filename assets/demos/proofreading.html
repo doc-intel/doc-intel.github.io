@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grammar proofread on seeded text</title>
+<style>
+ :root{--ink:#16181d;--ink2:#5b616e;--ink3:#8a909c;--line:#e2e4ea;--line2:#eef0f4;--soft:#f6f7f9;
+        --ok:#0a7d3e;--ok-soft:#e7f5ec;--ko:#c0392b;--ko-soft:#fdecea;--warn:#b45309;--warn-soft:#fff5e6;
+        --blue:#1d4ed8;--code:#f0f4f8}
+ *{box-sizing:border-box}
+ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+       color:var(--ink);background:var(--soft);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+ .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+ header{background:#fff;border-bottom:1px solid var(--line)}
+ header .wrap{padding:26px 20px 20px}
+ h1{font-size:24px;font-weight:700;margin:0 0 6px;letter-spacing:-.015em}
+ .sub{color:var(--ink2);font-size:15px;margin:0 0 6px}
+ .kicker{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+ .note{background:#fff8e6;border:1px solid #fde68a;border-radius:10px;padding:10px 14px;font-size:12.5px;
+        color:#7a5b08;margin:14px 0 0;line-height:1.5}
+ main{padding:20px 0 60px}
+ .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:16px 0}
+ .card h2{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin:0 0 10px;font-weight:800}
+ .card.input h2{color:var(--warn)}
+ .card.proc h2{color:var(--blue)}
+ .card.output h2{color:var(--ok)}
+ .card.verdict h2{color:var(--ink)}
+ dl.kv{display:grid;grid-template-columns:180px 1fr;gap:6px 16px;margin:0}
+ dl.kv dt{font-weight:700;color:var(--ink2);font-size:12.5px}
+ dl.kv dd{margin:0;font-size:13.5px;word-break:break-word}
+ ol.steps{margin:0;padding-left:20px}
+ ol.steps li{margin:4px 0}
+ code{background:var(--code);border-radius:6px;padding:1px 7px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+ pre.prev{background:var(--code);border:1px solid var(--line2);border-radius:8px;padding:12px 14px;
+           font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.5;
+           overflow-x:auto;white-space:pre-wrap;word-break:break-word;margin:8px 0 0;max-height:340px}
+ .muted{color:var(--ink3);font-style:italic;margin:0}
+ .tally{display:flex;gap:10px;align-items:center;margin:0 0 12px;flex-wrap:wrap}
+ .badge{display:inline-block;padding:3px 12px;border-radius:980px;font-weight:700;font-size:12px;
+         white-space:nowrap}
+ .badge.ok  {background:var(--ok-soft);color:var(--ok)}
+ .badge.ko  {background:var(--ko-soft);color:var(--ko)}
+ .badge.warn{background:var(--warn-soft);color:var(--warn)}
+ table{width:100%;border-collapse:collapse;margin:0}
+ td{border-bottom:1px solid var(--line2);padding:9px 4px;vertical-align:top;font-size:13.5px}
+ td:first-child{width:70px}
+ .detail{color:var(--ink3);font-size:12.5px;margin-top:3px}
+ .foot{text-align:center;font-size:11.5px;color:var(--ink3);margin:30px 0 6px}
+ @media(max-width:600px){dl.kv{grid-template-columns:1fr;gap:2px}dl.kv dt{margin-top:6px}}
+</style></head>
+<body>
+<div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../en/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../en/cas/" style="color:#cbd5e1;text-decoration:none">Case studies</a><a href="../../en/cas/proofreading.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Back to the case</a></div>
+<header><div class="wrap">
+  <div class="kicker">Proofreading · grammar</div>
+  <h1>Grammar proofread on seeded text</h1>
+  <p class="sub">7 patches proposed on a 6-line paragraph with 6 intentional errors.</p>
+  <div class="note">Inline fixture — the paragraph and its seeded errors travel with the demo. LLM output varies ; assertions target the known typos + one subject-verb agreement fix.</div>
+</div></header>
+<main><div class="wrap">
+  <section class="card input">
+  <h2>INPUT — what we fed the pipeline</h2>
+  <dl class="kv">
+<dt>Fixture</dt><dd>inline (6 lines, 6 seeded errors)</dd>
+<dt>Mode</dt><dd>grammar</dd>
+<dt>Chunk size</dt><dd>30 lines/call</dd>
+</dl>
+<pre class="prev">L1: This is a smpal example paragraph.
+L2: We beleive that structured proofreading is important.
+L3: The system needs to catches typos and grammer issues.
+L4: There are severall errors intentionaly placed here.
+L5: Each error are meant to be found and corrected.
+L6: The demo verifies that the LLM proofread the text correctly.</pre>
+</section>
+  <section class="card proc">
+  <h2>PROCESSING — what the pipeline does</h2>
+  <ol class="steps">
+<li><code>build a line_df from the inline text (page_num=1, line_num=1..N)</code></li>
+<li><code>doc_proofread(line_df_override=line_df, mode=grammar, proofread_caller=llm_parse+_PatchList)</code></li>
+<li><code>for each patch : locate `before` substring in the source line → synthesize start/end offsets</code></li>
+</ol>
+</section>
+  <section class="card output">
+  <h2>OUTPUT — what came back</h2>
+  <dl class="kv">
+<dt>Patches proposed</dt><dd>7</dd>
+</dl>
+<pre class="prev">L1: &#x27;smpal&#x27; → &#x27;sample&#x27;  — Corrected the spelling error &#x27;smpal&#x27; to &#x27;sample&#x27;. It is a clear typo with one correct form possible in context (&#x27;sample&#x27;). This is an unambiguous fix with high confidence (1.0).
+L2: &#x27;beleive&#x27; → &#x27;believe&#x27;  — Corrected the misspelled word &#x27;beleive&#x27; to &#x27;believe&#x27;. Clear unambiguous spelling error.
+L3: &#x27;catches&#x27; → &#x27;catch&#x27;  — Corrected verb agreement: &#x27;needs to catches&#x27; should be &#x27;needs to catch&#x27;.
+L3: &#x27;grammer&#x27; → &#x27;grammar&#x27;  — Corrected the misspelled word &#x27;grammer&#x27; to &#x27;grammar&#x27;.
+L4: &#x27;severall&#x27; → &#x27;several&#x27;  — Corrected the spelling error &#x27;severall&#x27; to &#x27;several&#x27;.
+L4: &#x27; intentionaly&#x27; → &#x27; intentionally&#x27;  — Corrected &#x27;intentionaly&#x27; to &#x27;intentionally&#x27; (misspelling, missing &#x27;l&#x27;).
+L5: &#x27;are&#x27; → &#x27;is&#x27;  — Corrected subject-verb agreement: &#x27;Each error are&#x27; should be &#x27;Each error is&#x27;.</pre>
+</section>
+  <section class="card verdict">
+  <h2>VERDICT — assertions</h2>
+  <div class="tally"><span class="badge ok">7 PASS</span> <span class="muted">out of 7</span></div><table><tr><td><span class="badge ok">PASS</span></td><td><b>At least 5 patches proposed</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>Flags &#x27;smpal&#x27; as a typo on L1</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>Catches &#x27;beleive&#x27; -&gt; &#x27;believe&#x27;</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>Catches &#x27;grammer&#x27; -&gt; &#x27;grammar&#x27;</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>Catches &#x27;severall&#x27; -&gt; &#x27;several&#x27;</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>Catches &#x27;intentionaly&#x27;</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>At least one subject-verb agreement fix</b></td></tr></table>
+</section>
+  <p class="foot">Angela Shi · towardsdatascience.com/author/angela-shi</p>
+</div></main>
+<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Static <b>demonstration</b> (frozen data), <b>not the live tool</b>. For a tool on your own documents, <b>contact us</b>. · <a href="../../en/cas/" style="color:#1d4ed8;text-decoration:none">Case studies</a></div>
+</body></html>

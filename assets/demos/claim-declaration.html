@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Déclaration de sinistre — chatbot statique (HTML seul)</title>
+<style>
+  :root { --navy:#1F4E78; --navy-d:#163a5a; --bg:#f3f4f6; --bot:#eef4ff; --user:#d1fae5; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+         background:var(--bg); color:#1f2937; }
+  header { background:var(--navy); color:#fff; padding:14px 20px; display:flex;
+           align-items:center; gap:10px; }
+  header h1 { font-size:1.05rem; margin:0; font-weight:600; }
+  header .tag { margin-left:auto; font-size:.75rem; opacity:.75; }
+  .wrap { max-width:760px; margin:20px auto; padding:0 14px; }
+  .note { background:#fff7ed; border:1px solid #fed7aa; color:#9a3412;
+          font-size:.8rem; padding:8px 12px; border-radius:8px; margin-bottom:12px; }
+  #chat { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:14px;
+          height:56vh; overflow-y:auto; }
+  .row { display:flex; margin:6px 0; }
+  .row.user { justify-content:flex-end; }
+  .bubble { max-width:78%; padding:9px 13px; border-radius:14px; font-size:.92rem;
+            line-height:1.35; white-space:pre-wrap; }
+  .bot .bubble  { background:var(--bot); border:1px solid #dbeafe; border-bottom-left-radius:4px; }
+  .user .bubble { background:var(--user); border:1px solid #a7f3d0; border-bottom-right-radius:4px; }
+  .who { font-size:.68rem; color:#6b7280; margin:0 6px 2px; }
+  .inputbar { display:flex; gap:8px; margin-top:10px; }
+  #answer { flex:1; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:.95rem; }
+  button { background:var(--navy); color:#fff; border:none; border-radius:8px;
+           padding:10px 16px; font-size:.9rem; cursor:pointer; }
+  button:hover { background:var(--navy-d); }
+  button.ghost { background:#fff; color:var(--navy); border:1px solid var(--navy); }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .chip { background:#eef2ff; color:#3730a3; border:1px solid #c7d2fe; border-radius:16px;
+          padding:5px 11px; font-size:.82rem; cursor:pointer; }
+  .chip:hover { background:#e0e7ff; }
+  .recap { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:14px; margin-top:12px; }
+  .recap h3 { margin:0 0 8px; color:var(--navy); font-size:1rem; }
+  .recap table { width:100%; border-collapse:collapse; font-size:.9rem; }
+  .recap td { padding:6px 8px; border-bottom:1px solid #f1f5f9; vertical-align:top; }
+  .recap td.k { color:#6b7280; width:38%; }
+  .recap td.act { text-align:right; width:90px; }
+  button.mini { padding:4px 10px; font-size:.78rem; }
+  .actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .saved { font-size:.78rem; color:#6b7280; margin-top:8px; }
+</style>
+</head>
+<body>
+<div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../fr/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../fr/cas/" style="color:#cbd5e1;text-decoration:none">Études de cas</a><a href="../../fr/cas/claim-declaration.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Retour au cas</a></div>
+<header>
+  <span>🗒️</span>
+  <h1>Déclaration de sinistre — chatbot statique</h1>
+  <span class="tag">HTML seul · aucun serveur</span>
+</header>
+
+<div class="wrap">
+  <div class="note">
+    Degré zéro du chatbot : <b>100% statique</b>. Aucune intelligence, aucun Python,
+    aucun serveur. Questions posées dans l'ordre ; pour les choix, on répond par un
+    <b>numéro</b> (1, 2, 3…) — bien plus fiable que du texte libre. À la fin, un
+    <b>récapitulatif</b> à vérifier, modifier et confirmer.
+  </div>
+
+  <div id="chat"></div>
+
+  <div class="inputbar">
+    <input id="answer" placeholder="Votre réponse…" autocomplete="off">
+    <button id="send">Envoyer</button>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div id="recapZone"></div>
+  <div class="saved" id="saved"></div>
+</div>
+
+<script>
+// ---- La seule "intelligence" : une liste de questions figées -------------
+const QUESTIONS = [
+  { key:"declarant_nom",  label:"Nom du déclarant",  q:"Bonjour ! Je vais enregistrer votre déclaration. Quel est votre nom et prénom ?" },
+  { key:"police_num",     label:"N° de contrat",     q:"Quel est votre numéro de contrat ?" },
+  { key:"type_sinistre",  label:"Type de sinistre",  q:"Quel est le type de sinistre ?",
+    choices:["Dégât des eaux","Incendie","Vol / cambriolage","Bris de glace","Accident auto","Responsabilité civile","Catastrophe naturelle","Autre"] },
+  { key:"date_sinistre",  label:"Date du sinistre",  q:"Quelle est la date du sinistre ? (JJ/MM/AAAA)" },
+  { key:"lieu_sinistre",  label:"Lieu",              q:"Où le sinistre a-t-il eu lieu ?" },
+  { key:"description",    label:"Circonstances",     q:"Décrivez en une phrase ce qui s'est passé." },
+  { key:"montant_estime", label:"Montant estimé",    q:"Quel est le montant estimé des dommages ? (ou « je ne sais pas »)" },
+  { key:"tiers_impliques",label:"Tiers / blessés",   q:"Y a-t-il des tiers ou des blessés ?",
+    choices:["Oui","Non"] },
+  { key:"contact",        label:"Contact",           q:"Enfin, un email ou téléphone pour vous recontacter ?" },
+];
+
+const chat   = document.getElementById("chat");
+const input  = document.getElementById("answer");
+const sendBtn= document.getElementById("send");
+const chips  = document.getElementById("chips");
+const recapZone = document.getElementById("recapZone");
+let step = 0;
+let editingKey = null;          // non-null = on modifie un seul champ depuis le récap
+const answers = {};
+
+function addBubble(text, who) {
+  const row = document.createElement("div");
+  row.className = "row " + who;
+  const col = document.createElement("div");
+  const name = document.createElement("div");
+  name.className = "who"; name.textContent = who === "bot" ? "Assistant" : "Vous";
+  const b = document.createElement("div");
+  b.className = "bubble"; b.textContent = text;
+  col.appendChild(name); col.appendChild(b); row.appendChild(col);
+  chat.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+// question active : soit le champ en cours de modification, soit l'étape courante
+function activeQuestion() {
+  if (editingKey) return QUESTIONS.find(x => x.key === editingKey);
+  return step < QUESTIONS.length ? QUESTIONS[step] : null;
+}
+
+function questionText(q) {
+  let t = q.q;
+  if (q.choices) t += "\n" + q.choices.map((c, i) => `${i + 1}. ${c}`).join("   ");
+  return t;
+}
+
+function renderChips() {
+  chips.innerHTML = "";
+  const q = activeQuestion();
+  if (q && q.choices) {
+    q.choices.forEach((c, i) => {
+      const el = document.createElement("div");
+      el.className = "chip"; el.textContent = (i + 1) + ". " + c;
+      el.onclick = () => { input.value = String(i + 1); submit(); };
+      chips.appendChild(el);
+    });
+  }
+}
+
+function ask() {
+  const q = activeQuestion();
+  if (q) { addBubble(questionText(q), "bot"); renderChips(); }
+  else showRecap();
+}
+
+// interprète une réponse à choix : un numéro, ou le libellé exact. Sinon null.
+function resolveChoice(q, raw) {
+  const n = parseInt(raw, 10);
+  if (n >= 1 && n <= q.choices.length) return q.choices[n - 1];
+  const hit = q.choices.find(c => c.toLowerCase() === raw.toLowerCase());
+  return hit || null;
+}
+
+function submit() {
+  const q = activeQuestion();
+  if (!q) return;
+  const raw = input.value.trim();
+  if (!raw) return;
+
+  let val = raw;
+  if (q.choices) {
+    val = resolveChoice(q, raw);
+    if (!val) {
+      addBubble(raw, "user");
+      addBubble(`Répondez par un numéro entre 1 et ${q.choices.length}.`, "bot");
+      input.value = ""; return;
+    }
+  }
+  addBubble(val, "user");
+  answers[q.key] = val;
+  input.value = "";
+
+  if (editingKey) {                 // on revient au récap après une modif
+    editingKey = null; chips.innerHTML = "";
+    addBubble("C'est modifié.", "bot");
+    showRecap();
+  } else {
+    step++; ask();
+  }
+}
+
+function showRecap() {
+  chips.innerHTML = "";
+  const rows = QUESTIONS.map(x =>
+    `<tr><td class="k">${x.label}</td><td>${answers[x.key] || "—"}</td>` +
+    `<td class="act"><button class="ghost mini" onclick="editField('${x.key}')">modifier</button></td></tr>`
+  ).join("");
+  recapZone.innerHTML = `
+    <div class="recap">
+      <h3>Vérifiez votre déclaration</h3>
+      <table>${rows}</table>
+      <div class="actions">
+        <button onclick="confirmDecl()">✅ Confirmer</button>
+      </div>
+    </div>`;
+  addBubble("Voici le récapitulatif. Vérifiez, modifiez si besoin, puis confirmez.", "bot");
+}
+
+function editField(key) {
+  editingKey = key;
+  recapZone.innerHTML = "";
+  const q = QUESTIONS.find(x => x.key === key);
+  addBubble("Modification — " + questionText(q), "bot");
+  renderChips();
+  input.focus();
+}
+
+function confirmDecl() {
+  const ref = "SIN-" + new Date().getFullYear() + "-" + String(Date.now()).slice(-4);
+  answers._reference = ref;
+  const all = JSON.parse(localStorage.getItem("declarations") || "[]");
+  all.push(answers);
+  localStorage.setItem("declarations", JSON.stringify(all));
+
+  input.disabled = true; sendBtn.disabled = true; chips.innerHTML = "";
+  addBubble("Merci, déclaration confirmée et enregistrée (" + ref + ").", "bot");
+
+  const rows = QUESTIONS.map(x =>
+    `<tr><td class="k">${x.label}</td><td>${answers[x.key] || "—"}</td></tr>`).join("");
+  recapZone.innerHTML = `
+    <div class="recap">
+      <h3>Déclaration ${ref}</h3>
+      <table>${rows}</table>
+      <div class="actions">
+        <button onclick="download()">Télécharger (.json)</button>
+        <button class="ghost" onclick="copyJson()">Copier</button>
+        <button class="ghost" onclick="location.reload()">Nouvelle déclaration</button>
+      </div>
+    </div>`;
+  showSaved();
+}
+
+function showSaved() {
+  const all = JSON.parse(localStorage.getItem("declarations") || "[]");
+  document.getElementById("saved").textContent =
+    all.length + " déclaration(s) enregistrée(s) dans ce navigateur.";
+}
+
+function download() {
+  const blob = new Blob([JSON.stringify(answers, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = (answers._reference || "declaration") + ".json";
+  a.click();
+}
+function copyJson() { navigator.clipboard.writeText(JSON.stringify(answers, null, 2)); }
+
+sendBtn.onclick = submit;
+input.addEventListener("keydown", e => { if (e.key === "Enter") submit(); });
+
+showSaved();
+ask();
+</script>
+<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Démonstration <b>statique</b> (données figées), <b>pas l'outil dynamique</b>. Pour un outil sur vos propres documents, <b>contactez-nous</b>. · <a href="../../fr/cas/" style="color:#1d4ed8;text-decoration:none">Études de cas</a></div>
+</body>
+</html>

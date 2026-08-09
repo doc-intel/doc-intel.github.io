@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PII redaction on a synthetic CV (regex layer)</title>
+<style>
+ :root{--ink:#16181d;--ink2:#5b616e;--ink3:#8a909c;--line:#e2e4ea;--line2:#eef0f4;--soft:#f6f7f9;
+        --ok:#0a7d3e;--ok-soft:#e7f5ec;--ko:#c0392b;--ko-soft:#fdecea;--warn:#b45309;--warn-soft:#fff5e6;
+        --blue:#1d4ed8;--code:#f0f4f8}
+ *{box-sizing:border-box}
+ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+       color:var(--ink);background:var(--soft);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+ .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+ header{background:#fff;border-bottom:1px solid var(--line)}
+ header .wrap{padding:26px 20px 20px}
+ h1{font-size:24px;font-weight:700;margin:0 0 6px;letter-spacing:-.015em}
+ .sub{color:var(--ink2);font-size:15px;margin:0 0 6px}
+ .kicker{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+ .note{background:#fff8e6;border:1px solid #fde68a;border-radius:10px;padding:10px 14px;font-size:12.5px;
+        color:#7a5b08;margin:14px 0 0;line-height:1.5}
+ main{padding:20px 0 60px}
+ .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:16px 0}
+ .card h2{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin:0 0 10px;font-weight:800}
+ .card.input h2{color:var(--warn)}
+ .card.proc h2{color:var(--blue)}
+ .card.output h2{color:var(--ok)}
+ .card.verdict h2{color:var(--ink)}
+ dl.kv{display:grid;grid-template-columns:180px 1fr;gap:6px 16px;margin:0}
+ dl.kv dt{font-weight:700;color:var(--ink2);font-size:12.5px}
+ dl.kv dd{margin:0;font-size:13.5px;word-break:break-word}
+ ol.steps{margin:0;padding-left:20px}
+ ol.steps li{margin:4px 0}
+ code{background:var(--code);border-radius:6px;padding:1px 7px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+ pre.prev{background:var(--code);border:1px solid var(--line2);border-radius:8px;padding:12px 14px;
+           font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.5;
+           overflow-x:auto;white-space:pre-wrap;word-break:break-word;margin:8px 0 0;max-height:340px}
+ .muted{color:var(--ink3);font-style:italic;margin:0}
+ .tally{display:flex;gap:10px;align-items:center;margin:0 0 12px;flex-wrap:wrap}
+ .badge{display:inline-block;padding:3px 12px;border-radius:980px;font-weight:700;font-size:12px;
+         white-space:nowrap}
+ .badge.ok  {background:var(--ok-soft);color:var(--ok)}
+ .badge.ko  {background:var(--ko-soft);color:var(--ko)}
+ .badge.warn{background:var(--warn-soft);color:var(--warn)}
+ table{width:100%;border-collapse:collapse;margin:0}
+ td{border-bottom:1px solid var(--line2);padding:9px 4px;vertical-align:top;font-size:13.5px}
+ td:first-child{width:70px}
+ .detail{color:var(--ink3);font-size:12.5px;margin-top:3px}
+ .foot{text-align:center;font-size:11.5px;color:var(--ink3);margin:30px 0 6px}
+ @media(max-width:600px){dl.kv{grid-template-columns:1fr;gap:2px}dl.kv dt{margin-top:6px}}
+</style></head>
+<body>
+<div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../en/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../en/cas/" style="color:#cbd5e1;text-decoration:none">Case studies</a><a href="../../en/cas/pii-redaction.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Back to the case</a></div>
+<header><div class="wrap">
+  <div class="kicker">PII redaction · regex layer</div>
+  <h1>PII redaction on a synthetic CV (regex layer)</h1>
+  <p class="sub">Detects 2 PII entities on a 26-line resume via the pipeline&#x27;s regex cascade.</p>
+  <div class="note">Synthetic CV (Sarah Mitchell, fictional identity). The regex layer catches structural PII (email, phone, IBAN, SSN, credit card). Names / addresses would need the LLM layer of the cascade.</div>
+</div></header>
+<main><div class="wrap">
+  <section class="card input">
+  <h2>INPUT — what we fed the pipeline</h2>
+  <dl class="kv">
+<dt>Document</dt><dd>cv_classic.pdf</dd>
+<dt>Ground truth</dt><dd>sarah.mitchell@example.com, +44 7700 900123 (from cv_clean.gt.md)</dd>
+<dt>Line count</dt><dd>26 lines</dd>
+</dl>
+</section>
+  <section class="card proc">
+  <h2>PROCESSING — what the pipeline does</h2>
+  <ol class="steps">
+<li><code>parse_pdf(cv_pdf) → line_df</code></li>
+<li><code>detect_regex(line_df) → list[RedactionMark] via 5 patterns (IBAN, SSN, CC, email, phone)</code></li>
+<li><code>merge_marks(marks) → dedupe overlapping matches by category priority</code></li>
+</ol>
+</section>
+  <section class="card output">
+  <h2>OUTPUT — what came back</h2>
+  <dl class="kv">
+<dt>Marks detected</dt><dd>2</dd>
+<dt>Categories</dt><dd>pii_email, pii_phone</dd>
+</dl>
+<pre class="prev">pii_email       L3: &#x27;sarah.mitchell@example.com&#x27;
+pii_phone       L3: &#x27;+44 7700 900123&#x27;</pre>
+</section>
+  <section class="card verdict">
+  <h2>VERDICT — assertions</h2>
+  <div class="tally"><span class="badge ok">6 PASS</span> <span class="muted">out of 6</span></div><table><tr><td><span class="badge ok">PASS</span></td><td><b>At least 2 PII marks detected</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>Email category detected</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>Phone category detected</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>Exact email caught</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>Exact phone caught</b></td></tr>
+<tr><td><span class="badge ok">PASS</span></td><td><b>No false positives (marks &lt;= 6)</b></td></tr></table>
+</section>
+  <p class="foot">Angela Shi · towardsdatascience.com/author/angela-shi</p>
+</div></main>
+<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Static <b>demonstration</b> (frozen data), <b>not the live tool</b>. For a tool on your own documents, <b>contact us</b>. · <a href="../../en/cas/" style="color:#1d4ed8;text-decoration:none">Case studies</a></div>
+</body></html>

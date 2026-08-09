@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traduire un document en gardant le sens et les termes · Étude de cas</title>
+<meta name="description" content="Traduire un texte d'assurance segment par segment, en préservant les termes techniques, les nombres et les noms propres, avec la source en regard.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Traduction · Assurance · FR</div>
+      <h1 class="mid">Traduire un document, sans trahir les termes</h1>
+      <p class="lede">Traduire un texte d'assurance, ce n'est pas le paraphraser : les termes techniques, les montants et les noms propres doivent rester intacts. On traduit segment par segment, avec la source en regard pour tout vérifier.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Un contrat, une convention, une notice à faire lire dans une autre langue. Un moteur de traduction généraliste change parfois un terme métier, arrondit un montant, ou reformule une clause au point d'en déplacer le sens. Sur un document d'assurance, c'est inacceptable : le vocabulaire est le contrat.</p>
+
+      <h2>La démarche</h2>
+      <p>Le document est découpé, puis traduit segment par segment, avec une consigne stricte : préserver les termes techniques, les nombres et les noms propres tels quels, garder les ruptures de paragraphe, ne rien ajouter. La source reste affichée en regard de la traduction, pour que le relecteur puisse vérifier chaque passage. Un glossaire métier peut être injecté pour verrouiller la terminologie.</p>
+
+      <div class="callout">
+        <p>Le fil rouge : une traduction utile en assurance est vérifiable, source en regard. Les termes qui font le contrat ne bougent pas.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Découper le document</b><span>Le texte est segmenté pour être traduit par morceaux cohérents, sans dépasser la fenêtre du modèle.</span></div>
+        <div class="step"><b>Traduire sous contrainte</b><span>Termes techniques, nombres et noms propres préservés ; ruptures de paragraphe gardées ; aucun ajout.</span></div>
+        <div class="step"><b>Tenir un glossaire</b><span>Un glossaire métier optionnel verrouille la terminologie sur tout le document.</span></div>
+        <div class="step"><b>Afficher la source en regard</b><span>Chaque segment traduit reste comparable à son original, pour la relecture.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>La traduction documentaire n'est pas un bloc reformulé : c'est un alignement segment par segment où l'on peut vérifier que rien n'a glissé. La source en regard et le glossaire sont ce qui rend le résultat exploitable dans un contexte contractuel.</p>
+
+      <h2>Livrables</h2>
+      <p>Une vue source | traduction sur un extrait de texte d'assurance public, alignée segment par segment.</p>
+
+      <div class="callout"><p><em>Démo sur un document public (convention collective assurances Luxembourg 2024, legilux) ; elle s'ouvre en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/translation.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir la traduction (pleine page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

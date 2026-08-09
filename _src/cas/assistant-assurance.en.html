@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A chatbot that answers the client, triggering the right process · Case study</title>
+<meta name="description" content="An agentic umbrella chatbot for insurance: it detects the intent and triggers the right specialised process (underwriting, policy, claim, tracking), for a 360 client view.">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ .dispatch{margin:14px 0 6px}
+ .node{background:var(--band);color:var(--band-fg);border-radius:14px;padding:16px 20px;text-align:center;font-weight:700;font-size:16px}
+ .node span{display:block;font-weight:400;font-size:13px;color:#cbd5e1;margin-top:5px}
+ .arrow{text-align:center;color:var(--muted);font-size:13px;font-weight:600;padding:10px 0}
+ .branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+ .branch{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--card);transition:.15s}
+ .branch:hover{border-color:var(--ink);transform:translateY(-1px)}
+ .branch b{display:block;color:var(--ink);font-size:14.5px}
+ .branch span{display:block;color:var(--muted);font-size:12.5px;margin-top:3px}
+ .branch .go{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:var(--blue-s,#1d4ed8)}
+ .branches360{display:grid;gap:14px;margin:16px 0 6px}
+ .bc{border:1px solid var(--line,#e2e8f0);border-radius:14px;padding:16px 18px;background:var(--card)}
+ .roadmap5{position:relative;counter-reset:proj;margin:18px 0 6px}
+ .roadmap5::before{content:"";position:absolute;left:23px;top:6px;bottom:28px;width:2px;background:var(--line)}
+ .proj{position:relative;padding:0 0 18px 60px}
+ .proj::before{counter-increment:proj;content:"P" counter(proj);position:absolute;left:8px;top:0;width:32px;height:32px;border-radius:9px;background:var(--band);color:var(--band-fg);font-weight:800;font-size:12.5px;display:flex;align-items:center;justify-content:center;z-index:1}
+ .proj .pc{border:1px solid var(--line);border-radius:14px;padding:15px 17px;background:var(--card)}
+ .proj .ph{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+ .proj .ph b{font-size:1.02rem}
+ .proj .obj{color:var(--muted);font-size:13.5px;margin:0 0 8px}
+ .proj ul{margin:0 0 8px;padding-left:1.1em}
+ .proj li{font-size:13px;margin:.25em 0;color:var(--ink2)}
+ .proj .res{font-size:13.5px;margin:0}
+ .proj .res b{color:var(--emer-s)}
+ .core-note{border:1px dashed var(--line);border-radius:14px;padding:14px 18px;background:var(--soft);font-size:14px;line-height:1.55;margin-top:6px}
+ .dep{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:980px}
+ .dep.pub{background:var(--emer-b);color:var(--emer-s)}
+ .dep.int{background:var(--blue-b);color:var(--blue-s)}
+ .dep.auth{background:var(--rose-b);color:var(--rose-s)}
+</style>
+</head>
+<body class="lang-en" data-fixed-lang="en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Case studies</a></div>
+      <div class="kicker">360 chatbot · Client · Insurance</div>
+      <h1 class="mid">A chatbot that answers the client, triggering the right process</h1>
+      <p class="lede">A policyholder or a prospect turns up with a question, without knowing which form or tool to use. An umbrella assistant detects the intent and triggers the right process: subscribe, understand a policy, file a claim, track a case. A plain-language, reassuring tone for the general public.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <div class="callout"><p>The <b>360 view</b> comes in four cases. This page is the <b>client-side 360 chatbot</b>. It has a twin with a different tone, the <a href="assistant-agents.html">360 chatbot for general agents</a>. Both sit on the <a href="contexte-360.html">360 context</a>, which gathers everything known about a policyholder, and both draw on the <a href="contrats-360.html">360 contracts view</a>. The context is not just a chatbot brick: it is the foundation.</p></div>
+
+      <h2>The idea</h2>
+      <p>You start by building specialised assistants, each excellent at one task: one for underwriting, one for policy questions, one for filing a claim, one for tracking. Then you place a single agentic assistant on top. It does not do everything itself; it understands the request and hands it to the right specialist. For the user it is one door; behind it, each process stays clean and controlled.</p>
+
+      <div class="dispatch">
+        <div class="node">A question, in plain language<span>"I want to insure my new car" · "I had water damage yesterday" · "Where does my case stand?"</span></div>
+        <div class="arrow">↓ &nbsp;intent detection, then routing&nbsp; ↓</div>
+        <div class="branches">
+          <a class="branch" href="souscription-chatbot.html"><b>Underwriting</b><span>Subscribe a product, guided, field by field.</span><span class="go">→ see a case</span></a>
+          <a class="branch" href="homeowners-qa.html"><b>Policy questions</b><span>What the policy covers, with the page.</span><span class="go">→ see a case</span></a>
+          <a class="branch" href="claim-chat.html"><b>Filing a claim</b><span>Fill the declaration, field by field.</span><span class="go">→ see a case</span></a>
+          <a class="branch" href="claims-query.html"><b>Claim tracking</b><span>Query the status of a case.</span><span class="go">→ see a case</span></a>
+        </div>
+      </div>
+
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step"><b>Understand the request</b><span>The question is analysed for the real intent, not just the words.</span></div>
+        <div class="step"><b>Route to the right specialist</b><span>The intent triggers the right process: underwriting, policy, claim, tracking.</span></div>
+        <div class="step"><b>Let the specialist work</b><span>Each specialised assistant keeps its own tested logic, with a typed output.</span></div>
+        <div class="step"><b>Stay in the loop</b><span>The umbrella assistant follows the exchange, re-routes if the intent changes, and keeps the trail.</span></div>
+      </div>
+
+      <h2>The 360 client view</h2>
+      <p>Because it sits above every process, the assistant sees the whole client: their policies, their claims, their history. A single conversation can move from a coverage question to a declaration, then to tracking, without the user switching tools. That is the 360 view: one door, every business behind it.</p>
+      <p>A concrete example of the back-and-forth between bricks: a client starts a <a href="souscription-chatbot.html">home-insurance subscription</a> and asks, "and my bike, if it's stolen outside my home?". The assistant switches to the <a href="homeowners-qa.html">sourced answer on the policy</a> (off-premises theft covers it, when the household policy provides for it), then to the <a href="policy-comparison.html">comparison</a> to show that some competitors do not cover it, and returns to the subscription. One conversation, three bricks.</p>
+
+      <h2>Technical roadmap: a modular platform, project by project</h2>
+      <p>The point is not to ship five separate products, but to build a single <b>modular AI platform</b>. The core (document parsing, structuring, RAG, dialogue engine, API, conversation handling and traceability) is built once. Each project reuses the previous bricks and adds a layer, which cuts redundant work and speeds up the next use case to market.</p>
+      <div class="roadmap5">
+        <div class="proj">
+          <div class="pc">
+            <div class="ph"><b>Question answering on policies</b><span class="dep pub">Public documents</span></div>
+            <p class="obj">The foundation that lets you query the general terms and conditions.</p>
+            <ul>
+              <li>Policy parsing, indexing and structuring.</li>
+              <li>RAG pipeline (retrieval + generation).</li>
+              <li>Engine API, chat interface, conversation traceability.</li>
+            </ul>
+            <p class="res"><b>Result:</b> a platform that answers reliably, with the citation. See the <a href="homeowners-qa.html">sourced answer on a policy</a>.</p>
+          </div>
+        </div>
+        <div class="proj">
+          <div class="pc">
+            <div class="ph"><b>Policy comparison</b><span class="dep pub">Public documents</span></div>
+            <p class="obj">Extend the engine to compare several policies, including competitors' terms.</p>
+            <ul>
+              <li>Handling several documents at once, importing external documents.</li>
+              <li>Guarantee alignment, comparison algorithms.</li>
+              <li>Visualising the differences.</li>
+            </ul>
+            <p class="res"><b>Result:</b> the same engine reasons over several policies. See the <a href="policy-comparison.html">criterion-by-criterion comparison</a>.</p>
+          </div>
+        </div>
+        <div class="proj">
+          <div class="pc">
+            <div class="ph"><b>Underwriting assistant</b><span class="dep int">Internal API · read + write</span></div>
+            <p class="obj">Move from "answering" to "guiding" a subscription.</p>
+            <ul>
+              <li>Multi-step dialogue, structured collection, data validation.</li>
+              <li>Connection to the information system.</li>
+              <li>Creating or updating records, persistence.</li>
+            </ul>
+            <p class="res"><b>Result:</b> the chatbot triggers business actions. See the <a href="souscription-chatbot.html">subscription chatbot</a>.</p>
+          </div>
+        </div>
+        <div class="proj">
+          <div class="pc">
+            <div class="ph"><b>Claim-filing assistant</b><span class="dep int">Internal API</span><span class="dep auth">Authentication</span></div>
+            <p class="obj">Reuse the understanding of policies to assist the declaration.</p>
+            <ul>
+              <li>Analysing the account of the loss, checking the guarantees.</li>
+              <li>Generating a justification, assembling the file automatically.</li>
+              <li>Recording the exchanges, handing the file to the management apps.</li>
+            </ul>
+            <p class="res"><b>Result:</b> the chatbot guides all the way to the claim file. See the <a href="claim-chat.html">guided declaration</a> and the <a href="claims-query.html">plain-language tracking</a>.</p>
+          </div>
+        </div>
+        <div class="proj">
+          <div class="pc">
+            <div class="ph"><b>Intelligent settlement</b><span class="dep int">Internal API</span><span class="dep auth">Decision + human</span></div>
+            <p class="obj">Automate the analysis of the file to offer immediate settlement where possible.</p>
+            <ul>
+              <li>Analysing supporting documents and images.</li>
+              <li>Fusing information from the policy, the documents and the photos.</li>
+              <li>Decision engine, detection of cases that need a human, integration with the settlement system.</li>
+            </ul>
+            <p class="res"><b>Result:</b> for simple files, settlement can be offered automatically.</p>
+          </div>
+        </div>
+      </div>
+      <div class="core-note"><b>The throughline:</b> each project reuses the previous bricks and adds a layer (comparison, workflow orchestration, IS integration, multimodal analysis, decision). The core is built once; the next use cases arrive faster and cost less.</div>
+
+      <h2>What it shows</h2>
+      <p>A "chatbot that does everything" is not a giant model that guesses: it is an agentic orchestrator on top of solid specialised assistants, sitting on a shared platform. The value is in reliable intent routing, in the quality of each brick, and in building the core only once. The real effort is less about the dialogue than about the dependencies: public documents on one side, information-system plumbing and authentication on the other.</p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

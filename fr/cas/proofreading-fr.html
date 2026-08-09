@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relire un document, erreur par erreur · Étude de cas</title>
+<meta name="description" content="Repérer les fautes de grammaire et d'accord d'un texte et renvoyer chaque correction localisée, sous forme de liste, plutôt qu'un texte réécrit.">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="canonical" href="https://doc-intel.github.io/fr/cas/proofreading-fr.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/cas/proofreading-fr.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/fr/cas/proofreading-fr.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Relire un document, erreur par erreur · Étude de cas">
+<meta property="og:description" content="Repérer les fautes de grammaire et d'accord d'un texte et renvoyer chaque correction localisée, sous forme de liste, plutôt qu'un texte réécrit.">
+<meta property="og:url" content="https://doc-intel.github.io/fr/cas/proofreading-fr.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Relire un document, erreur par erreur · Étude de cas">
+<meta name="twitter:description" content="Repérer les fautes de grammaire et d'accord d'un texte et renvoyer chaque correction localisée, sous forme de liste, plutôt qu'un texte réécrit.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Études de cas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="proofreading-fr.html" class="active">FR</a>
+      <a href="../../en/cas/index.html">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=assurance">← Études de cas</a></div>
+      <div class="kicker">Relecture · Qualité · FR</div>
+      <h1 class="mid">Relire un document, erreur par erreur</h1>
+      <p class="lede">Un modèle peut réécrire un paragraphe et en changer le sens au passage. Un relecteur plus sûr renvoie une liste de corrections localisées : l'humain garde la main sur ce qui change vraiment.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Demandez à un modèle de « corriger » un document, il vous rend une version réécrite. Il faut ensuite comparer les deux pour voir ce qui a bougé, et espérer qu'il n'a pas modifié un montant, un nom ou une clause au passage. Dans un cadre exigeant, ce n'est pas acceptable : il faut savoir exactement ce qui a été signalé, et pourquoi.</p>
+
+      <h2>La démarche</h2>
+      <p>Le relecteur lit le texte et renvoie une liste structurée de corrections : la faute, la correction proposée, et sa position. Rien n'est réécrit sur place. Un relecteur humain lit la liste, accepte ou refuse chaque correction, et reste maître du texte final.</p>
+
+      <div class="callout">
+        <p>Le fil rouge : la relecture renvoie une liste de corrections typées, pas un pavé réécrit. L'humain décide ce qui change ; l'outil ne fait que pointer.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Lire par segments</b><span>Le texte est découpé en lignes cohérentes, chacune examinée pour ses fautes.</span></div>
+        <div class="step"><b>Localiser chaque faute</b><span>Chaque correction porte sa position (ligne, portion), pas seulement le remplacement.</span></div>
+        <div class="step"><b>Proposer, pas imposer</b><span>La sortie est une liste de propositions ; le texte n'est pas modifié automatiquement.</span></div>
+        <div class="step"><b>Laisser l'humain trancher</b><span>Le relecteur accepte ou refuse chaque correction, un point de contrôle par changement.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>La correction est plus sûre en liste qu'en réécriture. Chaque point est vérifiable, et le document ne change qu'aux endroits où un humain est d'accord.</p>
+
+      <h2>Livrables</h2>
+      <p>Un rapport de relecture sur un texte d'exemple, listant chaque faute et sa correction proposée. Le texte est fictif, volontairement fautif.</p>
+
+      <div class="callout"><p><em>Démonstration statique sur un texte fictif ; elle s'ouvre en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../../assets/demos/proofreading-fr.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir le rapport (pleine page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=assurance">← Autres cas</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

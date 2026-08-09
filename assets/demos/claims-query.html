@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claims SQL agent — static demo</title>
+<style>
+  :root{
+    --amber:#b45309; --amber-bg:#fff8e6; --amber-br:#fde68a;
+    --blue:#1d4ed8;  --blue-bg:#eef4ff;  --blue-br:#bfdbfe;
+    --emerald:#047857; --emerald-bg:#ecfdf5; --emerald-br:#a7f3d0;
+    --slate:#334155; --slate-400:#94a3b8; --line:#e2e8f0;
+  }
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+       color:var(--slate); margin:0; background:#f8fafc; line-height:1.5;}
+  .wrap{max-width:880px; margin:0 auto; padding:32px 20px 80px;}
+  h1{font-size:1.6rem; margin:0 0 4px;}
+  .sub{color:var(--slate-400); margin:0 0 24px; font-size:.95rem;}
+  .banner{background:var(--amber-bg); border:1px solid var(--amber-br);
+          color:var(--amber); padding:10px 14px; border-radius:8px;
+          font-size:.85rem; margin-bottom:24px;}
+  .q{width:100%; text-align:left; cursor:pointer; background:#fff;
+     border:1px solid var(--line); border-radius:10px; padding:14px 16px;
+     margin:10px 0 0; font-size:1rem; color:var(--slate); font-weight:600;
+     display:flex; justify-content:space-between; align-items:center;
+     transition:border-color .15s;}
+  .q:hover{border-color:var(--blue-br);}
+  .q .chev{color:var(--slate-400); font-weight:400; transition:transform .2s;}
+  .q.open .chev{transform:rotate(90deg);}
+  .a{display:none; border:1px solid var(--line); border-top:none;
+     border-radius:0 0 10px 10px; margin:-1px 0 0; padding:0 16px 16px; background:#fff;}
+  .a.open{display:block;}
+  .lbl{font-size:.72rem; text-transform:uppercase; letter-spacing:.04em;
+       color:var(--slate-400); margin:16px 0 6px;}
+  pre{background:#0f172a; color:#e2e8f0; padding:12px 14px; border-radius:8px;
+      overflow-x:auto; font-size:.82rem; margin:0;
+      font-family:"SF Mono",Consolas,Monaco,monospace;}
+  .kw{color:#7dd3fc;} .fn{color:#fca5a5;} .st{color:#86efac;}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; margin:0;}
+  th,td{border:1px solid var(--line); padding:6px 10px; text-align:left;}
+  th{background:var(--blue-bg); color:var(--blue); font-weight:600;}
+  td.num{text-align:right; font-variant-numeric:tabular-nums;}
+  .ans{background:var(--emerald-bg); border:1px solid var(--emerald-br);
+       color:#064e3b; padding:10px 14px; border-radius:8px; margin-top:14px; font-size:.92rem;}
+  .foot{margin-top:40px; font-size:.82rem; color:var(--slate-400); border-top:1px solid var(--line); padding-top:16px;}
+  code{background:#eef2f7; padding:1px 5px; border-radius:4px; font-size:.85em;}
+</style>
+</head>
+<body>
+<div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../en/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../en/cas/" style="color:#cbd5e1;text-decoration:none">Case studies</a><a href="../../en/cas/claims-query.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Back to the case</a></div>
+<div class="wrap">
+  <h1>Claims SQL agent</h1>
+  <p class="sub">Query a clean claims database in plain English. Question → SQL → table → answer.</p>
+
+  <div class="banner">
+    <strong>Static</strong> demo: the answers below are frozen (run once against the synthetic
+    portfolio of 600 claims). No server, no network call. For the real-time interactive agent,
+    run the Streamlit app in <code>../app/</code>. Click a question to expand.
+  </div>
+
+  <div id="feed"></div>
+
+  <div class="foot">
+    Synthetic base: 600 claims, 5 insurers, 8 regions, 5 covers, 3 currencies.
+    Every generated query is validated read-only (SELECT only, single statement, enforced LIMIT).
+  </div>
+</div>
+
+<script>
+const EXAMPLES = [
+  {
+    q: "Total amount paid per insurer, highest first",
+    sql: "SELECT insurer, SUM(payment_amount) AS total_paid\nFROM claims\nGROUP BY insurer\nORDER BY total_paid DESC",
+    cols: ["insurer", "total_paid"],
+    rows: [
+      ["Beacon Life", "6,114,196"], ["Oakhaven Life", "5,570,982"],
+      ["Meridian Cover", "5,422,230"], ["Northwind Assurance", "5,242,560"],
+      ["Sterling Mutual", "5,139,653"]
+    ],
+    num: [1],
+    ans: "Beacon Life paid the most (≈ 6.11 M), ahead of Oakhaven Life (≈ 5.57 M) and Meridian Cover (≈ 5.42 M)."
+  },
+  {
+    q: "How many covid claims were declined?",
+    sql: "SELECT COUNT(*) AS count\nFROM claims\nWHERE covid_flag = 'covid' AND status = 'Refused'",
+    cols: ["count"], rows: [["15"]], num: [0],
+    ans: "15 claims flagged covid were declined."
+  },
+  {
+    q: "Number of deaths (Death Any Cause) per year, by loss date",
+    sql: "SELECT strftime('%Y', loss_date) AS year, COUNT(*) AS death_count\nFROM claims\nWHERE loss_type = 'Death Any Cause'\nGROUP BY year",
+    cols: ["year", "death_count"],
+    rows: [["2021", "154"], ["2022", "117"], ["2023", "60"]], num: [1],
+    ans: "154 deaths in 2021, 117 in 2022 and 60 in 2023 by loss date."
+  },
+  {
+    q: "Top 3 regions by total amount paid in 2022",
+    sql: "SELECT region, SUM(payment_amount) AS total_paid\nFROM claims\nWHERE status = 'Closed' AND notification_date >= '2022-01-01' AND notification_date < '2023-01-01'\nGROUP BY region\nORDER BY total_paid DESC\nLIMIT 3",
+    cols: ["region", "total_paid"],
+    rows: [["London", "1,564,152"], ["North West", "1,374,535"], ["Yorkshire", "1,242,769"]],
+    num: [1],
+    ans: "In 2022 the top three regions by total amount paid are London (≈ 1.56 M), North West (≈ 1.37 M) and Yorkshire (≈ 1.24 M)."
+  },
+  {
+    q: "Covid share of claims per insurer",
+    sql: "SELECT insurer, ROUND(100.0 * SUM(covid_flag = 'covid') / COUNT(*), 2) AS covid_share_percent\nFROM claims\nGROUP BY insurer",
+    cols: ["insurer", "covid_share_percent"],
+    rows: [["Beacon Life", "21.43 %"], ["Meridian Cover", "23.28 %"], ["Northwind Assurance", "29.51 %"],
+           ["Oakhaven Life", "27.97 %"], ["Sterling Mutual", "27.12 %"]],
+    num: [1],
+    ans: "The covid share ranges from 21.4 % (Beacon Life) to 29.5 % (Northwind Assurance)."
+  }
+];
+
+function highlightSql(sql){
+  return sql
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|LIMIT|AND|OR|AS|DESC|ASC)\b/g,'<span class="kw">$1</span>')
+    .replace(/\b(SUM|COUNT|AVG|ROUND|strftime)\b/g,'<span class="fn">$1</span>')
+    .replace(/('[^']*')/g,'<span class="st">$1</span>');
+}
+
+function renderTable(ex){
+  let h = "<table><thead><tr>";
+  ex.cols.forEach(c => h += `<th>${c}</th>`);
+  h += "</tr></thead><tbody>";
+  ex.rows.forEach(r => {
+    h += "<tr>";
+    r.forEach((v,i) => h += `<td class="${ex.num.includes(i)?'num':''}">${v}</td>`);
+    h += "</tr>";
+  });
+  return h + "</tbody></table>";
+}
+
+const feed = document.getElementById("feed");
+EXAMPLES.forEach((ex) => {
+  const btn = document.createElement("button");
+  btn.className = "q";
+  btn.innerHTML = `<span>${ex.q}</span><span class="chev">▸</span>`;
+  const panel = document.createElement("div");
+  panel.className = "a";
+  panel.innerHTML =
+    `<div class="lbl">Generated SQL query</div><pre>${highlightSql(ex.sql)}</pre>` +
+    `<div class="lbl">Result</div>${renderTable(ex)}` +
+    `<div class="ans"><strong>Answer.</strong> ${ex.ans}</div>`;
+  btn.addEventListener("click", () => {
+    const open = panel.classList.toggle("open");
+    btn.classList.toggle("open", open);
+  });
+  feed.appendChild(btn);
+  feed.appendChild(panel);
+});
+document.querySelector(".q").click();  // open the first by default
+</script>
+<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Static <b>demonstration</b> (frozen data), <b>not the live tool</b>. For a tool on your own documents, <b>contact us</b>. · <a href="../../en/cas/" style="color:#1d4ed8;text-decoration:none">Case studies</a></div>
+</body>
+</html>

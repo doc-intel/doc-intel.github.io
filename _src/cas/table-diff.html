@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diffing two versions of a portfolio table · Case study</title>
+<meta name="description" content="Comparing two versions of a portfolio table row by row: what was added, removed, or changed, and by how much, rather than a raw file diff.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-en" data-fixed-lang="en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Case studies</a></div>
+      <div class="kicker">Table diff · Finance · EN</div>
+      <h1 class="mid">Diffing two versions of a portfolio table</h1>
+      <p class="lede">Two exports of the same portfolio, a month apart. A raw file diff is useless on a table. What you want is per-row: which positions appeared, which vanished, which values moved, and by how much.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+      <h2>The problem</h2>
+      <p>Tabular data changes between versions: rows added, rows dropped, values updated. A text diff on the exported file is noise (reordering, formatting) and misses the point. The question is a business one: what changed in the portfolio, position by position.</p>
+      <h2>The approach</h2>
+      <p>The two tables are aligned on their key, then compared cell by cell. The output is a structured set of changes: added rows, removed rows, and modified cells with their old and new values. Reordering and cosmetic differences do not register; only real changes do.</p>
+      <div class="callout"><p>The thread: a table diff is aligned on the key, not on the text. The result is a list of real, per-row changes a reader can act on.</p></div>
+      <h2>What it shows</h2>
+      <p>Comparing tables is a different operation from comparing text. Aligning on the key turns a noisy file diff into a clean, per-position change list.</p>
+      <h2>Deliverables</h2>
+      <p>A change report between two versions of a portfolio table: added, removed and modified rows with their values. The portfolios are synthetic.</p>
+      <div class="callout"><p><em>Static demonstration on synthetic portfolios; opens full-page.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/table-diff.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Open the report (full page) →</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

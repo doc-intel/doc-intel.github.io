@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Des slips de réassurance à une base interrogeable · Étude de cas</title>
+<meta name="description" content="Remplacer des Excel épars de slips de réassurance par un schéma relationnel et une interface de tarification avec historique tracé.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Extraction · Base de données · FR</div>
+      <h1 class="mid">Des slips de réassurance à une base interrogeable</h1>
+      <p class="lede">Remplacer des fichiers Excel épars par un schéma relationnel et une interface où l'on sélectionne cédante, programme et slip, puis où l'on retarifie avec un historique tracé.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>La gestion des slips de placement en réassurance vit souvent dans des classeurs Excel dispersés. Retrouver les garanties, les sinistres et les parts des réassureurs d'un placement donné, puis retarifer en gardant une trace de ce qui a été fait, devient vite impossible à l'échelle d'un portefeuille.</p>
+
+      <h2>La démarche</h2>
+      <p>On définit un schéma relationnel : une cédante possède des programmes, un programme des slips, un slip des garanties, des sinistres, des parts de réassureurs et des exécutions de tarification. On alimente ce schéma avec des données synthétiques (le PDF et les extractions ici sont des fixtures de test), puis on construit une interface où chaque action de tarification est enregistrée avec sa date, ce qui donne un historique complet.</p>
+
+      <div class="callout">
+        <p>Les documents et données de ce cas sont synthétiques. Sur des slips réels, ces informations seraient confidentielles ; la structure et la méthode, elles, restent les mêmes.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Définir le schéma</b><span>Cédante &lt; programme &lt; slip ; slip → garantie, sinistre, part de réassureur, exécution de tarification.</span></div>
+        <div class="step"><b>Alimenter et vérifier</b><span>Des données synthétiques peuplent la base, exportées vers Excel pour relecture métier.</span></div>
+        <div class="step"><b>Construire l'interface</b><span>Trois vues : détail (arbre complet), tarification (recalcul et sauvegarde), historique (courbe d'évolution).</span></div>
+        <div class="step"><b>Tracer chaque tarification</b><span>Chaque recalcul est enregistré en base avec un horodatage, ce qui constitue une piste d'audit.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>Passer d'Excel épars à une base relationnelle n'est pas qu'une question de rangement : c'est ce qui rend une donnée interrogeable, comparable et auditable. La tarification tracée transforme un calcul jetable en un historique exploitable.</p>
+
+      <h2>Livrables</h2>
+      <p>Un schéma SQL, une application avec trois vues (détail, tarification, historique), et un export Excel de vérification.</p>
+
+      <div class="callout emer">
+        <p>La démo interactive de ce cas sera publiée ici prochainement.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

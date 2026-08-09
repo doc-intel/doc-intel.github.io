@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Un assistant qui répond à tout, en déclenchant le bon processus · Étude de cas</title>
+<meta name="description" content="Un chatbot chapeau agentique pour l'assurance : il détecte l'intention et déclenche le bon processus spécialisé (souscription, contrat, sinistre, suivi), pour une vue client 360.">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+ .dispatch{margin:14px 0 6px}
+ .node{background:var(--band);color:var(--band-fg);border-radius:14px;padding:16px 20px;text-align:center;font-weight:700;font-size:16px}
+ .node span{display:block;font-weight:400;font-size:13px;color:#cbd5e1;margin-top:5px}
+ .arrow{text-align:center;color:var(--muted);font-size:13px;font-weight:600;padding:10px 0}
+ .branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+ .branch{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--card);transition:.15s}
+ .branch:hover{border-color:var(--ink);transform:translateY(-1px)}
+ .branch b{display:block;color:var(--ink);font-size:14.5px}
+ .branch span{display:block;color:var(--muted);font-size:12.5px;margin-top:3px}
+ .branch .go{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:var(--blue-s,#1d4ed8)}
+ .branches360{display:grid;gap:14px;margin:16px 0 6px}
+ .bc{border:1px solid var(--line,#e2e8f0);border-radius:14px;padding:16px 18px;background:var(--card)}
+ .bc-h{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+ .bc-h b{font-size:1rem;margin-right:4px}
+ .bc p{margin:.35em 0;font-size:13.5px;line-height:1.5}
+ .bc i{color:var(--blue-s);font-style:normal;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.03em;margin-right:4px}
+ .dep{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:980px}
+ .dep.pub{background:var(--emer-b);color:var(--emer-s)}
+ .dep.int{background:var(--blue-b);color:var(--blue-s)}
+ .dep.auth{background:var(--rose-b);color:var(--rose-s)}
+ .roadmap5{position:relative;counter-reset:proj;margin:18px 0 6px}
+ .roadmap5::before{content:"";position:absolute;left:23px;top:6px;bottom:28px;width:2px;background:var(--line)}
+ .proj{position:relative;padding:0 0 18px 60px}
+ .proj::before{counter-increment:proj;content:"P" counter(proj);position:absolute;left:8px;top:0;width:32px;height:32px;border-radius:9px;background:var(--band);color:var(--band-fg);font-weight:800;font-size:12.5px;display:flex;align-items:center;justify-content:center;z-index:1}
+ .proj .pc{border:1px solid var(--line);border-radius:14px;padding:15px 17px;background:var(--card)}
+ .proj .ph{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+ .proj .ph b{font-size:1.02rem}
+ .proj .obj{color:var(--muted);font-size:13.5px;margin:0 0 8px}
+ .proj ul{margin:0 0 8px;padding-left:1.1em}
+ .proj li{font-size:13px;margin:.25em 0;color:var(--ink2)}
+ .proj .res{font-size:13.5px;margin:0}
+ .proj .res b{color:var(--emer-s)}
+ .core-note{border:1px dashed var(--line);border-radius:14px;padding:14px 18px;background:var(--soft);font-size:14px;line-height:1.55;margin-top:6px}
+</style>
+<link rel="canonical" href="https://doc-intel.github.io/fr/cas/assistant-assurance.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/cas/assistant-assurance.html">
+<link rel="alternate" hreflang="en" href="https://doc-intel.github.io/en/cas/assistant-assurance.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/en/cas/assistant-assurance.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Un assistant qui répond à tout, en déclenchant le bon processus · Étude de cas">
+<meta property="og:description" content="Un chatbot chapeau agentique pour l'assurance : il détecte l'intention et déclenche le bon processus spécialisé (souscription, contrat, sinistre, suivi), pour une vue client 360.">
+<meta property="og:url" content="https://doc-intel.github.io/fr/cas/assistant-assurance.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Un assistant qui répond à tout, en déclenchant le bon processus · Étude de cas">
+<meta name="twitter:description" content="Un chatbot chapeau agentique pour l'assurance : il détecte l'intention et déclenche le bon processus spécialisé (souscription, contrat, sinistre, suivi), pour une vue client 360.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Études de cas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="assistant-assurance.html" class="active">FR</a>
+      <a href="../../en/cas/assistant-assurance.html">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=assurance">← Études de cas</a></div>
+      <div class="kicker">Chatbot 360 · Client (assuré) · Assurance</div>
+      <h1 class="mid">Un chatbot qui répond au client, en déclenchant le bon processus</h1>
+      <p class="lede">Un assuré ou un prospect arrive et pose sa question, sans savoir quel formulaire ou quel outil utiliser. Un assistant chapeau détecte l'intention et enclenche le bon processus : souscrire, comprendre un contrat, déclarer un sinistre, suivre son dossier. Ton grand public, pédagogique et rassurant.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <div class="callout"><p>La <b>Vision 360</b> se décline en quatre cases. Cette page traite du <b>chatbot 360 côté client</b>. Il a un jumeau au ton différent, le <a href="assistant-agents.html">chatbot 360 pour les agents généraux</a>. Tous deux s'appuient sur le <a href="contexte-360.html">contexte 360</a>, qui réunit toutes les informations d'un assuré, et croisent la <a href="contrats-360.html">vue 360 des contrats</a>. Le contexte n'est pas qu'une brique de chatbot : c'est la fondation.</p></div>
+
+      <h2>L'idée</h2>
+      <p>On construit d'abord des assistants spécialisés, chacun excellent sur sa tâche : un pour la souscription, un pour les questions sur le contrat, un pour la déclaration de sinistre, un pour le suivi. Puis on met par-dessus un assistant agentique unique : il ne fait pas tout lui-même, il comprend la demande et la confie au bon spécialiste. Pour l'utilisateur, c'est une seule porte d'entrée ; derrière, chaque processus reste net et maîtrisé.</p>
+
+      <div class="dispatch">
+        <div class="node">Une question, en langage naturel<span>« Je veux assurer ma nouvelle voiture » · « J'ai eu un dégât des eaux hier » · « Où en est mon dossier ? »</span></div>
+        <div class="arrow">↓ &nbsp;détection de l'intention, puis routage&nbsp; ↓</div>
+        <div class="branches">
+          <a class="branch" href="souscription-chatbot.html"><b>Souscription</b><span>Souscrire un produit, guidé, champ par champ.</span><span class="go">→ voir un cas</span></a>
+          <a class="branch" href="mrh-qa.html"><b>Questions contrat</b><span>Ce que couvre la police, avec la page.</span><span class="go">→ voir un cas</span></a>
+          <a class="branch" href="claim-declaration.html"><b>Déclaration de sinistre</b><span>Remplir la déclaration, champ par champ.</span><span class="go">→ voir un cas</span></a>
+          <a class="branch" href="claims-sql-agent.html"><b>Suivi de sinistre</b><span>Interroger l'état d'un dossier.</span><span class="go">→ voir un cas</span></a>
+        </div>
+      </div>
+
+      <h2>Comment ça marche</h2>
+      <div class="steps">
+        <div class="step"><b>Comprendre la demande</b><span>La question est analysée pour en extraire l'intention réelle, pas seulement les mots.</span></div>
+        <div class="step"><b>Router vers le bon spécialiste</b><span>L'intention déclenche le processus adapté : souscription, contrat, sinistre, suivi.</span></div>
+        <div class="step"><b>Laisser le spécialiste faire</b><span>Chaque assistant spécialisé garde sa logique propre, testée, avec sa sortie typée.</span></div>
+        <div class="step"><b>Rester dans la boucle</b><span>L'assistant chapeau suit l'échange, peut ré-router si l'intention change, et garde la trace.</span></div>
+      </div>
+
+      <h2>La vue client 360</h2>
+      <p>Parce qu'il est au-dessus de tous les processus, l'assistant voit l'ensemble du client : ses contrats, ses sinistres, son historique. Une même conversation peut passer d'une question sur une garantie à une déclaration, puis au suivi, sans que l'utilisateur change d'outil. C'est ça, la vue 360 : une seule porte, tous les métiers derrière.</p>
+      <p>Un exemple concret du va-et-vient entre briques : un client lance une <a href="souscription-chatbot.html">souscription habitation</a> et demande « et mon vélo, s'il est volé devant chez moi ? ». L'assistant bascule vers la <a href="mrh-qa.html">réponse sourcée sur la CG</a> (la garantie vol hors du domicile le couvre, quand le contrat foyer la prévoit), puis vers la <a href="mrh-comparison.html">comparaison</a> pour montrer que certains concurrents ne le couvrent pas, et revient à la souscription. Une seule conversation, trois briques.</p>
+
+      <h2>Roadmap technique : une plateforme modulaire, projet par projet</h2>
+      <p>L'idée n'est pas de livrer cinq produits séparés, mais de construire une seule <b>plateforme IA modulaire</b>. Le cœur (parsing des documents, structuration, RAG, moteur de dialogue, API, gestion des conversations et traçabilité) se développe une fois. Chaque projet réutilise les briques du précédent et ajoute une couche, ce qui limite les redéveloppements et accélère la mise en marché du cas suivant.</p>
+      <div class="roadmap5">
+        <div class="proj">
+          <div class="pc">
+            <div class="ph"><b>Question-réponse sur les contrats</b><span class="dep pub">Documents publics</span></div>
+            <p class="obj">Le socle qui permet d'interroger les conditions générales.</p>
+            <ul>
+              <li>Parsing des contrats, indexation et structuration.</li>
+              <li>Pipeline RAG (retrieval + génération).</li>
+              <li>API du moteur, interface de chat, traçabilité des conversations.</li>
+            </ul>
+            <p class="res"><b>Résultat :</b> une plateforme qui répond de façon fiable, citation à l'appui. Voir la <a href="mrh-qa.html">réponse sourcée sur un contrat</a>.</p>
+          </div>
+        </div>
+        <div class="proj">
+          <div class="pc">
+            <div class="ph"><b>Comparaison de contrats</b><span class="dep pub">Documents publics</span></div>
+            <p class="obj">Étendre le moteur pour comparer plusieurs contrats, dont les CG des concurrents.</p>
+            <ul>
+              <li>Gestion de plusieurs documents en même temps, import de documents externes.</li>
+              <li>Alignement des garanties, algorithmes de comparaison.</li>
+              <li>Visualisation des écarts.</li>
+            </ul>
+            <p class="res"><b>Résultat :</b> le même moteur raisonne sur plusieurs contrats. Voir la <a href="mrh-comparison.html">comparaison clause par clause</a>.</p>
+          </div>
+        </div>
+        <div class="proj">
+          <div class="pc">
+            <div class="ph"><b>Assistant de souscription</b><span class="dep int">API interne · lecture + écriture</span></div>
+            <p class="obj">Passer de « répondre » à « accompagner » une souscription.</p>
+            <ul>
+              <li>Dialogue multi-étapes, collecte structurée, validation des données.</li>
+              <li>Connexion au système d'information.</li>
+              <li>Création ou mise à jour des dossiers, persistance.</li>
+            </ul>
+            <p class="res"><b>Résultat :</b> le chatbot déclenche des actions métier. Voir le <a href="souscription-chatbot.html">chatbot de souscription</a>.</p>
+          </div>
+        </div>
+        <div class="proj">
+          <div class="pc">
+            <div class="ph"><b>Assistant de déclaration de sinistre</b><span class="dep int">API interne</span><span class="dep auth">Authentification</span></div>
+            <p class="obj">Réutiliser la compréhension des contrats pour assister la déclaration.</p>
+            <ul>
+              <li>Analyse du récit du sinistre, vérification des garanties.</li>
+              <li>Génération d'une justification, constitution automatique du dossier.</li>
+              <li>Enregistrement des échanges, transmission aux applications de gestion.</li>
+            </ul>
+            <p class="res"><b>Résultat :</b> le chatbot accompagne jusqu'à la création du dossier de sinistre. Voir la <a href="claim-declaration.html">déclaration guidée</a> et le <a href="claims-sql-agent.html">suivi en langage naturel</a>.</p>
+          </div>
+        </div>
+        <div class="proj">
+          <div class="pc">
+            <div class="ph"><b>Indemnisation intelligente</b><span class="dep int">API interne</span><span class="dep auth">Décision + humain</span></div>
+            <p class="obj">Automatiser l'analyse du dossier pour proposer une indemnisation immédiate quand c'est possible.</p>
+            <ul>
+              <li>Analyse des pièces justificatives et des images.</li>
+              <li>Fusion des informations du contrat, des documents et des photos.</li>
+              <li>Moteur de décision, détection des cas nécessitant une intervention humaine, intégration au système d'indemnisation.</li>
+            </ul>
+            <p class="res"><b>Résultat :</b> pour les dossiers simples, l'indemnisation peut être proposée automatiquement.</p>
+          </div>
+        </div>
+      </div>
+      <div class="core-note"><b>Le fil conducteur :</b> chaque projet réutilise les briques du précédent et ajoute une couche (comparaison, orchestration de workflows, intégration au SI, analyse multimodale, décision). Le cœur est développé une seule fois ; les cas d'usage suivants arrivent plus vite et coûtent moins cher.</div>
+
+      <h2>Ce que ça montre</h2>
+      <p>Un « chatbot qui fait tout » n'est pas un modèle géant qui devine : c'est un orchestrateur agentique au-dessus d'assistants spécialisés solides, posés sur une plateforme commune. La valeur est dans le routage fiable de l'intention, dans la qualité de chaque brique, et dans le fait de ne construire le cœur qu'une fois. L'effort réel se mesure moins au dialogue qu'aux dépendances : documents publics d'un côté, branchements au système d'information et authentification de l'autre.</p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=assurance">← Autres cas</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filing an insurance claim by chatbot, field by field · Case study</title><meta name="description" content="A conversational assistant that guides a claim declaration and fills a typed form, one question at a time, leaving no required field empty.">
+<link rel="stylesheet" href="../assets/site.css"></head>
+<body class="lang-en" data-fixed-lang="en">
+<header class="top" id="top"><div class="wrap">
+<a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+<nav class="nav"><a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a><a href="../apps.html">Apps</a><a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a></nav>
+<div class="lang" role="group" aria-label="language"><button id="btn-fr" onclick="setLang('fr')">FR</button><button id="btn-en" class="active" onclick="setLang('en')">EN</button></div>
+</div></header>
+<main><section class="hero compact"><div class="wrap narrow">
+<div class="crumbs"><a href="index.html">← Case studies</a></div>
+<div class="kicker">Chatbot · Insurance · EN</div><h1 class="mid">Filing an insurance claim by chatbot, field by field</h1><p class="lede">A claim form makes people quit. A conversation that asks one question at a time, keeps track, and only hands back once the required fields are filled, gets finished.</p>
+</div></section>
+<section class="block first"><div class="wrap narrow prose">
+<h2>The problem</h2><p>A claim declaration is twenty fields. Shown at once, the insured abandons it. Asked at random, one always ends up missing. It has to be guided, one question at a time.</p>
+<h2>The approach</h2><p>The chatbot targets a typed output schema: at each turn it asks the next missing field, reads the free-text answer into a typed value, and updates the form. When the required fields are all there, it recaps and proposes an estimate.</p>
+<div class="callout"><p>The thread: the output is a typed object, not a wall of text. The dialogue exists only to fill that data contract, field by field.</p></div>
+<h2>What it shows</h2><p>A good task chatbot is a conversation constrained by a schema. The structure guarantees no required field slips through, and the output feeds the claims system directly.</p>
+<h2>Deliverables</h2><p>A guided claim-declaration chatbot, with the typed form filling up as the dialogue goes. The data is fictional.</p>
+<div class="callout"><p><em>Static demonstration on fictional data; opens full-page.</em></p></div>
+<p style="margin-top:18px"><a href="../assets/demos/claim-chat.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Open the demo (full page) →</a></p>
+</div></section></main>
+<footer><div class="wrap foot-row"><span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+<span class="foot-links"><a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a><a href="../articles.html">Articles</a><a href="../apps.html">Apps</a></span></div></footer>
+<script src="../assets/site.js"></script></body></html>

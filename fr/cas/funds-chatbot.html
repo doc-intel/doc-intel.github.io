@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>484 supports d'investissement, extraits puis interrogeables · Étude de cas</title>
+<meta name="description" content="Extraction de 484 supports d'investissement d'un contrat d'épargne, enrichissement par LLM, et agent qui traduit une question en SQL.">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="canonical" href="https://doc-intel.github.io/fr/cas/funds-chatbot.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/cas/funds-chatbot.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/fr/cas/funds-chatbot.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="484 supports d'investissement, extraits puis interrogeables · Étude de cas">
+<meta property="og:description" content="Extraction de 484 supports d'investissement d'un contrat d'épargne, enrichissement par LLM, et agent qui traduit une question en SQL.">
+<meta property="og:url" content="https://doc-intel.github.io/fr/cas/funds-chatbot.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="484 supports d'investissement, extraits puis interrogeables · Étude de cas">
+<meta name="twitter:description" content="Extraction de 484 supports d'investissement d'un contrat d'épargne, enrichissement par LLM, et agent qui traduit une question en SQL.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Études de cas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="funds-chatbot.html" class="active">FR</a>
+      <a href="../../en/cas/index.html">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=assurance">← Études de cas</a></div>
+      <div class="kicker">Extraction · Agent SQL · FR</div>
+      <h1 class="mid">484 supports d'investissement, extraits puis interrogeables</h1>
+      <p class="lede">Extraire les supports d'un contrat d'épargne, les enrichir, puis laisser un agent traduire une question en français vers une requête SQL bornée.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>Les conditions générales d'un contrat d'épargne listent des centaines de supports d'investissement, noyés dans des dizaines de pages. Un conseiller qui cherche « les fonds actions Europe ISR avec des frais faibles » n'a aucun moyen de filtrer cette liste : le PDF n'est pas une base de données.</p>
+
+      <h2>La démarche</h2>
+      <p>On extrait les 484 supports du PDF vers une table typée (CSV, JSON, Excel, SQLite). On enrichit ensuite chaque support avec un LLM qui lit son intitulé et son objectif pour en déduire la classe d'actifs, la zone géographique, le caractère ISR, l'éligibilité PEA et des mots-clés. Enfin, un agent reçoit la question en langage naturel, génère un SELECT borné, l'exécute et renvoie les supports correspondants.</p>
+
+      <div class="callout">
+        <p>Le PDF devient une table, la table devient interrogeable, et l'agent ne fait que traduire l'intention en SQL. La donnée reste vérifiable à chaque étape.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Extraire les supports</b><span>Du PDF vers CSV, JSON, Excel et un schéma SQLite typé.</span></div>
+        <div class="step"><b>Enrichir par LLM</b><span>Classe d'actifs, zones, thèmes, tickers, ISR, éligibilité, déduits de l'intitulé et de l'objectif de chaque fonds.</span></div>
+        <div class="step"><b>Construire la table interrogeable</b><span>Une table à colonnes propres plus une vue enrichie, prête pour des requêtes.</span></div>
+        <div class="step"><b>Traduire la question en SQL</b><span>L'agent transforme une demande en français en un SELECT borné, puis l'exécute.</span></div>
+        <div class="step"><b>Rendre les résultats</b><span>Un tableau statique pour parcourir, un point de terminaison de chat pour la recherche agentique.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>Un document produit n'est pas une base de données, mais on peut l'y ramener. Une fois la liste extraite et enrichie, la question de l'utilisateur pilote une requête bornée, ce qui reste bien plus fiable et vérifiable qu'une recherche par similarité sur du texte brut.</p>
+
+      <h2>Livrables</h2>
+      <p>La table des supports en CSV, JSON, Excel et SQLite, un tableau HTML pour parcourir, et une interface de chat pour la recherche par agent.</p>
+
+      <div class="callout"><p><em>Démonstration statique : la table des 484 supports extraite du contrat, à parcourir et filtrer ; elle s'ouvre en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../../assets/demos/funds-chatbot.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir la table des supports (pleine page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=assurance">← Autres cas</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

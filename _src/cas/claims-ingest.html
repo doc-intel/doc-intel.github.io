@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ingesting heterogeneous claims files · Case study</title><meta name="description" content="Detecting the header, mapping columns, hardening amounts and dates, and normalizing labels across messy claims exports.">
+<link rel="stylesheet" href="../assets/site.css"></head>
+<body class="lang-en" data-fixed-lang="en">
+<header class="top" id="top"><div class="wrap">
+<a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+<nav class="nav"><a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a><a href="../apps.html">Apps</a><a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a></nav>
+<div class="lang" role="group" aria-label="language"><button id="btn-fr" onclick="setLang('fr')">FR</button><button id="btn-en" class="active" onclick="setLang('en')">EN</button></div>
+</div></header>
+<main><section class="hero compact"><div class="wrap narrow">
+<div class="crumbs"><a href="index.html">← Case studies</a></div>
+<div class="kicker">ETL · Insurance · EN</div><h1 class="mid">Ingesting heterogeneous claims files</h1><p class="lede">Claims arrive as spreadsheets that never quite match: different headers, mixed date formats, labels that drift. Before any analysis, they become one clean typed table.</p>
+</div></section>
+<section class="block first"><div class="wrap narrow prose">
+<h2>The problem</h2><p>Every source exports claims differently. Headers sit on the wrong row, amounts mix separators, dates come in three formats, the same label is spelled five ways.</p>
+<h2>The approach</h2><p>The pipeline detects the real header row, maps each column to a target field, hardens amounts and dates into typed values, and normalizes labels against a reference. The output is one clean typed table, with the mapping kept so any step is auditable.</p>
+<div class="callout"><p>The thread: ingestion is where trust is won or lost. A typed table with a recorded mapping beats a clever model on dirty inputs.</p></div>
+<h2>What it shows</h2><p>Most of the value in a claims pipeline is upstream of any model: a heterogeneous pile of files becomes one queryable table, deterministically.</p>
+<h2>Deliverables</h2><p>An ingestion demo over heterogeneous claims files, producing a typed table with its column mapping. The data is synthetic.</p>
+<div class="callout"><p><em>Static demonstration on synthetic files; opens full-page.</em></p></div>
+<p style="margin-top:18px"><a href="../assets/demos/claims-ingest.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Open the demo (full page) →</a></p>
+</div></section></main>
+<footer><div class="wrap foot-row"><span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+<span class="foot-links"><a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a><a href="../articles.html">Articles</a><a href="../apps.html">Apps</a></span></div></footer>
+<script src="../assets/site.js"></script></body></html>

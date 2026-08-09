@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAG articles, Volume 1 - Enterprise Document Intelligence</title>
+<meta name="description" content="The whole series, brick by brick. Question parsing and retrieval: the published articles, each linking to the full piece.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="canonical" href="https://doc-intel.github.io/en/articles.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/articles.html">
+<link rel="alternate" hreflang="en" href="https://doc-intel.github.io/en/articles.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/en/articles.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="RAG articles, Volume 1 - Enterprise Document Intelligence">
+<meta property="og:description" content="The whole series, brick by brick. Question parsing and retrieval: the published articles, each linking to the full piece.">
+<meta property="og:url" content="https://doc-intel.github.io/en/articles.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RAG articles, Volume 1 - Enterprise Document Intelligence">
+<meta name="twitter:description" content="The whole series, brick by brick. Question parsing and retrieval: the published articles, each linking to the full piece.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="articles.html">Articles</a>
+      <a href="apps.html">Apps</a>
+      <a href="cas/index.html">Case studies</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="../fr/articles.html">FR</a>
+      <a href="articles.html" class="active">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap">
+      <div class="kicker">Volume 1 · PDF RAG</div>
+      <h1 class="mid">The whole series, here</h1>
+      <p class="lede">
+        
+        The whole series will be published here, article after article.
+      </p>
+      <div class="readon">
+        <span class="ro-lab">Read on:</span>
+        <a href="https://towardsdatascience.com/author/angela-shi/" target="_blank" rel="noopener noreferrer">TDS · Angela Shi</a>
+        <a href="https://towardsdatascience.com/author/kezhanshi/" target="_blank" rel="noopener noreferrer">TDS · Kezhan Shi</a>
+        <a href="https://medium.com/@angela.shi" target="_blank" rel="noopener noreferrer">Medium · Angela Shi</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap">
+
+      <div class="diagram archdiagram">
+        <svg class="archsvg" width="1430" height="800" viewBox="0 0 1430 800" xmlns="http://www.w3.org/2000/svg"><defs><filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="2" dy="3" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.16"/></filter><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker></defs><text x="715.0" y="56" text-anchor="middle" font-size="30" font-weight="800" fill="#0f172a">Enterprise Document Intelligence</text><text x="715.0" y="95" text-anchor="middle" font-size="20" font-weight="700" fill="#334155">Volume 1: PDF RAG  ·  five Parts, 22 articles</text>
+  <rect x="30" y="150" width="256" height="330" rx="16" fill="#fef3c7" stroke="#b45309" stroke-width="2.0" filter="url(#sh)"/>
+  <text x="158.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#78350f">Part I</text>
+  <text x="158.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#78350f">What works, what breaks</text>
+  <line x1="50" y1="246" x2="266" y2="246" stroke="#b45309" stroke-width="1" opacity="0.35"/>
+  <text x="50" y="284" font-size="15" fill="#78350f">1. minimal RAG</text>
+  <text x="50" y="326" font-size="15" fill="#78350f">2. embeddings' failure modes</text>
+  <text x="50" y="368" font-size="15" fill="#78350f">3. RAG is not ML</text>
+  <text x="50" y="410" font-size="15" fill="#78350f">4. technique-fit grid</text>
+  <rect x="308" y="150" width="256" height="330" rx="16" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3.6" filter="url(#sh)"/>
+  <text x="436.0" y="136" text-anchor="middle" font-size="15" font-weight="700" fill="#1d4ed8">★ the core</text>
+  <text x="436.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#1e3a8a">Part II</text>
+  <text x="436.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#1e3a8a">The four bricks</text>
+  <line x1="328" y1="246" x2="544" y2="246" stroke="#1d4ed8" stroke-width="1" opacity="0.35"/>
+  <text x="328" y="284" font-size="15" fill="#1e3a8a">5. document parsing (A · B)</text>
+  <text x="328" y="326" font-size="15" fill="#1e3a8a">6. question parsing (A · B)</text>
+  <text x="328" y="368" font-size="15" fill="#1e3a8a">7. retrieval (A · B · C)</text>
+  <text x="328" y="410" font-size="15" fill="#1e3a8a">8. generation</text>
+  <rect x="586" y="150" width="256" height="330" rx="16" fill="#e0e7ff" stroke="#4338ca" stroke-width="2.0" filter="url(#sh)"/>
+  <text x="714.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#312e81">Part III</text>
+  <text x="714.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#312e81">One-document pipelines</text>
+  <line x1="606" y1="246" x2="822" y2="246" stroke="#4338ca" stroke-width="1" opacity="0.35"/>
+  <text x="606" y="284" font-size="15" fill="#312e81">9. the upgraded pipeline</text>
+  <text x="606" y="326" font-size="15" fill="#312e81">10. adaptive parsing</text>
+  <text x="606" y="368" font-size="15" fill="#312e81">11. cross-references</text>
+  <text x="606" y="410" font-size="15" fill="#312e81">12. listing</text>
+  <text x="606" y="452" font-size="15" fill="#312e81">13. the workflow pipeline</text>
+  <rect x="864" y="150" width="256" height="330" rx="16" fill="#d1fae5" stroke="#047857" stroke-width="2.0" filter="url(#sh)"/>
+  <text x="992.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#064e3b">Part IV</text>
+  <text x="992.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#064e3b">One doc to a corpus</text>
+  <line x1="884" y1="246" x2="1100" y2="246" stroke="#047857" stroke-width="1" opacity="0.35"/>
+  <text x="884" y="284" font-size="15" fill="#064e3b">14. the corpus problem</text>
+  <text x="884" y="326" font-size="15" fill="#064e3b">15. preparing the corpus</text>
+  <text x="884" y="368" font-size="15" fill="#064e3b">16. ontology</text>
+  <text x="884" y="410" font-size="15" fill="#064e3b">17. querying the corpus</text>
+  <rect x="1142" y="150" width="256" height="330" rx="16" fill="#e2e8f0" stroke="#475569" stroke-width="2.0" filter="url(#sh)"/>
+  <text x="1270.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#0f172a">Part V</text>
+  <text x="1270.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#0f172a">Operating in production</text>
+  <line x1="1162" y1="246" x2="1378" y2="246" stroke="#475569" stroke-width="1" opacity="0.35"/>
+  <text x="1162" y="284" font-size="15" fill="#0f172a">18. code architecture</text>
+  <text x="1162" y="326" font-size="15" fill="#0f172a">19. storage</text>
+  <text x="1162" y="368" font-size="15" fill="#0f172a">20. evaluation</text>
+  <text x="1162" y="410" font-size="15" fill="#0f172a">21. cost & latency</text>
+  <text x="1162" y="452" font-size="15" fill="#0f172a">22. security</text>
+  <rect x="30" y="516" width="1370" height="244" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="715.0" y="554" text-anchor="middle" font-size="18" font-weight="800" fill="#0f172a">The spine: the four bricks, relational data at every one</text>
+  <rect x="62" y="586" width="304" height="84" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" filter="url(#sh)"/>
+  <text x="214.0" y="634.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1e3a8a">1. Parsing</text>
+  <path d="M 366 628.0 L 394 628.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="394" y="586" width="304" height="84" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" filter="url(#sh)"/>
+  <text x="546.0" y="634.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1e3a8a">2. Question parsing</text>
+  <path d="M 698 628.0 L 726 628.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="726" y="586" width="304" height="84" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" filter="url(#sh)"/>
+  <text x="878.0" y="634.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1e3a8a">3. Retrieval</text>
+  <path d="M 1030 628.0 L 1058 628.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="1058" y="586" width="304" height="84" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" filter="url(#sh)"/>
+  <text x="1210.0" y="634.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1e3a8a">4. Generation</text>
+  <text x="715.0" y="708" text-anchor="middle" font-size="15.5" font-style="italic" fill="#475569">one document (Parts II–III)  →  a whole corpus (Part IV)  →  run it for years (Part V)</text>
+  <text x="715.0" y="734" text-anchor="middle" font-size="13" font-style="italic" fill="#94a3b8">plus companions (2bis, 5bis–5septies, 6bis), bonus (B01–B08), and epilogues</text><text x="715.0" y="782" text-anchor="middle" font-size="13.5" fill="#94a3b8" font-family="ui-monospace,Menlo,Consolas,monospace">towardsdatascience.com/author/angela-shi/</text></svg>
+        <div class="dcap">
+          
+          Volume 1 at a glance: five Parts, built on the four bricks (parsing, question, retrieval, generation).
+        </div>
+      </div>
+
+      <!-- Brick 2 question parsing -->
+      <div class="group">
+        <h3 class="ghead b">Brick 2 · Question parsing</h3>
+        <p class="gsub">Most RAG pipelines send the raw question straight to search. Parse it first, its keywords, its scope, the shape of the answer it expects, and retrieval stops fetching the wrong thing.</p>
+        <div class="alist">
+          <a class="arow" href="https://towardsdatascience.com/question-parsing-in-rag-structure-before-you-search/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 6A</div>
+            <h4>Parse the question before you search: the missing step in most RAG pipelines</h4>
+            <p>The missing step in most pipelines: parse the question before you search.</p>
+            <div class="read">Read the article →</div>
+          </a>
+          <a class="arow" href="https://towardsdatascience.com/what-the-question-parser-extracts-from-a-user-string-keywords-scope-shape-decomposition-clarification/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 6B</div>
+            <h4>Five fields RAG should extract from any question</h4>
+            <p>Keywords, scope, shape, decomposition, clarification: the five fields to extract from a question.</p>
+            <div class="read">Read the article →</div>
+          </a>
+          <a class="arow" href="https://towardsdatascience.com/dispatching-the-parsed-rag-question-chunk-strategy-model-tier-activations-audit/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 6C</div>
+            <h4>One parsed RAG question, four decisions: chunk strategy, model tier, fragments, audit trail</h4>
+            <p>One parsed question drives four decisions: chunking, model tier, fragments, audit trail.</p>
+            <div class="read">Read the article →</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Brick 3 retrieval -->
+      <div class="group">
+        <h3 class="ghead b">Brick 3 · Retrieval</h3>
+        <p class="gsub">This isn't vector search. It's a filter, an anchor, and one LLM that explains its pick.</p>
+        <div class="alist">
+          <a class="arow" href="https://towardsdatascience.com/retrieval-is-filtering-not-search-a-mental-model-for-enterprise-rag/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7A</div>
+            <h4>Retrieval is filtering, not search: a mental model for enterprise RAG</h4>
+            <p>A mental model for retrieval: it's filtering, not search.</p>
+            <div class="read">Read the article →</div>
+          </a>
+          <a class="arow" href="https://towardsdatascience.com/anchor-detection-for-rag-parallel-detectors-then-one-llm-call-at-the-end/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7B</div>
+            <h4>Finding the right anchors for RAG: keyword, embedding, and TOC signals in parallel</h4>
+            <p>Finding the anchor: keyword, embedding and TOC signals, in parallel.</p>
+            <div class="read">Read the article →</div>
+          </a>
+          <a class="arow" href="https://towardsdatascience.com/letting-an-llm-pick-the-right-rag-page-the-arbiter-pattern-at-the-end-of-retrieval/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7C</div>
+            <h4>An LLM as arbiter in RAG retrieval: picking the right candidate with reasons</h4>
+            <p>An LLM decides at the end: it picks the right candidate and explains why.</p>
+            <div class="read">Read the article →</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Brick 4 generation (not yet published) -->
+      <div class="group">
+        <h3 class="ghead b">Brick 4 · Generation</h3>
+        <p class="gsub">The answer isn't a string, it's a typed, verifiable object.</p>
+        <div class="alist">
+          <div class="arow arow-soon">
+            <div class="an">Article 8A <span class="soon-badge">Awaiting publication on TDS</span></div>
+            <h4>Stop returning text from RAG: the typed answer contract that prevents hallucination</h4>
+            <p>Generation returns not a string but a typed object: answer, justification, quotes, confidence.</p>
+          </div>
+          <div class="arow arow-soon">
+            <div class="an">Article 8B <span class="soon-badge">Awaiting publication on TDS</span></div>
+            <h4>One prompt won't handle all RAG questions: pick the schema, build the prompt, log the trace</h4>
+            <p>Depending on the question, pick the output schema, assemble the prompt, keep the trace.</p>
+          </div>
+          <div class="arow arow-soon">
+            <div class="an">Article 8C <span class="soon-badge">Awaiting publication on TDS</span></div>
+            <h4>Validating the RAG answer before the user sees it: spans, quotes, and the feedback loop</h4>
+            <p>Check that every quote really exists in the document, and loop back if not.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:38px">
+        <p>The rest of the series (framing, parsing, scaling to a corpus, and volumes 2 to 7) is unveiled here over time.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Written by Angela Shi, Kezhan Shi and Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="apps.html">Apps</a>
+      <a href="cas/index.html">Cases</a>
+      <a href="https://github.com/doc-intel/notebooks-vol1" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://ko-fi.com/angelashi" target="_blank" rel="noopener noreferrer">Ko-fi</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

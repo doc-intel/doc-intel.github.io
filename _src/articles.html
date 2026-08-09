@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Articles · Enterprise Document Intelligence</title>
+<meta name="description" content="Question parsing and retrieval in enterprise RAG: the two bricks, article by article.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="apps.html">Apps</a>
+      <a href="cas/index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap">
+      <div class="kicker">Volume 1<span class="fr"> · RAG sur PDF</span><span class="en"> · PDF RAG</span></div>
+      <h1 class="mid"><span class="fr">Toute la série, ici</span><span class="en">The whole series, here</span></h1>
+      <p class="lede">
+        <span class="fr blk">Toute la série sera publiée ici, article après article.</span>
+        <span class="en blk">The whole series will be published here, article after article.</span>
+      </p>
+      <div class="readon">
+        <span class="ro-lab"><span class="fr">Où lire :</span><span class="en">Read on:</span></span>
+        <a href="https://towardsdatascience.com/author/angela-shi/">TDS · Angela Shi</a>
+        <a href="https://towardsdatascience.com/author/kezhanshi/">TDS · Kezhan Shi</a>
+        <a href="https://medium.com/@angela.shi">Medium · Angela Shi</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap">
+
+      <div class="diagram archdiagram">
+        <svg class="archsvg" width="1430" height="800" viewBox="0 0 1430 800" xmlns="http://www.w3.org/2000/svg"><defs><filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="2" dy="3" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.16"/></filter><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker></defs><text x="715.0" y="56" text-anchor="middle" font-size="30" font-weight="800" fill="#0f172a">Enterprise Document Intelligence</text><text x="715.0" y="95" text-anchor="middle" font-size="20" font-weight="700" fill="#334155">Volume 1: PDF RAG  ·  five Parts, 22 articles</text>
+  <rect x="30" y="150" width="256" height="330" rx="16" fill="#fef3c7" stroke="#b45309" stroke-width="2.0" filter="url(#sh)"/>
+  <text x="158.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#78350f">Part I</text>
+  <text x="158.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#78350f">What works, what breaks</text>
+  <line x1="50" y1="246" x2="266" y2="246" stroke="#b45309" stroke-width="1" opacity="0.35"/>
+  <text x="50" y="284" font-size="15" fill="#78350f">1. minimal RAG</text>
+  <text x="50" y="326" font-size="15" fill="#78350f">2. embeddings' failure modes</text>
+  <text x="50" y="368" font-size="15" fill="#78350f">3. RAG is not ML</text>
+  <text x="50" y="410" font-size="15" fill="#78350f">4. technique-fit grid</text>
+  <rect x="308" y="150" width="256" height="330" rx="16" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3.6" filter="url(#sh)"/>
+  <text x="436.0" y="136" text-anchor="middle" font-size="15" font-weight="700" fill="#1d4ed8">★ the core</text>
+  <text x="436.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#1e3a8a">Part II</text>
+  <text x="436.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#1e3a8a">The four bricks</text>
+  <line x1="328" y1="246" x2="544" y2="246" stroke="#1d4ed8" stroke-width="1" opacity="0.35"/>
+  <text x="328" y="284" font-size="15" fill="#1e3a8a">5. document parsing (A · B)</text>
+  <text x="328" y="326" font-size="15" fill="#1e3a8a">6. question parsing (A · B)</text>
+  <text x="328" y="368" font-size="15" fill="#1e3a8a">7. retrieval (A · B · C)</text>
+  <text x="328" y="410" font-size="15" fill="#1e3a8a">8. generation</text>
+  <rect x="586" y="150" width="256" height="330" rx="16" fill="#e0e7ff" stroke="#4338ca" stroke-width="2.0" filter="url(#sh)"/>
+  <text x="714.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#312e81">Part III</text>
+  <text x="714.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#312e81">One-document pipelines</text>
+  <line x1="606" y1="246" x2="822" y2="246" stroke="#4338ca" stroke-width="1" opacity="0.35"/>
+  <text x="606" y="284" font-size="15" fill="#312e81">9. the upgraded pipeline</text>
+  <text x="606" y="326" font-size="15" fill="#312e81">10. adaptive parsing</text>
+  <text x="606" y="368" font-size="15" fill="#312e81">11. cross-references</text>
+  <text x="606" y="410" font-size="15" fill="#312e81">12. listing</text>
+  <text x="606" y="452" font-size="15" fill="#312e81">13. the workflow pipeline</text>
+  <rect x="864" y="150" width="256" height="330" rx="16" fill="#d1fae5" stroke="#047857" stroke-width="2.0" filter="url(#sh)"/>
+  <text x="992.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#064e3b">Part IV</text>
+  <text x="992.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#064e3b">One doc to a corpus</text>
+  <line x1="884" y1="246" x2="1100" y2="246" stroke="#047857" stroke-width="1" opacity="0.35"/>
+  <text x="884" y="284" font-size="15" fill="#064e3b">14. the corpus problem</text>
+  <text x="884" y="326" font-size="15" fill="#064e3b">15. preparing the corpus</text>
+  <text x="884" y="368" font-size="15" fill="#064e3b">16. ontology</text>
+  <text x="884" y="410" font-size="15" fill="#064e3b">17. querying the corpus</text>
+  <rect x="1142" y="150" width="256" height="330" rx="16" fill="#e2e8f0" stroke="#475569" stroke-width="2.0" filter="url(#sh)"/>
+  <text x="1270.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#0f172a">Part V</text>
+  <text x="1270.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#0f172a">Operating in production</text>
+  <line x1="1162" y1="246" x2="1378" y2="246" stroke="#475569" stroke-width="1" opacity="0.35"/>
+  <text x="1162" y="284" font-size="15" fill="#0f172a">18. code architecture</text>
+  <text x="1162" y="326" font-size="15" fill="#0f172a">19. storage</text>
+  <text x="1162" y="368" font-size="15" fill="#0f172a">20. evaluation</text>
+  <text x="1162" y="410" font-size="15" fill="#0f172a">21. cost & latency</text>
+  <text x="1162" y="452" font-size="15" fill="#0f172a">22. security</text>
+  <rect x="30" y="516" width="1370" height="244" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="715.0" y="554" text-anchor="middle" font-size="18" font-weight="800" fill="#0f172a">The spine: the four bricks, relational data at every one</text>
+  <rect x="62" y="586" width="304" height="84" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" filter="url(#sh)"/>
+  <text x="214.0" y="634.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1e3a8a">1. Parsing</text>
+  <path d="M 366 628.0 L 394 628.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="394" y="586" width="304" height="84" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" filter="url(#sh)"/>
+  <text x="546.0" y="634.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1e3a8a">2. Question parsing</text>
+  <path d="M 698 628.0 L 726 628.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="726" y="586" width="304" height="84" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" filter="url(#sh)"/>
+  <text x="878.0" y="634.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1e3a8a">3. Retrieval</text>
+  <path d="M 1030 628.0 L 1058 628.0" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="1058" y="586" width="304" height="84" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" filter="url(#sh)"/>
+  <text x="1210.0" y="634.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1e3a8a">4. Generation</text>
+  <text x="715.0" y="708" text-anchor="middle" font-size="15.5" font-style="italic" fill="#475569">one document (Parts II–III)  →  a whole corpus (Part IV)  →  run it for years (Part V)</text>
+  <text x="715.0" y="734" text-anchor="middle" font-size="13" font-style="italic" fill="#94a3b8">plus companions (2bis, 5bis–5septies, 6bis), bonus (B01–B08), and epilogues</text><text x="715.0" y="782" text-anchor="middle" font-size="13.5" fill="#94a3b8" font-family="ui-monospace,Menlo,Consolas,monospace">towardsdatascience.com/author/angela-shi/</text></svg>
+        <div class="dcap">
+          <span class="fr blk">Le Volume 1 d'un coup d'œil : cinq parties, bâties sur les quatre briques (parsing, question, retrieval, génération).</span>
+          <span class="en blk">Volume 1 at a glance: five Parts, built on the four bricks (parsing, question, retrieval, generation).</span>
+        </div>
+      </div>
+
+      <!-- Brick 2 question parsing -->
+      <div class="group">
+        <h3 class="ghead b"><span class="fr">Brique 2 · Parsing de la question</span><span class="en">Brick 2 · Question parsing</span></h3>
+        <p class="gsub"><span class="fr">La plupart des pipelines RAG envoient la question brute droit au moteur. Parsez-la d'abord, ses mots-clés, son périmètre, la forme de la réponse attendue, et le retrieval arrête de ramener à côté.</span><span class="en">Most RAG pipelines send the raw question straight to search. Parse it first, its keywords, its scope, the shape of the answer it expects, and retrieval stops fetching the wrong thing.</span></p>
+        <div class="alist">
+          <a class="arow" href="https://towardsdatascience.com/question-parsing-in-rag-structure-before-you-search/">
+            <div class="an">Article 6A</div>
+            <h4><span class="fr">Parser la question avant de chercher : l'étape manquante de la plupart des pipelines</span><span class="en">Parse the question before you search: the missing step in most RAG pipelines</span></h4>
+            <p><span class="fr">L'étape manquante de la plupart des pipelines : parser la question avant de chercher.</span><span class="en">The missing step in most pipelines: parse the question before you search.</span></p>
+            <div class="read"><span class="fr">Lire l'article →</span><span class="en">Read the article →</span></div>
+          </a>
+          <a class="arow" href="https://towardsdatascience.com/what-the-question-parser-extracts-from-a-user-string-keywords-scope-shape-decomposition-clarification/">
+            <div class="an">Article 6B</div>
+            <h4><span class="fr">Cinq champs que le RAG devrait extraire de toute question</span><span class="en">Five fields RAG should extract from any question</span></h4>
+            <p><span class="fr">Mots-clés, périmètre, forme, décomposition, clarification : les cinq champs à extraire d'une question.</span><span class="en">Keywords, scope, shape, decomposition, clarification: the five fields to extract from a question.</span></p>
+            <div class="read"><span class="fr">Lire l'article →</span><span class="en">Read the article →</span></div>
+          </a>
+          <a class="arow" href="https://towardsdatascience.com/dispatching-the-parsed-rag-question-chunk-strategy-model-tier-activations-audit/">
+            <div class="an">Article 6C</div>
+            <h4><span class="fr">Une question parsée, quatre décisions : chunking, niveau de modèle, fragments, trace</span><span class="en">One parsed RAG question, four decisions: chunk strategy, model tier, fragments, audit trail</span></h4>
+            <p><span class="fr">Une question parsée pilote quatre décisions : chunking, modèle, fragments, trace.</span><span class="en">One parsed question drives four decisions: chunking, model tier, fragments, audit trail.</span></p>
+            <div class="read"><span class="fr">Lire l'article →</span><span class="en">Read the article →</span></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Brick 3 retrieval -->
+      <div class="group">
+        <h3 class="ghead b"><span class="fr">Brique 3 · Retrieval</span><span class="en">Brick 3 · Retrieval</span></h3>
+        <p class="gsub"><span class="fr">Ce n'est pas une recherche vectorielle. C'est un filtre, une ancre, et un LLM qui explique son choix.</span><span class="en">This isn't vector search. It's a filter, an anchor, and one LLM that explains its pick.</span></p>
+        <div class="alist">
+          <a class="arow" href="https://towardsdatascience.com/retrieval-is-filtering-not-search-a-mental-model-for-enterprise-rag/">
+            <div class="an">Article 7A</div>
+            <h4><span class="fr">Le retrieval, c'est du filtrage, pas de la recherche : un modèle mental pour le RAG</span><span class="en">Retrieval is filtering, not search: a mental model for enterprise RAG</span></h4>
+            <p><span class="fr">Un modèle mental pour le retrieval : c'est du filtrage, pas de la recherche.</span><span class="en">A mental model for retrieval: it's filtering, not search.</span></p>
+            <div class="read"><span class="fr">Lire l'article →</span><span class="en">Read the article →</span></div>
+          </a>
+          <a class="arow" href="https://towardsdatascience.com/anchor-detection-for-rag-parallel-detectors-then-one-llm-call-at-the-end/">
+            <div class="an">Article 7B</div>
+            <h4><span class="fr">Trouver les bonnes ancres : mots-clés, embeddings et table des matières en parallèle</span><span class="en">Finding the right anchors for RAG: keyword, embedding, and TOC signals in parallel</span></h4>
+            <p><span class="fr">Repérer l'ancre : mots-clés, embeddings et table des matières, en parallèle.</span><span class="en">Finding the anchor: keyword, embedding and TOC signals, in parallel.</span></p>
+            <div class="read"><span class="fr">Lire l'article →</span><span class="en">Read the article →</span></div>
+          </a>
+          <a class="arow" href="https://towardsdatascience.com/letting-an-llm-pick-the-right-rag-page-the-arbiter-pattern-at-the-end-of-retrieval/">
+            <div class="an">Article 7C</div>
+            <h4><span class="fr">Un LLM comme arbitre du retrieval : choisir le bon candidat, avec des raisons</span><span class="en">An LLM as arbiter in RAG retrieval: picking the right candidate with reasons</span></h4>
+            <p><span class="fr">Un LLM tranche à la fin : il choisit le bon candidat et explique pourquoi.</span><span class="en">An LLM decides at the end: it picks the right candidate and explains why.</span></p>
+            <div class="read"><span class="fr">Lire l'article →</span><span class="en">Read the article →</span></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Brick 4 generation (not yet published) -->
+      <div class="group">
+        <h3 class="ghead b"><span class="fr">Brique 4 · Génération</span><span class="en">Brick 4 · Generation</span></h3>
+        <p class="gsub"><span class="fr">La réponse n'est pas une chaîne de texte, mais un objet typé et vérifiable.</span><span class="en">The answer isn't a string, it's a typed, verifiable object.</span></p>
+        <div class="alist">
+          <div class="arow arow-soon">
+            <div class="an">Article 8A <span class="soon-badge"><span class="fr">En attente de publication sur TDS</span><span class="en">Awaiting publication on TDS</span></span></div>
+            <h4><span class="fr">Arrêtez de renvoyer du texte : le contrat de réponse typé qui empêche l'hallucination</span><span class="en">Stop returning text from RAG: the typed answer contract that prevents hallucination</span></h4>
+            <p><span class="fr">La génération ne renvoie pas une chaîne, mais un objet typé : réponse, justification, citations, confiance.</span><span class="en">Generation returns not a string but a typed object: answer, justification, quotes, confidence.</span></p>
+          </div>
+          <div class="arow arow-soon">
+            <div class="an">Article 8B <span class="soon-badge"><span class="fr">En attente de publication sur TDS</span><span class="en">Awaiting publication on TDS</span></span></div>
+            <h4><span class="fr">Un seul prompt ne suffit pas : choisir le schéma, assembler le prompt, tracer l'appel</span><span class="en">One prompt won't handle all RAG questions: pick the schema, build the prompt, log the trace</span></h4>
+            <p><span class="fr">Selon la question, on choisit le schéma de sortie, on assemble le prompt, et on garde la trace.</span><span class="en">Depending on the question, pick the output schema, assemble the prompt, keep the trace.</span></p>
+          </div>
+          <div class="arow arow-soon">
+            <div class="an">Article 8C <span class="soon-badge"><span class="fr">En attente de publication sur TDS</span><span class="en">Awaiting publication on TDS</span></span></div>
+            <h4><span class="fr">Valider la réponse avant que l'utilisateur la voie : spans, citations, boucle de correction</span><span class="en">Validating the RAG answer before the user sees it: spans, quotes, and the feedback loop</span></h4>
+            <p><span class="fr">Vérifier que chaque citation existe vraiment dans le document, et reboucler sinon.</span><span class="en">Check that every quote really exists in the document, and loop back if not.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:38px">
+        <p><span class="fr blk">Le reste de la série (cadrage, parsing, passage à l'échelle du corpus, et les volumes 2 à 7) se dévoile petit à petit ici.</span><span class="en blk">The rest of the series (framing, parsing, scaling to a corpus, and volumes 2 to 7) is unveiled here over time.</span></p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">Accueil</span><span class="en">Home</span></a>
+      <a href="apps.html">Apps</a>
+      <a href="cas/index.html"><span class="fr">Cas</span><span class="en">Cases</span></a>
+      <a href="https://github.com/doc-intel/notebooks-vol1">GitHub</a>
+      <a href="https://ko-fi.com/angelashi">Ko-fi</a>
+    </span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

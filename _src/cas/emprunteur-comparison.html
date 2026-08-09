@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparer des contrats d'assurance emprunteur · Étude de cas</title>
+<meta name="description" content="Huit notices d'assurance de prêt projetées sur les 18 critères d'équivalence CCSF, avec un verdict d'équivalence par contrat.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Comparaison · Équivalence CCSF · Vol.2 · FR</div>
+      <h1 class="mid">Comparer des contrats d'assurance emprunteur</h1>
+      <p class="lede">Huit notices d'assurance de prêt, projetées sur les 18 critères d'équivalence CCSF, avec un verdict « équivalent / non équivalent / à vérifier » par contrat.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>L'assurance emprunteur couvre le remboursement d'un prêt en cas de coup dur : décès, perte totale d'autonomie, invalidité, incapacité de travail. Chaque contrat découpe et conditionne ces garanties à sa façon. Depuis la loi Lemoine, changer d'assurance suppose une <b>équivalence de garanties</b> : le contrat externe doit satisfaire les critères que la banque prêteuse exige. Comparer suppose donc de projeter tous les contrats sur une même grille.</p>
+
+      <h2>La démarche</h2>
+      <p>On rassemble huit notices et conditions générales publiques. On en extrait les critères par lecture : garanties couvertes, franchise d'incapacité, seuils d'invalidité, âges de cessation, exclusions dorsales et psychiques. Chaque critère est reporté en JSON structuré avec sa page source, sans jamais inventer de chiffre. La référence, c'est la grille de critères qu'une banque prêteuse exige (sa Fiche Standardisée d'Information : au plus onze critères parmi les dix-huit du cadre CCSF).</p>
+
+      <div class="callout">
+        <p>Sur les dix-huit critères CCSF, seuls six environ sont vérifiables automatiquement depuis une notice (franchise, prestation forfaitaire, dorsales et psychiques sans condition d'hospitalisation, invalidité partielle, âges). Les autres sont marqués « à vérifier » plutôt que d'inventer un verdict.</p>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Constituer le corpus</b><span>Huit notices et CG publiques récupérées via un script idempotent, avec leur source.</span></div>
+        <div class="step"><b>Extraire les critères</b><span>Une lecture par contrat produit un verdict typé : garantie, seuil, condition, page source, jamais de chiffre inventé.</span></div>
+        <div class="step"><b>Modéliser la référence</b><span>Les critères exigés par la banque prêteuse, au plus onze des dix-huit critères CCSF, paramétrables.</span></div>
+        <div class="step"><b>Rendre le verdict</b><span>Équivalent, non équivalent (N critères non satisfaits), ou à vérifier, contrat par contrat.</span></div>
+      </div>
+
+      <h2>Ce que ça montre</h2>
+      <p>Un ensemble de notices hétérogènes devient comparable dès qu'on impose la grille standardisée du CCSF. Le travail n'est pas de « chercher » dans les notices, mais de projeter chaque contrat sur le même socle de critères, avec la traçabilité qui permet de justifier chaque case. Et l'outil dit exactement quels critères l'analyste doit encore vérifier à la main.</p>
+
+      <h2>Livrables</h2>
+      <p>Un comparateur interactif : vos exigences (référence de la banque prêteuse) parmi les dix-huit critères CCSF, vérifiées sur chaque contrat, avec un verdict d'équivalence et le détail critère par critère.</p>
+
+      <div class="callout"><p><em>Comparateur sur notices publiques (conditions générales et notices téléchargeables). Le cadre CCSF est réglementaire et public.</em></p></div>
+      <p style="margin-top:18px"><a href="../assets/demos/emprunteur-comparison.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir le comparateur interactif (pleine page) →</a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

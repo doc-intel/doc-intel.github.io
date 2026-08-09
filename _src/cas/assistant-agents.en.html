@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A 360 chatbot for the general agent · Case study</title>
+<meta name="description" content="A 360 chatbot tailored for the general agent: professional tone, multi-client scope, quoting and comparison tools, plus business insights the agent validates before they reach the client.">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.roadmap{counter-reset:rm;margin:16px 0 6px;padding:0;list-style:none}
+.roadmap li{position:relative;padding:12px 16px 12px 52px;border:1px solid var(--line,#e2e8f0);border-radius:12px;margin-bottom:10px;background:var(--card);font-size:14px;line-height:1.5}
+.roadmap li b{display:block;margin-bottom:2px}
+.roadmap li::before{counter-increment:rm;content:counter(rm);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--band);color:var(--band-fg);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.consumers{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:14px 0 6px}
+.cons{border:1px solid var(--line,#e2e8f0);border-radius:12px;padding:14px 16px;background:var(--card);font-size:13.5px;line-height:1.5}
+.cons b{display:block;margin-bottom:3px}
+.dep{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:980px;margin:0 6px 6px 0}
+.dep.int{background:var(--blue-b);color:var(--blue-s)} .dep.auth{background:var(--rose-b);color:var(--rose-s)} .dep.pub{background:var(--emer-b);color:var(--emer-s)}
+.insights{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:16px 0 6px}
+.ins{border:1px solid var(--line);border-radius:14px;padding:15px 17px;background:var(--card);border-top:3px solid var(--blue-s)}
+.ins.life{border-top-color:var(--emer-s)} .ins.churn{border-top-color:var(--rose-s)} .ins.sell{border-top-color:var(--amber-s)} .ins.fraud{border-top-color:var(--violet-s)} .ins.value{border-top-color:var(--blue-s)}
+.ins h4{margin:0 0 4px;font-size:1rem;letter-spacing:-.01em}
+.ins p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+</style>
+</head>
+<body class="lang-en" data-fixed-lang="en">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Case studies</a></div>
+      <div class="kicker">360 chatbot · General agents · Insurance</div>
+      <h1 class="mid">A 360 chatbot for the general agent, not just the policyholder</h1>
+      <p class="lede">A general agent does not ask the same questions as a policyholder. They run a book of clients, prepare quotes, compare products. Same engine, but an assistant built for their trade, one that also surfaces insights (life events, churn, upsell, fraud, client value) the agent validates before acting.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+      <div class="callout"><p>Two 360 chatbots, two audiences. This one targets the <b>general agent</b>. The <a href="assistant-assurance.html">360 chatbot for the client</a> has a different tone and scope. Both sit on the same <a href="contexte-360.html">360 context</a>.</p></div>
+
+      <h2>The problem</h2>
+      <p>A general agent does not ask the same questions as a policyholder. They run a book of clients, prepare quotes, compare products, answer technical questions all day, and juggle several business tools. A reassuring, cautious consumer assistant is not what they need: they need a fast, precise working tool.</p>
+
+      <h2>The approach</h2>
+      <p>The engine is the same as the client chatbot, but the assistant is tailored to the agent's trade. The tone is professional and direct, no hand-holding. The scope is wider: several clients, several policies, access to pricing and comparison tools. The conversation is there to move a case forward, not just to answer a question.</p>
+
+      <h2>Beyond answers: insights to validate</h2>
+      <p>The agent does not only come for an answer, they come for what they do not have time to compute. Algorithms run internally on a client's context and surface <b>insights by theme</b>. The assistant presents them to the agent, who checks them before acting.</p>
+      <p>Why the agent first? Because these signals are sometimes delicate, and pushing them raw to the client is not wise. The agent validates a tricky insight; once it proves reliable, some alerts or messages can be pushed straight to the client. The human stays in the loop, especially when the relationship is at stake.</p>
+      <div class="insights">
+        <div class="ins life"><h4>Life events</h4><p>A move, a new pet, a birth, a property purchase… picked up in the exchanges and the file. Each one opens onto a fitting product. This signal matters on the client side too.</p></div>
+        <div class="ins churn"><h4>Churn risk</h4><p>Spot a client about to leave, and offer the agent a retention gesture before they do.</p></div>
+        <div class="ins sell"><h4>Upsell &amp; cross-sell</h4><p>The next relevant product for this client, based on their profile and life events, not at random.</p></div>
+        <div class="ins fraud"><h4>Fraud signals</h4><p>Anomalies on a file surfaced to the agent for review, never an automatic accusation.</p></div>
+        <div class="ins value"><h4>Client value</h4><p>Why this is a good client, spelled out: tenure, multi-policy, loss ratio. Enough to adjust how they are handled.</p></div>
+      </div>
+      <div class="callout"><p>The principle: the algorithm proposes, the agent decides. A sensitive insight is checked by a human before it reaches the client; once proven, it can be automated. That safeguard is what makes the general agent the right first recipient.</p></div>
+
+      <h2>What differs from the client chatbot</h2>
+      <div class="consumers">
+        <div class="cons"><b>The tone</b>Professional and concise for the agent; plain and reassuring for the policyholder.</div>
+        <div class="cons"><b>The scope</b>Multi-client and multi-policy on the agent side; a single file on the client side.</div>
+        <div class="cons"><b>The actions</b>Quotes, comparison, act preparation on the agent side; questions and declarations on the client side.</div>
+        <div class="cons"><b>The access</b>Wider on the agent side (business tools), with the authentication and traceability that go with it.</div>
+      </div>
+
+      <h2>Technical vision</h2>
+      <p>Same agentic orchestrator, same specialised bricks, but a richer context on the agent side: their book, their clients, their products. The assistant sits on the <a href="contexte-360.html">360 context</a> and on the <a href="policy-comparison.html">comparison</a> and pricing tools. On top, insight algorithms (churn scoring, life-event detection, next best product, fraud signals) run over that context and surface their results in the conversation, each traced back to its source data.</p>
+      <p><span class="dep int">Internal API · business tools</span><span class="dep auth">Authentication</span> Like any access to a book of clients, authentication and an audit trail are essential.</p>
+
+      <h2>Implementation roadmap</h2>
+      <ol class="roadmap">
+        <li><b>Reuse the orchestrator</b>Start from the client chatbot: intent routing is already in place.</li>
+        <li><b>Enrich the agent context</b>Plug in the agent's book: their clients, their policies, their products.</li>
+        <li><b>Add the business tools</b>Comparison, pricing, quote preparation, as assistant actions.</li>
+        <li><b>Authentication and traceability</b>Secure access to the book and trace every look-up.</li>
+      </ol>
+
+      <h2>What it shows</h2>
+      <p>One engine serves two different assistants. What changes is not the underlying technique, it is the audience: tone, scope, actions and access. And above all, on the agent side, the chatbot stops being a mere responder: it becomes the entry point for business insights (life events, churn, upsell, fraud, client value) that a human validates before they reach the client. Building "a 360 chatbot" without saying for whom, and who validates its recommendations, is the wrong spec.</p>
+
+      <div class="callout"><p><b>Related cases:</b> the <a href="assistant-assurance.html">client 360 chatbot</a>, the <a href="contexte-360.html">360 context</a>, the <a href="policy-comparison.html">policy comparison</a>, and the <a href="claim-chat.html">guided claim declaration</a>.</p></div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

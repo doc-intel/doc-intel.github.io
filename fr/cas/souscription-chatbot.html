@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Construire un chatbot de souscription : d'abord le MVP, puis l'IA · Étude de cas</title>
+<meta name="description" content="Un chatbot de souscription commence déterministe et vérifiable (remplissage de champs typés), avant d'ajouter de l'IA. La démarche, du MVP à l'assistant plus malin.">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+.stack{display:grid;gap:12px;margin:16px 0 6px}
+.lvl{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--card)}
+.lvl .lab{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border-radius:980px;margin-bottom:8px}
+.lvl.mvp{border-top:3px solid var(--emer-s)} .lvl.mvp .lab{background:var(--emer-b);color:var(--emer-s)}
+.lvl.more{border-top:3px solid var(--blue-s)} .lvl.more .lab{background:var(--blue-b);color:var(--blue-s)}
+.lvl h3{margin:0 0 6px;font-size:1.05rem}
+.lvl p{margin:.3em 0;font-size:14px;line-height:1.55;color:var(--ink2)}
+.lvl ul{margin:.3em 0 0;padding-left:1.15em} .lvl li{margin:.25em 0;font-size:14px;color:var(--ink2)}
+</style>
+<link rel="canonical" href="https://doc-intel.github.io/fr/cas/souscription-chatbot.html">
+<link rel="alternate" hreflang="fr" href="https://doc-intel.github.io/fr/cas/souscription-chatbot.html">
+<link rel="alternate" hreflang="en" href="https://doc-intel.github.io/en/cas/souscription-chatbot.html">
+<link rel="alternate" hreflang="x-default" href="https://doc-intel.github.io/en/cas/souscription-chatbot.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enterprise Document Intelligence">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Construire un chatbot de souscription : d'abord le MVP, puis l'IA · Étude de cas">
+<meta property="og:description" content="Un chatbot de souscription commence déterministe et vérifiable (remplissage de champs typés), avant d'ajouter de l'IA. La démarche, du MVP à l'assistant plus malin.">
+<meta property="og:url" content="https://doc-intel.github.io/fr/cas/souscription-chatbot.html">
+<meta property="og:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Construire un chatbot de souscription : d'abord le MVP, puis l'IA · Étude de cas">
+<meta name="twitter:description" content="Un chatbot de souscription commence déterministe et vérifiable (remplissage de champs typés), avant d'ajouter de l'IA. La démarche, du MVP à l'assistant plus malin.">
+<meta name="twitter:image" content="https://doc-intel.github.io/assets/img/electron/electron-pipeline.png">
+<script>(function(){try{var t=localStorage.getItem("edi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+</head>
+<body class="lang-fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html">Études de cas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <a href="souscription-chatbot.html" class="active">FR</a>
+      <a href="../../en/cas/souscription-chatbot.html">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html?d=assurance">← Études de cas</a></div>
+      <div class="kicker">Chatbot · Souscription · FR</div>
+      <h1 class="mid">Construire un chatbot de souscription : d'abord le MVP, puis l'IA</h1>
+      <p class="lede">Souscrire un produit, c'est remplir un dossier structuré. Un chatbot utile commence <b>déterministe et vérifiable</b>, avant d'ajouter de l'IA. Voici comment on le construit, du plus simple au plus malin.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <div class="callout"><p>Soyons clairs : la démo est un chatbot <b>basique</b>, et on peut faire beaucoup mieux. C'est justement l'intérêt. Le but n'est pas d'impressionner, c'est de montrer <b>comment on construit un chatbot</b> proprement : un socle qui marche, qu'on enrichit ensuite, plutôt qu'une API LLM branchée à tout va.</p></div>
+
+      <h2>Le problème</h2>
+      <p>Une souscription, ce n'est pas une conversation libre : c'est un formulaire. Il faut collecter des informations précises (produit, profil, bien, niveau de garantie, date d'effet) dans un format exploitable. Confier ça d'emblée à un grand modèle qui « discute » donne un résultat imprévisible : champs oubliés, valeurs mal typées, réponses inventées. Le risque est le même que pour tout le reste de la série : sans structure, pas de fiabilité.</p>
+
+      <h2>La démarche : commencer par un socle déterministe</h2>
+      <p>Le MVP d'un bon chatbot de souscription n'a pas besoin de LLM. C'est un flux de <b>remplissage de champs</b> (slot-filling) : on connaît d'avance les champs à remplir, on les demande dans l'ordre, on propose des choix numérotés quand c'est possible, on valide chaque réponse, et on termine par un récapitulatif vérifiable et une estimation indicative. Tout est traçable et testable, sans une seule ligne d'IA. C'est exactement ce que fait la démo.</p>
+
+      <div class="stack">
+        <div class="lvl mvp">
+          <span class="lab">Étape 1 — le MVP (la démo)</span>
+          <h3>Un flux déterministe de remplissage de champs</h3>
+          <p>Un schéma typé décrit les champs de la souscription. Le chatbot les parcourt dans l'ordre.</p>
+          <ul>
+            <li>Choix proposés en numéros (1, 2, 3…) : bien plus fiable que du texte libre.</li>
+            <li>Validation simple par champ (un code postal fait 5 chiffres, une surface est un nombre).</li>
+            <li><b>Estime la valeur à assurer</b> (le capital mobilier habitation) via un barème déterministe à partir du logement, plutôt que de la demander à l'assuré qui ne la connaît pas. On peut la retenir ou l'ajuster.</li>
+            <li>Récapitulatif éditable, puis confirmation ; sortie en JSON structuré.</li>
+            <li>Zéro serveur, zéro modèle : le comportement est prévisible et rejouable.</li>
+          </ul>
+        </div>
+        <div class="lvl more">
+          <span class="lab">Étape 2 — aller plus loin</span>
+          <h3>Ajouter de l'IA là où elle apporte vraiment</h3>
+          <p>Le socle en place, on l'enrichit sans jeter le schéma. L'IA vient en surcouche, pas en remplacement.</p>
+          <ul>
+            <li>Comprendre des réponses en langage naturel (« un trois-pièces d'environ 70 m² ») et les ranger dans les bons champs.</li>
+            <li>Brancher le parcours selon le produit choisi (habitation, auto, santé n'ont pas les mêmes champs).</li>
+            <li>Pré-remplir depuis le <a href="contexte-360.html">contexte 360</a> quand le client est déjà connu.</li>
+            <li>Gérer les digressions et les questions de garantie via le <a href="assistant-assurance.html">chatbot 360</a>, puis revenir au formulaire.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>La méthode, étape par étape</h2>
+      <div class="steps">
+        <div class="step"><b>Définir le schéma</b><span>Lister les champs de la souscription et leur type, avant d'écrire le dialogue.</span></div>
+        <div class="step"><b>Demander dans l'ordre</b><span>Une question par champ, des choix numérotés quand la valeur est dans une liste.</span></div>
+        <div class="step"><b>Valider chaque réponse</b><span>Des règles simples et déterministes attrapent les erreurs tout de suite.</span></div>
+        <div class="step"><b>Récapituler et confirmer</b><span>L'utilisateur vérifie, corrige, confirme ; la sortie est un JSON typé, pas une conversation.</span></div>
+      </div>
+
+      <h2>Le principe</h2>
+      <p>On ne branche pas une API LLM à tout va. On part d'un socle déterministe, vérifiable, qu'on peut tester et rejouer, puis on ajoute de l'intelligence là où elle apporte une vraie valeur, sans jamais perdre la structure ni la traçabilité. C'est vrai pour un chatbot de souscription comme pour le reste de la série : la fiabilité vient de la structure, pas du modèle.</p>
+
+      <h2>Un parcours qui relie plusieurs chatbots</h2>
+      <p>La souscription ne vit pas seule. Pendant qu'il souscrit, le client pose des questions de couverture, et il faut parfois estimer ce qu'il possède. Le même assistant sait mobiliser les autres briques, sans que le client change d'outil.</p>
+      <ul>
+        <li><b>Estimer l'inventaire.</b> Par défaut, on propose une estimation du capital mobilier (le barème ci-dessus) pour ne pas l'embêter. S'il veut être précis, on peut l'aider à faire un vrai inventaire, pièce par pièce.</li>
+        <li><b>Répondre aux questions de garantie.</b> « Mon vélo volé devant chez moi, est-ce couvert ? » L'assistant appelle la brique de <a href="mrh-qa.html">réponse sourcée sur les CG</a> et cite la garantie concernée (vol hors du domicile, effets personnels) quand le contrat foyer la prévoit.</li>
+        <li><b>Comparer avec les concurrents.</b> Sur ce point précis, la <a href="mrh-comparison.html">comparaison des CG</a> montre lesquels des contrats concurrents couvrent le vélo volé dehors, et lesquels non. Un argument concret et sourcé, au moment de souscrire.</li>
+      </ul>
+      <p>C'est le <a href="assistant-assurance.html">chatbot 360</a> qui orchestre ce va-et-vient : souscrire, répondre, comparer, dans une seule conversation.</p>
+
+      <h2>Livrables</h2>
+      <p>Une démo statique du chatbot de souscription (MVP), qui remplit un devis champ par champ jusqu'à une estimation indicative. Aucun serveur, aucun modèle.</p>
+
+      <div class="callout"><p><em>Démonstration statique (flux figé, MVP) ; elle s'ouvre en pleine page.</em></p></div>
+      <p style="margin-top:18px"><a href="../../assets/demos/souscription-chatbot.html" style="display:inline-block;padding:14px 24px;background:var(--btn-bg);color:var(--btn-fg);text-decoration:none;border-radius:12px;font-weight:600">Ouvrir le chatbot (pleine page) →</a></p>
+
+      <div class="callout"><p><b>Cas associés :</b> le <a href="assistant-assurance.html">chatbot 360 client</a> qui route vers ce parcours, et les comparaisons à la souscription : <a href="emprunteur-comparison.html">emprunteur</a>, <a href="mrh-comparison.html">habitation</a>, <a href="prevoyance-comparison.html">prévoyance</a>, <a href="mutuelle-comparison.html">santé</a>.</p></div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span>
+    <span class="foot-links">
+      <a href="index.html?d=assurance">← Autres cas</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>

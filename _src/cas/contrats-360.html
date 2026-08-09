@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tous les contrats d'un assuré, dans une seule vue · Étude de cas</title>
+<meta name="description" content="Réunir les contrats d'un même assuré dans une vue unifiée, en appliquant les contraintes réglementaires d'accès, de protection et de partage.">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.roadmap{counter-reset:rm;margin:16px 0 6px;padding:0;list-style:none}
+.roadmap li{position:relative;padding:12px 16px 12px 52px;border:1px solid var(--line,#e2e8f0);border-radius:12px;margin-bottom:10px;background:var(--card);font-size:14px;line-height:1.5}
+.roadmap li b{display:block;margin-bottom:2px}
+.roadmap li::before{counter-increment:rm;content:counter(rm);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--band);color:var(--band-fg);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.reg{background:var(--amber-b);border:1px solid var(--amber-f);border-radius:14px;padding:16px 18px;margin:16px 0}
+.reg h3{margin:0 0 6px;font-size:1rem;color:var(--amber-s)}
+.reg ul{margin:.3em 0 0;padding-left:1.15em} .reg li{margin:.25em 0;font-size:14px}
+.dep{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:980px;margin:0 6px 6px 0}
+.dep.int{background:var(--blue-b);color:var(--blue-s)} .dep.auth{background:var(--rose-b);color:var(--rose-s)}
+</style>
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Vision 360 · Contrats · FR</div>
+      <h1 class="mid">Tous les contrats d'un assuré, dans une seule vue</h1>
+      <p class="lede">Un même assuré détient souvent plusieurs contrats, gérés en silos. La vue 360 des contrats les réunit techniquement, sous les contraintes réglementaires d'accès et de partage.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+      <div class="callout"><p>La <b>Vision 360</b> se décline en quatre cases. Les deux chatbots 360 (<a href="assistant-assurance.html">client</a> et <a href="assistant-agents.html">agents généraux</a>) répondent et routent. Le <a href="contexte-360.html">contexte 360</a> réunit toutes les informations d'un assuré. La <b>vue 360 des contrats</b> (cette page) en est la facette conformité : rassembler ses contrats sous contraintes réglementaires.</p></div>
+
+      <h2>Le problème</h2>
+      <p>Un même assuré détient souvent plusieurs contrats : auto, habitation, santé, prévoyance. Ils sont gérés dans des systèmes séparés, parfois par des entités différentes. Personne ne voit d'un coup toute la relation. Et on ne peut pas simplement tout ouvrir : chaque produit, chaque entité, a ses règles d'accès.</p>
+
+      <h2>La démarche</h2>
+      <p>Rassembler techniquement les données contractuelles dans une vue unifiée, tout en appliquant les restrictions réglementaires. On extrait chaque contrat vers un schéma commun, on rapproche les contrats d'un même assuré, et on pose au-dessus une couche d'autorisation : qui a le droit de voir quoi. Centraliser la donnée n'est pas centraliser les droits.</p>
+
+      <h2>Vision technique</h2>
+      <p>Un schéma contrat commun, multi-produit, alimenté par l'extraction depuis chaque système source. Une résolution d'identité rapproche les contrats d'un même assuré. Une couche d'accès filtre chaque lecture selon le rôle et l'entité. Chaque accès est tracé. La vue consolidée n'expose que ce que l'utilisateur a le droit de voir.</p>
+      <p><span class="dep int">Données internes</span><span class="dep auth">Contrôle d'accès</span> La donnée est centralisée techniquement ; les droits, eux, restent cloisonnés.</p>
+
+      <div class="reg">
+        <h3>Contraintes réglementaires</h3>
+        <ul>
+          <li><b>Contrôle des accès</b> : chaque lecture filtrée par rôle et par entité ; pas de vue globale par défaut.</li>
+          <li><b>Protection des données</b> : minimisation, chiffrement, durée de conservation encadrée.</li>
+          <li><b>Règles de partage</b> : le partage entre entités suit la réglementation, pas la commodité technique.</li>
+        </ul>
+      </div>
+
+      <h2>Roadmap de mise en œuvre</h2>
+      <ol class="roadmap">
+        <li><b>Schéma contrat unifié</b>Définir un modèle commun capable de représenter les différents produits.</li>
+        <li><b>Extraction par système</b>Alimenter le schéma depuis chaque système source, contrat par contrat.</li>
+        <li><b>Résolution d'identité</b>Rapprocher de façon fiable les contrats d'un même assuré.</li>
+        <li><b>Couche d'accès et audit</b>Filtrer chaque lecture selon le rôle et l'entité, tracer les accès.</li>
+        <li><b>Vue consolidée</b>Exposer la relation complète, dans les limites autorisées à chaque utilisateur.</li>
+      </ol>
+
+      <h2>Ce que ça montre</h2>
+      <p>La vue 360 des contrats est autant une affaire d'architecture de données que de conformité. Le défi n'est pas de rassembler, c'est de rassembler <b>en respectant les cloisons réglementaires</b>. La centralisation technique et le cloisonnement des droits ne s'opposent pas : ils se conçoivent ensemble.</p>
+
+      <div class="callout"><p><b>Cas associés :</b> <a href="contexte-360.html">contexte 360</a>, <a href="assistant-assurance.html">chatbot 360 client</a>, <a href="assistant-agents.html">chatbot 360 agents généraux</a>.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html">← Autres cas</a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

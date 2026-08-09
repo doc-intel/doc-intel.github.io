@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparez. Simulez. Expliquez. — Habitation</title>
+<style>
+  :root{
+    --ink:#1d1d1f; --ink-2:#6e6e73; --ink-3:#86868b;
+    --line:#d2d2d7; --line-2:#e8e8ed;
+    --bg:#fff; --bg-soft:#f5f5f7;
+    --ca:#1a7a47; --ca-soft:#eef6f1;
+    --inc:#1a7a47; --opt:#b06a00; --abs:#c7c7cc;
+    --radius:18px; --shadow:0 1px 3px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.05);
+    font-synthesis:none;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.47;letter-spacing:-0.01em}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(12px,2.4vw,28px)}
+  .spacer{flex:1}
+  .hint{font-size:12px;color:var(--ink-3)}
+
+  /* top bar */
+  .topbar{position:sticky;top:0;z-index:82;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line-2)}
+  .topbar .wrap{display:flex;align-items:center;gap:18px;height:56px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:15px;white-space:nowrap}
+  .brand .dot{width:20px;height:20px;border-radius:6px;background:var(--ca)}
+  .brand small{color:var(--ink-3);font-weight:400}
+  .topbar .role{font-size:12px;color:var(--ink-3);white-space:nowrap}
+  /* tabs live inside the top bar — single piece of chrome */
+  .tabs{display:flex;gap:3px}
+  .stepbtn{display:flex;align-items:center;gap:7px;border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:13px;font-weight:500;padding:6px 13px;border-radius:980px;cursor:pointer;transition:.18s;white-space:nowrap}
+  .stepbtn:hover{color:var(--ink)}
+  .stepbtn.on{background:var(--ink);color:#fff}
+  .stepbtn .n{width:17px;height:17px;border-radius:50%;border:1.5px solid currentColor;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+  .stepbtn.on .n{border-color:rgba(255,255,255,.6)}
+
+  /* per-tab page head — sober, functional, not a marketing splash */
+  .pagehead{padding:28px 0 4px}
+  .pagehead h1{font-size:23px;font-weight:600;margin:0;letter-spacing:-0.01em}
+  .pagehead p{font-size:14px;color:var(--ink-2);margin:4px 0 0}
+
+  /* toolbar (insurers + filters) — scrolls with the content, NOT sticky (no layer pile-up) */
+  .rail{position:static;background:transparent;padding:14px 0 4px;border-bottom:1px solid var(--line-2);margin-top:12px}
+  .rail .wrap{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}
+  .group{display:flex;align-items:center;gap:8px}
+  .group .glabel{font-size:12px;color:var(--ink-3);font-weight:500}
+  .seg{display:inline-flex;background:var(--bg-soft);border-radius:980px;padding:3px;gap:2px}
+  .seg button{border:0;background:transparent;color:var(--ink);font:inherit;font-size:13px;font-weight:500;padding:6px 13px;border-radius:980px;cursor:pointer;transition:.18s;white-space:nowrap}
+  .seg button.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12);font-weight:600}
+  .pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:13px;font-weight:500;padding:7px 13px;border-radius:980px;cursor:pointer;transition:.18s}
+  .pill:hover{border-color:#b9b9c0}
+  .pill.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .pill .swatch{width:9px;height:9px;border-radius:50%;background:var(--ink-3)}
+  .pill.on .swatch{outline:2px solid rgba(255,255,255,.55)}
+  .pill[disabled]{opacity:.4;cursor:not-allowed}
+  .toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;color:var(--ink-2);font:inherit;font-size:13px;font-weight:500;padding:7px 13px;border-radius:980px;cursor:pointer;transition:.18s}
+  .toggle.on{color:var(--ink);border-color:var(--ink)}
+  .toggle .sw{width:30px;height:18px;border-radius:980px;background:var(--line);position:relative;transition:.18s}
+  .toggle.on .sw{background:var(--ca)}
+  .toggle .sw::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:.18s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+  .toggle.on .sw::after{transform:translateX(12px)}
+
+  .tabpanel{display:none}
+  .tabpanel.active{display:block}
+
+  /* ---------- TAB 1 : client ---------- */
+  .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:30px 0}
+  .fcard{background:var(--bg-soft);border-radius:var(--radius);padding:22px 22px 24px}
+  .fcard h3{font-size:17px;font-weight:600;margin:0 0 4px}
+  .fcard .fsub{font-size:13px;color:var(--ink-3);margin:0 0 16px}
+  .field{margin-bottom:16px}
+  .field > label{display:block;font-size:13px;color:var(--ink-2);font-weight:500;margin-bottom:7px}
+  .chiprow{display:flex;flex-wrap:wrap;gap:8px}
+  .rng{display:flex;align-items:center;gap:12px}
+  .rng input[type=range]{flex:1;accent-color:var(--ca)}
+  .rng .v{font-weight:600;min-width:64px;text-align:right}
+  .profile-recap{background:var(--ca-soft);border:1px solid #cfe6da;border-radius:14px;padding:14px 18px;font-size:14px;color:var(--ink);margin-top:6px}
+  .profile-recap b{font-weight:600}
+
+  /* ---------- TAB 2 : grid ---------- */
+  .grid{display:grid;gap:0;border-top:1px solid var(--line-2);margin-top:10px}
+  .phead{position:sticky;top:56px;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);display:grid;align-items:end;border-bottom:1px solid var(--line)}
+  .phead .corner{padding:18px 12px}
+  .pcard{padding:18px 14px 16px;text-align:center;position:relative}
+  .pcard .pname{font-size:19px;font-weight:600}
+  .pcard .pmeta{font-size:11.5px;color:var(--ink-3);margin-top:2px;min-height:14px}
+  .pcard .tag{display:inline-block;margin-top:8px;font-size:10.5px;font-weight:600;color:var(--ca);background:var(--ca-soft);padding:3px 9px;border-radius:980px;text-transform:uppercase}
+  .pcard.ref{background:linear-gradient(180deg,rgba(26,122,71,.05),rgba(26,122,71,0))}
+  .pcard.ref::after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:2px;background:var(--ca);border-radius:2px}
+  .pcard .summary{margin-top:11px;display:flex;justify-content:center;gap:14px;font-size:11.5px;color:var(--ink-2)}
+  .pcard .summary b{color:var(--ink);font-weight:600}
+  .pcard .rm{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink-3);cursor:pointer;font-size:12px;display:none}
+  .pcard:hover .rm{display:inline-block}
+  .pcard .mv{position:absolute;top:8px;left:8px;display:none;gap:2px}
+  .pcard:hover .mv{display:flex}
+  .pcard .mv button{width:18px;height:20px;border:1px solid var(--line);background:#fff;color:var(--ink-3);border-radius:6px;cursor:pointer;font-size:10px}
+  .catband{grid-column:1 / -1;padding:26px 12px 9px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+  .fcell{border-bottom:1px solid var(--line-2);min-height:62px;display:flex;flex-direction:column;justify-content:center;padding:12px;transition:background .15s}
+  .grow:hover .fcell{background:#fafafa}
+  .fname{font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:7px;justify-content:flex-start}
+  .fname .chev{color:var(--ink-3);font-size:11px;transition:.18s}
+  .grow.open .fname .chev{transform:rotate(90deg)}
+  .fname .gi{font-size:11px;color:var(--ink-3)}
+  .val{text-align:center;align-items:center}
+  .val .mk{font-size:20px;font-weight:600;line-height:1}
+  .mk.inc{color:var(--inc)} .mk.opt{color:var(--opt)} .mk.abs{color:var(--abs)} .mk.unk{color:var(--ink-3);font-size:13px}
+  .val .lab{font-size:11px;margin-top:3px;font-weight:500}
+  .lab.inc{color:var(--inc)} .lab.opt{color:var(--opt)} .lab.abs{color:var(--ink-3)} .lab.unk{color:var(--ink-3)}
+  .val .fig{font-size:11px;color:var(--ink-2);margin-top:3px;max-width:160px}
+  .val .atout{font-size:9.5px;font-weight:700;color:var(--ca);background:var(--ca-soft);padding:1px 7px;border-radius:980px;margin-top:5px;letter-spacing:.02em}
+  .val.ref{background:linear-gradient(180deg,rgba(26,122,71,.035),rgba(26,122,71,.01))}
+  .xnote{margin:2px 12px 16px;padding:10px 14px;background:var(--ca-soft);border-radius:10px;font-size:12.5px;color:var(--ink);line-height:1.5}
+  .detail{grid-column:1 / -1;border-bottom:1px solid var(--line-2);background:var(--bg-soft);overflow:hidden;max-height:0;transition:max-height .25s ease}
+  .grow.open .detail{max-height:1000px}
+  .detail .inner{padding:14px 0 20px;display:grid;gap:12px;align-items:start}
+  .dlabel{padding:8px 12px;font-size:12px;font-weight:600;color:var(--ink-3)}
+  .dcol{background:#fff;border:1px solid var(--line-2);border-radius:14px;padding:13px 15px}
+  .dcol .dh{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;margin-bottom:6px}
+  .badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:980px}
+  .badge.inc{background:#e7f3ec;color:var(--inc)} .badge.opt{background:#fbf0e0;color:var(--opt)} .badge.abs{background:#f0f0f2;color:var(--ink-2)} .badge.unk{background:#f0f0f2;color:var(--ink-2)}
+  .dcol .dtxt{font-size:13px;line-height:1.45}
+  .dcol .kv{font-size:12px;color:var(--ink-2);margin-top:7px}
+  .dcol .kv b{color:var(--ink);font-weight:600}
+  .src{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--ink-2);background:#f5f5f7;border:1px solid var(--line-2);padding:4px 9px;border-radius:8px;text-decoration:none;cursor:pointer;transition:.15s}
+  a.src:hover{background:var(--ca-soft);border-color:#cfe6da;color:var(--ink)}
+  .src .pin{color:var(--ca);font-weight:700}
+  a.srcmini{color:var(--ink-3);text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px}
+  a.srcmini:hover{color:var(--ca)}
+
+  /* panels */
+  .panel{background:var(--bg-soft);border-radius:var(--radius);padding:26px 26px 28px;margin:34px 0}
+  .panel h2{font-size:23px;font-weight:600;margin:0 0 6px}
+  .panel .sub{color:var(--ink-2);font-size:15px;margin:0 0 18px}
+  .optchips{display:flex;flex-wrap:wrap;gap:9px}
+  .optsum{margin-top:20px;display:grid;gap:10px}
+  .optsum .row{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line-2);border-radius:12px;padding:12px 15px}
+  .optsum .row .nm{font-weight:600;font-size:14px;min-width:140px}
+  .optsum .row .bar{flex:1;height:8px;border-radius:980px;background:var(--line-2);overflow:hidden}
+  .optsum .row .bar > i{display:block;height:100%;background:var(--ca)}
+  .optsum .row .frac{font-size:13px;color:var(--ink-2);min-width:74px;text-align:right}
+  .optsum .row.refrow{border-color:var(--ca);background:var(--ca-soft)}
+  details.meth{border-top:1px solid var(--line-2);margin-top:8px}
+  details.meth summary{cursor:pointer;list-style:none;padding:14px 0;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+  details.meth summary::-webkit-details-marker{display:none}
+  details.meth summary .c{color:var(--ink-3);transition:.18s}
+  details.meth[open] summary .c{transform:rotate(90deg)}
+  details.meth .mbody{font-size:13.5px;color:var(--ink-2);line-height:1.6;padding-bottom:16px}
+  details.meth .mbody b{color:var(--ink)}
+  details.meth .mbody ul{margin:8px 0;padding-left:18px}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--ink-2)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+
+  /* ---------- TAB 3 : scenario ---------- */
+  .scnpick{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0 8px}
+  .scn{text-align:left;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 17px;cursor:pointer;transition:.18s}
+  .scn:hover{border-color:#b9b9c0;transform:translateY(-1px)}
+  .scn.on{border-color:var(--ca);box-shadow:0 0 0 3px var(--ca-soft)}
+  .scn .ic{font-size:24px}
+  .scn .t{font-weight:600;font-size:15px;margin-top:8px}
+  .scn .d{font-size:12.5px;color:var(--ink-3);margin-top:3px;line-height:1.4}
+  .scn .am{font-size:12px;color:var(--ca);font-weight:600;margin-top:9px}
+  .amountbar{background:var(--bg-soft);border-radius:16px;padding:20px 22px;margin:18px 0 8px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .amountbar .lab{font-weight:600;font-size:15px}
+  .amountbar input[type=range]{flex:1;min-width:200px;accent-color:var(--ca)}
+  .amountbar .big{font-size:26px;font-weight:700;min-width:130px;text-align:right}
+  .results{display:grid;gap:16px;margin:22px 0}
+  .rcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 22px;position:relative;overflow:hidden}
+  .rcard.ref{border-color:var(--ca)}
+  .rcard.best::before{content:"Meilleur remboursement";position:absolute;top:0;right:0;background:var(--ca);color:#fff;font-size:10.5px;font-weight:600;padding:4px 12px;border-bottom-left-radius:12px;letter-spacing:.02em}
+  .rcard .top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .rcard .rname{font-size:18px;font-weight:600}
+  .rcard .rname .vous{font-size:11px;color:var(--ca);background:var(--ca-soft);padding:2px 8px;border-radius:980px;margin-left:8px;font-weight:600}
+  .rcard .eur{font-size:25px;font-weight:700;letter-spacing:-0.02em;line-height:1}
+  .eur.ok{color:var(--inc)} .eur.no{color:var(--ink-3)} .eur.warn{color:var(--opt)} .eur.unk{color:var(--ink-3);font-size:18px}
+  .rcard .eursub{font-size:11px;color:var(--ink-3);text-align:right;margin-top:4px;max-width:170px}
+  .rcard .adv{margin-top:14px;border-top:1px solid var(--line-2);padding-top:13px;display:grid;gap:9px}
+  .rcard .adv .advh{font-size:12px;font-weight:700;color:var(--ca);letter-spacing:.02em}
+  .rcard .adv .ai{display:flex;gap:9px;font-size:12.5px;line-height:1.45}
+  .rcard .adv .ai .st{font-size:13px;flex:0 0 auto;margin-top:1px}
+  .rcard .adv .ai.on .st{color:var(--ca)} .adv .ai.off .st{color:var(--opt)} .adv .ai.no .st{color:var(--ink-3)}
+  .rcard .adv .ai b{font-weight:600;color:var(--ink)}
+  .rcard .adv .ai.off,.rcard .adv .ai.no{color:var(--ink-3)}
+  .rcard .adv .ai.off b,.rcard .adv .ai.no b{color:var(--ink-2)}
+  .srcmini{color:var(--ink-3);font-size:11px;white-space:nowrap}
+  .rcard .break{margin-top:16px;border-top:1px solid var(--line-2);padding-top:14px;display:grid;gap:7px;font-size:13px}
+  .rcard .break .bl{display:flex;gap:8px}
+  .rcard .break .bl .k{color:var(--ink-3);min-width:96px}
+  .rcard .break .bl .v{color:var(--ink);font-weight:500}
+  .rcard .calc{background:var(--bg-soft);border-radius:10px;padding:9px 12px;font-size:13px;font-weight:500;margin-top:4px}
+  .rcard .why{font-size:13px;color:var(--ink-2);line-height:1.45;margin-top:4px}
+  .rcard .est{display:inline-block;font-size:11px;color:var(--opt);background:#fbf0e0;padding:3px 9px;border-radius:980px;margin-top:6px}
+  .rcard .cta{display:inline-block;font-size:12px;color:var(--ca);font-weight:600;margin-top:8px;cursor:pointer}
+  .around{background:var(--ca-soft);border-radius:16px;padding:18px 22px;margin:18px 0}
+  .around h4{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--ca)}
+  .around ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink);line-height:1.6}
+
+  /* top-bar tool buttons that open the side drawer */
+  .tools{display:flex;gap:6px}
+  .toolbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;color:var(--ink-2);font:inherit;font-size:12.5px;font-weight:500;padding:6px 11px;border-radius:980px;cursor:pointer;transition:.15s;white-space:nowrap}
+  .toolbtn:hover{border-color:#b9b9c0;color:var(--ink)}
+  .toolbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  /* right-side drawer : Document source OR Assistant, shown on demand */
+  .backdrop{position:fixed;left:0;right:0;top:56px;bottom:0;background:rgba(0,0,0,.16);z-index:69;opacity:0;pointer-events:none;transition:opacity .25s}
+  .backdrop.on{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:56px;right:0;height:calc(100vh - 56px);width:min(620px,94vw);background:#fff;border-left:1px solid var(--line);box-shadow:-12px 0 44px rgba(0,0,0,.10);transform:translateX(101%);transition:transform .28s cubic-bezier(.22,.61,.36,1);z-index:70;display:flex;flex-direction:column}
+  .drawer.open{transform:none}
+  .drawer .dhead{flex:0 0 auto;height:50px;display:flex;align-items:center;gap:10px;padding:0 10px 0 16px;border-bottom:1px solid var(--line-2)}
+  .drawer .dtitle{font-weight:600;font-size:14px}
+  .drawer .diconlink,.drawer .dclose{border:1px solid var(--line);background:#fff;color:var(--ink-2);width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none;font-size:13px;transition:.15s}
+  .drawer .diconlink:hover,.drawer .dclose:hover{background:var(--bg-soft);color:var(--ink)}
+  .drawer .dbody{flex:1;min-height:0;overflow:auto}
+  .dpanel{height:100%}
+  #docFrame{width:100%;height:100%;border:0;display:block;background:var(--bg-soft)}
+  .dplace{padding:46px 28px;color:var(--ink-3);font-size:14px;line-height:1.6;text-align:center}
+  .dplace b{color:var(--ink-2)}
+  .chatintro{padding:18px 18px 12px;font-size:14px;color:var(--ink-2);line-height:1.5}
+  .drawer .field{margin:0 18px;display:flex;align-items:center;gap:8px;background:var(--bg-soft);border:1px solid var(--line);border-radius:980px;padding:7px 7px 7px 16px}
+  .drawer .field input{flex:1;border:0;background:transparent;font:inherit;font-size:14px;outline:none;color:var(--ink)}
+  .drawer .field .send{flex:0 0 auto;border:0;background:var(--ca);color:#fff;border-radius:50%;width:32px;height:32px;font-size:15px;cursor:pointer;transition:.15s}
+  .drawer .field .send:hover{filter:brightness(1.08)}
+  .askhint{padding:8px 18px 0;font-size:11px;color:var(--ink-3)}
+  #askReply{margin:14px 18px 0;display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--ink)}
+  #askReply .tag{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--ca);background:var(--ca-soft);padding:2px 9px;border-radius:980px;margin-top:1px}
+  .chatchips{display:flex;flex-wrap:wrap;gap:7px;padding:14px 18px 0}
+  .chatchips .ex{font-size:12px;color:var(--ink-2);background:var(--bg-soft);border:1px solid var(--line-2);border-radius:980px;padding:5px 11px;cursor:pointer}
+  .chatchips .ex:hover{border-color:var(--ca);color:var(--ca)}
+  footer.foot{text-align:center;color:var(--ink-3);font-size:12px;padding:30px 0 18px;line-height:1.7}
+
+  @media (max-width:980px){
+    .scnpick{grid-template-columns:1fr 1fr}
+    .fcell{min-height:54px;padding:9px 8px}
+    .val .mk{font-size:18px}
+    .pcard{padding:14px 8px 12px} .pcard .pname{font-size:16px}
+    .catband{padding:18px 8px 7px}
+  }
+  @media (max-width:720px){
+    .pagehead h1{font-size:21px} .topbar .wrap{gap:8px}
+    .stepbtn{padding:6px 9px} .stepbtn .n{display:none}
+    .toolbtn .tl{display:none} .toolbtn{padding:6px 9px}
+    .drawer{width:100vw} .backdrop,.drawer{top:52px;height:calc(100vh - 52px)}
+    .formgrid,.scnpick{grid-template-columns:1fr}
+    .val .fig{display:none}
+    /* let the comparison table scroll sideways rather than crush 3 columns */
+    #grid{min-width:560px}
+    #tab-garanties > .wrap:first-child{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .phead{top:52px}
+  }
+</style>
+</head>
+<body><div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../fr/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../fr/cas/" style="color:#cbd5e1;text-decoration:none">Études de cas</a><a href="../../fr/cas/mrh-comparison.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Retour au cas</a></div>
+
+<div class="topbar"><div class="wrap">
+  <span class="brand"><span class="dot"></span>Crédit Agricole Assurances</span>
+  <span class="spacer"></span>
+  <div class="tabs">
+    <button class="stepbtn on" data-tab="client"><span class="n">1</span>Le client</button>
+    <button class="stepbtn" data-tab="garanties"><span class="n">2</span>Garanties</button>
+    <button class="stepbtn" data-tab="sinistre"><span class="n">3</span>Sinistre</button>
+  </div>
+  <span class="spacer"></span>
+  <div class="tools">
+    <button class="toolbtn" id="btnDoc" title="Afficher le document source">📄 <span class="tl">Document</span></button>
+    <button class="toolbtn" id="btnChat" title="Ouvrir l'assistant">💬 <span class="tl">Assistant</span></button>
+  </div>
+</div></div>
+
+<div class="pagehead"><div class="wrap">
+  <h1 id="phTitle">Profil du client</h1>
+  <p id="phSub">Les informations qui rendent la comparaison et la simulation justes.</p>
+</div></div>
+
+<!-- insurer + filter rail (tabs 2 & 3) -->
+<div class="rail" id="rail" style="display:none"><div class="wrap" id="railWrap">
+  <div class="group"><span class="glabel">Comparer</span><div id="insurerPills" class="group" style="gap:8px"></div></div>
+  <span class="spacer"></span>
+  <div class="group" id="filters">
+    <button id="diffToggle" class="toggle"><span class="sw"></span>Différences seulement</button>
+    <button id="srcToggle" class="toggle"><span class="sw"></span>Détails &amp; sources</button>
+  </div>
+</div>
+<div class="wrap" id="catRow" style="margin-top:10px">
+  <div class="seg" id="catSeg">
+    <button data-cat="all" class="on">Tout</button>
+    <button data-cat="biens">Dommages aux biens</button>
+    <button data-cat="options">Optionnelles</button>
+    <button data-cat="rc">Responsabilité &amp; personnes</button>
+    <button data-cat="services">Services</button>
+  </div>
+  <span class="hint" id="capHint" style="margin-left:12px"></span>
+</div>
+</div>
+
+<!-- ===== TAB 1 : CLIENT ===== -->
+<section class="tabpanel active" id="tab-client"><div class="wrap">
+  <div class="formgrid">
+    <div class="fcard">
+      <h3>Le logement</h3>
+      <p class="fsub">La nature et l'occupation du bien.</p>
+      <div class="field"><label>Type de bien</label><div class="seg" data-field="logement">
+        <button data-v="appartement" class="on">Appartement</button><button data-v="maison">Maison</button></div></div>
+      <div class="field"><label>Statut</label><div class="seg" data-field="statut">
+        <button data-v="locataire" class="on">Locataire</button><button data-v="proprio">Propriétaire occupant</button><button data-v="pno">Propriétaire non occupant</button></div></div>
+      <div class="field"><label>Usage</label><div class="seg" data-field="residence">
+        <button data-v="principale" class="on">Résidence principale</button><button data-v="secondaire">Résidence secondaire</button></div></div>
+      <div class="field"><label>Surface habitable</label><div class="rng">
+        <input type="range" id="surface" min="15" max="250" step="5" value="60"><span class="v" id="surfaceV">60 m²</span></div></div>
+    </div>
+    <div class="fcard">
+      <h3>Biens & équipements</h3>
+      <p class="fsub">Ce qui change le périmètre à couvrir.</p>
+      <div class="field"><label>Équipements présents</label><div class="chiprow" id="equipChips"></div></div>
+      <div class="field" style="margin-top:22px"><label>Options envisagées par le client</label>
+        <p class="hint" style="margin:0 0 9px">Ces choix pilotent la simulation de sinistre (onglet 3) : une garantie en option n'est remboursée que si elle est retenue ici.</p>
+        <div class="chiprow" id="optChipsClient"></div></div>
+    </div>
+  </div>
+  <div class="profile-recap" id="profileRecap"></div>
+  <div style="text-align:right;margin:22px 0 10px">
+    <button class="pill" onclick="showTab('garanties')">Comparer les garanties →</button>
+  </div>
+</div></section>
+
+<!-- ===== TAB 2 : GARANTIES ===== -->
+<section class="tabpanel" id="tab-garanties"><div class="wrap">
+  <div id="grid" class="grid"></div>
+</div>
+<div class="wrap">
+  <div class="panel">
+    <h2>Les options de votre client</h2>
+    <p class="sub">Cochez ce dont votre client a besoin. On vous dit, chez chaque assureur, ce qui est déjà inclus, en option, ou indisponible.</p>
+    <div id="optChips" class="optchips"></div>
+    <div id="optSummary" class="optsum"></div>
+  </div>
+  <div class="panel">
+    <h2>Transparence &amp; piste d'audit</h2>
+    <p class="sub">Chaque case vient d'une page précise d'une Condition Générale. Rien n'est inventé.</p>
+    <div class="legend">
+      <span><b style="color:var(--inc);font-size:16px">✓</b> Incluse au contrat de base</span>
+      <span><b style="color:var(--opt);font-size:16px">○</b> Disponible en option / formule supérieure</span>
+      <span><b style="color:var(--abs);font-size:16px">—</b> Non prévue dans la CG</span>
+      <span><b style="color:var(--ink-3)">?</b> À vérifier (renvoyée aux Dispositions Particulières)</span>
+    </div>
+    <details class="meth"><summary><span class="c">›</span> D'où viennent ces données ?</summary>
+      <div class="mbody">
+        Garanties extraites des Conditions Générales ci-dessous, avec la page d'origine reportée sur chaque case (visible via « Détails &amp; sources ») :
+        <ul id="srcList"></ul>
+        <b>Lecture honnête des montants.</b> Beaucoup de plafonds et franchises ne figurent pas dans la CG : ils sont renvoyés aux <b>Dispositions Particulières</b> du contrat signé. Dans ce cas on l'indique tel quel, on n'affiche jamais un chiffre inventé.<br><br>
+        <b>« À vérifier ».</b> Une garantie non trouvée dans la CG est marquée « à vérifier » et exclue de tout décompte, plutôt que comptée comme absente.
+      </div>
+    </details>
+  </div>
+</div></section>
+
+<!-- ===== TAB 3 : SINISTRE ===== -->
+<section class="tabpanel" id="tab-sinistre"><div class="wrap">
+  <div class="scnpick" id="scnPick"></div>
+  <div class="amountbar">
+    <span class="lab">Montant du sinistre estimé</span>
+    <input type="range" id="amount" min="0" max="10000" step="100" value="4000">
+    <span class="big" id="amountV">4 000 €</span>
+  </div>
+  <div class="results" id="results"></div>
+  <div class="around" id="around"></div>
+  <p class="hint" style="text-align:center;margin:14px 0 0">Les montants remboursés sont calculés à partir des plafonds et franchises littéralement inscrits dans chaque CG. Quand ils relèvent des Dispositions Particulières, le résultat est marqué « estimation » et jamais présenté comme exact.</p>
+</div></section>
+
+<div class="backdrop" id="backdrop"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="dhead">
+    <span class="dtitle" id="drawerTitle">Document source</span>
+    <span class="spacer"></span>
+    <a class="diconlink" id="drawerOpenTab" target="_blank" rel="noopener" title="Ouvrir dans un onglet" style="display:none">⤢</a>
+    <button class="dclose" id="drawerClose" title="Fermer (Échap)">✕</button>
+  </div>
+  <div class="dbody">
+    <div class="dpanel" id="docPanel">
+      <div class="dplace" id="docPlaceholder">Cliquez sur une source <b>« CG … · p.N »</b> dans le tableau ou un scénario : la Condition Générale s'ouvre ici, à la bonne page.</div>
+      <iframe id="docFrame" title="Document source" style="display:none"></iframe>
+    </div>
+    <div class="dpanel" id="chatPanel" style="display:none">
+      <div class="chatintro">Décrivez la situation de votre client. Je pré-remplis le profil, les options retenues et le scénario de sinistre.</div>
+      <div class="field"><span>✨</span><input id="askInput" type="text" placeholder="« maison, propriétaire, 120 m², piscine, dégât des eaux »…"><button class="send" id="askSend" title="Analyser">↑</button></div>
+      <div class="askhint">Hors ligne, par mots-clés. La version LLM lira vraiment la phrase pour ajuster les critères.</div>
+      <div class="chatchips" id="chatChips"></div>
+      <div id="askReply" style="display:none"></div>
+    </div>
+  </div>
+</aside>
+
+<footer class="foot">
+  Outil conseiller · démonstration. Données extraites des Conditions Générales des assureurs (usage interne, test).<br>
+  Crédit Agricole Assurances — prototype de comparaison et de simulation de garanties Habitation.
+</footer>
+
+<script>
+/* ============ DATA (extraite des vraies CG, page d'origine sur chaque champ) ============ */
+const INSURERS=[
+ {id:"ca",name:"Crédit Agricole",file:"CG MRH Credit Agricole.pdf",edition:"Pacifica · éd. Janvier 2015",ref:true},
+ {id:"maif",name:"MAIF",file:"CG MAIF.pdf",edition:"Conditions Générales MAIF"},
+ {id:"generali",name:"Generali",file:"CG MRH GENERALI.pdf",edition:"GA5X25J · éd. Janvier 2022"},
+ {id:"axa",name:"AXA",file:"CG maison AXA.pdf",edition:"CG Habitation AXA"},
+ {id:"gmf",name:"GMF",file:"CG MRH_GMF.pdf",edition:"Conditions Générales GMF"},
+ {id:"mma",name:"MMA",file:"CG Habitation_MMA_410s.pdf",edition:"CG Habitation MMA (410s)"},
+];
+const CATS=[
+ {id:"biens",label:"Dommages aux biens",rows:["incendie","degats_eaux","vol_vandalisme","tempete_grele_neige","catnat","bris_glace","dommages_electriques"]},
+ {id:"options",label:"Garanties optionnelles",rows:["pertes_denrees","nomades_multimedia","piscine","panneaux_solaires","rachat_franchise"]},
+ {id:"rc",label:"Responsabilité & personnes",rows:["rc_vie_privee","protection_juridique","gav_corporelle"]},
+ {id:"services",label:"Services",rows:["assistance","mobilier_objets_valeur"]},
+];
+const G={
+ incendie:{label:"Incendie, explosion, fumées",gi:"Foudre, explosion, fumées, choc"},
+ degats_eaux:{label:"Dégâts des eaux",gi:"Fuites, infiltrations, recherche de fuite"},
+ vol_vandalisme:{label:"Vol & vandalisme",gi:"Vol, tentative, dégradations"},
+ tempete_grele_neige:{label:"Tempête, grêle, neige",gi:"Événements climatiques"},
+ catnat:{label:"Catastrophes naturelles",gi:"Garantie légale, franchise d'État"},
+ bris_glace:{label:"Bris de glace",gi:"Vitres, vérandas, miroirs"},
+ dommages_electriques:{label:"Dommages électriques",gi:"Surtension sur appareils"},
+ pertes_denrees:{label:"Pertes de denrées (congélateur)",gi:"Après coupure de courant"},
+ nomades_multimedia:{label:"Appareils nomades & multimédia",gi:"Portable, photo, informatique"},
+ piscine:{label:"Piscine",gi:"Bassin, spa, équipements"},
+ panneaux_solaires:{label:"Panneaux solaires",gi:"Photovoltaïque, thermique"},
+ rachat_franchise:{label:"Rachat de franchise",gi:"Suppression de la franchise"},
+ rc_vie_privee:{label:"Responsabilité civile vie privée",gi:"Dommages causés aux tiers"},
+ protection_juridique:{label:"Protection juridique",gi:"Défense & recours"},
+ gav_corporelle:{label:"Protection corporelle de l'assuré",gi:"Dommages corporels au domicile (événement garanti)"},
+ assistance:{label:"Assistance habitation",gi:"Relogement, dépannage d'urgence"},
+ mobilier_objets_valeur:{label:"Mobilier & objets de valeur",gi:"Bijoux, objets précieux"},
+};
+const OPTIONABLE=["dommages_electriques","pertes_denrees","nomades_multimedia","piscine","panneaux_solaires","rachat_franchise","protection_juridique","gav_corporelle"];
+
+/* Expert notes — the qualitative value behind a garantie, beyond any euro amount */
+const GNOTE={
+ gav_corporelle:"La Sécurité sociale ne rembourse que les soins. Le préjudice corporel (déficit fonctionnel permanent, souffrances endurées, préjudice esthétique) est évalué par un médecin-conseil et indemnisé par cette garantie — la Sécu ne le couvre pas.",
+ assistance:"Le soir du sinistre, ce qui compte n'est pas un virement mais un toit : relogement d'urgence, sauvegarde du mobilier, dépannage immédiat.",
+ mobilier_objets_valeur:"Bijoux et objets précieux relèvent d'un sous-plafond. Non déclarés, ils sont indemnisés au rabais : le bon réflexe est de les faire désigner au contrat.",
+ protection_juridique:"Au-delà du dégât matériel : honoraires d'avocat et recours contre le tiers responsable pris en charge.",
+ rc_vie_privee:"Un plafond élevé ne se consomme presque jamais. Ce qui compte est l'étendue (qui est couvert, où, dans quelles situations), pas le chiffre brut.",
+};
+const EQUIP=[{id:"piscine",l:"Piscine"},{id:"panneaux",l:"Panneaux solaires"},{id:"objets",l:"Objets de valeur"},{id:"info",l:"Matériel informatique"},{id:"jardin",l:"Jardin / dépendances"}];
+
+const DATA={
+ ca:{
+  incendie:{s:"incluse",pl:null,fr:null,d:"Incendie, explosion, implosion, fumées, foudre. Inclus dans toutes les formules.",p:8},
+  degats_eaux:{s:"incluse",pl:"recherche de fuite 25× l'indice",fr:null,d:"Dommages d'eau, infiltrations, refoulement d'égouts. Inclus dans toutes les formules.",p:9},
+  vol_vandalisme:{s:"incluse",pl:"vol dépendances 100× l'indice ; villégiature 3 000 €",fr:null,d:"Vandalisme inclus partout ; vol inclus (en option sur la formule Initiale locataire).",p:9},
+  tempete_grele_neige:{s:"incluse",pl:null,fr:null,d:"Vent, grêle, poids de la neige et de la glace. Inclus dans toutes les formules.",p:10},
+  catnat:{s:"incluse",pl:null,fr:"franchise légale (non rachetable)",d:"Catastrophes naturelles après arrêté interministériel.",p:11},
+  bris_glace:{s:"incluse",pl:"bâtiment 175× l'indice",fr:null,d:"Vitres, glaces, miroirs, vérandas et panneaux solaires. Inclus dans toutes les formules.",p:10},
+  dommages_electriques:{s:"optionnelle",pl:null,fr:null,d:"Inclus en formule Intégrale ; ailleurs via l'option Équipement+ ou un Pack Contenu/Multimédia.",p:9},
+  pertes_denrees:{s:"optionnelle",pl:"selon la Confirmation d'adhésion",fr:"sans franchise",d:"Option : denrées du congélateur après coupure de courant de plus de 12 h.",p:12},
+  nomades_multimedia:{s:"optionnelle",pl:"selon la Confirmation d'adhésion",fr:null,d:"Pack Multimédia (étudiant) ou Pack Loisirs : matériel et appareils nomades.",p:14},
+  piscine:{s:"optionnelle",pl:"selon la Confirmation d'adhésion",fr:null,d:"Pack Piscine en option (bassin et équipements).",p:14},
+  panneaux_solaires:{s:"incluse",pl:"bâtiment 175× l'indice (bris de glace)",fr:null,d:"Panneaux solaires déjà couverts au titre du bris de glace, inclus dans toutes les formules.",p:10},
+  rachat_franchise:{s:"optionnelle",pl:null,fr:null,d:"Option supprimant la franchise, sauf catastrophes naturelles et événements climatiques.",p:14},
+  rc_vie_privee:{s:"incluse",pl:"10 000 000 €",fr:"sans franchise (dommages corporels)",d:"RC vie privée incluse ; exclue en résidence secondaire de propriétaire non occupant.",p:17},
+  protection_juridique:{s:"incluse",pl:"50× l'indice",fr:"sans franchise",d:"« Sauvegarde de vos droits » : défense pénale et recours. Inclus dans toutes les formules.",p:18},
+  gav_corporelle:{s:"incluse",pl:"2 315× l'indice par victime",fr:null,d:"Protection corporelle de l'assuré dès 5 % de déficit fonctionnel permanent.",p:14},
+  assistance:{s:"incluse",pl:"hébergement 80 €/nuit/pers., max 800 €",fr:null,d:"Sauvegarde, hébergement d'urgence, avance de frais, garde d'enfants.",p:25},
+  mobilier_objets_valeur:{s:"incluse",pl:"selon la Confirmation d'adhésion",fr:null,d:"Mobilier, bijoux, objets de valeur. Indemnisation à neuf en formule Intégrale.",p:21},
+ },
+ maif:{
+  incendie:{s:"incluse",pl:null,fr:null,d:"Incendie-explosion compris dans toutes les formules (F1, F2, F3).",p:5},
+  degats_eaux:{s:"incluse",pl:null,fr:null,d:"Dégâts des eaux compris dans toutes les formules ; recherche de fuite couverte.",p:5},
+  vol_vandalisme:{s:"incluse",pl:null,fr:null,d:"Vol, tentative de vol et vandalisme compris dans toutes les formules.",p:5},
+  tempete_grele_neige:{s:"incluse",pl:null,fr:null,d:"Événements climatiques (tempête, neige, grêle, foudre) compris dans toutes les formules.",p:5},
+  catnat:{s:"incluse",pl:null,fr:"franchise légale (aux conditions particulières)",d:"Catastrophes naturelles comprises dans toutes les formules.",p:5},
+  bris_glace:{s:"incluse",pl:null,fr:null,d:"Bris de vitre immobilier (portes, fenêtres, vérandas, vitraux), toutes formules.",p:5},
+  dommages_electriques:{s:"optionnelle",pl:null,fr:null,d:"Non couverts en formule F1, compris en F2 et F3.",p:5},
+  pertes_denrees:{s:"optionnelle",pl:"1 000 €",fr:null,d:"Contenu du congélateur et cave à vin : formule 3 uniquement, limite 1 000 €.",p:5},
+  nomades_multimedia:{s:"optionnelle",pl:"5 000 €",fr:null,d:"Option Biens nomades multimédias (vol et bris en tous lieux), disponible en F2/F3.",p:5},
+  piscine:{s:"optionnelle",pl:null,fr:null,d:"Option Jardin+ : piscine en dur.",p:42},
+  panneaux_solaires:{s:"optionnelle",pl:null,fr:null,d:"Option Jardin+ : panneaux solaires non fixés en toiture, éoliennes.",p:42},
+  rachat_franchise:{s:"absente",pl:null,fr:null,d:"Non trouvé dans la CG.",p:null},
+  rc_vie_privee:{s:"incluse",pl:"100 000 000 €",fr:null,d:"RC-défense comprise dans toutes les formules ; plafond dommages corporels 100 M€.",p:5},
+  protection_juridique:{s:"incluse",pl:"16 000 € / affaire",fr:null,d:"Recours et accompagnement juridique, toutes formules ; honoraires d'avocat plafonnés.",p:5},
+  gav_corporelle:{s:"absente",pl:null,fr:null,d:"Pas de garantie accidents de la vie générale ; seuls les enfants scolarisés sont couverts.",p:null},
+  assistance:{s:"incluse",pl:null,fr:null,d:"Assistance domestique (dépannage) et aux personnes en déplacement, toutes formules.",p:5},
+  mobilier_objets_valeur:{s:"incluse",pl:"objets précieux jusqu'à 4 000 €",fr:null,d:"Mobilier assuré ; au-delà de 4 000 € sur les objets précieux, déclaration obligatoire.",p:15},
+ },
+ generali:{
+  incendie:{s:"incluse",pl:"immobilier sans limite ; mobilier aux Disp. Particulières",fr:"générale (Disp. Particulières)",d:"Incendie et événements assimilés : foudre, explosion, fumées, choc de véhicule.",p:9},
+  degats_eaux:{s:"incluse",pl:"immobilier sans limite ; mobilier aux Disp. Particulières",fr:"générale (Disp. Particulières)",d:"Écoulements, infiltrations, refoulements, plus recherche de fuite (3× l'indice).",p:11},
+  vol_vandalisme:{s:"incluse",pl:"mobilier aux Disp. Particulières ; espèces hors coffre 0,5× l'indice",fr:"générale (Disp. Particulières)",d:"Vol-Vandalisme : détériorations immobilières et dommages mobiliers, sous conditions de protection.",p:13},
+  tempete_grele_neige:{s:"incluse",pl:"montants identiques à l'Incendie",fr:"générale, min. 230 € non indexés",d:"Événements climatiques et gel : tempête, grêle, neige, gel des installations.",p:10},
+  catnat:{s:"incluse",pl:"immobilier sans limite",fr:"380 € (1 520 € sécheresse)",d:"Catastrophes naturelles après arrêté interministériel ; franchise réglementaire.",p:12},
+  bris_glace:{s:"incluse",pl:"dommages matériels sans limitation",fr:"générale (Disp. Particulières)",d:"Vitres, fenêtres, baies, vérandas et capteurs intégrés au bâtiment.",p:16},
+  dommages_electriques:{s:"incluse",pl:"25 % du montant Incendie (Disp. Part.)",fr:"générale, min. 0,15× l'indice",d:"Appareils électriques de moins de 10 ans endommagés par l'action de l'électricité.",p:16},
+  pertes_denrees:{s:"incluse",pl:"0,5× l'indice",fr:"générale (Disp. Particulières)",d:"Contenu du congélateur : denrées détruites par un arrêt accidentel de plus de 24 h.",p:17},
+  nomades_multimedia:{s:"incluse",pl:"matériel informatique 3× l'indice ; objets loisirs aux Disp. Part.",fr:"objets loisirs : 20 % avec minimums",d:"Bris du matériel informatique (moins de 5 ans) et tous risques objets de loisirs désignés.",p:19},
+  piscine:{s:"optionnelle",pl:"montant aux Disp. Particulières",fr:"identique à la garantie mise en jeu",d:"Option 2.17 Piscine.",p:18},
+  panneaux_solaires:{s:"optionnelle",pl:"montant aux Disp. Particulières",fr:"identique à la garantie mise en jeu",d:"Option 2.18 Développement durable : énergies renouvelables, panneaux solaires.",p:18},
+  rachat_franchise:{s:"inconnu",pl:null,fr:null,d:"Non trouvé dans la CG (seul un rachat de franchise sur véhicule de prêt apparaît).",p:null},
+  rc_vie_privee:{s:"incluse",pl:"7 650 000 € non indexés",fr:"générale (biens confiés min. 0,15× l'indice)",d:"RC Vie Privée : dommages corporels, matériels et immatériels causés aux tiers.",p:22},
+  protection_juridique:{s:"optionnelle",pl:"12 500 € TTC occupant ; 5 000 € non occupant",fr:"néant",d:"Option Protection Juridique Habitation gérée par L'Équité ; recours dès 250 € TTC.",p:26},
+  gav_corporelle:{s:"inconnu",pl:null,fr:null,d:"Pas de garantie accidents de la vie générale ; seule une assurance scolaire couvre le corporel.",p:null},
+  assistance:{s:"incluse",pl:null,fr:"néant",d:"Assistance mise en œuvre par Europ Assistance, selon la formule souscrite aux Disp. Particulières.",p:37},
+  mobilier_objets_valeur:{s:"incluse",pl:"mobilier et objets de valeur aux Disp. Particulières",fr:"générale (Disp. Particulières)",d:"Mobilier et objets de valeur assurés ; les capitaux sont renvoyés aux Dispositions Particulières.",p:10},
+ },
+ axa:{
+  incendie:{s:"incluse",pl:null,fr:null,d:"Incendie, explosion, implosion, fumée, foudre, chute de véhicule ou d'aéronef.",p:8},
+  degats_eaux:{s:"incluse",pl:null,fr:null,d:"Fuites, débordements, infiltrations et gel ; recherche de fuite dans la limite d'un indice.",p:13},
+  vol_vandalisme:{s:"optionnelle",pl:null,fr:null,d:"Vol et vandalisme au domicile, souscrits s'il en est fait mention aux conditions particulières.",p:23},
+  tempete_grele_neige:{s:"incluse",pl:null,fr:null,d:"Événements climatiques : tempête, ouragan, cyclone, grêle, poids de la neige, inondation.",p:14},
+  catnat:{s:"incluse",pl:null,fr:"380 € (1 520 € sécheresse)",d:"Catastrophes naturelles selon les articles L125-1 et suivants du Code des assurances.",p:11},
+  bris_glace:{s:"optionnelle",pl:null,fr:null,d:"Bris des vitres (fenêtres, baies, vérandas déclarées) : option à souscrire.",p:28},
+  dommages_electriques:{s:"optionnelle",pl:"25× l'indice par sinistre",fr:"générale (conditions particulières)",d:"Dommages aux appareils électriques : option à souscrire.",p:33},
+  pertes_denrees:{s:"optionnelle",pl:"1 000 € par sinistre",fr:"générale (conditions particulières)",d:"Perte de denrées en congélateur/réfrigérateur, sous-garantie de l'option appareils électriques.",p:34},
+  nomades_multimedia:{s:"optionnelle",pl:"800 €/appareil (1 000 € portables), annuel 1 000 €",fr:null,d:"Casse des appareils nomades : option à souscrire.",p:31},
+  piscine:{s:"optionnelle",pl:null,fr:null,d:"Option Piscine (§4.12).",p:45},
+  panneaux_solaires:{s:"optionnelle",pl:null,fr:null,d:"Option Énergies renouvelables : panneaux solaires, éoliennes (§4.11).",p:45},
+  rachat_franchise:{s:"inconnu",pl:null,fr:null,d:"Non trouvé dans la CG.",p:null},
+  rc_vie_privee:{s:"optionnelle",pl:"20 M€/sinistre (sous-limite 5 M€ matériels)",fr:null,d:"Responsabilité civile vie privée : option à souscrire.",p:57},
+  protection_juridique:{s:"optionnelle",pl:"23 877 € par litige",fr:null,d:"Option Protection juridique assurée par JURIDICA.",p:67},
+  gav_corporelle:{s:"absente",pl:null,fr:null,d:"Pas de garantie accidents de la vie / atteinte corporelle de l'assuré dans cette CG.",p:null},
+  assistance:{s:"incluse",pl:null,fr:null,d:"Assistance habitation incluse : relogement, sauvegarde du mobilier, retour au domicile.",p:17},
+  mobilier_objets_valeur:{s:"incluse",pl:null,fr:null,d:"Mobilier assuré (capitaux aux CP) ; objets de valeur en valeur agréée disponibles en option.",p:51},
+ },
+ gmf:{
+  incendie:{s:"incluse",pl:"capitaux indiqués aux conditions particulières",fr:"indexée (cond. particulières)",d:"Incendie et Événements Annexes couvrant les dommages aux biens assurés.",p:36},
+  degats_eaux:{s:"incluse",pl:"capitaux indexés (cond. particulières)",fr:"indexée (cond. particulières)",d:"Dégât des Eaux et Gel ; frais de recherche de fuites inclus.",p:38},
+  vol_vandalisme:{s:"incluse",pl:"capitaux indexés (cond. particulières)",fr:"indexée (cond. particulières)",d:"Vol et Détériorations par effraction, escalade ou agression.",p:44},
+  tempete_grele_neige:{s:"incluse",pl:"limite aux conditions particulières",fr:"indexée (cond. particulières)",d:"Tempête-Grêle-Neige : dommages par le vent, la grêle et le poids de la neige.",p:46},
+  catnat:{s:"incluse",pl:"limite aux conditions particulières",fr:"fixée par arrêté interministériel",d:"Catastrophes Naturelles conformes au Code des assurances ; relogement d'urgence inclus.",p:49},
+  bris_glace:{s:"incluse",pl:"remplacement à l'identique justifié",fr:"(cond. particulières)",d:"Bris de Vitres : bris accidentel des produits verriers et assimilés.",p:47},
+  dommages_electriques:{s:"optionnelle",pl:"selon le bien (cond. particulières)",fr:"indexée, ou abattement vétusté",d:"Dommages Électriques accordés si les conditions particulières le prévoient.",p:56},
+  pertes_denrees:{s:"optionnelle",pl:"montant indexé (CP), limite 2 sinistres/an",fr:"sans franchise",d:"Perte du contenu du congélateur/réfrigérateur, liée à un événement garanti aux CP.",p:55},
+  nomades_multimedia:{s:"optionnelle",pl:"montants indexés (CP), limite 2 sinistres/an",fr:"indexée (cond. particulières)",d:"Tous Risques des appareils nomades (portables, photo, téléphone, tablette) selon les CP.",p:60},
+  piscine:{s:"optionnelle",pl:"montant aux conditions particulières",fr:"garantie mise en jeu (CP)",d:"Garantie Dommages à la Piscine, selon les conditions particulières.",p:63},
+  panneaux_solaires:{s:"optionnelle",pl:"comme le bâtiment (cond. particulières)",fr:"indexée (cond. particulières)",d:"Panneaux photovoltaïques couverts comme le bâtiment s'ils sont déclarés aux CP.",p:63},
+  rachat_franchise:{s:"absente",pl:null,fr:null,d:"Non trouvé dans la CG.",p:null},
+  rc_vie_privee:{s:"incluse",pl:"montant aux conditions particulières",fr:"indexée (cond. particulières)",d:"Responsabilité Civile personnelle ou familiale, y compris garanties optionnelles.",p:29},
+  protection_juridique:{s:"absente",pl:null,fr:null,d:"Non trouvé ; seule une Défense Pénale et Recours suite à accident existe.",p:null},
+  gav_corporelle:{s:"absente",pl:null,fr:null,d:"Non trouvé dans la CG.",p:null},
+  assistance:{s:"absente",pl:null,fr:null,d:"Non trouvé dans cette CG.",p:null},
+  mobilier_objets_valeur:{s:"incluse",pl:"mobilier capital indexé (CP) ; objets de valeur si prévus",fr:"indexée (cond. particulières)",d:"Biens mobiliers assurés ; objets de valeur garantis si les CP le prévoient.",p:36},
+ },
+ mma:{
+  incendie:{s:"incluse",pl:"6 000 000 € par sinistre (biens immobiliers)",fr:null,d:"Incendie, explosion, tempête et risques annexes, dans toutes les formules F1 à F3.",p:13},
+  degats_eaux:{s:"incluse",pl:"recherche de fuite 7 180 € ; surconso. eau 1 000 €",fr:"640 € si mesures de prévention non respectées",d:"Dégâts des eaux accidentels dans toutes les formules ; recherche de fuite incluse.",p:14},
+  vol_vandalisme:{s:"optionnelle",pl:"capital mobilier (cond. particulières)",fr:null,d:"Vol et vandalisme intérieur garantis seulement en formules F2 et F3.",p:16},
+  tempete_grele_neige:{s:"incluse",pl:null,fr:"380 € (renfort événements climatiques)",d:"Tempête incluse partout ; grêle et poids de la neige via le renfort climatique optionnel.",p:13},
+  catnat:{s:"incluse",pl:null,fr:"fixée par arrêté interministériel",d:"Catastrophes naturelles et technologiques garanties dans toutes les formules.",p:15},
+  bris_glace:{s:"incluse",pl:null,fr:null,d:"Bris de vitre immobilier en F1 à F3 ; le bris mobilier est en F3 ou en renfort optionnel.",p:20},
+  dommages_electriques:{s:"optionnelle",pl:null,fr:null,d:"Dommages électriques mobilier inclus en F3 ; sinon renfort Mobilier Plus pour F1 et F2.",p:21},
+  pertes_denrees:{s:"optionnelle",pl:"500 € par événement",fr:null,d:"Contenu congélateurs/réfrigérateurs via la garantie dommages électriques étendue (formule 3).",p:21},
+  nomades_multimedia:{s:"optionnelle",pl:"1 500 € par événement",fr:null,d:"Renfort Vol en tous lieux des matériels de loisirs (F2/F3) ; exclut téléphones et ordinateurs.",p:40},
+  piscine:{s:"optionnelle",pl:"capital piscine (cond. particulières)",fr:null,d:"Piscine et dôme couverts s'ils sont déclarés au contrat.",p:11},
+  panneaux_solaires:{s:"optionnelle",pl:"jusqu'à 9 kWc (si déclarés)",fr:null,d:"Panneaux photovoltaïques jusqu'à 9 kWc couverts s'ils sont déclarés.",p:11},
+  rachat_franchise:{s:"inconnu",pl:null,fr:null,d:"Non trouvé dans la CG.",p:null},
+  rc_vie_privee:{s:"incluse",pl:"20 M€ corporel ; 5 M€ matériel",fr:null,d:"RC vie privée incluse en F1 à F3 (en option seulement si inhabitation supérieure à 90 jours).",p:23},
+  protection_juridique:{s:"incluse",pl:"20 000 € (défense pénale et recours)",fr:null,d:"Défense pénale et recours inclus en F1 à F3 ; la PJ du propriétaire (100 000 €) est en option.",p:29},
+  gav_corporelle:{s:"optionnelle",pl:"456 150 €/victime ; 908 000 €/événement",fr:null,d:"Option Assurance des habitants : dommages corporels subis dans l'habitation, F1 à F3.",p:47},
+  assistance:{s:"incluse",pl:"biens 1ère nécessité 600 € ; garde animaux 250 €",fr:null,d:"Assistance après sinistre incluse (réparateur d'urgence, relogement, gardiennage).",p:34},
+  mobilier_objets_valeur:{s:"optionnelle",pl:"capital aux conditions particulières",fr:null,d:"Objets à risque de vol (bijoux, montres, tableaux) dans la limite du capital ; rattaché au Vol (F2/F3).",p:17},
+ },
+};
+
+const SCENARIOS=[
+ {id:"degats_eaux",g:"degats_eaux",icon:"💧",title:"Fuite sous l'évier",d:"Un joint lâche. L'eau s'infiltre, le parquet gondole, un meuble est foutu.",amount:4000,adv:["assistance"],
+  around:["La recherche de fuite est prise en charge à part (plafond propre).","L'assistance peut financer séchage et déshumidificateurs.","Déclaration sous 5 jours ouvrés."]},
+ {id:"vol",g:"vol_vandalisme",icon:"🚪",title:"Cambriolage du salon",d:"Effraction pendant les vacances : TV, ordinateur portable et bijoux disparaissent.",amount:6000,adv:["mobilier_objets_valeur","protection_juridique","assistance"],
+  around:["Les bijoux relèvent d'un sous-plafond « objets de valeur ».","Dépôt de plainte sous 24-48 h obligatoire.","Vérifier les moyens de protection imposés (serrure, alarme)."]},
+ {id:"incendie",g:"incendie",icon:"🔥",title:"Départ de feu en cuisine",d:"Une casserole oubliée : la hotte et une partie de la cuisine brûlent, fumées partout.",amount:25000,adv:["gav_corporelle","assistance","mobilier_objets_valeur"],
+  around:["Au-delà des murs : un incendie peut blesser. La protection corporelle indemnise le préjudice que la Sécu ne paie pas.","Relogement et sauvegarde du mobilier via l'assistance.","Indemnisation à neuf selon la formule ; expertise quasi systématique au-delà d'un seuil."]},
+ {id:"denrees",g:"pertes_denrees",icon:"🧊",title:"Congélateur perdu (coupure)",d:"Coupure de courant prolongée : tout le contenu du congélateur est à jeter.",amount:400,adv:[],
+  around:["Garantie le plus souvent EN OPTION.","Souvent sans franchise, mais plafond bas.","Conserver les justificatifs d'achat des denrées."]},
+ {id:"electrique",g:"dommages_electriques",icon:"⚡",title:"Surtension : box + TV grillées",d:"Un orage, une surtension sur le réseau : la box et le téléviseur sont morts.",amount:1500,adv:["assistance"],
+  around:["Souvent EN OPTION ou réservé aux formules hautes.","Abattement pour vétusté fréquent sur l'électronique.","La foudre directe relève parfois de l'incendie."]},
+ {id:"bris",g:"bris_glace",icon:"🪟",title:"Baie vitrée brisée",d:"Un coup malheureux : la grande baie vitrée du séjour explose.",amount:1200,adv:["assistance"],
+  around:["Incluse chez la plupart, mais EN OPTION chez certains (ex. AXA).","Les vérandas sont souvent à déclarer.","Pose en urgence parfois avancée par l'assisteur."]},
+];
+
+/* ============ STATE ============ */
+let tab="client";
+let selected=["ca","maif","generali"]; const MAX=3;
+let cat="all", diffOnly=false, showSrc=false;
+const openRows=new Set();
+const clientOpts=new Set();
+const profile={logement:"appartement",statut:"locataire",residence:"principale",surface:60,equip:new Set()};
+let scnId="degats_eaux";
+const scnAmount={}; SCENARIOS.forEach(s=>scnAmount[s.id]=s.amount);
+
+const MARK={incluse:{mk:"✓",cls:"inc",lab:"Inclus"},optionnelle:{mk:"○",cls:"opt",lab:"En option"},absente:{mk:"—",cls:"abs",lab:"Non prévu"},inconnu:{mk:"?",cls:"unk",lab:"À vérifier"}};
+const byId=id=>INSURERS.find(i=>i.id===id);
+const esc=s=>(s==null?"":String(s));
+const fEuro=n=>n.toLocaleString("fr-FR").replace(/ /g," ")+" €";
+function parseEuro(s){if(!s)return null;const t=s.replace(/ /g," ");const m=t.match(/(\d[\d \.]*\d|\d)\s*€/);if(!m)return null;return parseInt(m[1].replace(/[ .]/g,""),10);}
+function franchiseInfo(s){
+  if(s==null) return {val:0,known:false,txt:"franchise générale du contrat (à préciser)"};
+  if(/sans franchise|néant|aucune/i.test(s)) return {val:0,known:true,txt:"sans franchise"};
+  const e=parseEuro(s); if(e!=null) return {val:e,known:true,txt:s};
+  return {val:0,known:false,txt:s};
+}
+function pdfHref(file,page){ return encodeURI("../../data/CG contrats MRH/"+file)+(page?("#page="+page):""); }
+function srcChip(file,page){ const loc=page?`p.${page}`:"non localisé"; return `<a class="src" href="${pdfHref(file,page)}" target="_blank" rel="noopener" title="Ouvrir la CG${page?(' à la page '+page):''}"><span class="pin">↳</span> ${esc(file)} · <b>${loc}</b></a>`; }
+
+/* ============ TABS ============ */
+const PAGEHEAD={
+ client:{t:"Profil du client",s:"Les informations qui rendent la comparaison et la simulation justes."},
+ garanties:{t:"Comparaison des garanties",s:"Lecture des Conditions Générales, garantie par garantie."},
+ sinistre:{t:"Simulation de sinistre",s:"Un cas concret, un montant : le remboursement de chaque assureur, chiffré et expliqué."},
+};
+function showTab(t){
+  tab=t;
+  document.querySelectorAll(".stepbtn").forEach(b=>b.classList.toggle("on",b.dataset.tab===t));
+  document.querySelectorAll(".tabpanel").forEach(p=>p.classList.toggle("active",p.id==="tab-"+t));
+  document.getElementById("phTitle").textContent=PAGEHEAD[t].t;
+  document.getElementById("phSub").textContent=PAGEHEAD[t].s;
+  const showRail=(t!=="client");
+  document.getElementById("rail").style.display=showRail?"block":"none";
+  document.getElementById("filters").style.display=(t==="garanties")?"flex":"none";
+  document.getElementById("catRow").style.display=(t==="garanties")?"block":"none";
+  if(t==="garanties") renderGrid();
+  if(t==="sinistre") renderScenario();
+  window.scrollTo({top:0,behavior:"instant"});
+}
+document.querySelectorAll(".stepbtn").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+
+/* ============ TAB 1 : CLIENT ============ */
+function syncSegments(){
+  document.querySelectorAll(".seg[data-field]").forEach(seg=>{
+    const f=seg.dataset.field;
+    seg.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.v===profile[f]));
+  });
+}
+function renderClient(){
+  syncSegments();
+  const surf=document.getElementById("surface"); if(surf){surf.value=profile.surface;document.getElementById("surfaceV").textContent=profile.surface+" m²";}
+  // equipment chips
+  const eq=document.getElementById("equipChips"); eq.innerHTML="";
+  EQUIP.forEach(e=>{
+    const on=profile.equip.has(e.id);
+    const b=document.createElement("button"); b.className="pill"+(on?" on":""); b.textContent=e.l;
+    b.onclick=()=>{ on?profile.equip.delete(e.id):profile.equip.add(e.id); renderClient(); };
+    eq.appendChild(b);
+  });
+  // option chips (shared with tab2 / scenario)
+  const oc=document.getElementById("optChipsClient"); oc.innerHTML="";
+  OPTIONABLE.forEach(g=>{
+    const on=clientOpts.has(g);
+    const b=document.createElement("button"); b.className="pill"+(on?" on":""); b.textContent=G[g].label;
+    b.onclick=()=>{ on?clientOpts.delete(g):clientOpts.add(g); renderClient(); renderOptions(); };
+    oc.appendChild(b);
+  });
+  const stmap={locataire:"locataire",proprio:"propriétaire occupant",pno:"propriétaire non occupant"};
+  const opts=[...clientOpts].map(g=>G[g].label);
+  document.getElementById("profileRecap").innerHTML=
+    `<b>Profil :</b> ${profile.logement}, ${stmap[profile.statut]}, ${profile.surface} m², résidence ${profile.residence}.`+
+    (profile.equip.size?` <b>Équipements :</b> ${[...profile.equip].map(id=>EQUIP.find(e=>e.id===id).l).join(", ")}.`:"")+
+    (opts.length?` <b>Options retenues :</b> ${opts.join(", ")}.`:` <b>Options retenues :</b> aucune pour l'instant.`);
+}
+document.querySelectorAll(".seg[data-field]").forEach(seg=>{
+  seg.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+    profile[seg.dataset.field]=b.dataset.v;
+    seg.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));
+    renderClient();});
+});
+document.getElementById("surface").addEventListener("input",e=>{profile.surface=+e.target.value;document.getElementById("surfaceV").textContent=profile.surface+" m²";renderClient();});
+
+/* ============ insurer pills (tabs 2 & 3) ============ */
+function renderPills(){
+  const host=document.getElementById("insurerPills"); host.innerHTML="";
+  INSURERS.forEach(ins=>{
+    const on=selected.includes(ins.id);
+    const b=document.createElement("button"); b.className="pill"+(on?" on":"");
+    b.innerHTML=`<span class="swatch"></span>${ins.name}`+(ins.ref?` <span style="opacity:.6;font-size:11px">· vous</span>`:"");
+    if(ins.ref) b.disabled=on;
+    if(!on&&selected.length>=MAX) b.disabled=true;
+    b.onclick=()=>toggleInsurer(ins.id);
+    host.appendChild(b);
+  });
+  document.getElementById("capHint").textContent=`${selected.length}/${MAX} assureurs — lisible comme une vraie page de comparaison.`;
+}
+function toggleInsurer(id){
+  if(selected.includes(id)){ if(byId(id).ref)return; selected=selected.filter(x=>x!==id); }
+  else{ if(selected.length>=MAX){const drop=selected.find(x=>!byId(x).ref);selected=selected.filter(x=>x!==drop);} selected.push(id); }
+  renderPills(); if(tab==="garanties")renderGrid(); if(tab==="sinistre")renderScenario(); renderOptions();
+}
+
+/* ============ TAB 2 : GRID ============ */
+function summaryFor(id){
+  let base=0,baseTot=0,optAvail=0;
+  CATS.find(c=>c.id==="biens").rows.forEach(g=>{const s=DATA[id][g].s;if(s!=="inconnu"){baseTot++;if(s==="incluse")base++;}});
+  OPTIONABLE.forEach(g=>{const s=DATA[id][g].s;if(s==="incluse"||s==="optionnelle")optAvail++;});
+  return {base,baseTot,optAvail};
+}
+function gridTemplate(){return `minmax(190px,1.5fr) `+selected.map(()=>"minmax(120px,1fr)").join(" ");}
+function rowVisible(g){if(!diffOnly)return true;return new Set(selected.map(id=>DATA[id][g].s)).size>1;}
+function activeRows(){let rows=[];CATS.forEach(c=>{if(cat==="all"||cat===c.id)c.rows.forEach(g=>rows.push({g,c:c.id,clabel:c.label}));});return rows.filter(r=>rowVisible(r.g));}
+function valCell(id,g){
+  const d=DATA[id][g],m=MARK[d.s],ref=byId(id).ref?" ref":"";
+  let fig="";
+  if(showSrc){const bits=[];if(d.pl)bits.push(`Plafond : ${esc(d.pl)}`);if(d.fr)bits.push(`Franchise : ${esc(d.fr)}`);if(bits.length)fig=`<div class="fig">${bits.join("<br>")}</div>`;}
+  const covers=d.s==="incluse"||d.s==="optionnelle";
+  const someoneLacks=selected.some(o=>o!==id&&(DATA[o][g].s==="absente"||DATA[o][g].s==="inconnu"));
+  const atout=(covers&&someoneLacks)?`<div class="atout">+ atout</div>`:"";
+  return `<div class="fcell val${ref}"><div class="mk ${m.cls}">${m.mk}</div><div class="lab ${m.cls}">${m.lab}</div>${atout}${fig}</div>`;
+}
+function detailStrip(g){
+  const inner=selected.map(id=>{
+    const ins=byId(id),d=DATA[id][g],m=MARK[d.s];
+    const src=srcChip(ins.file,d.p);
+    let kv="";if(d.pl)kv+=`<div class="kv">Plafond : <b>${esc(d.pl)}</b></div>`;if(d.fr)kv+=`<div class="kv">Franchise : <b>${esc(d.fr)}</b></div>`;
+    return `<div class="dcol"><div class="dh">${esc(ins.name)} <span class="badge ${m.cls}">${m.lab}</span></div><div class="dtxt">${esc(d.d)}</div>${kv}${src}</div>`;
+  }).join("");
+  const xnote=GNOTE[g]?`<div class="xnote">★ ${esc(GNOTE[g])}</div>`:"";
+  return `<div class="detail"><div class="inner" style="grid-template-columns:${gridTemplate()}"><div class="dlabel">${esc(G[g].label)}</div>${inner}</div>${xnote}</div>`;
+}
+function renderGrid(){
+  const grid=document.getElementById("grid"); grid.style.gridTemplateColumns=gridTemplate();
+  let html=`<div class="phead" style="grid-template-columns:${gridTemplate()};grid-column:1 / -1"><div class="corner"></div>`;
+  selected.forEach((id,idx)=>{
+    const ins=byId(id),s=summaryFor(id),refcls=ins.ref?" ref":"";
+    html+=`<div class="pcard${refcls}">
+      <div class="mv"><button data-mv="l" data-id="${id}" ${idx>0?"":"disabled"}>‹</button><button data-mv="r" data-id="${id}" ${idx<selected.length-1?"":"disabled"}>›</button></div>
+      ${ins.ref?"":`<button class="rm" data-rm="${id}">✕</button>`}
+      <div class="pname">${esc(ins.name)}</div><div class="pmeta">${esc(ins.edition)}</div>
+      ${ins.ref?`<div class="tag">Votre offre</div>`:`<div style="height:23px"></div>`}
+      <div class="summary"><span><b>${s.base}/${s.baseTot}</b> base incluse</span><span><b>${s.optAvail}</b> options dispo.</span></div></div>`;
+  });
+  html+=`</div>`;
+  let lastCat=null; const rows=activeRows();
+  if(rows.length===0) html+=`<div style="grid-column:1 / -1;padding:50px 12px;text-align:center;color:var(--ink-3)">Aucune différence entre les assureurs sélectionnés sur ce périmètre.</div>`;
+  rows.forEach(r=>{
+    if(r.c!==lastCat){html+=`<div class="catband">${esc(r.clabel)}</div>`;lastCat=r.c;}
+    const g=r.g,meta=G[g],isOpen=openRows.has(g);
+    html+=`<div class="grow${isOpen?" open":""}" style="display:contents"><div class="fcell fname" data-toggle="${g}"><span class="chev">›</span><span><div>${esc(meta.label)}</div><div class="gi">${esc(meta.gi)}</div></span></div>`;
+    selected.forEach(id=>html+=valCell(id,g));
+    html+=detailStrip(g)+`</div>`;
+  });
+  grid.innerHTML=html;
+  grid.querySelectorAll("[data-toggle]").forEach(el=>el.onclick=()=>{const g=el.dataset.toggle;openRows.has(g)?openRows.delete(g):openRows.add(g);renderGrid();});
+  grid.querySelectorAll("[data-rm]").forEach(el=>el.onclick=e=>{e.stopPropagation();toggleInsurer(el.dataset.rm);});
+  grid.querySelectorAll("[data-mv]").forEach(el=>el.onclick=e=>{e.stopPropagation();const id=el.dataset.id,i=selected.indexOf(id),j=el.dataset.mv==="l"?i-1:i+1;if(j<0||j>=selected.length)return;[selected[i],selected[j]]=[selected[j],selected[i]];renderGrid();});
+}
+document.getElementById("catSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cat=b.dataset.cat;document.querySelectorAll("#catSeg button").forEach(x=>x.classList.toggle("on",x===b));renderGrid();});
+document.getElementById("diffToggle").onclick=function(){diffOnly=!diffOnly;this.classList.toggle("on",diffOnly);renderGrid();};
+document.getElementById("srcToggle").onclick=function(){showSrc=!showSrc;this.classList.toggle("on",showSrc);renderGrid();};
+
+function renderOptions(){
+  const host=document.getElementById("optChips"); if(!host)return; host.innerHTML="";
+  OPTIONABLE.forEach(g=>{const on=clientOpts.has(g);const b=document.createElement("button");b.className="pill"+(on?" on":"");b.textContent=G[g].label;b.onclick=()=>{on?clientOpts.delete(g):clientOpts.add(g);renderOptions();renderClient();};host.appendChild(b);});
+  const sum=document.getElementById("optSummary");
+  if(clientOpts.size===0){sum.innerHTML=`<div class="hint" style="padding:4px 2px">Sélectionnez une ou plusieurs options pour voir, chez chaque assureur, ce qui est inclus ou disponible.</div>`;return;}
+  const wanted=[...clientOpts];
+  sum.innerHTML=selected.map(id=>{
+    const ins=byId(id);let inc=0,opt=0,no=0,unk=0;
+    wanted.forEach(g=>{const s=DATA[id][g].s;if(s==="incluse")inc++;else if(s==="optionnelle")opt++;else if(s==="absente")no++;else unk++;});
+    const cov=inc+opt,pct=Math.round(cov/wanted.length*100);
+    return `<div class="row${ins.ref?" refrow":""}"><div class="nm">${esc(ins.name)}</div><div class="bar"><i style="width:${pct}%"></i></div><div class="frac">${cov}/${wanted.length} dispo.</div><div class="hint" style="min-width:210px">${inc} déjà inclus · ${opt} en option${no?` · ${no} indisponible`:""}${unk?` · ${unk} à vérifier`:""}</div></div>`;
+  }).join("");
+}
+function renderSources(){document.getElementById("srcList").innerHTML=INSURERS.map(i=>`<li><b>${esc(i.name)}</b> — <code>${esc(i.file)}</code> · ${esc(i.edition)}</li>`).join("");}
+
+/* ============ TAB 3 : SCENARIO ============ */
+function compute(id,g,amount){
+  const d=DATA[id][g]; let covered=false,status=d.s;
+  if(d.s==="incluse")covered=true;
+  else if(d.s==="optionnelle"){covered=clientOpts.has(g);status=covered?"option_on":"option_off";}
+  else if(d.s==="absente")covered=false;
+  else status="inconnu";
+  if(status==="inconnu") return {status,reimb:null,d};
+  if(!covered) return {status,reimb:0,d};
+  let pNum=parseEuro(d.pl); const fr=franchiseInfo(d.fr);
+  // a sub-limit figure (villégiature, espèces, recherche de fuite, a secondary amount after ';')
+  // must NOT cap the headline reimbursement — treat the main ceiling as unknown instead.
+  if(d.pl && /;|villég|especes|espèces|dependance|dépendance|recherche de fuite|surconso|sous-limite/i.test(d.pl)) pNum=null;
+  const cap=pNum!=null?Math.min(amount,pNum):amount;
+  const reimb=fr.known?Math.max(0,cap-fr.val):cap;
+  const est=(pNum==null)||(!fr.known);
+  let calc;
+  const capped=(pNum!=null&&amount>pNum);
+  if(fr.known&&fr.val>0) calc=`${fEuro(cap)} − ${fEuro(fr.val)} de franchise = ${fEuro(reimb)}`;
+  else if(fr.known) calc=`${fEuro(reimb)} (sans franchise)`;
+  else calc=`${fEuro(cap)} avant franchise du contrat`;
+  if(capped) calc=`plafonné à ${fEuro(pNum)} · `+calc;
+  return {status,reimb,est,pNum,fr,d,calc};
+}
+function renderScenario(){
+  // picker
+  const pick=document.getElementById("scnPick"); pick.innerHTML="";
+  SCENARIOS.forEach(s=>{
+    const on=s.id===scnId;
+    const el=document.createElement("button"); el.className="scn"+(on?" on":"");
+    el.innerHTML=`<div class="ic">${s.icon}</div><div class="t">${esc(s.title)}</div><div class="d">${esc(s.d)}</div><div class="am">Sinistre type : ${fEuro(s.amount)}</div>`;
+    el.onclick=()=>{scnId=s.id;syncAmount();renderScenario();};
+    pick.appendChild(el);
+  });
+  syncAmount();
+  renderResults();
+}
+function syncAmount(){
+  const s=SCENARIOS.find(x=>x.id===scnId), a=document.getElementById("amount");
+  a.max=Math.max(2000,s.amount*3); a.value=scnAmount[scnId];
+  document.getElementById("amountV").textContent=fEuro(scnAmount[scnId]);
+}
+document.getElementById("amount").addEventListener("input",e=>{scnAmount[scnId]=+e.target.value;document.getElementById("amountV").textContent=fEuro(scnAmount[scnId]);renderResults();});
+function advHtml(id,s){
+  if(!s.adv||!s.adv.length) return "";
+  const ins=byId(id);
+  const items=s.adv.map(gid=>{
+    const dd=DATA[id][gid], note=GNOTE[gid]||"";
+    const covered=dd.s==="incluse"||(dd.s==="optionnelle"&&clientOpts.has(gid));
+    if(covered){
+      const src=dd.p?` <a class="srcmini" href="${pdfHref(ins.file,dd.p)}" target="_blank" rel="noopener">${esc(ins.file)} · p.${dd.p}</a>`:"";
+      return `<div class="ai on"><span class="st">★</span><div><b>${esc(G[gid].label)}</b> — ${esc(note)}${src}</div></div>`;
+    } else if(dd.s==="optionnelle"){
+      return `<div class="ai off"><span class="st">○</span><div><b>${esc(G[gid].label)}</b> — disponible en option, non retenue par le client</div></div>`;
+    }
+    return `<div class="ai no"><span class="st">—</span><div><b>${esc(G[gid].label)}</b> — non couvert à cette CG</div></div>`;
+  }).join("");
+  return `<div class="adv"><div class="advh">★ Au-delà du remboursement</div>${items}</div>`;
+}
+function renderResults(){
+  const s=SCENARIOS.find(x=>x.id===scnId), amount=scnAmount[scnId];
+  const res=selected.map(id=>({id,r:compute(id,s.g,amount)}));
+  const numeric=res.filter(x=>typeof x.r.reimb==="number"&&x.r.reimb>0).map(x=>x.r.reimb);
+  const best=numeric.length?Math.max(...numeric):null;
+  const minNum=numeric.length?Math.min(...numeric):null;
+  const showBest=best!==null&&best>minNum;   // only flag a winner when amounts actually differ
+  document.getElementById("results").innerHTML=res.map(({id,r})=>{
+    const ins=byId(id);
+    let cls,big,sub,extra="";
+    if(r.status==="inconnu"){cls="unk";big="À vérifier";sub="garantie non localisée dans la CG";}
+    else if(r.status==="absente"){cls="no";big=fEuro(0);sub="garantie non prévue à cette CG";}
+    else if(r.status==="option_off"){cls="warn";big=fEuro(0);sub="option non retenue par le client";extra=`<span class="cta" data-opt="${s.g}">+ Ajouter cette option →</span>`;}
+    else{cls="ok";big=(r.est?"≈ ":"")+fEuro(r.reimb);sub=`remboursement matériel · sur ${fEuro(amount)}`;}
+    const isBest=showBest&&r.reimb===best&&r.reimb>0;
+    let brk="";
+    if(r.status==="option_on"||r.status==="incluse"){
+      brk=`<div class="break">
+        <div class="bl"><span class="k">Garantie</span><span class="v">${esc(G[s.g].label)} <span class="badge ${r.status==="incluse"?"inc":"opt"}">${r.status==="incluse"?"Inclus":"Option retenue"}</span></span></div>
+        ${r.d.pl?`<div class="bl"><span class="k">Plafond</span><span class="v">${esc(r.d.pl)}</span></div>`:""}
+        <div class="bl"><span class="k">Franchise</span><span class="v">${esc(r.fr.txt)}</span></div>
+        <div class="calc">${r.calc}</div>
+        <div class="why">${esc(r.d.d)}</div>
+        ${r.est?`<span class="est">Estimation — plafond et/ou franchise renvoyés aux Dispositions Particulières du contrat signé.</span>`:""}
+        ${r.d.p?srcChip(ins.file,r.d.p):""}
+      </div>`;
+    }else{
+      brk=`<div class="break">
+        <div class="bl"><span class="k">Garantie</span><span class="v">${esc(G[s.g].label)} <span class="badge ${r.status==="option_off"?"opt":(r.status==="absente"?"abs":"unk")}">${r.status==="option_off"?"En option":(r.status==="absente"?"Non prévu":"À vérifier")}</span></span></div>
+        <div class="why">${esc(r.d.d)}</div>${extra}
+        ${r.d.p?srcChip(ins.file,r.d.p):""}
+      </div>`;
+    }
+    return `<div class="rcard${ins.ref?" ref":""}${isBest?" best":""}">
+      <div class="top"><div class="rname">${esc(ins.name)}${ins.ref?`<span class="vous">Votre offre</span>`:""}</div>
+      <div style="text-align:right"><div class="eur ${cls}">${big}</div><div class="eursub">${sub}</div></div></div>
+      ${brk}${advHtml(id,s)}</div>`;
+  }).join("");
+  document.querySelectorAll("[data-opt]").forEach(el=>el.onclick=()=>{clientOpts.add(el.dataset.opt);renderResults();renderOptions();renderClient();});
+  // around
+  document.getElementById("around").innerHTML=`<h4>Autour de ce sinistre</h4><ul>${s.around.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+}
+
+/* ============ ASSISTANT (offline keyword pre-fill ; LLM version comes later) ============ */
+function runAssistant(raw){
+  const text=(raw||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  if(!text.trim()) return;
+  const found=[], optsAdded=[];
+  const addOpt=id=>{if(!clientOpts.has(id)){clientOpts.add(id);optsAdded.push(G[id].label);}};
+  // logement
+  if(/\b(maison|pavillon|villa)\b/.test(text)){profile.logement="maison";found.push("maison");}
+  else if(/appart|studio|\bf[1-5]\b/.test(text)){profile.logement="appartement";found.push("appartement");}
+  // statut
+  if(/\bpno\b|non[- ]?occupant/.test(text)){profile.statut="pno";found.push("propriétaire non occupant");}
+  else if(/propri/.test(text)){ if(/locatif|investiss|loue|loyer|mis en location/.test(text)){profile.statut="pno";found.push("propriétaire non occupant");} else {profile.statut="proprio";found.push("propriétaire occupant");} }
+  else if(/locataire|en location|je loue/.test(text)){profile.statut="locataire";found.push("locataire");}
+  // residence
+  if(/secondaire/.test(text)){profile.residence="secondaire";found.push("résidence secondaire");}
+  else if(/principale/.test(text)){profile.residence="principale";}
+  // surface
+  const ms=text.match(/(\d{2,3})\s*m/); if(ms){const v=Math.max(15,Math.min(250,parseInt(ms[1],10)));profile.surface=v;found.push(v+" m²");}
+  // équipements + options
+  if(/piscine|bassin|spa/.test(text)){profile.equip.add("piscine");addOpt("piscine");found.push("piscine");}
+  if(/panneau|solaire|photovolta/.test(text)){profile.equip.add("panneaux");addOpt("panneaux_solaires");found.push("panneaux solaires");}
+  if(/bijou|objet de valeur|objets de valeur|montre|tableau|oeuvre/.test(text)){profile.equip.add("objets");found.push("objets de valeur");}
+  if(/teletravail|ordinateur|informatique|\bpc\b|materiel info|portable|tablette|multimedia/.test(text)){profile.equip.add("info");addOpt("nomades_multimedia");found.push("matériel informatique");}
+  if(/jardin|dependance|abri/.test(text)){profile.equip.add("jardin");found.push("jardin / dépendances");}
+  if(/protection juridique|litige|avocat/.test(text)){addOpt("protection_juridique");}
+  if(/accident|corporel|invalidit|blesse/.test(text)){addOpt("gav_corporelle");}
+  if(/congelateur|congele|surgele|denree/.test(text)){addOpt("pertes_denrees");}
+  if(/surtension|electrique|orage|foudre/.test(text)){addOpt("dommages_electriques");}
+  // scénario de sinistre
+  let scen=null;
+  if(/degat des eaux|fuite|infiltrat|inonde|\beau\b/.test(text))scen="degats_eaux";
+  else if(/cambriol|effraction|\bvol\b|vole|braquage/.test(text))scen="vol";
+  else if(/incendie|\bfeu\b|brule|fumee/.test(text))scen="incendie";
+  else if(/congelateur|congele|surgele|coupure|denree/.test(text))scen="denrees";
+  else if(/surtension|electrique|orage|foudre|court-circuit/.test(text))scen="electrique";
+  else if(/vitre|baie|bris de glace/.test(text))scen="bris";
+
+  const parts=[];
+  if(found.length) parts.push("Profil : "+[...new Set(found)].join(" · "));
+  if(optsAdded.length) parts.push("Options ajoutées : "+[...new Set(optsAdded)].join(", "));
+  if(scen) parts.push("Scénario : "+SCENARIOS.find(s=>s.id===scen).title);
+  const reply=document.getElementById("askReply");
+  reply.style.display="flex";
+  reply.innerHTML=`<span class="tag">Compris</span><div>${parts.length?esc(parts.join(" — ")):"Je n'ai pas reconnu d'élément. Essayez : « appartement, locataire, 60 m², piscine, dégât des eaux »."}<div class="hint" style="margin-top:3px">Pré-remplissage par mots-clés (hors ligne). La version LLM lira vraiment la phrase pour ajuster les critères.</div></div>`;
+
+  renderClient(); renderOptions(); renderPills();
+  if(scen){ scnId=scen; showTab("sinistre"); } else { showTab("client"); }
+}
+document.getElementById("askSend").onclick=()=>runAssistant(document.getElementById("askInput").value);
+document.getElementById("askInput").addEventListener("keydown",e=>{ if(e.key==="Enter") runAssistant(e.target.value); });
+
+/* ============ SIDE DRAWER : document source OR assistant, shown on demand ============ */
+const drawer=document.getElementById("drawer"), backdrop=document.getElementById("backdrop");
+const btnDoc=document.getElementById("btnDoc"), btnChat=document.getElementById("btnChat");
+const docPanel=document.getElementById("docPanel"), chatPanel=document.getElementById("chatPanel");
+const docFrame=document.getElementById("docFrame"), docPlaceholder=document.getElementById("docPlaceholder");
+const drawerTitle=document.getElementById("drawerTitle"), drawerOpenTab=document.getElementById("drawerOpenTab");
+let drawerMode=null, lastDocHref=null;
+function syncToolBtns(){const op=drawer.classList.contains("open");btnDoc.classList.toggle("on",op&&drawerMode==="doc");btnChat.classList.toggle("on",op&&drawerMode==="chat");}
+function openDrawer(){drawer.classList.add("open");backdrop.classList.add("on");drawer.setAttribute("aria-hidden","false");syncToolBtns();}
+function closeDrawer(){drawer.classList.remove("open");backdrop.classList.remove("on");drawer.setAttribute("aria-hidden","true");drawerMode=null;syncToolBtns();}
+function showPanel(mode){
+  drawerMode=mode;
+  docPanel.style.display=mode==="doc"?"block":"none";
+  chatPanel.style.display=mode==="chat"?"block":"none";
+  drawerTitle.textContent=mode==="doc"?"Document source":"Assistant conseiller";
+  if(mode==="doc"&&lastDocHref){drawerOpenTab.style.display="inline-flex";drawerOpenTab.href=lastDocHref;} else {drawerOpenTab.style.display="none";}
+  syncToolBtns();
+}
+function openDoc(href,label){lastDocHref=href;docFrame.src=href;docFrame.style.display="block";docPlaceholder.style.display="none";showPanel("doc");openDrawer();}
+function openChat(){showPanel("chat");openDrawer();setTimeout(()=>document.getElementById("askInput").focus(),60);}
+btnDoc.onclick=()=>{ if(drawer.classList.contains("open")&&drawerMode==="doc"){closeDrawer();return;} if(!lastDocHref){docFrame.style.display="none";docPlaceholder.style.display="block";} showPanel("doc"); openDrawer(); };
+btnChat.onclick=()=>{ if(drawer.classList.contains("open")&&drawerMode==="chat"){closeDrawer();return;} openChat(); };
+document.getElementById("drawerClose").onclick=closeDrawer;
+backdrop.onclick=closeDrawer;
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeDrawer(); });
+// a source chip opens the PDF in the drawer (at the right page) instead of a new tab
+document.addEventListener("click",e=>{
+  const a=e.target.closest("a.src, a.srcmini"); if(!a) return;
+  e.preventDefault(); openDoc(a.getAttribute("href"), a.textContent.trim());
+});
+// example prompts for the assistant
+const CHAT_EXAMPLES=["maison, propriétaire, 120 m², piscine, dégât des eaux","appartement étudiant, locataire, 30 m², vol du portable","propriétaire non occupant, résidence secondaire, incendie"];
+(function(){const c=document.getElementById("chatChips"); if(!c) return;
+  c.innerHTML=CHAT_EXAMPLES.map(x=>`<span class="ex">${esc(x)}</span>`).join("");
+  c.querySelectorAll(".ex").forEach(el=>el.onclick=()=>{document.getElementById("askInput").value=el.textContent;runAssistant(el.textContent);});
+})();
+
+/* ============ INIT ============ */
+renderSources(); renderClient(); renderPills(); renderOptions();
+</script>
+<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Démonstration <b>statique</b> (données figées), <b>pas l'outil dynamique</b>. Pour un outil sur vos propres documents, <b>contactez-nous</b>. · <a href="../../fr/cas/" style="color:#1d4ed8;text-decoration:none">Études de cas</a></div></body>
+</html>

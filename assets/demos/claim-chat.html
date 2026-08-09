@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insurance claim — static chatbot (HTML only)</title>
+<style>
+  :root { --navy:#1F4E78; --navy-d:#163a5a; --bg:#f3f4f6; --bot:#eef4ff; --user:#d1fae5; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+         background:var(--bg); color:#1f2937; }
+  header { background:var(--navy); color:#fff; padding:14px 20px; display:flex;
+           align-items:center; gap:10px; }
+  header h1 { font-size:1.05rem; margin:0; font-weight:600; }
+  header .tag { margin-left:auto; font-size:.75rem; opacity:.75; }
+  .wrap { max-width:760px; margin:20px auto; padding:0 14px; }
+  .note { background:#fff7ed; border:1px solid #fed7aa; color:#9a3412;
+          font-size:.8rem; padding:8px 12px; border-radius:8px; margin-bottom:12px; }
+  #chat { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:14px;
+          height:56vh; overflow-y:auto; }
+  .row { display:flex; margin:6px 0; }
+  .row.user { justify-content:flex-end; }
+  .bubble { max-width:78%; padding:9px 13px; border-radius:14px; font-size:.92rem;
+            line-height:1.35; white-space:pre-wrap; }
+  .bot .bubble  { background:var(--bot); border:1px solid #dbeafe; border-bottom-left-radius:4px; }
+  .user .bubble { background:var(--user); border:1px solid #a7f3d0; border-bottom-right-radius:4px; }
+  .who { font-size:.68rem; color:#6b7280; margin:0 6px 2px; }
+  .inputbar { display:flex; gap:8px; margin-top:10px; }
+  #answer { flex:1; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:.95rem; }
+  button { background:var(--navy); color:#fff; border:none; border-radius:8px;
+           padding:10px 16px; font-size:.9rem; cursor:pointer; }
+  button:hover { background:var(--navy-d); }
+  button.ghost { background:#fff; color:var(--navy); border:1px solid var(--navy); }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .chip { background:#eef2ff; color:#3730a3; border:1px solid #c7d2fe; border-radius:16px;
+          padding:5px 11px; font-size:.82rem; cursor:pointer; }
+  .chip:hover { background:#e0e7ff; }
+  .recap { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:14px; margin-top:12px; }
+  .recap h3 { margin:0 0 8px; color:var(--navy); font-size:1rem; }
+  .recap table { width:100%; border-collapse:collapse; font-size:.9rem; }
+  .recap td { padding:6px 8px; border-bottom:1px solid #f1f5f9; vertical-align:top; }
+  .recap td.k { color:#6b7280; width:38%; }
+  .recap td.act { text-align:right; width:90px; }
+  button.mini { padding:4px 10px; font-size:.78rem; }
+  .actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .saved { font-size:.78rem; color:#6b7280; margin-top:8px; }
+</style>
+</head>
+<body>
+<div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../en/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../en/cas/" style="color:#cbd5e1;text-decoration:none">Case studies</a><a href="../../en/cas/claim-chat.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Back to the case</a></div>
+<header>
+  <span>🗒️</span>
+  <h1>Insurance claim — static chatbot</h1>
+  <span class="tag">HTML only · no server</span>
+</header>
+
+<div class="wrap">
+  <div class="note">
+    The chatbot degree zero: <b>100% static</b>. No intelligence, no Python,
+    no server. Questions asked in order; for choices, you answer with a
+    <b>number</b> (1, 2, 3…) — far more reliable than free text. At the end, a
+    <b>summary</b> to review, edit and confirm.
+  </div>
+
+  <div id="chat"></div>
+
+  <div class="inputbar">
+    <input id="answer" placeholder="Your answer…" autocomplete="off">
+    <button id="send">Send</button>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div id="recapZone"></div>
+  <div class="saved" id="saved"></div>
+</div>
+
+<script>
+// ---- The only "intelligence": a fixed list of questions ------------------
+const QUESTIONS = [
+  { key:"declarant_nom",  label:"Claimant name",  q:"Hello! I'll record your claim. What is your full name?" },
+  { key:"police_num",     label:"Policy number",  q:"What is your policy number?" },
+  { key:"type_sinistre",  label:"Type of loss",   q:"What is the type of loss?",
+    choices:["Water damage","Fire","Theft / burglary","Broken glass","Car accident","Third-party liability","Natural disaster","Other"] },
+  { key:"date_sinistre",  label:"Date of loss",   q:"What is the date of loss? (DD/MM/YYYY)" },
+  { key:"lieu_sinistre",  label:"Location",       q:"Where did the loss happen?" },
+  { key:"description",    label:"Circumstances",  q:"Describe in one sentence what happened." },
+  { key:"montant_estime", label:"Estimated amount", q:"What is the estimated amount of damage? (or “I don't know”)" },
+  { key:"tiers_impliques",label:"Third parties / injuries", q:"Are there any third parties or injuries?",
+    choices:["Yes","No"] },
+  { key:"contact",        label:"Contact",        q:"Finally, an email or phone so we can reach you?" },
+];
+
+const chat   = document.getElementById("chat");
+const input  = document.getElementById("answer");
+const sendBtn= document.getElementById("send");
+const chips  = document.getElementById("chips");
+const recapZone = document.getElementById("recapZone");
+let step = 0;
+let editingKey = null;          // non-null = editing a single field from the summary
+const answers = {};
+
+function addBubble(text, who) {
+  const row = document.createElement("div");
+  row.className = "row " + who;
+  const col = document.createElement("div");
+  const name = document.createElement("div");
+  name.className = "who"; name.textContent = who === "bot" ? "Assistant" : "You";
+  const b = document.createElement("div");
+  b.className = "bubble"; b.textContent = text;
+  col.appendChild(name); col.appendChild(b); row.appendChild(col);
+  chat.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+// active question: either the field being edited, or the current step
+function activeQuestion() {
+  if (editingKey) return QUESTIONS.find(x => x.key === editingKey);
+  return step < QUESTIONS.length ? QUESTIONS[step] : null;
+}
+
+function questionText(q) {
+  let t = q.q;
+  if (q.choices) t += "\n" + q.choices.map((c, i) => `${i + 1}. ${c}`).join("   ");
+  return t;
+}
+
+function renderChips() {
+  chips.innerHTML = "";
+  const q = activeQuestion();
+  if (q && q.choices) {
+    q.choices.forEach((c, i) => {
+      const el = document.createElement("div");
+      el.className = "chip"; el.textContent = (i + 1) + ". " + c;
+      el.onclick = () => { input.value = String(i + 1); submit(); };
+      chips.appendChild(el);
+    });
+  }
+}
+
+function ask() {
+  const q = activeQuestion();
+  if (q) { addBubble(questionText(q), "bot"); renderChips(); }
+  else showRecap();
+}
+
+// interpret a choice answer: a number, or the exact label. Otherwise null.
+function resolveChoice(q, raw) {
+  const n = parseInt(raw, 10);
+  if (n >= 1 && n <= q.choices.length) return q.choices[n - 1];
+  const hit = q.choices.find(c => c.toLowerCase() === raw.toLowerCase());
+  return hit || null;
+}
+
+function submit() {
+  const q = activeQuestion();
+  if (!q) return;
+  const raw = input.value.trim();
+  if (!raw) return;
+
+  let val = raw;
+  if (q.choices) {
+    val = resolveChoice(q, raw);
+    if (!val) {
+      addBubble(raw, "user");
+      addBubble(`Please answer with a number between 1 and ${q.choices.length}.`, "bot");
+      input.value = ""; return;
+    }
+  }
+  addBubble(val, "user");
+  answers[q.key] = val;
+  input.value = "";
+
+  if (editingKey) {                 // back to the summary after an edit
+    editingKey = null; chips.innerHTML = "";
+    addBubble("Updated.", "bot");
+    showRecap();
+  } else {
+    step++; ask();
+  }
+}
+
+function showRecap() {
+  chips.innerHTML = "";
+  const rows = QUESTIONS.map(x =>
+    `<tr><td class="k">${x.label}</td><td>${answers[x.key] || "—"}</td>` +
+    `<td class="act"><button class="ghost mini" onclick="editField('${x.key}')">edit</button></td></tr>`
+  ).join("");
+  recapZone.innerHTML = `
+    <div class="recap">
+      <h3>Review your claim</h3>
+      <table>${rows}</table>
+      <div class="actions">
+        <button onclick="confirmDecl()">✅ Confirm</button>
+      </div>
+    </div>`;
+  addBubble("Here is the summary. Review, edit if needed, then confirm.", "bot");
+}
+
+function editField(key) {
+  editingKey = key;
+  recapZone.innerHTML = "";
+  const q = QUESTIONS.find(x => x.key === key);
+  addBubble("Edit — " + questionText(q), "bot");
+  renderChips();
+  input.focus();
+}
+
+function confirmDecl() {
+  const ref = "CLM-" + new Date().getFullYear() + "-" + String(Date.now()).slice(-4);
+  answers._reference = ref;
+  const all = JSON.parse(localStorage.getItem("claims") || "[]");
+  all.push(answers);
+  localStorage.setItem("claims", JSON.stringify(all));
+
+  input.disabled = true; sendBtn.disabled = true; chips.innerHTML = "";
+  addBubble("Thank you, claim confirmed and recorded (" + ref + ").", "bot");
+
+  const rows = QUESTIONS.map(x =>
+    `<tr><td class="k">${x.label}</td><td>${answers[x.key] || "—"}</td></tr>`).join("");
+  recapZone.innerHTML = `
+    <div class="recap">
+      <h3>Claim ${ref}</h3>
+      <table>${rows}</table>
+      <div class="actions">
+        <button onclick="download()">Download (.json)</button>
+        <button class="ghost" onclick="copyJson()">Copy</button>
+        <button class="ghost" onclick="location.reload()">New claim</button>
+      </div>
+    </div>`;
+  showSaved();
+}
+
+function showSaved() {
+  const all = JSON.parse(localStorage.getItem("claims") || "[]");
+  document.getElementById("saved").textContent =
+    all.length + " claim(s) stored in this browser.";
+}
+
+function download() {
+  const blob = new Blob([JSON.stringify(answers, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = (answers._reference || "claim") + ".json";
+  a.click();
+}
+function copyJson() { navigator.clipboard.writeText(JSON.stringify(answers, null, 2)); }
+
+sendBtn.onclick = submit;
+input.addEventListener("keydown", e => { if (e.key === "Enter") submit(); });
+
+showSaved();
+ask();
+</script>
+<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Static <b>demonstration</b> (frozen data), <b>not the live tool</b>. For a tool on your own documents, <b>contact us</b>. · <a href="../../en/cas/" style="color:#1d4ed8;text-decoration:none">Case studies</a></div>
+</body>
+</html>
