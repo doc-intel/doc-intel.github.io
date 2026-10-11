@@ -4,7 +4,11 @@
   --ink:#0f172a; --ink2:#1e293b; --muted:#475569; --line:#e5e9f0; --bg:#ffffff; --soft:#f7f9fc;
   --card:#ffffff; --chip-bg:#f1f5f9;
   --header:rgba(255,255,255,.72); --header-scrolled:rgba(255,255,255,.92);
-  --btn-bg:#0f172a; --btn-fg:#ffffff; --band:#0f172a; --band-fg:#ffffff; --band-accent:#93c5fd;
+  --btn-bg:#0f172a; --btn-fg:#ffffff;
+  /* Manifesto band: was a dark cut on the light page (jarring couperet). Now a
+     soft-blue insert that still reads as a distinct section, with the amber
+     accent that already carries kickers + brand dot across the site. */
+  --band:#f1f5f9; --band-fg:var(--ink); --band-accent:var(--amber-s);
   --amber-s:#b45309; --amber-f:#fde68a; --amber-b:#fff8e6;
   --blue-s:#1d4ed8;  --blue-f:#bfdbfe;  --blue-b:#eef4ff;
   --emer-s:#047857;  --emer-f:#a7f3d0;  --emer-b:#ecfdf5;
@@ -22,7 +26,10 @@
   --ink:#e8edf5; --ink2:#c9d3e0; --muted:#93a1b6; --line:#242c3b; --bg:#0a0e16; --soft:#111725;
   --card:#141b29; --chip-bg:#1b2433;
   --header:rgba(10,14,22,.72); --header-scrolled:rgba(10,14,22,.9);
-  --btn-bg:#e8edf5; --btn-fg:#0a0e16; --band:#0f1626; --band-fg:#f1f5f9; --band-accent:#93c5fd;
+  --btn-bg:#e8edf5; --btn-fg:#0a0e16;
+  /* Dark theme manifesto: a marginally lighter surface than --bg with the same
+     amber accent as light mode, so the section reads consistently across themes. */
+  --band:#111725; --band-fg:var(--ink); --band-accent:var(--amber-s);
   --amber-s:#fbbf24; --amber-f:rgba(245,158,11,.34); --amber-b:rgba(245,158,11,.13);
   --blue-s:#8ab4ff;  --blue-f:rgba(96,165,250,.36); --blue-b:rgba(96,165,250,.14);
   --emer-s:#34d399;  --emer-f:rgba(16,185,129,.36); --emer-b:rgba(16,185,129,.13);
@@ -135,16 +142,23 @@ h1.mid{font-size:clamp(2rem,4vw,2.9rem);line-height:1.1;letter-spacing:-.025em;m
 @media(max-width:640px){.archdiagram{overflow-x:auto}.archsvg{min-width:560px}}
 
 
-/* manifesto */
-.manifesto{background:var(--band);color:var(--band-fg);padding:60px 0}
+/* manifesto — soft-blue insert (was a full dark band that cut the light page).
+   Amber accent on the kicker + on the highlighted keywords ties it into the
+   rest of the site's amber-for-labels grammar. Distinct section preserved via
+   background tint + top/bottom rules. */
+.manifesto{background:var(--band);color:var(--band-fg);padding:64px 0;
+           border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .manifesto h2{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--band-accent);margin:0 0 26px;font-weight:800}
 .stances{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px 34px}
 .stance{font-size:1.22rem;font-weight:600;line-height:1.35;letter-spacing:-.01em}
-.stance b{color:#fbbf24}
+.stance b{color:var(--amber-s)}
 
 /* generic block */
 section.block{padding:64px 0;border-top:1px solid var(--line)}
 section.block.first{border-top:0}
+/* soft-tinted block: same layout, background tinted like the manifesto
+   so alternating sections give the page a rhythm instead of stacking white. */
+section.block.soft{background:var(--soft)}
 section.block .lab{font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-s)}
 section.block h2{font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.02em;margin:8px 0 8px;font-weight:800}
 section.block p.sub{color:var(--muted);margin:0 0 26px;max-width:62ch;font-size:1.08rem}
@@ -177,7 +191,12 @@ a.card:hover{text-decoration:none}
          text-transform:uppercase;padding:3px 8px;border-radius:999px}
 .st.live{background:var(--emer-b);color:var(--emer-s)}
 .st.soon{background:var(--chip-bg);color:var(--muted)}
-.vol.on{border-color:var(--emer-f);box-shadow:0 0 0 3px var(--emer-b)}
+/* live volume: soft emerald tint at the top, fading into the card body.
+   Reads as "this one is real, the others are on the roadmap" without the
+   heavy 3px halo the old design used. */
+.vol.on{border-color:var(--emer-f);
+        background:linear-gradient(180deg,var(--emer-b) 0%,var(--card) 42%)}
+.vol.on .vn{color:var(--emer-s)}
 
 /* article list */
 .group{margin-top:38px}
@@ -280,3 +299,16 @@ body.lang-en .fr,body.lang-en .fr.blk{display:none}
 body.lang-en .en{display:inline}
 body.lang-en .en.blk{display:block}
 [hidden]{display:none !important}
+
+/* galerie du hub d'apps */
+.apps-rub{display:flex;align-items:baseline;gap:10px;margin:44px 0 14px;font-size:1.05rem;
+          letter-spacing:-.01em;font-weight:700;color:var(--ink)}
+.apps-n{font-size:12px;font-weight:700;color:var(--muted);background:var(--chip-bg);
+        border-radius:999px;padding:2px 9px}
+.appgrid{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.appcard{padding:0;overflow:hidden}
+.appcard .shot{border:0;border-radius:0;border-bottom:1px solid var(--line);box-shadow:none;
+               aspect-ratio:16/10;object-fit:cover;object-position:top left}
+.appcard .tag{margin:16px 20px 10px}
+.appcard h3{margin:0 20px 8px;font-size:1.05rem}
+.appcard p{margin:0 20px 20px;font-size:14px}

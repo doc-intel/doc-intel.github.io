@@ -21,9 +21,9 @@ BASE = "https://doc-intel.github.io"
 OG_IMAGE = BASE + "/assets/img/electron/electron-pipeline.png"
 
 TOP = ["index.html", "articles.html", "apps.html"]
-FR_CASES = ["assistant-assurance", "emprunteur-comparison", "mrh-comparison", "prevoyance-comparison", "mutuelle-comparison",
+FR_CASES = ["assistant-assurance", "emprunteur-comparison", "mrh-comparison", "mrh-comparison-lu", "prevoyance-comparison", "mutuelle-comparison",
             "mrh-qa", "mrh-agentic", "claims-sql-agent", "claim-declaration", "compliance-check", "regulatory-summary",
-            "funds-chatbot", "version-diff", "claims-etl", "reinsurance-slips", "translation", "anonymisation", "table-diff-fr", "proofreading-fr", "classification",
+            "funds-chatbot", "version-diff", "baloise-redraft", "claims-etl", "reinsurance-slips", "translation", "anonymisation", "table-diff-fr", "proofreading-fr", "classification",
             "rib-fraude", "photo-fraude", "contexte-360", "contrats-360", "assistant-agents", "souscription-chatbot"]
 EN_CASES = ["flood-agentic", "cv-parsing", "invoice-fraud", "pii-redaction",
             "proofreading", "table-diff", "paper-summary",

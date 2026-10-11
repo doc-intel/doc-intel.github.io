@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redraft ou renouvellement ? La brique comparaison teste avant de choisir · Étude de cas</title>
+<meta name="description" content="Deux éditions d'un même contrat habitation à un an d'écart. Un simple test de recouvrement TOC dit si c'est un versioning diff ou un redraft — et sur ce cas, le verdict est net : 6% de recouvrement, redraft, la Strategy B dégénère en Strategy D.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← Études de cas</a></div>
+      <div class="kicker">Versioning · Dispatch B → D · FR</div>
+      <h1 class="mid">Un renouvellement qui n'en est pas un</h1>
+      <p class="lede">Deux éditions d'un contrat habitation Bâloise à un an d'écart. Le suffixe « (2) » dans la référence produit du nouveau annonce déjà une nouvelle génération. Un simple test de recouvrement TOC le confirme quantitativement : 6 %. Sous le seuil 20 % de l'Article 12bis §5, la brique bascule automatiquement de Strategy B (diff aligné) vers Strategy D (diff par découverte). Sans appel LLM.</p>
+      <p style="margin-top:18px"><a href="../assets/demos/baloise-redraft.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600">Ouvrir le verdict interactif (pleine page) →</a>
+      <a href="../assets/demos/baloise-hybride.html" style="display:inline-block;padding:14px 24px;background:#1d4ed8;color:#fff;text-decoration:none;border-radius:12px;font-weight:600;margin-left:8px">Le rapport hybride par section →</a></p>
+      <p style="margin-top:10px;font-size:14px;color:#64748b">Le rapport hybride applique la règle par paire : si une paire de sections est une diff de version, elle reçoit un redline mot à mot ; si c'est plus compliqué, une comparaison sémantique montre où chaque paragraphe est parti. Les deux sommaires d'origine sont affichés en tête et chaque numéro de page ouvre le PDF source.</p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2>Le problème</h2>
+      <p>La brique <em>comparaison</em> distingue quatre routes derrière le verbe « comparer ». La Strategy B est la route du renouvellement : deux éditions du même contrat, un an d'écart, on veut la liste courte de ce qui a bougé, au paragraphe. Elle marche quand la structure est stable. Elle échoue quand l'éditeur réécrit le sommaire.</p>
+      <p>Ici, deux CGs Bâloise habitation Luxembourg, apparemment sœurs : <code>CG-HOME-LUFR-10-22</code> (oct. 2022, 19 pages) et <code>CG-HOME(2)-LUFR-11-23</code> (nov. 2023, 48 pages). Le « (2) » dans la référence produit du deuxième est un signal fort. Le nombre de pages qui plus que double en est un autre. Est-ce vraiment une paire versioning ?</p>
+
+      <h2>Le test à faire avant tout appel LLM</h2>
+      <p>L'Article 12bis §5 donne la règle empirique : quand le recouvrement fuzzy des titres du sommaire tombe sous 20 %, la Strategy B est dégénérée. Lancer un redline mot-à-mot produirait un mur de suppressions à un endroit et un mur d'insertions ailleurs — un audit inexploitable. La brique bascule alors vers Strategy D (diff par découverte), qui cluster les sections par titre + résumé embedding et compare à l'intérieur de chaque cluster.</p>
+      <p>Sur ce cas : <b>6 % de recouvrement TOC</b>. Verdict net.</p>
+
+      <div class="callout">
+        <p>Le test est déterministe (Jaccard sur mots des titres, seuil 20 %), il coûte moins qu'un appel LLM, et il rend la bonne décision de routage <em>avant</em> qu'aucun modèle ne voie une ligne du document.</p>
+      </div>
+
+      <h2>Ce que la matrice montre concrètement</h2>
+      <p>Cinq titres survivent d'une édition à l'autre. Deux sont des vrais matches (« Définitions », « La vie du contrat », ratio Levenshtein 1.00). Trois sont des faux positifs à ratio 0.62–0.65, qui matchent des concepts différents sous des noms proches (« Exclusivité des garanties entre elles » vs « Les garanties optionnelles »). Ce sont eux qui confirment le verdict : même l'alignement fuzzy peine à tenir.</p>
+      <p>Deux titres disparaissent (« Règle proportionnelle », « Sinistre — Vos obligations »). Trente titres apparaissent, tout un système de <em>packs</em> modulaires (objets de valeur, précieux, bijoux, multimédia, loisirs, équipements de mobilité durable, jardin/piscine, cave à vin, énergie renouvelable, etc.). Ce n'est pas une révision de contrat, c'est une re-conception produit.</p>
+
+      <h2>Ce que ça apprend sur la brique</h2>
+      <p>Une brique de comparaison honnête ne se contente pas d'appliquer une stratégie. Elle teste d'abord si la stratégie est applicable, et remonte quand elle ne l'est pas. Le seuil 20 % n'est pas arbitraire : c'est la borne empirique en dessous de laquelle un diff ligne-à-ligne devient illisible pour un humain. La brique le mesure, tranche, écrit la justification dans la trace d'audit, et route vers la bonne stratégie sans dépenser une ligne de prompt.</p>
+      <p><b>Cas frontière pédagogique</b> — cette paire montre exactement le point où la brique bascule d'une stratégie à l'autre, avec le seuil d'Article 12bis §5 mesuré sur du contrat réel du marché luxembourgeois.</p>
+
+      <h2>Livrables</h2>
+      <p>Un script Python déterministe (PyMuPDF + <code>difflib</code>, zéro appel LLM, ≈ 30 s sur laptop). Un rapport JSON structuré avec le verdict et l'alignement fuzzy des sections. Un rapport Markdown lisible avec les tableaux matchés / supprimés / ajoutés. Un rapport HTML autonome qui met le verdict et les métriques en évidence.</p>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap"><p>Enterprise Document Intelligence · <a href="../index.html">Accueil</a> · <a href="index.html">Études de cas</a></p></div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

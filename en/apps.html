@@ -151,40 +151,246 @@
     </div>
   </section>
 
-  <!-- ShipAI -->
-  <section class="block" id="shipai">
+  <!-- Le hub d'apps -->
+  <section class="block" id="hub">
     <div class="wrap">
-      <div class="showcase">
-        <div>
-          <div class="lab">ShipAI</div>
-          <h2>A web demo per article</h2>
-          <p class="sub">
-            
-            Alongside the desktop app, each article gets its own web demo: you watch the brick run on a real document, not a screenshot. Parsing, question parsing, retrieval, generation.
-          </p>
-          <ul class="prose">
-            <li>Drop a PDF, ask a question, watch the pipeline answer.</li>
-            <li>The answer is sourced: it traces back to the exact line in the document.</li>
-          </ul>
-        </div>
-        <div class="frame">
-          <div class="bar"><i></i><i></i><i></i></div>
-          <div class="screen">
-            <div class="pipe" style="margin:0;gap:6px">
-              <div class="node in" style="min-width:64px;padding:8px"><small>PDF</small></div>
-              <div class="arrow">→</div>
-              <div class="node mid" style="min-width:64px;padding:8px"><small>RAG</small></div>
-              <div class="arrow">→</div>
-              <div class="node out" style="min-width:64px;padding:8px"><small>Answer</small></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="lab">App hub</div>
+      <h2>Thirty-five tools, one per gesture</h2>
+      <p class="sub">
+        
+        Each tool does ONE thing and shows all of it: the document on screen, the answer quoted, the page highlighted. They are filed by what you do with them, not by technology. The shots below are taken from the running apps, not drawn.
+      </p>
       <div class="callout">
-        <p>The interactive web demos are rolling out article by article.</p>
+        <p>Static gallery: the shots are frozen, the tools run on our side on your documents. For a trial on yours, get in touch.</p>
       </div>
+
+<!-- GALERIE-START (apps/_dev/miroir_statique.py) -->
+      <h3 class="apps-rub">Ask a document<span class="apps-n">14</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/funds.png" alt="Investment funds">
+          <span class="tag b">Ask a document</span>
+          <h3>Investment funds</h3>
+          <p>Describe the fund you are after: the agent writes the SQL and filters 484 unit-linked funds extracted from product documents.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/sinistres_sql.png" alt="Claims SQL agent">
+          <span class="tag b">Ask a document</span>
+          <h3>Claims SQL agent</h3>
+          <p>Query a claims database in plain language: read-only SQL, a table and a short synthesis. Synthetic data.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/hr_search.png" alt="HR documents">
+          <span class="tag b">Ask a document</span>
+          <h3>HR documents</h3>
+          <p>Ask a question across HR texts (labour code, collective agreement, official guides). Every answer cites the document, the page and the exact sentence.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/pdf_qa.png" alt="Ask a PDF">
+          <span class="tag b">Ask a document</span>
+          <h3>Ask a PDF</h3>
+          <p>Ask a document a question: the answer comes back quoted and highlighted on the page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/agentic.png" alt="Expert search">
+          <span class="tag b">Ask a document</span>
+          <h3>Expert search</h3>
+          <p>An agent that searches, reads and checks inside the document until the answer holds.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/foyer_assist.png" alt="Foyer assistant">
+          <span class="tag b">Ask a document</span>
+          <h3>Foyer assistant</h3>
+          <p>FAQ and policy wordings combined, sourced answer.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/groupama_assist.png" alt="Groupama assistant">
+          <span class="tag b">Ask a document</span>
+          <h3>Groupama assistant</h3>
+          <p>FAQ across 4 markets and policy wordings, sourced answer.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/foyer_faq.png" alt="Foyer FAQ">
+          <span class="tag b">Ask a document</span>
+          <h3>Foyer FAQ</h3>
+          <p>Immediate answer when the question is in the official FAQ.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/groupama_faq.png" alt="Groupama FAQ">
+          <span class="tag b">Ask a document</span>
+          <h3>Groupama FAQ</h3>
+          <p>Immediate answer when the question is in the official FAQ.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/foyer_cg.png" alt="Foyer policy wording">
+          <span class="tag b">Ask a document</span>
+          <h3>Foyer policy wording</h3>
+          <p>A chat that answers only from Foyer's policy wording, clause quoted and highlighted on the page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/groupama_cg.png" alt="Groupama policy wording">
+          <span class="tag b">Ask a document</span>
+          <h3>Groupama policy wording</h3>
+          <p>A chat that answers only from Groupama's policy wording, clause quoted and highlighted on the page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/axa_cg.png" alt="AXA policy wording">
+          <span class="tag b">Ask a document</span>
+          <h3>AXA policy wording</h3>
+          <p>A chat that answers only from AXA's policy wording, clause quoted and highlighted on the page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/lalux_cg.png" alt="LaLux policy wording">
+          <span class="tag b">Ask a document</span>
+          <h3>LaLux policy wording</h3>
+          <p>A chat that answers only from LaLux's policy wording, clause quoted and highlighted on the page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/allianz_cg.png" alt="Allianz policy wording">
+          <span class="tag b">Ask a document</span>
+          <h3>Allianz policy wording</h3>
+          <p>A chat that answers only from Allianz's policy wording, clause quoted and highlighted on the page.</p>
+        </div>
+      </div>
+      <h3 class="apps-rub">Extract<span class="apps-n">10</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/doc_extract.png" alt="Doc Extract">
+          <span class="tag c">Extract</span>
+          <h3>Doc Extract</h3>
+          <p>Any document: the type is recognised, the grid follows. Seven families, plus a generic grid for whatever fits none.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/attestations.png" alt="Insurance certificates">
+          <span class="tag c">Extract</span>
+          <h3>Insurance certificates</h3>
+          <p>Fields extracted, source one click away, validity checked, and the site activities matched against what the certificate covers.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/factures.png" alt="Invoices">
+          <span class="tag c">Extract</span>
+          <h3>Invoices</h3>
+          <p>Amounts, dates and details extracted, with the net + VAT = gross check and the IBAN and company-number keys.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/contrats.png" alt="Contracts, benchmark sheet">
+          <span class="tag c">Extract</span>
+          <h3>Contracts, benchmark sheet</h3>
+          <p>The seventeen lines a benchmark records in every contract, sourced page by page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/sante_extract.png" alt="Health claim statements">
+          <span class="tag c">Extract</span>
+          <h3>Health claim statements</h3>
+          <p>Reimbursement statements: the type is recognised, the grid follows, and the benefits table is read line by line.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/entities.png" alt="Entities">
+          <span class="tag c">Extract</span>
+          <h3>Entities</h3>
+          <p>People, dates, amounts and identifiers pulled out of the document.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/metadata.png" alt="Metadata">
+          <span class="tag c">Extract</span>
+          <h3>Metadata</h3>
+          <p>Title, author, dates, document type, at a glance.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/sections.png" alt="Sections">
+          <span class="tag c">Extract</span>
+          <h3>Sections</h3>
+          <p>The table of contents rebuilt, even when the PDF has none.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/tags.png" alt="Tags">
+          <span class="tag c">Extract</span>
+          <h3>Tags</h3>
+          <p>Labels proposed automatically to file your documents.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/classify.png" alt="Classification">
+          <span class="tag c">Extract</span>
+          <h3>Classification</h3>
+          <p>The document category (motor, home, health...) detected on sight.</p>
+        </div>
+      </div>
+      <h3 class="apps-rub">Transform<span class="apps-n">4</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/summarize.png" alt="Summary">
+          <span class="tag e">Transform</span>
+          <h3>Summary</h3>
+          <p>A structured summary, tuned to the audience and the length you want.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/redact.png" alt="Redaction">
+          <span class="tag e">Transform</span>
+          <h3>Redaction</h3>
+          <p>Names, addresses and identifiers detected, then masked before sharing.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/proofread.png" alt="Proofreading">
+          <span class="tag e">Transform</span>
+          <h3>Proofreading</h3>
+          <p>Grammar, style and concision reworked on your own text.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/slides.png" alt="Slide deck">
+          <span class="tag e">Transform</span>
+          <h3>Slide deck</h3>
+          <p>Describe the deck, it lays itself out in typed slides. Each correction replays the whole plan instead of patching the last one.</p>
+        </div>
+      </div>
+      <h3 class="apps-rub">Compare<span class="apps-n">3</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/cg_compare.png" alt="Compare insurers">
+          <span class="tag a">Compare</span>
+          <h3>Compare insurers</h3>
+          <p>State a situation once: each insurer answers from its own policy wording, side by side, clause quoted and page highlighted.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/matrix.png" alt="Questions x documents matrix">
+          <span class="tag a">Compare</span>
+          <h3>Questions x documents matrix</h3>
+          <p>Run the same grid of questions across a batch of contracts: one cell per crossing, each with its quote, page and highlight.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/compare.png" alt="Comparison">
+          <span class="tag a">Compare</span>
+          <h3>Comparison</h3>
+          <p>Two versions of a document, the differences line by line.</p>
+        </div>
+      </div>
+      <h3 class="apps-rub">Check<span class="apps-n">2</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/fraude_doc.png" alt="Document forensics">
+          <span class="tag v">Check</span>
+          <h3>Document forensics</h3>
+          <p>Drop an invoice, a bank details form or a certificate: the engine flags what deserves a look, and never concludes for you.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/vision360_fraude.png" alt="360-degree view">
+          <span class="tag v">Check</span>
+          <h3>360-degree view</h3>
+          <p>The all-round view of an entity, running today on fraud (scored files, networks, map), built to carry the full customer view.</p>
+        </div>
+      </div>
+      <h3 class="apps-rub">Other<span class="apps-n">1</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/smart_exchange.png" alt="Smart Exchange">
+          <span class="tag d">Other</span>
+          <h3>Smart Exchange</h3>
+          <p>The adviser's copilot. The conversation is transcribed live and the customer sheet fills itself in.</p>
+        </div>
+      </div>
+      <!-- GALERIE-END -->
     </div>
   </section>
+
 </main>
 
 <footer>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparatif habitation, marché luxembourgeois · Étude de cas</title>
+<meta name="description" content="La même méthode de tagging et de couverture appliquée au marché habitation luxembourgeois (Foyer, AXA, Lalux, Allianz) : matrice de couverture, verdict sourcé par sinistre, recommandation pilotée par le profil.">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ .demo-frame{width:100%;height:660px;border:1px solid var(--line,#e2e8f0);border-radius:12px;background:#fff;margin-top:12px}
+</style>
+</head>
+<body class="lang-fr" data-fixed-lang="fr">
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="../articles.html"><span class="fr">Articles</span><span class="en">Articles</span></a>
+      <a href="../apps.html">Apps</a>
+      <a href="index.html"><span class="fr">Études de cas</span><span class="en">Case studies</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero compact">
+    <div class="wrap narrow">
+      <div class="crumbs"><a href="index.html">← <span class="fr">Études de cas</span><span class="en">Case studies</span></a></div>
+      <div class="kicker"><span class="fr">Comparaison · Marché luxembourgeois</span><span class="en">Comparison · Luxembourg market</span></div>
+      <h1 class="mid"><span class="fr">Comparatif habitation, marché luxembourgeois</span><span class="en">Home-insurance comparison, Luxembourg market</span></h1>
+      <p class="lede"><span class="fr">La même méthode de tagging et de couverture, portée sur quatre contrats multirisque habitation du marché luxembourgeois (Foyer, AXA, Lalux, Allianz) : une matrice de couverture, un verdict sourcé par sinistre avec la clause citée, et une recommandation pilotée par le profil de l'assuré.</span><span class="en">The same tagging and coverage method, applied to four home-insurance contracts on the Luxembourg market (Foyer, AXA, Lalux, Allianz): a coverage matrix, a sourced verdict per claim with the cited clause, and a recommendation driven by the policyholder's profile.</span></p>
+    </div>
+  </section>
+
+  <section class="block first">
+    <div class="wrap narrow prose">
+
+      <h2><span class="fr">Le problème</span><span class="en">The problem</span></h2>
+      <p><span class="fr">Deux contrats habitation se ressemblent sur la brochure et divergent sur les cas limites. Le vol du vélo hors du domicile, le dégât des eaux qui gondole le parquet, la fuite chez le voisin, le bris de glace, le smartphone volé dehors : c'est là que les garanties se séparent. Lire à la main plusieurs conditions générales luxembourgeoises pour répondre à ces questions prend des heures, et une réponse sans la clause exacte ne vaut rien pour un client.</span><span class="en">Two home-insurance contracts look alike on the brochure and diverge on edge cases. Bike theft away from home, water damage that warps the floor, a leak into the neighbour's flat, broken glass, a smartphone stolen outside: that is where guarantees split apart. Reading several Luxembourg general conditions by hand to answer these questions takes hours, and an answer without the exact clause is worthless to a client.</span></p>
+
+      <h2><span class="fr">La démarche</span><span class="en">The approach</span></h2>
+      <p><span class="fr">On reprend la méthode déjà éprouvée sur le marché français et on la porte au marché luxembourgeois, sur des conditions générales publiques (des documents produits que les assureurs publient). Chaque paragraphe est tagué par nature (garantie, exclusion, plafond, franchise, condition) et par thème (incendie, dégât des eaux, vol, tempête, bris de glace, RC, biens nomades…). Le tag sert de correspondance : sur un même thème, les blocs de Foyer, AXA, Lalux et Allianz deviennent les textes sources comparables. Chaque case du tableau est adossée à une phrase du contrat, avec sa page.</span><span class="en">We take the method already proven on the French market and carry it to the Luxembourg market, over public general conditions (product documents the insurers publish themselves). Each paragraph is tagged by nature (guarantee, exclusion, cap, deductible, condition) and by theme (fire, water damage, theft, storm, broken glass, liability, portable goods…). The tag acts as the correspondence: on a shared theme, the blocks from Foyer, AXA, Lalux and Allianz become the comparable source texts. Every cell of the table is backed by a sentence from the contract, with its page.</span></p>
+
+      <div class="callout"><p><span class="fr">Le moteur n'est pas une recherche agentique. Une première version par agent ratait des clauses du plus gros contrat (Foyer, 139 pages, sans sommaire) faute de budget de tours. Le retrieval par mots-clés suivi d'une extraction structurée (statut typé, plafond, franchise, citation vérifiée contre le texte source) s'est révélé plus fiable. C'est la thèse de la série : une réponse n'est utile que si on peut remonter à la clause qui la justifie.</span><span class="en">The engine is not agentic search. An early agent-based version missed clauses in the largest contract (Foyer, 139 pages, no table of contents) because it ran out of turn budget. Keyword retrieval followed by structured extraction (typed status, cap, deductible, citation verified against the source text) proved more reliable. That is the thesis of the series: an answer is only useful if you can trace it back to the clause that justifies it.</span></p></div>
+
+      <h2><span class="fr">Trois réglages pour le marché local</span><span class="en">Three adjustments for the local market</span></h2>
+      <p><span class="fr">La grille construite pour le marché français reste portable au niveau du critère, mais trois entrées demandent un réglage local. Le régime catastrophes naturelles n'existe pas au Luxembourg sous la forme régulée française : un assureur qui ne mentionne pas les catastrophes naturelles n'est donc pas automatiquement en défaut. La protection corporelle nommée se vend moins souvent en option bundlée qu'en France. Enfin, le marché luxembourgeois a été plus rapide à ajouter des garanties numériques et transition énergétique (cyber, vol d'identité, pompe à chaleur, borne de recharge, stockage batterie).</span><span class="en">The grid built for the French market stays portable at the criterion level, but three entries need a local adjustment. The natural-catastrophe scheme does not exist in Luxembourg in the regulated French form: an insurer that does not mention natural catastrophes is therefore not automatically at fault. Named bodily-injury cover sells less often as a bundled option than in France. Finally, the Luxembourg market was quicker to add digital and energy-transition guarantees (cyber, identity theft, heat pump, charging point, battery storage).</span></p>
+
+      <h2><span class="fr">Ce que la lecture révèle</span><span class="en">What the reading reveals</span></h2>
+      <p><span class="fr">Quelques verdicts concrets, chacun adossé à une clause citée. Tous les contrats excluent le vol d'un vélo attaché dehors. Lalux ne couvre pas les vélos électriques (sa définition du cycle se limite à l'énergie musculaire). Foyer couvre bien le vélo rangé en cave privative (jusqu'à 7 500 €) mais exclut le smartphone volé hors du domicile. AXA exclut les dégâts d'eau causés au voisin. Ce sont exactement les cases où deux brochures qui se ressemblent finissent par diverger.</span><span class="en">A few concrete verdicts, each backed by a cited clause. Every contract excludes the theft of a bike locked outside. Lalux does not cover electric bikes (its definition of a cycle is limited to muscular power). Foyer does cover a bike stored in a private cellar (up to 7,500 €) but excludes a smartphone stolen away from home. AXA excludes water damage caused to the neighbour. These are exactly the cells where two look-alike brochures end up diverging.</span></p>
+
+      <h2><span class="fr">Le profil pilote le classement</span><span class="en">The profile drives the ranking</span></h2>
+      <p><span class="fr">La recommandation n'est pas un palmarès universel. Elle part d'un profil, et le profil pèse les garanties qui comptent pour cette personne. L'exemple utilisé ici est fictif : un locataire en télétravail, avec un vélo rangé en cave privative. Ce profil est dominé par le dégât des eaux (le risque numéro un en appartement, que Foyer paie plein) et par le vélo en cave (que Foyer couvre) : il met Foyer en tête. Un profil différent, dominé par les déplacements à l'étranger ou le bris de glace, ferait passer AXA devant. Changez le profil, le classement bouge. Aucune donnée personnelle n'entre dans la démo.</span><span class="en">The recommendation is not a universal ranking. It starts from a profile, and the profile weights the guarantees that matter to this person. The example used here is fictional: a remote-working tenant with a bike stored in a private cellar. This profile is dominated by water damage (the number-one risk in a flat, which Foyer pays in full) and by the bike in the cellar (which Foyer covers): it puts Foyer first. A different profile, dominated by travel abroad or broken glass, would push AXA ahead. Change the profile, the ranking shifts. No personal data goes into the demo.</span></p>
+
+      <h2><span class="fr">Les livrables</span><span class="en">The deliverables</span></h2>
+      <p><span class="fr">Un tableau de bord autonome à trois onglets : la matrice de couverture (présence par critère, assureurs nommés), les sinistres typiques (verdict et clause citée par contrat), et la recommandation personnalisée (classement pondéré par le profil, avec les lacunes à négocier en option).</span><span class="en">A self-contained three-tab dashboard: the coverage matrix (presence per criterion, insurers named), typical claims (verdict and cited clause per contract), and the personalised recommendation (ranking weighted by the profile, with the gaps to negotiate as options).</span></p>
+
+      <div class="callout"><p><em><span class="fr">Démo sur documents publics du marché luxembourgeois (assureurs nommés) avec un profil d'exemple fictif. Elle s'ouvre aussi en pleine page.</span><span class="en">Demo on public Luxembourg-market documents (insurers named) with a fictional example profile. It also opens full-page.</span></em></p></div>
+      <iframe src="../assets/demos/mrh-lu.html" title="Dashboard MRH Luxembourg" loading="lazy" style="width:100%;height:640px;border:1px solid var(--line,#e2e8f0);border-radius:14px;background:#fff"></iframe>
+      <p style="margin-top:18px"><a href="../assets/demos/mrh-lu.html" style="display:inline-block;padding:14px 24px;background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;font-weight:600"><span class="fr">Ouvrir la démo (pleine page) →</span><span class="en">Open the demo (full page) →</span></a></p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span><span class="fr">Écrit par Angela Shi, Kezhan Shi et Clara Lim.</span><span class="en">Written by Angela Shi, Kezhan Shi and Clara Lim.</span></span>
+    <span class="foot-links">
+      <a href="index.html"><span class="fr">← Autres cas</span><span class="en">← Other cases</span></a>
+      <a href="../articles.html">Articles</a>
+      <a href="../apps.html">Apps</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

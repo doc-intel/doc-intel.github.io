@@ -50,8 +50,12 @@
 <div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../fr/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../fr/cas/" style="color:#cbd5e1;text-decoration:none">Études de cas</a><a href="../../fr/cas/mrh-agentic.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Retour au cas</a></div>
 <div class="wrap">
   <span class="real">● RÉSULTATS RÉELS — run archivé, pas une simulation</span>
-  <h1>L'agent au travail, sur un vrai contrat</h1>
+  <h1>L'agent au travail, sur un vrai contrat MRH</h1>
   <p class="sub">trace exacte d'un appel réel à l'endpoint : chaque recherche, chaque extrait, chaque page lue, la réponse et la vérification des citations. Rien n'est scripté ici (à la différence de <code>chat_agentique.html</code>).</p>
+
+  <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--vio);border-radius:12px;padding:14px 18px;margin:14px 0 18px;font-size:13.5px;color:#334155;line-height:1.65">
+    <b style="color:#0f172a">Ce que vous êtes en train de regarder</b> — Un agent RAG à qui on pose une question précise sur un contrat multirisque habitation réel. La question est concrète (perte de denrées dans un congélateur après une coupure), typique du genre qu'un gestionnaire sinistres reçoit. L'agent décide lui-même quelles recherches lancer, lit les pages qui remontent, et rend une réponse chiffrée avec les citations qui l'appuient. Chaque citation est ensuite <b>vérifiée par recherche exacte dans le PDF</b> : ✓ si la phrase existe telle quelle, ⚠ si l'agent a paraphrasé ou recomposé une valeur depuis un tableau. Cette double couche (boucle d'agent + vérification hors-agent) est la thèse : sans vérification, l'audit ne tient pas.
+  </div>
 
   <div class="meta" id="meta"></div>
   <div class="qa"><span class="lbl">Question posée</span><div class="q" id="question"></div></div>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Apps · Enterprise Document Intelligence</title>
-<meta name="description" content="The Electron desktop workstation and ShipAI web demos: the document-intelligence engine put to work in real interfaces.">
+<meta name="description" content="The Electron desktop workstation and the hub of thirty-five web apps: document intelligence put to work in real interfaces.">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body class="lang-fr">
@@ -135,40 +135,246 @@
     </div>
   </section>
 
-  <!-- ShipAI -->
-  <section class="block" id="shipai">
+  <!-- Le hub d'apps -->
+  <section class="block" id="hub">
     <div class="wrap">
-      <div class="showcase">
-        <div>
-          <div class="lab">ShipAI</div>
-          <h2><span class="fr">Une démo web par article</span><span class="en">A web demo per article</span></h2>
-          <p class="sub">
-            <span class="fr blk">En complément de l'app bureau, chaque article aura sa démo web : on voit la brique tourner sur un vrai document, pas une capture. Parsing, parsing de la question, retrieval, génération.</span>
-            <span class="en blk">Alongside the desktop app, each article gets its own web demo: you watch the brick run on a real document, not a screenshot. Parsing, question parsing, retrieval, generation.</span>
-          </p>
-          <ul class="prose">
-            <li><span class="fr">On dépose un PDF, on pose une question, on regarde le pipeline répondre.</span><span class="en">Drop a PDF, ask a question, watch the pipeline answer.</span></li>
-            <li><span class="fr">La réponse est sourcée : on remonte à la ligne exacte dans le document.</span><span class="en">The answer is sourced: it traces back to the exact line in the document.</span></li>
-          </ul>
-        </div>
-        <div class="frame">
-          <div class="bar"><i></i><i></i><i></i></div>
-          <div class="screen">
-            <div class="pipe" style="margin:0;gap:6px">
-              <div class="node in" style="min-width:64px;padding:8px"><small>PDF</small></div>
-              <div class="arrow">→</div>
-              <div class="node mid" style="min-width:64px;padding:8px"><small>RAG</small></div>
-              <div class="arrow">→</div>
-              <div class="node out" style="min-width:64px;padding:8px"><small><span class="fr">Réponse</span><span class="en">Answer</span></small></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="lab"><span class="fr">Hub d'apps</span><span class="en">App hub</span></div>
+      <h2><span class="fr">Trente-cinq outils, un par geste</span><span class="en">Thirty-five tools, one per gesture</span></h2>
+      <p class="sub">
+        <span class="fr blk">Chaque outil fait UNE chose et la montre en entier : le document a l'ecran, la reponse citee, la page surlignee. Ils sont ranges par ce qu'on en fait, pas par technologie. Les captures ci-dessous sont prises sur les apps qui tournent, pas dessinees.</span>
+        <span class="en blk">Each tool does ONE thing and shows all of it: the document on screen, the answer quoted, the page highlighted. They are filed by what you do with them, not by technology. The shots below are taken from the running apps, not drawn.</span>
+      </p>
       <div class="callout">
-        <p><span class="fr blk">Les démos web interactives arrivent article par article.</span><span class="en blk">The interactive web demos are rolling out article by article.</span></p>
+        <p><span class="fr blk">Galerie statique : les captures sont figees, les outils tournent chez nous sur vos documents. Pour un essai sur les votres, ecrivez-nous.</span><span class="en blk">Static gallery: the shots are frozen, the tools run on our side on your documents. For a trial on yours, get in touch.</span></p>
       </div>
+
+<!-- GALERIE-START (apps/_dev/miroir_statique.py) -->
+      <h3 class="apps-rub"><span class="fr">Questionner un document</span><span class="en">Ask a document</span><span class="apps-n">14</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/funds.png" alt="Investment funds">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">Supports d'épargne</span><span class="en">Investment funds</span></h3>
+          <p><span class="fr blk">Décrivez le fonds que vous cherchez, l'agent écrit la requête SQL et filtre 484 supports extraits de conditions générales.</span><span class="en blk">Describe the fund you are after: the agent writes the SQL and filters 484 unit-linked funds extracted from product documents.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/sinistres_sql.png" alt="Claims SQL agent">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">SQL Sinistres</span><span class="en">Claims SQL agent</span></h3>
+          <p><span class="fr blk">Interrogez une base de sinistres en français : requête SQL en lecture seule, tableau et synthèse. Données fictives.</span><span class="en blk">Query a claims database in plain language: read-only SQL, a table and a short synthesis. Synthetic data.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/hr_search.png" alt="HR documents">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">Documents RH</span><span class="en">HR documents</span></h3>
+          <p><span class="fr blk">Posez une question sur les textes RH (Code du travail, convention collective, guides officiels). Chaque réponse cite le document, la page et la phrase exacte.</span><span class="en blk">Ask a question across HR texts (labour code, collective agreement, official guides). Every answer cites the document, the page and the exact sentence.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/pdf_qa.png" alt="Ask a PDF">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">Ask a PDF</span><span class="en">Ask a PDF</span></h3>
+          <p><span class="fr blk">Posez une question à un document : la réponse arrive citée et surlignée sur la page.</span><span class="en blk">Ask a document a question: the answer comes back quoted and highlighted on the page.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/agentic.png" alt="Expert search">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">Recherche experte</span><span class="en">Expert search</span></h3>
+          <p><span class="fr blk">Un agent qui cherche, lit et vérifie dans le document jusqu'à une réponse solide.</span><span class="en blk">An agent that searches, reads and checks inside the document until the answer holds.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/foyer_assist.png" alt="Foyer assistant">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">Assistant Foyer</span><span class="en">Foyer assistant</span></h3>
+          <p><span class="fr blk">FAQ et conditions générales Foyer combinées, réponse sourcée.</span><span class="en blk">FAQ and policy wordings combined, sourced answer.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/groupama_assist.png" alt="Groupama assistant">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">Assistant Groupama</span><span class="en">Groupama assistant</span></h3>
+          <p><span class="fr blk">FAQ des 4 marchés et conditions générales Groupama, réponse sourcée.</span><span class="en blk">FAQ across 4 markets and policy wordings, sourced answer.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/foyer_faq.png" alt="Foyer FAQ">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">FAQ Foyer</span><span class="en">Foyer FAQ</span></h3>
+          <p><span class="fr blk">Réponse immédiate quand la question figure dans la FAQ officielle.</span><span class="en blk">Immediate answer when the question is in the official FAQ.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/groupama_faq.png" alt="Groupama FAQ">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">FAQ Groupama</span><span class="en">Groupama FAQ</span></h3>
+          <p><span class="fr blk">Réponse immédiate quand la question figure dans la FAQ officielle.</span><span class="en blk">Immediate answer when the question is in the official FAQ.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/foyer_cg.png" alt="Foyer policy wording">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">CG Foyer</span><span class="en">Foyer policy wording</span></h3>
+          <p><span class="fr blk">Le chat qui répond uniquement depuis les conditions générales Foyer, la clause citée et surlignée sur la page.</span><span class="en blk">A chat that answers only from Foyer's policy wording, clause quoted and highlighted on the page.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/groupama_cg.png" alt="Groupama policy wording">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">CG Groupama</span><span class="en">Groupama policy wording</span></h3>
+          <p><span class="fr blk">Le chat qui répond uniquement depuis les conditions générales Groupama, la clause citée et surlignée sur la page.</span><span class="en blk">A chat that answers only from Groupama's policy wording, clause quoted and highlighted on the page.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/axa_cg.png" alt="AXA policy wording">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">CG AXA</span><span class="en">AXA policy wording</span></h3>
+          <p><span class="fr blk">Le chat qui répond uniquement depuis les conditions générales AXA, la clause citée et surlignée sur la page.</span><span class="en blk">A chat that answers only from AXA's policy wording, clause quoted and highlighted on the page.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/lalux_cg.png" alt="LaLux policy wording">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">CG LaLux</span><span class="en">LaLux policy wording</span></h3>
+          <p><span class="fr blk">Le chat qui répond uniquement depuis les conditions générales LaLux, la clause citée et surlignée sur la page.</span><span class="en blk">A chat that answers only from LaLux's policy wording, clause quoted and highlighted on the page.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/allianz_cg.png" alt="Allianz policy wording">
+          <span class="tag b"><span class="fr">Questionner un document</span><span class="en">Ask a document</span></span>
+          <h3><span class="fr">CG Allianz</span><span class="en">Allianz policy wording</span></h3>
+          <p><span class="fr blk">Le chat qui répond uniquement depuis les conditions générales Allianz, la clause citée et surlignée sur la page.</span><span class="en blk">A chat that answers only from Allianz's policy wording, clause quoted and highlighted on the page.</span></p>
+        </div>
+      </div>
+      <h3 class="apps-rub"><span class="fr">Extraire</span><span class="en">Extract</span><span class="apps-n">10</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/doc_extract.png" alt="Doc Extract">
+          <span class="tag c"><span class="fr">Extraire</span><span class="en">Extract</span></span>
+          <h3><span class="fr">Doc Extract</span><span class="en">Doc Extract</span></h3>
+          <p><span class="fr blk">N'importe quel document : le type est reconnu, la grille suit. Sept familles, plus une grille générique pour ce qui n'entre dans aucune.</span><span class="en blk">Any document: the type is recognised, the grid follows. Seven families, plus a generic grid for whatever fits none.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/attestations.png" alt="Insurance certificates">
+          <span class="tag c"><span class="fr">Extraire</span><span class="en">Extract</span></span>
+          <h3><span class="fr">Attestations d'assurance</span><span class="en">Insurance certificates</span></h3>
+          <p><span class="fr blk">Fiche extraite, source à un clic, validité contrôlée, et les activités du chantier confrontées à ce que l'attestation couvre.</span><span class="en blk">Fields extracted, source one click away, validity checked, and the site activities matched against what the certificate covers.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/factures.png" alt="Invoices">
+          <span class="tag c"><span class="fr">Extraire</span><span class="en">Extract</span></span>
+          <h3><span class="fr">Factures</span><span class="en">Invoices</span></h3>
+          <p><span class="fr blk">Montants, dates et coordonnées extraits, avec le contrôle HT + TVA = TTC et les clés IBAN et SIREN.</span><span class="en blk">Amounts, dates and details extracted, with the net + VAT = gross check and the IBAN and company-number keys.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/contrats.png" alt="Contracts, benchmark sheet">
+          <span class="tag c"><span class="fr">Extraire</span><span class="en">Extract</span></span>
+          <h3><span class="fr">Contrats, fiche benchmark</span><span class="en">Contracts, benchmark sheet</span></h3>
+          <p><span class="fr blk">Les dix-sept lignes qu'un benchmark relève dans chaque contrat, sourcées page par page.</span><span class="en blk">The seventeen lines a benchmark records in every contract, sourced page by page.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/sante_extract.png" alt="Health claim statements">
+          <span class="tag c"><span class="fr">Extraire</span><span class="en">Extract</span></span>
+          <h3><span class="fr">CNS &amp; Sécu Extract</span><span class="en">Health claim statements</span></h3>
+          <p><span class="fr blk">Décomptes CNS, relevés sécu, médecine douce : le type est reconnu, la grille suit, et le tableau de prestations est relevé ligne par ligne.</span><span class="en blk">Reimbursement statements: the type is recognised, the grid follows, and the benefits table is read line by line.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/entities.png" alt="Entities">
+          <span class="tag c"><span class="fr">Extraire</span><span class="en">Extract</span></span>
+          <h3><span class="fr">Entités</span><span class="en">Entities</span></h3>
+          <p><span class="fr blk">Personnes, dates, montants et identifiants extraits du document.</span><span class="en blk">People, dates, amounts and identifiers pulled out of the document.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/metadata.png" alt="Metadata">
+          <span class="tag c"><span class="fr">Extraire</span><span class="en">Extract</span></span>
+          <h3><span class="fr">Métadonnées</span><span class="en">Metadata</span></h3>
+          <p><span class="fr blk">Titre, auteur, dates, type de document, en un coup d'œil.</span><span class="en blk">Title, author, dates, document type, at a glance.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/sections.png" alt="Sections">
+          <span class="tag c"><span class="fr">Extraire</span><span class="en">Extract</span></span>
+          <h3><span class="fr">Sections</span><span class="en">Sections</span></h3>
+          <p><span class="fr blk">La table des matières reconstruite, même quand le PDF n'en a pas.</span><span class="en blk">The table of contents rebuilt, even when the PDF has none.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/tags.png" alt="Tags">
+          <span class="tag c"><span class="fr">Extraire</span><span class="en">Extract</span></span>
+          <h3><span class="fr">Tags</span><span class="en">Tags</span></h3>
+          <p><span class="fr blk">Des étiquettes proposées automatiquement pour classer vos documents.</span><span class="en blk">Labels proposed automatically to file your documents.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/classify.png" alt="Classification">
+          <span class="tag c"><span class="fr">Extraire</span><span class="en">Extract</span></span>
+          <h3><span class="fr">Classification</span><span class="en">Classification</span></h3>
+          <p><span class="fr blk">La catégorie du document (auto, habitation, santé...) détectée d'office.</span><span class="en blk">The document category (motor, home, health...) detected on sight.</span></p>
+        </div>
+      </div>
+      <h3 class="apps-rub"><span class="fr">Transformer</span><span class="en">Transform</span><span class="apps-n">4</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/summarize.png" alt="Summary">
+          <span class="tag e"><span class="fr">Transformer</span><span class="en">Transform</span></span>
+          <h3><span class="fr">Résumé</span><span class="en">Summary</span></h3>
+          <p><span class="fr blk">Un résumé structuré, adapté à l'audience et à la longueur voulue.</span><span class="en blk">A structured summary, tuned to the audience and the length you want.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/redact.png" alt="Redaction">
+          <span class="tag e"><span class="fr">Transformer</span><span class="en">Transform</span></span>
+          <h3><span class="fr">Anonymisation</span><span class="en">Redaction</span></h3>
+          <p><span class="fr blk">Noms, adresses et identifiants détectés puis masqués avant diffusion.</span><span class="en blk">Names, addresses and identifiers detected, then masked before sharing.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/proofread.png" alt="Proofreading">
+          <span class="tag e"><span class="fr">Transformer</span><span class="en">Transform</span></span>
+          <h3><span class="fr">Relecture</span><span class="en">Proofreading</span></h3>
+          <p><span class="fr blk">Grammaire, style et concision repris sur votre texte.</span><span class="en blk">Grammar, style and concision reworked on your own text.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/slides.png" alt="Slide deck">
+          <span class="tag e"><span class="fr">Transformer</span><span class="en">Transform</span></span>
+          <h3><span class="fr">Créer des slides</span><span class="en">Slide deck</span></h3>
+          <p><span class="fr blk">Décrivez la présentation, elle se plante en slides typées. Chaque précision rejoue le plan entier plutôt que de rustiner la dernière.</span><span class="en blk">Describe the deck, it lays itself out in typed slides. Each correction replays the whole plan instead of patching the last one.</span></p>
+        </div>
+      </div>
+      <h3 class="apps-rub"><span class="fr">Comparer</span><span class="en">Compare</span><span class="apps-n">3</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/cg_compare.png" alt="Compare insurers">
+          <span class="tag a"><span class="fr">Comparer</span><span class="en">Compare</span></span>
+          <h3><span class="fr">Comparer les assureurs</span><span class="en">Compare insurers</span></h3>
+          <p><span class="fr blk">Posez une situation une seule fois : chaque assureur répond depuis ses propres conditions générales, en colonnes, la clause citée et la page surlignée.</span><span class="en blk">State a situation once: each insurer answers from its own policy wording, side by side, clause quoted and page highlighted.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/matrix.png" alt="Questions x documents matrix">
+          <span class="tag a"><span class="fr">Comparer</span><span class="en">Compare</span></span>
+          <h3><span class="fr">Matrice questions x documents</span><span class="en">Questions x documents matrix</span></h3>
+          <p><span class="fr blk">Posez la même grille de questions à tout un lot de contrats : une case par croisement, chacune avec sa citation, sa page et son surlignage.</span><span class="en blk">Run the same grid of questions across a batch of contracts: one cell per crossing, each with its quote, page and highlight.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/compare.png" alt="Comparison">
+          <span class="tag a"><span class="fr">Comparer</span><span class="en">Compare</span></span>
+          <h3><span class="fr">Comparaison</span><span class="en">Comparison</span></h3>
+          <p><span class="fr blk">Deux versions d'un document, les différences ligne à ligne.</span><span class="en blk">Two versions of a document, the differences line by line.</span></p>
+        </div>
+      </div>
+      <h3 class="apps-rub"><span class="fr">Contrôler</span><span class="en">Check</span><span class="apps-n">2</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/fraude_doc.png" alt="Document forensics">
+          <span class="tag v"><span class="fr">Contrôler</span><span class="en">Check</span></span>
+          <h3><span class="fr">Fraude documentaire</span><span class="en">Document forensics</span></h3>
+          <p><span class="fr blk">Déposez une facture, un RIB ou une attestation : le moteur forensique signale les points à vérifier, sans jamais conclure à votre place.</span><span class="en blk">Drop an invoice, a bank details form or a certificate: the engine flags what deserves a look, and never concludes for you.</span></p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/vision360_fraude.png" alt="360-degree view">
+          <span class="tag v"><span class="fr">Contrôler</span><span class="en">Check</span></span>
+          <h3><span class="fr">Vision 360</span><span class="en">360-degree view</span></h3>
+          <p><span class="fr blk">La vue à 360 degrés d'une entité, instanciée aujourd'hui sur la fraude (dossiers scorés, réseaux, carte), destinée à porter la vision client complète.</span><span class="en blk">The all-round view of an entity, running today on fraud (scored files, networks, map), built to carry the full customer view.</span></p>
+        </div>
+      </div>
+      <h3 class="apps-rub"><span class="fr">Autres</span><span class="en">Other</span><span class="apps-n">1</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="assets/img/apps/smart_exchange.png" alt="Smart Exchange">
+          <span class="tag d"><span class="fr">Autres</span><span class="en">Other</span></span>
+          <h3><span class="fr">Smart Exchange</span><span class="en">Smart Exchange</span></h3>
+          <p><span class="fr blk">Le copilote du conseiller. La conversation est transcrite en direct et la fiche client se remplit toute seule.</span><span class="en blk">The adviser's copilot. The conversation is transcribed live and the customer sheet fills itself in.</span></p>
+        </div>
+      </div>
+      <!-- GALERIE-END -->
     </div>
   </section>
+
 </main>
 
 <footer>

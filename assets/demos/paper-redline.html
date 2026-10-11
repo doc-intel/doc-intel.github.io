@@ -1,7 +1,18 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Redline</title>
+<title>Redline: Attention Is All You Need · arXiv v1 (2017) → v7 (2023)</title>
+<meta name="description" content="Word-by-word comparison of the Transformer paper (arXiv:1706.03762) between the original v1 (June 2017) and v7 (August 2023). Red strike-through = removed, green = added. Purely cosmetic changes are dropped so only the substantive edits remain.">
+<style id="intro-css">
+  .intro-box{max-width:1220px;margin:22px auto 0;padding:0 22px}
+  .intro-box .card{background:#fff;border:1px solid #e4e8ee;border-radius:14px;padding:20px 22px;box-shadow:0 8px 24px rgba(18,35,59,.06)}
+  .intro-box .card h2{margin:0 0 10px;font-size:17px;color:#12233b}
+  .intro-box .card p{margin:0 0 10px;font-size:14.5px;color:#33445c;line-height:1.6}
+  .intro-box .card p:last-child{margin-bottom:0}
+  .intro-box .card .legend-inline{display:inline-flex;gap:14px;font-size:13px;margin-top:4px}
+  .intro-box .card del{background:#fdeceb;color:#b42318;text-decoration:line-through;padding:1px 4px;border-radius:3px}
+  .intro-box .card ins{background:#e7f6ec;color:#0f7a3d;text-decoration:none;padding:1px 4px;border-radius:3px}
+</style>
 <style>
   :root{--ink:#12233b;--ink-2:#33445c;--muted:#6b7688;--line:#e4e8ee;--line-2:#eef1f5;
     --bg:#f6f8fa;--card:#fff;--ac:#1d4ed8;--ac-soft:#e8f0fe;
@@ -66,9 +77,19 @@
 <body>
 <div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="../../en/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="../../en/cas/" style="color:#cbd5e1;text-decoration:none">Case studies</a><a href="../../en/cas/paper-redline.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Back to the case</a></div>
 <header><div class="wrap">
-  <div class="kick" id="kick"></div><h1 id="title"></h1><p id="subtitle"></p>
+  <div class="kick" id="kick">arXiv:1706.03762 · Attention Is All You Need · public preprint</div><h1 id="title">Redline: version 1 → version 7</h1><p id="subtitle">Every text change, word by word. Red strike-through = removed, green = added.</p>
   <div class="editions" id="editions"></div>
 </div></header>
+
+<div class="intro-box">
+  <div class="card">
+    <h2>What you are looking at</h2>
+    <p>Two versions of the <b>same public preprint</b>: the original <b>Transformer paper</b> ("Attention Is All You Need", arXiv:1706.03762) as first posted in <b>June 2017 (v1)</b> compared against the current <b>August 2023 (v7)</b>. Same authors, same paper, six years of small revisions. This is the textbook case for Strategy B (versioning diff): structure preserved, paragraph-level alignment possible, we want the short list of what actually changed between the two.</p>
+    <p>Each change is shown word by word in the table below: <span class="legend-inline"><span><del>red strike-through</del> = removed in v7</span><span><ins>green</ins> = added in v7</span></span>. <b>Purely cosmetic changes</b> (whitespace, punctuation, casing) are dropped before display — they inflate a naïve diff and hide the substance. The KPIs below count only what remains after that filter. Click a KPI to focus on one change type; use the search bar to filter by content.</p>
+    <p>Note: word-level diffs on academic papers surface mostly typo fixes, notation tweaks, and small clarifications. On a legal or insurance contract, the same pipeline would surface the material changes (numbers, exclusions, definitions) that a reviewer needs to catch.</p>
+  </div>
+</div>
+
 <div class="kpis" id="kpis"></div>
 <div class="wrap">
   <div class="toolbar"><div class="bar">

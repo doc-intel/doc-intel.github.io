@@ -151,40 +151,246 @@
     </div>
   </section>
 
-  <!-- ShipAI -->
-  <section class="block" id="shipai">
+  <!-- Le hub d'apps -->
+  <section class="block" id="hub">
     <div class="wrap">
-      <div class="showcase">
-        <div>
-          <div class="lab">ShipAI</div>
-          <h2>Une démo web par article</h2>
-          <p class="sub">
-            En complément de l'app bureau, chaque article aura sa démo web : on voit la brique tourner sur un vrai document, pas une capture. Parsing, parsing de la question, retrieval, génération.
-            
-          </p>
-          <ul class="prose">
-            <li>On dépose un PDF, on pose une question, on regarde le pipeline répondre.</li>
-            <li>La réponse est sourcée : on remonte à la ligne exacte dans le document.</li>
-          </ul>
-        </div>
-        <div class="frame">
-          <div class="bar"><i></i><i></i><i></i></div>
-          <div class="screen">
-            <div class="pipe" style="margin:0;gap:6px">
-              <div class="node in" style="min-width:64px;padding:8px"><small>PDF</small></div>
-              <div class="arrow">→</div>
-              <div class="node mid" style="min-width:64px;padding:8px"><small>RAG</small></div>
-              <div class="arrow">→</div>
-              <div class="node out" style="min-width:64px;padding:8px"><small>Réponse</small></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="lab">Hub d'apps</div>
+      <h2>Trente-cinq outils, un par geste</h2>
+      <p class="sub">
+        Chaque outil fait UNE chose et la montre en entier : le document a l'ecran, la reponse citee, la page surlignee. Ils sont ranges par ce qu'on en fait, pas par technologie. Les captures ci-dessous sont prises sur les apps qui tournent, pas dessinees.
+        
+      </p>
       <div class="callout">
-        <p>Les démos web interactives arrivent article par article.</p>
+        <p>Galerie statique : les captures sont figees, les outils tournent chez nous sur vos documents. Pour un essai sur les votres, ecrivez-nous.</p>
       </div>
+
+<!-- GALERIE-START (apps/_dev/miroir_statique.py) -->
+      <h3 class="apps-rub">Questionner un document<span class="apps-n">14</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/funds.png" alt="Investment funds">
+          <span class="tag b">Questionner un document</span>
+          <h3>Supports d'épargne</h3>
+          <p>Décrivez le fonds que vous cherchez, l'agent écrit la requête SQL et filtre 484 supports extraits de conditions générales.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/sinistres_sql.png" alt="Claims SQL agent">
+          <span class="tag b">Questionner un document</span>
+          <h3>SQL Sinistres</h3>
+          <p>Interrogez une base de sinistres en français : requête SQL en lecture seule, tableau et synthèse. Données fictives.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/hr_search.png" alt="HR documents">
+          <span class="tag b">Questionner un document</span>
+          <h3>Documents RH</h3>
+          <p>Posez une question sur les textes RH (Code du travail, convention collective, guides officiels). Chaque réponse cite le document, la page et la phrase exacte.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/pdf_qa.png" alt="Ask a PDF">
+          <span class="tag b">Questionner un document</span>
+          <h3>Ask a PDF</h3>
+          <p>Posez une question à un document : la réponse arrive citée et surlignée sur la page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/agentic.png" alt="Expert search">
+          <span class="tag b">Questionner un document</span>
+          <h3>Recherche experte</h3>
+          <p>Un agent qui cherche, lit et vérifie dans le document jusqu'à une réponse solide.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/foyer_assist.png" alt="Foyer assistant">
+          <span class="tag b">Questionner un document</span>
+          <h3>Assistant Foyer</h3>
+          <p>FAQ et conditions générales Foyer combinées, réponse sourcée.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/groupama_assist.png" alt="Groupama assistant">
+          <span class="tag b">Questionner un document</span>
+          <h3>Assistant Groupama</h3>
+          <p>FAQ des 4 marchés et conditions générales Groupama, réponse sourcée.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/foyer_faq.png" alt="Foyer FAQ">
+          <span class="tag b">Questionner un document</span>
+          <h3>FAQ Foyer</h3>
+          <p>Réponse immédiate quand la question figure dans la FAQ officielle.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/groupama_faq.png" alt="Groupama FAQ">
+          <span class="tag b">Questionner un document</span>
+          <h3>FAQ Groupama</h3>
+          <p>Réponse immédiate quand la question figure dans la FAQ officielle.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/foyer_cg.png" alt="Foyer policy wording">
+          <span class="tag b">Questionner un document</span>
+          <h3>CG Foyer</h3>
+          <p>Le chat qui répond uniquement depuis les conditions générales Foyer, la clause citée et surlignée sur la page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/groupama_cg.png" alt="Groupama policy wording">
+          <span class="tag b">Questionner un document</span>
+          <h3>CG Groupama</h3>
+          <p>Le chat qui répond uniquement depuis les conditions générales Groupama, la clause citée et surlignée sur la page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/axa_cg.png" alt="AXA policy wording">
+          <span class="tag b">Questionner un document</span>
+          <h3>CG AXA</h3>
+          <p>Le chat qui répond uniquement depuis les conditions générales AXA, la clause citée et surlignée sur la page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/lalux_cg.png" alt="LaLux policy wording">
+          <span class="tag b">Questionner un document</span>
+          <h3>CG LaLux</h3>
+          <p>Le chat qui répond uniquement depuis les conditions générales LaLux, la clause citée et surlignée sur la page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/allianz_cg.png" alt="Allianz policy wording">
+          <span class="tag b">Questionner un document</span>
+          <h3>CG Allianz</h3>
+          <p>Le chat qui répond uniquement depuis les conditions générales Allianz, la clause citée et surlignée sur la page.</p>
+        </div>
+      </div>
+      <h3 class="apps-rub">Extraire<span class="apps-n">10</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/doc_extract.png" alt="Doc Extract">
+          <span class="tag c">Extraire</span>
+          <h3>Doc Extract</h3>
+          <p>N'importe quel document : le type est reconnu, la grille suit. Sept familles, plus une grille générique pour ce qui n'entre dans aucune.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/attestations.png" alt="Insurance certificates">
+          <span class="tag c">Extraire</span>
+          <h3>Attestations d'assurance</h3>
+          <p>Fiche extraite, source à un clic, validité contrôlée, et les activités du chantier confrontées à ce que l'attestation couvre.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/factures.png" alt="Invoices">
+          <span class="tag c">Extraire</span>
+          <h3>Factures</h3>
+          <p>Montants, dates et coordonnées extraits, avec le contrôle HT + TVA = TTC et les clés IBAN et SIREN.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/contrats.png" alt="Contracts, benchmark sheet">
+          <span class="tag c">Extraire</span>
+          <h3>Contrats, fiche benchmark</h3>
+          <p>Les dix-sept lignes qu'un benchmark relève dans chaque contrat, sourcées page par page.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/sante_extract.png" alt="Health claim statements">
+          <span class="tag c">Extraire</span>
+          <h3>CNS &amp; Sécu Extract</h3>
+          <p>Décomptes CNS, relevés sécu, médecine douce : le type est reconnu, la grille suit, et le tableau de prestations est relevé ligne par ligne.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/entities.png" alt="Entities">
+          <span class="tag c">Extraire</span>
+          <h3>Entités</h3>
+          <p>Personnes, dates, montants et identifiants extraits du document.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/metadata.png" alt="Metadata">
+          <span class="tag c">Extraire</span>
+          <h3>Métadonnées</h3>
+          <p>Titre, auteur, dates, type de document, en un coup d'œil.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/sections.png" alt="Sections">
+          <span class="tag c">Extraire</span>
+          <h3>Sections</h3>
+          <p>La table des matières reconstruite, même quand le PDF n'en a pas.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/tags.png" alt="Tags">
+          <span class="tag c">Extraire</span>
+          <h3>Tags</h3>
+          <p>Des étiquettes proposées automatiquement pour classer vos documents.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/classify.png" alt="Classification">
+          <span class="tag c">Extraire</span>
+          <h3>Classification</h3>
+          <p>La catégorie du document (auto, habitation, santé...) détectée d'office.</p>
+        </div>
+      </div>
+      <h3 class="apps-rub">Transformer<span class="apps-n">4</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/summarize.png" alt="Summary">
+          <span class="tag e">Transformer</span>
+          <h3>Résumé</h3>
+          <p>Un résumé structuré, adapté à l'audience et à la longueur voulue.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/redact.png" alt="Redaction">
+          <span class="tag e">Transformer</span>
+          <h3>Anonymisation</h3>
+          <p>Noms, adresses et identifiants détectés puis masqués avant diffusion.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/proofread.png" alt="Proofreading">
+          <span class="tag e">Transformer</span>
+          <h3>Relecture</h3>
+          <p>Grammaire, style et concision repris sur votre texte.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/slides.png" alt="Slide deck">
+          <span class="tag e">Transformer</span>
+          <h3>Créer des slides</h3>
+          <p>Décrivez la présentation, elle se plante en slides typées. Chaque précision rejoue le plan entier plutôt que de rustiner la dernière.</p>
+        </div>
+      </div>
+      <h3 class="apps-rub">Comparer<span class="apps-n">3</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/cg_compare.png" alt="Compare insurers">
+          <span class="tag a">Comparer</span>
+          <h3>Comparer les assureurs</h3>
+          <p>Posez une situation une seule fois : chaque assureur répond depuis ses propres conditions générales, en colonnes, la clause citée et la page surlignée.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/matrix.png" alt="Questions x documents matrix">
+          <span class="tag a">Comparer</span>
+          <h3>Matrice questions x documents</h3>
+          <p>Posez la même grille de questions à tout un lot de contrats : une case par croisement, chacune avec sa citation, sa page et son surlignage.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/compare.png" alt="Comparison">
+          <span class="tag a">Comparer</span>
+          <h3>Comparaison</h3>
+          <p>Deux versions d'un document, les différences ligne à ligne.</p>
+        </div>
+      </div>
+      <h3 class="apps-rub">Contrôler<span class="apps-n">2</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/fraude_doc.png" alt="Document forensics">
+          <span class="tag v">Contrôler</span>
+          <h3>Fraude documentaire</h3>
+          <p>Déposez une facture, un RIB ou une attestation : le moteur forensique signale les points à vérifier, sans jamais conclure à votre place.</p>
+        </div>
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/vision360_fraude.png" alt="360-degree view">
+          <span class="tag v">Contrôler</span>
+          <h3>Vision 360</h3>
+          <p>La vue à 360 degrés d'une entité, instanciée aujourd'hui sur la fraude (dossiers scorés, réseaux, carte), destinée à porter la vision client complète.</p>
+        </div>
+      </div>
+      <h3 class="apps-rub">Autres<span class="apps-n">1</span></h3>
+      <div class="cards appgrid">
+        <div class="card appcard">
+          <img class="shot" loading="lazy" src="../assets/img/apps/smart_exchange.png" alt="Smart Exchange">
+          <span class="tag d">Autres</span>
+          <h3>Smart Exchange</h3>
+          <p>Le copilote du conseiller. La conversation est transcrite en direct et la fiche client se remplit toute seule.</p>
+        </div>
+      </div>
+      <!-- GALERIE-END -->
     </div>
   </section>
+
 </main>
 
 <footer>
