@@ -14,21 +14,8 @@ Bilingual (FR / EN). Plain HTML + CSS + JS, no build step.
 
 ## Articles
 
-The site currently features the two core bricks of the pipeline. Each links to the full article.
-
-**Brick 2 · Question parsing**
-
-- 6A · [Parse the question before you search](https://towardsdatascience.com/question-parsing-in-rag-structure-before-you-search/)
-- 6B · [Five fields RAG should extract from any question](https://towardsdatascience.com/what-the-question-parser-extracts-from-a-user-string-keywords-scope-shape-decomposition-clarification/)
-- 6C · [One parsed question, four decisions](https://towardsdatascience.com/dispatching-the-parsed-rag-question-chunk-strategy-model-tier-activations-audit/)
-
-**Brick 3 · Retrieval**
-
-- 7A · [Retrieval is filtering, not search](https://towardsdatascience.com/retrieval-is-filtering-not-search-a-mental-model-for-enterprise-rag/)
-- 7B · [Finding the right anchors for RAG](https://towardsdatascience.com/anchor-detection-for-rag-parallel-detectors-then-one-llm-call-at-the-end/)
-- 7C · [An LLM as arbiter in RAG retrieval](https://towardsdatascience.com/letting-an-llm-pick-the-right-rag-page-the-arbiter-pattern-at-the-end-of-retrieval/)
-
-Full series: <https://towardsdatascience.com/author/angela-shi/>
+Every published article of the series, with its Medium link, is on the Articles page:
+<https://doc-intel.github.io/en/articles.html>. All stories: <https://medium.com/@angela.shi>.
 
 ## Assets
 
