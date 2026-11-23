@@ -128,84 +128,295 @@
         </div>
       </div>
 
-      <!-- Brick 2 question parsing -->
+      <!-- PUBLIES:START -->
       <div class="group">
-        <h3 class="ghead b">Brique 2 · Parsing de la question</h3>
-        <p class="gsub">La plupart des pipelines RAG envoient la question brute droit au moteur. Parsez-la d'abord, ses mots-clés, son périmètre, la forme de la réponse attendue, et le retrieval arrête de ramener à côté.</p>
-        <div class="alist">
-          <a class="arow" href="https://towardsdatascience.com/question-parsing-in-rag-structure-before-you-search/" target="_blank" rel="noopener noreferrer">
-            <div class="an">Article 6A</div>
-            <h4>Parser la question avant de chercher : l'étape manquante de la plupart des pipelines</h4>
-            <p>L'étape manquante de la plupart des pipelines : parser la question avant de chercher.</p>
-            <div class="read">Lire l'article →</div>
+        <h3 class="ghead b">Partie I · Ce qui marche, ce qui casse</h3>
+        <div class="alist tight">
+          <a class="arow arow-tight" href="https://medium.com/@angela.shi/enterprise-document-intelligence-a-series-on-building-rag-brick-by-brick-from-minimal-to-corpus-1cd0a3154abf" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 0 · Medium</div>
+            <h4>Document Intelligence: a series on building RAG brick by brick</h4>
           </a>
-          <a class="arow" href="https://towardsdatascience.com/what-the-question-parser-extracts-from-a-user-string-keywords-scope-shape-decomposition-clarification/" target="_blank" rel="noopener noreferrer">
-            <div class="an">Article 6B</div>
-            <h4>Cinq champs que le RAG devrait extraire de toute question</h4>
-            <p>Mots-clés, périmètre, forme, décomposition, clarification : les cinq champs à extraire d'une question.</p>
-            <div class="read">Lire l'article →</div>
+          <a class="arow arow-tight" href="https://medium.com/data-science-collective/context-engineering-for-enterprise-rag-the-minimal-four-brick-pipeline-that-highlights-its-source-4de8c6776ecd" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 1 · Medium</div>
+            <h4>The minimal Enterprise RAG that never lies about its source: PDF in, highlighted answer out</h4>
           </a>
-          <a class="arow" href="https://towardsdatascience.com/dispatching-the-parsed-rag-question-chunk-strategy-model-tier-activations-audit/" target="_blank" rel="noopener noreferrer">
-            <div class="an">Article 6C</div>
-            <h4>Une question parsée, quatre décisions : chunking, niveau de modèle, fragments, trace</h4>
-            <p>Une question parsée pilote quatre décisions : chunking, modèle, fragments, trace.</p>
-            <div class="read">Lire l'article →</div>
+          <a class="arow arow-tight" href="https://medium.com/data-science-collective/embeddings-arent-magic-the-predictable-failure-modes-of-rag-retrieval-572620033db1" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 2 · Medium</div>
+            <h4>Embeddings Aren&#x27;t Magic: The Predictable Failure Modes of RAG Retrieval</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/how-does-a-rag-reranker-really-work-the-honest-answer-most-data-scientists-wont-give-you/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 2D · TDS</div>
+            <h4>How Does a RAG Reranker Really Work? (The Honest Answer Most Data Scientists Won&#x27;t Give You)</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/rerankers-arent-magic-either-when-the-cross-encoder-layer-is-worth-the-cost-enterprise-document-intelligence-vol-1-2bis/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 2bis · TDS</div>
+            <h4>Rerankers Aren&#x27;t Magic Either: When the Cross-Encoder Layer Is Worth the Cost</h4>
+          </a>
+          <a class="arow arow-tight" href="https://medium.com/@angela.shi/rag-is-not-machine-learning-and-the-ml-toolkit-solves-the-wrong-problem-a2fed3691e9f" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 3 · Medium</div>
+            <h4>RAG is not machine learning, and the ML toolkit solves the wrong problem</h4>
+          </a>
+          <a class="arow arow-tight" href="https://medium.com/data-science-collective/from-regex-to-vision-models-which-rag-technique-fits-which-problem-5afb3f142279" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 4 · Medium</div>
+            <h4>From regex to vision models: which RAG technique fits which problem</h4>
+          </a>
+          <a class="arow arow-tight" href="https://medium.com/data-science-collective/10-common-rag-mistakes-we-keep-seeing-in-production-d0a2d4f45785" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 4bis · Medium</div>
+            <h4>10 common RAG mistakes we keep seeing in production</h4>
           </a>
         </div>
       </div>
-
-      <!-- Brick 3 retrieval -->
       <div class="group">
-        <h3 class="ghead b">Brique 3 · Retrieval</h3>
-        <p class="gsub">Ce n'est pas une recherche vectorielle. C'est un filtre, une ancre, et un LLM qui explique son choix.</p>
-        <div class="alist">
-          <a class="arow" href="https://towardsdatascience.com/retrieval-is-filtering-not-search-a-mental-model-for-enterprise-rag/" target="_blank" rel="noopener noreferrer">
-            <div class="an">Article 7A</div>
-            <h4>Le retrieval, c'est du filtrage, pas de la recherche : un modèle mental pour le RAG</h4>
-            <p>Un modèle mental pour le retrieval : c'est du filtrage, pas de la recherche.</p>
-            <div class="read">Lire l'article →</div>
+        <h3 class="ghead b">Partie II · Les quatre briques</h3>
+        <div class="alist tight">
+          <a class="arow arow-tight" href="https://medium.com/@angela.shi/beyond-extract-text-the-two-layers-of-a-pdf-that-drive-rag-quality-764ea9ec2fe8" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 5A · Medium</div>
+            <h4>Beyond extract_text: the two layers of a PDF that drive RAG quality</h4>
           </a>
-          <a class="arow" href="https://towardsdatascience.com/anchor-detection-for-rag-parallel-detectors-then-one-llm-call-at-the-end/" target="_blank" rel="noopener noreferrer">
-            <div class="an">Article 7B</div>
-            <h4>Trouver les bonnes ancres : mots-clés, embeddings et table des matières en parallèle</h4>
-            <p>Repérer l'ancre : mots-clés, embeddings et table des matières, en parallèle.</p>
-            <div class="read">Lire l'article →</div>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/stop-returning-flat-text-from-a-pdf-the-relational-shape-rag-needs/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 5B · TDS</div>
+            <h4>Stop returning flat text from a PDF: the relational tables RAG needs</h4>
           </a>
-          <a class="arow" href="https://towardsdatascience.com/letting-an-llm-pick-the-right-rag-page-the-arbiter-pattern-at-the-end-of-retrieval/" target="_blank" rel="noopener noreferrer">
-            <div class="an">Article 7C</div>
-            <h4>Un LLM comme arbitre du retrieval : choisir le bon candidat, avec des raisons</h4>
-            <p>Un LLM tranche à la fin : il choisit le bon candidat et explique pourquoi.</p>
-            <div class="read">Lire l'article →</div>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/when-pymupdf-cant-see-the-table-parse-pdfs-for-rag-with-azure-layout/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 5bis · TDS</div>
+            <h4>When PyMuPDF Can&#x27;t See the Table: Parse PDFs for RAG with Azure Layout</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/parse-pdfs-for-rag-locally-with-docling-rich-tables-no-cloud-upload/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 5ter · TDS</div>
+            <h4>Parse PDFs for RAG locally with Docling: rich tables, no cloud upload</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/vision-llms-are-pdf-parsers-too-reading-charts-and-diagrams-for-rag/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 5quater · TDS</div>
+            <h4>Vision LLMs are PDF parsers too: reading charts and diagrams for RAG</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/parse-scanned-pdfs-for-rag-with-easyocr-free-ocr-gives-you-words-not-a-document/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 5quinquies · TDS</div>
+            <h4>Parse scanned PDFs for RAG with EasyOCR: free OCR gives you words, not a document</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/making-a-pdfs-images-searchable-for-rag-without-paying-to-read-them-all/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 5sexies · TDS</div>
+            <h4>Making a PDF&#x27;s images searchable for RAG, without paying to read them all</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/reconstructing-the-table-of-contents-a-pdf-forgot-to-ship-so-rag-can-scope-by-section/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 5septies · TDS</div>
+            <h4>Reconstructing the table of contents a PDF forgot to ship, so RAG can scope by section</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/building-document-structure-with-loop-engineering-recovering-a-pdfs-outline-from-body-typography-for-rag/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 5octies · TDS</div>
+            <h4>Building Document Structure with Loop Engineering: Recovering a PDF&#x27;s Outline from Body Typography for RAG</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/before-full-agentic-rag-know-how-you-decide-and-the-parsing-methods-you-pick-from/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 5nonies · TDS</div>
+            <h4>Before Full Agentic RAG: Know How You Decide, and the Parsing Methods You Pick From</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/question-parsing-in-rag-structure-before-you-search/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 6A · TDS</div>
+            <h4>Parse the question before you search: the missing step in most RAG pipelines</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/what-the-question-parser-extracts-from-a-user-string-keywords-scope-shape-decomposition-clarification/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 6B · TDS</div>
+            <h4>Five fields RAG should extract from any question: keywords, scope, shape, decomposition, clarification</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/dispatching-the-parsed-rag-question-chunk-strategy-model-tier-activations-audit/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 6C · TDS</div>
+            <h4>One parsed RAG question, four decisions: chunk strategy, model tier, fragments, audit trail</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/when-rag-users-ask-vague-questions-clarify-once-learn-the-default/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 6bis · TDS</div>
+            <h4>When RAG users ask vague questions: clarify once, learn the default</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/the-untaught-lessons-of-rag-question-parsing-structure-before-you-search/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 6ter · TDS</div>
+            <h4>6 common RAG question-parsing mistakes we keep seeing in production</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/context-engineering-for-rag-question-parsing-from-a-raw-question-to-typed-fields-that-steer-retrieval-and-generation/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 6quater · TDS</div>
+            <h4>Context engineering for RAG question parsing: from a raw question to typed fields that steer retrieval and generation</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/loop-engineering-for-rag-question-parsing-the-small-loop-that-runs-before-retrieval/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 6quinquies · TDS</div>
+            <h4>Loop engineering for RAG question parsing: the small loop that runs before retrieval</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/retrieval-is-filtering-not-search-a-mental-model-for-enterprise-rag/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7A · TDS</div>
+            <h4>Retrieval is filtering, not search: a mental model for enterprise RAG</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/anchor-detection-for-rag-parallel-detectors-then-one-llm-call-at-the-end/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7B · TDS</div>
+            <h4>Hybrid retrieval for RAG: keyword, embedding, and TOC signals in parallel</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/letting-an-llm-pick-the-right-rag-page-the-arbiter-pattern-at-the-end-of-retrieval/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7C · TDS</div>
+            <h4>An LLM as arbiter in RAG retrieval: picking the right candidate with reasons</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/context-engineering-for-rag-the-four-typed-inputs-behind-every-rag-answer/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7bis · TDS</div>
+            <h4>Context Engineering: The Four Typed Inputs Behind Every Answer</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/the-untaught-lessons-of-rag-retrieval-cosine-is-not-the-foundation/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7ter · TDS</div>
+            <h4>The untaught lessons of RAG retrieval: cosine is not the foundation</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/loop-engineering-for-hierarchical-retrieval-reading-a-long-document-by-its-table-of-contents/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7quater · TDS</div>
+            <h4>Loop engineering for hierarchical retrieval: reading a long document by its table of contents</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/most-rag-hallucinations-are-retrieval-failures-how-the-retrieval-brick-decides-what-the-model-can-invent/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7quinquies · TDS</div>
+            <h4>Most RAG Hallucinations Are Retrieval Failures: Fix Retrieval, Not the Prompt</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/retrieve-one-row-from-a-table-not-the-whole-table-row-level-chunks-for-rag/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 7sexies · TDS</div>
+            <h4>Retrieve One Row from a Table, Not the Whole Table: Row-Level Chunks for RAG</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/stop-returning-text-from-rag-the-typed-answer-contract-that-prevents-hallucination/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 8A · TDS</div>
+            <h4>Stop returning text from RAG: the typed answer contract that prevents hallucination</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/assemble-each-rag-generation-prompt-from-a-base-prompt-plus-the-rules-each-question-needs/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 8B · TDS</div>
+            <h4>Prompt engineering for RAG generation: build each prompt from reusable parts, not one giant prompt</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/validating-the-rag-answer-before-the-user-sees-it-spans-quotes-and-the-feedback-loop/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 8C · TDS</div>
+            <h4>Validating the RAG answer before the user sees it: spans, quotes, and the feedback loop</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/loop-engineering-for-rag-generation-when-top-1-is-enough-when-you-need-top-k/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 8bis · TDS</div>
+            <h4>Loop Engineering for RAG Generation: Iterate top-k One at a Time</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/most-rag-hallucinations-are-extraction-errors-seven-patterns-for-a-typed-generation-contract/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 8ter · TDS</div>
+            <h4>Most RAG Hallucinations Are Extraction Errors: Seven Patterns for a Typed Generation Contract</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/loop-engineering-for-rag-generation-an-llm-cascade-from-a-cheap-local-model-up-to-a-hosted-flagship/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 8quater · TDS</div>
+            <h4>Loop engineering for RAG generation: an LLM cascade from a cheap local model up to a hosted flagship</h4>
           </a>
         </div>
       </div>
-
-      <!-- Brick 4 generation (not yet published) -->
       <div class="group">
-        <h3 class="ghead b">Brique 4 · Génération</h3>
-        <p class="gsub">La réponse n'est pas une chaîne de texte, mais un objet typé et vérifiable.</p>
-        <div class="alist">
-          <div class="arow arow-soon">
-            <div class="an">Article 8A <span class="soon-badge">En attente de publication sur TDS</span></div>
-            <h4>Arrêtez de renvoyer du texte : le contrat de réponse typé qui empêche l'hallucination</h4>
-            <p>La génération ne renvoie pas une chaîne, mais un objet typé : réponse, justification, citations, confiance.</p>
-          </div>
-          <div class="arow arow-soon">
-            <div class="an">Article 8B <span class="soon-badge">En attente de publication sur TDS</span></div>
-            <h4>Un seul prompt ne suffit pas : choisir le schéma, assembler le prompt, tracer l'appel</h4>
-            <p>Selon la question, on choisit le schéma de sortie, on assemble le prompt, et on garde la trace.</p>
-          </div>
-          <div class="arow arow-soon">
-            <div class="an">Article 8C <span class="soon-badge">En attente de publication sur TDS</span></div>
-            <h4>Valider la réponse avant que l'utilisateur la voie : spans, citations, boucle de correction</h4>
-            <p>Vérifier que chaque citation existe vraiment dans le document, et reboucler sinon.</p>
-          </div>
+        <h3 class="ghead b">Partie III · Pipelines sur un document</h3>
+        <div class="alist tight">
+          <a class="arow arow-tight" href="https://towardsdatascience.com/a-production-rag-pipeline-for-pdfs-relational-parsing-toc-retrieval-typed-answers/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 9A · TDS</div>
+            <h4>A production RAG pipeline for PDFs: relational parsing, TOC retrieval, typed answers</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/one-rag-pipeline-four-very-different-pdfs-same-four-bricks-every-answer-typed-and-cited/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 9B · TDS</div>
+            <h4>A Production RAG Pipeline in Action: Every Answer Typed and Cited</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/prompt-engineering-isnt-enough-how-four-bricks-of-context-engineering-stop-rag-hallucinations/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 9bis · TDS</div>
+            <h4>Prompt Engineering Isn&#x27;t Enough: How Four Bricks of Context Engineering Stop RAG Hallucinations</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/cut-an-enterprise-rag-pipelines-latency-and-cost-by-calling-the-llm-less-not-by-buying-a-faster-model/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 9ter · TDS</div>
+            <h4>Cut an Enterprise RAG Pipeline&#x27;s Latency and Cost by Calling the LLM Less, Not by Buying a Faster Model</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/loop-engineering-with-adaptive-pdf-parsing-start-cheap-pay-for-a-heavier-parser-only-when-the-page-needs-it/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 10A · TDS</div>
+            <h4>Loop engineering with adaptive PDF parsing: start cheap, pay for a heavier parser only when the page needs it</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/loop-engineering-with-adaptive-parsing-in-action-parsing-flat-tables-with-azure-and-figures-with-a-vision-llm/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 10B · TDS</div>
+            <h4>Loop engineering with adaptive parsing in action: flattened tables to Azure, figures to a vision LLM</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/loop-engineering-for-cross-references-when-rag-answers-see-section-7-2-instead-of-the-actual-answer/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 11 · TDS</div>
+            <h4>Loop engineering for cross-references: when RAG answers &#x27;see Section 7.2&#x27; instead of the actual answer</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/loop-engineering-for-listing-questions-when-the-answer-is-every-passage-not-the-top-one/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 12 · TDS</div>
+            <h4>Loop engineering for listing questions: when the answer is every passage, not the top one</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/rag-workflow-and-loop-engineering-the-dispatcher-that-decides-when-to-loop-and-when-to-stop/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 13 · TDS</div>
+            <h4>RAG workflow and loop engineering: the dispatcher that decides when to loop and when to stop</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/loop-engineering-for-rag-the-small-loops-inside-each-step-the-big-loops-across-the-pipeline/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 13bis · TDS</div>
+            <h4>Loop engineering for RAG: the small loops inside each step, the big loops across the pipeline</h4>
+          </a>
         </div>
       </div>
-
-      <div class="callout" style="margin-top:38px">
-        <p>Le reste de la série (cadrage, parsing, passage à l'échelle du corpus, et les volumes 2 à 7) se dévoile petit à petit ici.</p>
+      <div class="group">
+        <h3 class="ghead b">Partie IV · D&#x27;un document au corpus</h3>
+        <div class="alist tight">
+          <a class="arow arow-tight" href="https://towardsdatascience.com/three-kinds-of-rag-corpus-and-what-it-costs-to-build-for-the-wrong-one/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 14A · TDS</div>
+            <h4>Three Kinds of RAG Corpus, and What It Costs to Build for the Wrong One</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/multi-document-rag-a-folder-of-unrelated-pdfs-is-one-long-document-with-a-nested-outline/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 14B · TDS</div>
+            <h4>Multi-Document RAG: A Folder of Unrelated PDFs Is One Long Document with a Nested Outline</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/one-document-type-a-million-files-structured-extraction-into-the-sql-table-rag-queries/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 14C · TDS</div>
+            <h4>One Document Type, a Million Files: Structured Extraction into the SQL Table RAG Queries</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/parse-the-folder-not-just-the-pdfs-the-relational-tables-rag-needs-on-a-case-file/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article 14D · TDS</div>
+            <h4>Parse the Folder, Not Just the PDFs: The Relational Tables RAG Needs on a Case File</h4>
+          </a>
+        </div>
       </div>
+      <div class="group">
+        <h3 class="ghead b">Manifestes</h3>
+        <div class="alist tight">
+          <a class="arow arow-tight" href="https://towardsdatascience.com/amplify-the-expert-a-philosophy-for-building-enterprise-rag/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article M1 · TDS</div>
+            <h4>Amplify the Expert: A Philosophy for Building Enterprise RAG</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/prompt-context-loop-the-three-engineering-layers-every-rag-system-is-built-on/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article M2 · TDS</div>
+            <h4>Prompt, Context, Loop: The Three Engineering Layers Every RAG System Is Built On</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/10-positions-for-enterprise-rag-that-mainstream-tutorials-get-wrong/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article M3 · TDS</div>
+            <h4>10 Positions for Enterprise RAG That Mainstream Tutorials Get Wrong</h4>
+          </a>
+        </div>
+      </div>
+      <div class="group">
+        <h3 class="ghead b">Bonus</h3>
+        <div class="alist tight">
+          <a class="arow arow-tight" href="https://towardsdatascience.com/rag-is-not-the-whole-toolkit-the-nlp-techniques-real-problems-still-need/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article B00 · TDS</div>
+            <h4>RAG Is Not the Whole Toolkit: The NLP Techniques Real Problems Still Need</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/noisy-text-in-rag-typos-ocr-and-the-gap-classical-spell-check-leaves/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article B01 · TDS</div>
+            <h4>Noisy Text in RAG: Typos, OCR, and the Gap Classical Spell-Check Leaves</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/faq-as-rag-when-you-get-to-design-the-corpus/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article B02 · TDS</div>
+            <h4>FAQ as RAG: When You Get to Design the Corpus</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/a-rag-that-says-not-in-this-document-has-to-show-four-kinds-of-evidence/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article B03 · TDS</div>
+            <h4>A RAG That Says “Not in This Document” Has to Show Four Kinds of Evidence</h4>
+          </a>
+          <a class="arow arow-tight" href="https://towardsdatascience.com/tables-in-pdfs-for-rag-dont-flatten-the-grid/" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article B04 · TDS</div>
+            <h4>Tables in PDFs for RAG: Don’t Flatten the Grid</h4>
+          </a>
+        </div>
+      </div>
+      <div class="group">
+        <h3 class="ghead b">Lectures</h3>
+        <div class="alist tight">
+          <a class="arow arow-tight" href="https://medium.com/data-science-collective/googles-vertex-ai-rag-page-is-a-fine-intro-not-an-architecture-56081e7dfc4c" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article R-4a · Medium</div>
+            <h4>Google&#x27;s Vertex AI RAG page is a fine intro, not an architecture</h4>
+          </a>
+          <a class="arow arow-tight" href="https://medium.com/data-science-collective/snowflakes-one-page-sec-demo-treats-structured-filings-as-text-dea6e55bb116" target="_blank" rel="noopener noreferrer">
+            <div class="an">Article R-v2a · Medium</div>
+            <h4>Snowflake&#x27;s one-page SEC demo treats structured filings as text</h4>
+          </a>
+        </div>
+      </div>
+      <!-- PUBLIES:END -->
 
     </div>
   </section>

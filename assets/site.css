@@ -228,6 +228,9 @@ a.card:hover{text-decoration:none}
 .arow-soon{cursor:default;background:var(--soft)}
 .arow-soon:hover{transform:none;box-shadow:none;border-color:var(--line)}
 .arow-soon h4{color:var(--ink2)}
+.arow-tight{padding:10px 16px;border-radius:10px}
+.arow-tight h4{margin:2px 0 0;font-size:1rem}
+.alist.tight{gap:6px}
 .soon-badge{display:inline-block;margin-left:8px;font-size:10px;font-weight:800;letter-spacing:.05em;
             text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--amber-b);color:var(--amber-s);vertical-align:middle}
 
