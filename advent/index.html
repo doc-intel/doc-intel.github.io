@@ -265,6 +265,20 @@
   .monde-page[data-scene="campus"] .monde-site i.is-ready { animation: none; }
   .monde-page[data-scene="campus"] .monde-site-list { scroll-behavior: auto; }
 }
+.monde-liens { position: fixed; right: clamp(12px, 3vw, 40px); top: calc(env(safe-area-inset-top, 0px) + clamp(12px, 3vh, 36px)); z-index: 6;
+  display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; max-width: 60vw; }
+.monde-liens a { display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border-radius: 999px;
+  font: 500 13px/1 "Space Grotesk", sans-serif; color: rgba(255, 255, 255, .82); text-decoration: none;
+  background: rgba(8, 12, 30, .42); border: 1px solid rgba(255, 255, 255, .18); backdrop-filter: blur(6px);
+  transition: background .2s, color .2s, border-color .2s; }
+.monde-liens a:hover, .monde-liens a:focus-visible { color: #fff; background: rgba(8, 12, 30, .72); border-color: rgba(255, 255, 255, .4); }
+.monde-liens a.kofi { color: #ffd27a; border-color: rgba(255, 210, 122, .45); }
+.monde-liens a.kofi:hover, .monde-liens a.kofi:focus-visible { color: #ffe3a8; border-color: rgba(255, 210, 122, .8); }
+@media (max-width: 640px) {
+  .monde-liens { left: 12px; right: 12px; top: calc(env(safe-area-inset-top, 0px) + 10px); max-width: none; justify-content: flex-start; }
+  .monde-liens a { min-height: 40px; padding: 0 12px; font-size: 13px; }
+  .monde-head { top: calc(env(safe-area-inset-top, 0px) + 62px); }
+}
 </style>
 </head>
 <body class="monde-page" data-theme="night" data-scene="campus">
@@ -273,6 +287,11 @@
   <p class="monde-kicker">December 2026 · twenty-four windows · four buildings and a warehouse</p>
   <h1>The advent calendar of enterprise RAG</h1>
 </header>
+<nav class="monde-liens" aria-label="Links">
+  <a href="https://doc-intel.github.io/en/index.html">Home</a>
+  <a href="https://github.com/doc-intel/notebooks-vol1" target="_blank" rel="noopener">Notebooks</a>
+  <a class="kofi" href="https://ko-fi.com/s/8cb0ae941f" target="_blank" rel="noopener">Full code on Ko-fi</a>
+</nav>
 <div class="monde" id="monde"></div>
 <div class="monde-toast" role="status" aria-live="polite"></div>
 <script type="application/json" id="monde-data">{"year":2026,"month":12,"until":0,"world":{"scene":"campus","as":"edi","theme":"night","name":{"en":"RAG Advent Factory","fr":"Usine de l'avent RAG"},"title":{"en":"The advent calendar of enterprise RAG","fr":"Le calendrier de l'avent du RAG d'entreprise"},"kicker":{"en":"December 2026 · twenty-four windows · four buildings and a warehouse","fr":"Décembre 2026 · vingt-quatre fenêtres · quatre bâtiments et un entrepôt"},"words":{"wait":{"en":"Window {d} lights up on December {d}.","fr":"La fenêtre {d} s'éclaire le {d} décembre."},"open":{"en":"In the calendar, the article of December {d} opens here.","fr":"Dans le calendrier, l'article du {d} décembre s'ouvre ici."}},"villages":[{"id":"matter","days":[1,6],"tone":"#f6c85f","style":"paper","landmark":"library","name":{"en":"Document intelligence","fr":"Document intelligence"},"sub":{"en":"part 1 · the paper mill","fr":"partie 1 · la papeterie"},"inside":"folder"},{"id":"memory","days":[7,12],"tone":"#ff5ad9","style":"harbour","landmark":"lighthouse","name":{"en":"Retrieval and indexing","fr":"Retrieval et indexation"},"sub":{"en":"part 2 · the lighthouse","fr":"partie 2 · le phare"},"inside":"drawer"},{"id":"control","days":[13,18],"tone":"#ae8fff","style":"works","landmark":"clock","name":{"en":"Controlled agents","fr":"Agents sous contrôle"},"sub":{"en":"part 3 · the clockworks","fr":"partie 3 · l'horlogerie"},"inside":"panel"},{"id":"company","days":[19,24],"tone":"#b8ff62","style":"station","landmark":"station","name":{"en":"AI inside the process","fr":"L'IA dans le processus"},"sub":{"en":"part 4 · the station","fr":"partie 4 · la gare"},"inside":"parcel"}],"mount":"SceneCampus"},"days":[{"day":1,"band":"matter"},{"day":2,"band":"matter"},{"day":3,"band":"matter"},{"day":4,"band":"matter"},{"day":5,"band":"matter"},{"day":6,"band":"matter"},{"day":7,"band":"memory"},{"day":8,"band":"memory"},{"day":9,"band":"memory"},{"day":10,"band":"memory"},{"day":11,"band":"memory"},{"day":12,"band":"memory"},{"day":13,"band":"control"},{"day":14,"band":"control"},{"day":15,"band":"control"},{"day":16,"band":"control"},{"day":17,"band":"control"},{"day":18,"band":"control"},{"day":19,"band":"company"},{"day":20,"band":"company"},{"day":21,"band":"company"},{"day":22,"band":"company"},{"day":23,"band":"company"},{"day":24,"band":"company"}],"rooms":{}}</script>
