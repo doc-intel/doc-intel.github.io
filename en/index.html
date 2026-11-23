@@ -29,6 +29,7 @@
   <div class="wrap">
     <a class="brand" href="index.html">Enterprise Document Intelligence<span class="dot">.</span></a>
     <nav class="nav">
+      <a href="../advent/">Calendar</a>
       <a href="articles.html">Articles</a>
       <a href="apps.html">Apps</a>
       <a href="cas/index.html">Case studies</a>
@@ -42,135 +43,96 @@
 
 <main>
 
-  <!-- HERO -->
+  <!-- HERO: the promise on the left, the stance on the right -->
   <section class="hero">
-    <div class="wrap">
-      <div class="kicker">Engineering, not magic</div>
-      <h1 class="big">
-        
-        Enterprise RAG on real documents, brick by brick.
-      </h1>
-      <p class="lede">
-        
-        From a single PDF to corpus scale. A clear stance, code that runs, apps, and real case studies on public documents.
-      </p>
-      <div class="cta">
-        <a class="btn primary" href="cas/index.html">Browse the use cases</a>
-        <a class="btn ghost" href="articles.html">Read the articles</a>
+    <div class="wrap home-hero">
+      <div>
+        <div class="kicker">Engineering, not magic</div>
+        <h1 class="big">
+          
+          Enterprise RAG on <em>real</em> documents, brick by brick.
+        </h1>
+        <p class="lede">
+          
+          From a single PDF to corpus scale: a clear stance, code that runs, apps, and real case studies on public documents.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="articles.html">Read the articles</a>
+          <a class="btn ghost" href="cas/index.html">Browse the use cases</a>
+        </div>
+      </div>
+      <ol class="stance-list">
+        <li><span class="n">01</span><span>RAG is not <b>machine learning</b>.</span></li>
+        <li><span class="n">02</span><span>Embeddings aren't <b>magic</b>.</span></li>
+        <li><span class="n">03</span><span>Retrieval is <b>filtering</b>, not search.</span></li>
+        <li><span class="n">04</span><span>You <b>amplify the expert</b>, you don't replace them.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ADVENT CALENDAR: the picture of the day, the status of the day -->
+  <section class="advent-band" id="advent">
+    <div class="wrap advent-grid">
+      <a class="advent-shot" href="../advent/"><img src="../advent/apercu.png" alt="The advent factory at night: four buildings, one per part, each with six numbered windows, around one warehouse" loading="lazy"></a>
+      <div>
+        <div class="kicker">December 2026 · Advent calendar</div>
+        <h2>One architecture decision <em>a day</em>, from 1 to 24 December.</h2>
+        <p>A factory at night, four buildings, one window lighting up each morning: enterprise RAG on the documents companies really hold.</p>
+        <p class="advent-status" id="advent-status">Window 1 lights up on 1 December.</p>
+        <div class="cta" style="margin-top:0">
+          <a class="btn primary" href="../advent/">Open the calendar</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- THREE DOORS -->
+  <!-- WAYS IN -->
   <section class="block first">
     <div class="wrap">
       <div class="lab">Where to start</div>
-      <h2>Three ways in</h2>
-      <div class="cards" style="margin-top:26px">
-        <a class="card" href="articles.html">
-          <span class="tag a">01</span>
-          <h3>The articles</h3>
-          <p>RAG explained brick by brick: parsing, question, retrieval, generation. Clear stance, concrete examples.</p>
+      <div class="ways">
+        <a class="way" href="articles.html">
+          <span class="n">01</span>
+          <h3>Articles</h3>
+          <p>RAG brick by brick: parsing, question, retrieval, generation.</p>
           <span class="go">→ Read</span>
         </a>
-        <a class="card" href="apps.html">
-          <span class="tag b">02</span>
+        <a class="way" href="apps.html">
+          <span class="n">02</span>
           <h3>Apps</h3>
-          <p>The engine in real interfaces: a desktop app that indexes a folder and answers, plus web demos.</p>
+          <p>The engine in real interfaces: a desktop app and web demos.</p>
           <span class="go">→ See</span>
         </a>
-        <a class="card" href="cas/index.html">
-          <span class="tag c">03</span>
+        <a class="way" href="cas/index.html">
+          <span class="n">03</span>
           <h3>Case studies</h3>
-          <p>The method on real cases: contract comparison, extraction, agentic search, version diffing.</p>
+          <p>The method on real cases: comparison, extraction, agentic search.</p>
           <span class="go">→ Explore</span>
         </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- STANCE -->
-  <section class="manifesto">
-    <div class="wrap">
-      <h2>Four positions we won't drop</h2>
-      <div class="stances">
-        <div class="stance">RAG is not <b>machine learning</b>.</div>
-        <div class="stance">Embeddings aren't <b>magic</b>.</div>
-        <div class="stance">Retrieval is <b>filtering</b>, not search.</div>
-        <div class="stance">You <b>amplify the expert</b>, you don't replace them.</div>
+        <a class="way" href="https://github.com/doc-intel/notebooks-vol1" target="_blank" rel="noopener noreferrer">
+          <span class="n">04</span>
+          <h3>Code</h3>
+          <p>The notebooks that come with the articles, ready to run.</p>
+          <span class="go">→ GitHub</span>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- SERIES ROADMAP -->
-  <section class="block">
-    <div class="wrap">
-      <div class="lab">The series</div>
-      <h2>Seven volumes, one engine</h2>
-      <p class="sub">
-        
-        Volumes 1 to 4 build the engine, layer by layer. Volumes 5 to 7 embed it into three products: a web app, a desktop app, a SaaS.
-      </p>
-      <div class="vols">
-        <div class="vol on">
-          <span class="st live">Live</span>
-          <div class="vn">Vol. 1</div>
-          <h4>PDF RAG</h4>
-          <p>The four bricks (parsing, question, retrieval, generation), from a single PDF to corpus scale. Every answer stays sourced, down to the exact page.</p>
-        </div>
-        <div class="vol">
-          <span class="st soon">Soon</span>
-          <div class="vn">Vol. 2</div>
-          <h4>Multi-format, multi-intent</h4>
-          <p>Word, Excel, PowerPoint and mail join the PDF, each with its own parser. New intents arrive: translate, summarize, compare, proofread.</p>
-        </div>
-        <div class="vol">
-          <span class="st soon">Soon</span>
-          <div class="vn">Vol. 3</div>
-          <h4>Production with tools</h4>
-          <p>The document is no longer just read, it is produced: a form filled, a table generated, a file rewritten. A catalog of tools the engine knows how to call.</p>
-        </div>
-        <div class="vol">
-          <span class="st soon">Soon</span>
-          <div class="vn">Vol. 4</div>
-          <h4>Agentic RAG with audit</h4>
-          <p>An agent picks its actions, remembers what it did, and leaves a readable trail. Glass box: every step is verifiable and replayable.</p>
-        </div>
-        <div class="vol">
-          <span class="st soon">Soon</span>
-          <div class="vn">Vol. 5</div>
-          <h4>Web app (Streamlit)</h4>
-          <p>The engine behind a data-scientist UI: drop a folder, ask a question, read the sourced answer. Built to prototype fast.</p>
-        </div>
-        <div class="vol">
-          <span class="st soon">Soon</span>
-          <div class="vn">Vol. 6</div>
-          <h4>Desktop app (Electron)</h4>
-          <p>A local workstation that indexes a scanned folder and answers offline. Python sidecar, data that never leaves the machine.</p>
-        </div>
-        <div class="vol">
-          <span class="st soon">Soon</span>
-          <div class="vn">Vol. 7</div>
-          <h4>Multi-tenant SaaS</h4>
-          <p>The server edition, multi-tenant: Postgres, S3, OIDC auth, billing. The same engine, run at scale.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CODE -->
   <section class="block soft">
     <div class="wrap">
-      <div class="lab">The code</div>
-      <h2>Code that runs</h2>
-      <p class="sub">
-        
-        The runnable notebooks that accompany the articles, and the full package.
-      </p>
-      <div class="cta">
-        <a class="btn ghost" href="https://github.com/doc-intel/notebooks-vol1" target="_blank" rel="noopener noreferrer">Notebooks (GitHub)</a>
-        <a class="btn ghost" href="https://ko-fi.com/angelashi" target="_blank" rel="noopener noreferrer">Ko-fi</a>
-      </div>
+      <div class="lab">The series</div>
+      <h2>One engine, then three products</h2>
+      <ul class="vlist">
+        <li class="on"><span class="vn">Vol. 1</span><h4>PDF RAG</h4><p>The four bricks, from a single PDF to corpus scale; every answer sourced to the page.</p><span class="st live">Live</span></li>
+        <li><span class="vn">Vol. 2</span><h4>Multi-format, multi-intent</h4><p>Word, Excel, PowerPoint and mail; translate, summarize, compare, proofread.</p><span class="st soon">Soon</span></li>
+        <li><span class="vn">Vol. 3</span><h4>Production with tools</h4><p>The document is produced: a form filled, a table generated, a file rewritten.</p><span class="st soon">Soon</span></li>
+        <li><span class="vn">Vol. 4</span><h4>Agentic RAG with audit</h4><p>An agent that picks its actions and leaves a verifiable, replayable trail.</p><span class="st soon">Soon</span></li>
+        <li><span class="vn">Vol. 5</span><h4>Web app</h4><p>Drop a folder, ask a question, read the sourced answer.</p><span class="st soon">Soon</span></li>
+        <li><span class="vn">Vol. 6</span><h4>Desktop app</h4><p>A local workstation that indexes a folder and answers offline; nothing leaves the machine.</p><span class="st soon">Soon</span></li>
+        <li><span class="vn">Vol. 7</span><h4>Multi-tenant SaaS</h4><p>The same engine on the server: Postgres, S3, OIDC, billing.</p><span class="st soon">Soon</span></li>
+      </ul>
     </div>
   </section>
 
@@ -180,6 +142,7 @@
   <div class="wrap foot-row">
     <span>Written by Angela Shi, Kezhan Shi and Clara Lim.</span>
     <span class="foot-links">
+      <a href="../advent/">Calendar</a>
       <a href="articles.html">Articles</a>
       <a href="apps.html">Apps</a>
       <a href="cas/index.html">Cases</a>
@@ -192,6 +155,20 @@
   </div>
 </footer>
 
+<script>
+// The calendar line follows the date: before 1 December, the opening date; from 1 to 24
+// December, today's window; after, the whole calendar. The calendar page itself decides
+// what can be opened (rebuilt each day, nothing of the days ahead in its source).
+(function () {
+  var el = document.getElementById('advent-status'); if (!el) return;
+  var fr = (document.documentElement.lang || '').indexOf('fr') === 0;
+  var now = new Date(), y = 2026, start = new Date(y, 11, 1), end = new Date(y, 11, 25);
+  if (now < start) return;
+  if (now >= end) { el.textContent = fr ? 'Les vingt-quatre fenêtres sont ouvertes.' : 'All twenty-four windows are open.'; return; }
+  var d = now.getDate();
+  el.textContent = fr ? 'Fenêtre ' + d + ' allumée aujourd’hui.' : 'Window ' + d + ' is lit today.';
+})();
+</script>
 <script src="../assets/site.js"></script>
 </body>
 </html>

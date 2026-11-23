@@ -1,10 +1,19 @@
-/* Enterprise Document Intelligence · shared site styles */
+/* Enterprise Document Intelligence · shared site styles
+   Design of 23-11-2026: the identity of the advent calendar carried to the whole site.
+   Fraunces for titles, Space Grotesk for text, JetBrains Mono for labels; paper and
+   night ink; square corners, hairline rules, no glow. Tokens first, then the
+   original components, then the "design layer" at the end that sets type and shape. */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 :root{
   color-scheme:light;
-  --ink:#0f172a; --ink2:#1e293b; --muted:#475569; --line:#e5e9f0; --bg:#ffffff; --soft:#f7f9fc;
-  --card:#ffffff; --chip-bg:#f1f5f9;
-  --header:rgba(255,255,255,.72); --header-scrolled:rgba(255,255,255,.92);
-  --btn-bg:#0f172a; --btn-fg:#ffffff;
+  --ink:#141a33; --ink2:#2a3150; --muted:#5b6078; --line:#dcd7ca; --bg:#f7f4ec; --soft:#efebe0;
+  --card:#fffdf8; --chip-bg:#ebe6d8;
+  --header:rgba(247,244,236,.8); --header-scrolled:rgba(247,244,236,.95);
+  --btn-bg:#141a33; --btn-fg:#fffdf8;
+  --night:#1b2142; --night2:#262d57; --night-fg:#eef0fa; --night-mute:#a9afd0; --glow:#ffbe4d; --mint:#4fe3a4;
+  --f-title:"Fraunces",Georgia,"Times New Roman",serif;
+  --f-text:"Space Grotesk",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
   /* Manifesto band: was a dark cut on the light page (jarring couperet). Now a
      soft-blue insert that still reads as a distinct section, with the amber
      accent that already carries kickers + brand dot across the site. */
@@ -23,10 +32,11 @@
    (data-theme="dark", persisted in localStorage). */
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --ink:#e8edf5; --ink2:#c9d3e0; --muted:#93a1b6; --line:#242c3b; --bg:#0a0e16; --soft:#111725;
-  --card:#141b29; --chip-bg:#1b2433;
-  --header:rgba(10,14,22,.72); --header-scrolled:rgba(10,14,22,.9);
-  --btn-bg:#e8edf5; --btn-fg:#0a0e16;
+  --ink:#eef0fa; --ink2:#cfd3ea; --muted:#9aa0c2; --line:#2e3561; --bg:#12162e; --soft:#181d3b;
+  --card:#1b2142; --chip-bg:#262d57;
+  --header:rgba(18,22,46,.8); --header-scrolled:rgba(18,22,46,.95);
+  --btn-bg:#ffbe4d; --btn-fg:#141a33;
+  --night:#0d1024; --night2:#1b2142;
   /* Dark theme manifesto: a marginally lighter surface than --bg with the same
      amber accent as light mode, so the section reads consistently across themes. */
   --band:#111725; --band-fg:var(--ink); --band-accent:var(--amber-s);
@@ -312,3 +322,81 @@ body.lang-en .en.blk{display:block}
 .appcard .tag{margin:16px 20px 10px}
 .appcard h3{margin:0 20px 8px;font-size:1.05rem}
 .appcard p{margin:0 20px 20px;font-size:14px}
+
+/* ===== design layer (23-11-2026): type and shape for every page ===== */
+body{font-family:var(--f-text);font-size:17px;line-height:1.62}
+h1,h2,h3,h4,.ghead,.brand{font-family:var(--f-title);font-optical-sizing:auto}
+h1.big,h1.mid{font-weight:600;letter-spacing:-.025em}
+h1.big em,h1.mid em,h2 em{font-style:italic;color:var(--amber-s)}
+section.block h2,.prose h2{font-weight:600;letter-spacing:-.02em}
+.card h3,.vol h4,.arow h4,.group>h3{font-weight:600;letter-spacing:-.01em}
+.brand{font-weight:700;font-size:17px;letter-spacing:-.01em}
+.kicker,section.block .lab,.manifesto h2,.pipe-cap,.readon .ro-lab,.arow .an,.vol .vn,.card .tag,.chip,
+.st,.soon-badge,.apps-n,.node small,.crumbs{font-family:var(--f-mono);letter-spacing:.08em}
+.kicker,section.block .lab{font-size:12px;font-weight:700}
+.hero{background:var(--bg);border-bottom:1px solid var(--line);padding:140px 0 60px}
+.hero.compact{padding:124px 0 40px}
+section.block{border-top:1px solid var(--line)}
+section.block.soft,.manifesto,footer{background:var(--soft)}
+.btn{border-radius:4px;font-weight:600;letter-spacing:.01em}
+.btn.primary{box-shadow:none}
+.btn.primary:hover{transform:none;background:var(--ink2)}
+.card,.vol,.arow,.step,.frame,.diagram{border-radius:6px}
+.card:hover,.arow:hover{transform:none;box-shadow:none;border-color:var(--ink)}
+.card .tag,.chip,.st,.soon-badge,.apps-n{border-radius:3px}
+.filters button,.readon a,.lang,.lang a,.lang button{border-radius:4px}
+.shot,.gallery .shot{border-radius:6px}
+.callout,.prose .callout{border-radius:0 6px 6px 0}
+.menu-btn{border-radius:4px}
+header.top{border-bottom:1px solid var(--line)}
+
+/* home: hero in two columns, the stance on the right */
+.home-hero{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:end}
+.home-hero h1.big{max-width:none;margin-top:.25em}
+.stance-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.stance-list li{display:grid;grid-template-columns:38px 1fr;gap:6px;padding:13px 0;border-bottom:1px solid var(--line);
+                font-family:var(--f-title);font-size:1.18rem;line-height:1.3}
+.stance-list li span.n{font-family:var(--f-mono);font-size:12px;color:var(--amber-s);padding-top:5px}
+.stance-list b{font-weight:600;font-style:italic;color:var(--amber-s)}
+@media(max-width:860px){.home-hero{grid-template-columns:1fr;gap:34px}}
+
+/* home: the advent calendar band, in the calendar's night */
+.advent-band{background:var(--night);color:var(--night-fg);padding:56px 0}
+.advent-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:44px;align-items:center}
+.advent-shot{display:block;border:1px solid rgba(255,255,255,.14);border-radius:6px;overflow:hidden;line-height:0}
+.advent-shot img{width:100%;height:auto;display:block}
+.advent-band .kicker{color:var(--glow)}
+.advent-band h2{font-family:var(--f-title);font-weight:600;font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.12;
+                letter-spacing:-.02em;margin:10px 0 14px;color:#fff}
+.advent-band h2 em{color:var(--glow)}
+.advent-band p{color:var(--night-mute);margin:0 0 14px}
+.advent-status{font-family:var(--f-mono);font-size:13px;color:var(--mint);margin:0 0 22px}
+.advent-status::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--mint);
+                       margin-right:9px;vertical-align:1px;box-shadow:0 0 10px var(--mint)}
+.advent-band .btn.primary{background:var(--glow);color:#141a33}
+.advent-band .btn.primary:hover{background:#ffd27a}
+.advent-band .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.advent-band .btn.ghost:hover{border-color:#fff}
+@media(max-width:860px){.advent-grid{grid-template-columns:1fr;gap:26px}}
+
+/* home: ways in, as a ruled index */
+.ways{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);margin-top:22px}
+.way{display:flex;flex-direction:column;padding:20px 22px 22px 0;margin-right:22px;border-bottom:1px solid var(--line);color:var(--ink)}
+.way:hover{text-decoration:none}
+.way:hover h3{color:var(--amber-s)}
+.way .n{font-family:var(--f-mono);font-size:12px;color:var(--amber-s)}
+.way h3{font-family:var(--f-title);font-weight:600;font-size:1.35rem;margin:8px 0 6px;transition:color .15s}
+.way p{margin:0;color:var(--muted);font-size:15px;flex:1}
+.way .go{margin-top:14px;font-family:var(--f-mono);font-size:12.5px;color:var(--ink)}
+@media(max-width:980px){.ways{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.ways{grid-template-columns:1fr}.way{margin-right:0}}
+
+/* home: the volumes, one ruled row each */
+.vlist{list-style:none;margin:22px 0 0;padding:0;border-top:1px solid var(--ink)}
+.vlist li{display:grid;grid-template-columns:84px 260px 1fr 74px;gap:18px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--line)}
+.vlist .vn{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.vlist h4{margin:0;font-family:var(--f-title);font-weight:600;font-size:1.08rem}
+.vlist p{margin:0;color:var(--muted);font-size:14.5px}
+.vlist .st{position:static;justify-self:end;font-size:10.5px;font-weight:700;text-transform:uppercase;padding:3px 8px}
+.vlist li.on .vn,.vlist li.on h4{color:var(--emer-s)}
+@media(max-width:860px){.vlist li{grid-template-columns:70px 1fr auto}.vlist p{grid-column:2 / -1}.vlist .st{grid-row:1;grid-column:3}}
