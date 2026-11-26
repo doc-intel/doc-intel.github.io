@@ -402,4 +402,6 @@ header.top{border-bottom:1px solid var(--line)}
 .vlist p{margin:0;color:var(--muted);font-size:14.5px}
 .vlist .st{position:static;justify-self:end;font-size:10.5px;font-weight:700;text-transform:uppercase;padding:3px 8px}
 .vlist li.on .vn,.vlist li.on h4{color:var(--emer-s)}
+.vlist li>a{display:grid;grid-column:1 / -1;grid-template-columns:subgrid;align-items:baseline;color:inherit;text-decoration:none}
+.vlist li>a:hover h4,.vlist li>a:focus-visible h4{text-decoration:underline}
 @media(max-width:860px){.vlist li{grid-template-columns:70px 1fr auto}.vlist p{grid-column:2 / -1}.vlist .st{grid-row:1;grid-column:3}}
