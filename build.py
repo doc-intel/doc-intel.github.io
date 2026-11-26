@@ -20,7 +20,7 @@ SRC = ROOT / "_src"
 BASE = "https://doc-intel.github.io"
 OG_IMAGE = BASE + "/assets/img/electron/electron-pipeline.png"
 
-TOP = ["index.html", "articles.html", "apps.html"]
+TOP = ["index.html", "articles.html", "apps.html", "advent.html"]
 FR_CASES = ["assistant-assurance", "emprunteur-comparison", "mrh-comparison", "mrh-comparison-lu", "prevoyance-comparison", "mutuelle-comparison",
             "mrh-qa", "mrh-agentic", "claims-sql-agent", "claim-declaration", "compliance-check", "regulatory-summary",
             "funds-chatbot", "version-diff", "baloise-redraft", "claims-etl", "reinsurance-slips", "translation", "anonymisation", "table-diff-fr", "proofreading-fr", "classification",
@@ -44,6 +44,12 @@ DOMAIN_OF = _domain_map()
 
 # Per-language SEO for the generated (bilingual-source) pages.
 SEO = {
+    "advent.html": {
+        "fr": ("Calendrier de l'avent du RAG d'entreprise - Enterprise Document Intelligence",
+               "24 portes, 24 mÃ©canismes du RAG d'entreprise, chacun animÃ© et reliÃ© Ã  l'article complet."),
+        "en": ("Enterprise RAG advent calendar - Enterprise Document Intelligence",
+               "24 doors, 24 mechanisms of enterprise RAG, each one animated and linked to the full article."),
+    },
     "index.html": {
         "fr": ("Enterprise Document Intelligence : le RAG sur de vrais documents",
                "Construire le RAG d'entreprise brique par brique, d'un PDF a l'echelle du corpus. Articles, apps et etudes de cas sur documents publics."),
