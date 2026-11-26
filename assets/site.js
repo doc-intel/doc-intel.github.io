@@ -22,6 +22,15 @@
       onScroll();
     }
     var lang = document.querySelector('header.top .lang');
+    // Ko-fi: one cup in every header, written here once rather than in each page
+    if (lang && !document.querySelector('.nav-kofi')) {
+      var kofi = document.createElement('a');
+      kofi.className = 'nav-kofi';
+      kofi.href = 'https://ko-fi.com/angelashi';
+      kofi.title = 'Ko-fi';
+      kofi.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c-.6.8.6 1.7 0 2.5M12 3.5c-.6.8.6 1.7 0 2.5"/></svg><span>Ko-fi</span>';
+      lang.parentNode.insertBefore(kofi, lang);
+    }
     if (lang && !document.querySelector('.theme-tog')) {
       var btn = document.createElement('button');
       btn.type = 'button';
