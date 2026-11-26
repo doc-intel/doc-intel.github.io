@@ -231,6 +231,25 @@ a.card:hover{text-decoration:none}
 .arow-tight{padding:10px 16px;border-radius:10px}
 .arow-tight h4{margin:2px 0 0;font-size:1rem}
 .alist.tight{gap:6px}
+/* liste des articles : un bloc par chapitre, ses parties et compagnons en retrait (site_liste_articles_publies.py) */
+.jump{display:flex;flex-wrap:wrap;gap:6px 18px;margin:26px 0 0;font-size:14px;font-weight:700}
+.jump a{color:var(--blue-s);text-decoration:none}
+.jump a:hover{text-decoration:underline}
+.group{scroll-margin-top:80px}
+.chaps{columns:2;column-gap:44px;margin-top:14px}
+.chap{break-inside:avoid;margin:0 0 20px}
+.chead,.krow{display:grid;grid-template-columns:86px 1fr;gap:10px;align-items:baseline;text-decoration:none}
+.chead{grid-template-columns:30px 1fr;padding:0 0 6px;border-bottom:1px solid var(--line);
+       color:var(--ink);font-weight:700;font-size:1.04rem;line-height:1.3}
+.chead .kl{font-family:var(--f-mono);font-size:1.04rem;font-weight:800;color:var(--amber-s)}
+.kids{margin:6px 0 0 8px;padding-left:20px;border-left:2px solid var(--line)}
+.krow{padding:4px 0;color:var(--ink2);font-size:.94rem;line-height:1.35}
+.krow .kl{font-family:var(--f-mono);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber-s)}
+a.chead:hover,a.krow:hover{text-decoration:none}
+a.chead:hover .kt,a.krow:hover .kt{color:var(--blue-s);text-decoration:underline}
+.chead.soon .kt,.krow.soon .kt{color:var(--muted)}
+.chap.flat .krow{grid-template-columns:86px 1fr}
+@media(max-width:900px){.chaps{columns:1}}
 .soon-badge{display:inline-block;margin-left:8px;font-size:10px;font-weight:800;letter-spacing:.05em;
             text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--amber-b);color:var(--amber-s);vertical-align:middle}
 
