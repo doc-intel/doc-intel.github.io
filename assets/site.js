@@ -51,5 +51,34 @@
       window.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
       wrap.appendChild(mb);
     }
+
+    // volumes: one sommaire at a time. The hash carries the choice, so a volume is a shareable
+    // link (articles.html#vol-3) and the back button undoes one step. No JS: every panel shows.
+    var vsw = document.querySelector('.vswitch');
+    if (vsw) {
+      var panels = [].slice.call(document.querySelectorAll('.vpanel'));
+      var tabs = [].slice.call(vsw.querySelectorAll('.vtab'));
+      var isVol = function (h) { return /^vol-\d+$/.test(h); };
+      document.documentElement.setAttribute('data-vswitch', 'on');
+      var show = function (id, writeHash) {
+        if (!panels.some(function (p) { return p.id === id; })) id = panels.length ? panels[0].id : '';
+        panels.forEach(function (p) { p.classList.toggle('on', p.id === id); });
+        tabs.forEach(function (t) {
+          var me = t.getAttribute('data-vol') === id;
+          t.classList.toggle('active', me);
+          t.setAttribute('aria-selected', me ? 'true' : 'false');
+        });
+        if (writeHash && location.hash.slice(1) !== id) {
+          try { history.replaceState(null, '', '#' + id); } catch (e) { location.hash = id; }
+        }
+      };
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () { show(t.getAttribute('data-vol'), true); });
+      });
+      window.addEventListener('hashchange', function () {
+        if (isVol(location.hash.slice(1))) show(location.hash.slice(1), false);
+      });
+      show(isVol(location.hash.slice(1)) ? location.hash.slice(1) : 'vol-1', false);
+    }
   });
 })();

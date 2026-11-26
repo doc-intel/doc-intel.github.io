@@ -28,12 +28,8 @@
 <main>
   <section class="hero compact">
     <div class="wrap">
-      <div class="kicker">Volume 1<span class="fr"> · RAG sur PDF</span><span class="en"> · PDF RAG</span></div>
-      <h1 class="mid"><span class="fr">Toute la série, ici</span><span class="en">The whole series, here</span></h1>
-      <p class="lede">
-        <span class="fr blk">Toute la série sera publiée ici, article après article.</span>
-        <span class="en blk">The whole series will be published here, article after article.</span>
-      </p>
+      <div class="kicker">Enterprise Document Intelligence</div>
+      <h1 class="mid"><span class="fr">Les articles, volume par volume</span><span class="en">The articles, volume by volume</span></h1>
       <div class="readon">
         <span class="ro-lab"><span class="fr">Où lire :</span><span class="en">Read on:</span></span>
         <a href="https://medium.com/@angela.shi">Medium · Angela Shi</a>
@@ -44,8 +40,20 @@
   <section class="block first">
     <div class="wrap">
 
+
+      <!-- PUBLIES:START -->
+      <div class="vswitch" role="tablist">
+        <button type="button" role="tab" class="vtab active" data-vol="vol-1"><span class="vt">Vol. 1</span><span class="vl"><span class="fr">RAG sur PDF</span><span class="en">PDF RAG</span></span><span class="vs live"><span class="fr">En cours</span><span class="en">Live</span></span></button>
+        <button type="button" role="tab" class="vtab" data-vol="vol-2"><span class="vt">Vol. 2</span><span class="vl"><span class="fr">Multi-format, multi-intention</span><span class="en">Multi-format, multi-intent</span></span></button>
+        <button type="button" role="tab" class="vtab" data-vol="vol-3"><span class="vt">Vol. 3</span><span class="vl"><span class="fr">Production avec outils</span><span class="en">Production with tools</span></span></button>
+        <button type="button" role="tab" class="vtab" data-vol="vol-4"><span class="vt">Vol. 4</span><span class="vl"><span class="fr">RAG agentique audité</span><span class="en">Agentic RAG with audit</span></span></button>
+        <button type="button" role="tab" class="vtab" data-vol="vol-5"><span class="vt">Vol. 5</span><span class="vl"><span class="fr">Le hub d&#x27;apps</span><span class="en">The app hub</span></span></button>
+        <button type="button" role="tab" class="vtab" data-vol="vol-6"><span class="vt">Vol. 6</span><span class="vl"><span class="fr">App bureau</span><span class="en">Desktop app</span></span></button>
+        <button type="button" role="tab" class="vtab" data-vol="vol-7"><span class="vt">Vol. 7</span><span class="vl"><span class="fr">SaaS multi-tenant</span><span class="en">Multi-tenant SaaS</span></span></button>
+      </div>
+      <div class="vpanel on" id="vol-1">
       <div class="diagram archdiagram">
-        <svg class="archsvg" width="1430" height="800" viewBox="0 0 1430 800" xmlns="http://www.w3.org/2000/svg"><defs><filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="2" dy="3" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.16"/></filter><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker></defs><text x="715.0" y="56" text-anchor="middle" font-size="30" font-weight="800" fill="#0f172a">Enterprise Document Intelligence</text><text x="715.0" y="95" text-anchor="middle" font-size="20" font-weight="700" fill="#334155">Volume 1: PDF RAG  ·  five Parts, 22 articles</text>
+        <svg class="archsvg" width="1430" height="684" viewBox="0 116 1430 684" xmlns="http://www.w3.org/2000/svg"><defs><filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="2" dy="3" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.16"/></filter><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker></defs>
   <rect x="30" y="150" width="256" height="330" rx="16" fill="#fef3c7" stroke="#b45309" stroke-width="2.0" filter="url(#sh)"/>
   <text x="158.0" y="192" text-anchor="middle" font-size="23" font-weight="800" fill="#78350f">Part I</text>
   <text x="158.0" y="224" text-anchor="middle" font-size="16.5" font-weight="700" fill="#78350f">What works, what breaks</text>
@@ -109,8 +117,6 @@
           <span class="en blk">Volume 1 at a glance: five Parts, built on the four bricks (parsing, question, retrieval, generation).</span>
         </div>
       </div>
-
-      <!-- PUBLIES:START -->
       <nav class="jump"><a href="#part-1"><span class="fr">Partie I</span><span class="en">Part I</span></a><a href="#part-2"><span class="fr">Partie II</span><span class="en">Part II</span></a><a href="#part-3"><span class="fr">Partie III</span><span class="en">Part III</span></a><a href="#part-4"><span class="fr">Partie IV</span><span class="en">Part IV</span></a><a href="#group-m"><span class="fr">Manifestes</span><span class="en">Manifestos</span></a><a href="#group-b">Bonus</a><a href="#group-r"><span class="fr">Autres lectures</span><span class="en">Other readings</span></a></nav>
       <div class="group" id="part-1">
         <h3 class="ghead a"><span class="fr">Partie I · Ce qui marche, ce qui casse</span><span class="en">Part I · What works, what breaks</span></h3>
@@ -153,15 +159,15 @@
           <div class="chead"><span class="kl">5</span><span class="kt"><span class="fr">Parsing du document</span><span class="en">Document parsing</span></span></div>
           <div class="kids">
             <a class="krow" href="https://medium.com/@angela.shi/beyond-extract-text-the-two-layers-of-a-pdf-that-drive-rag-quality-764ea9ec2fe8"><span class="kl">5A</span><span class="kt">What to Read in a PDF Before You Build RAG on It</span></a>
-            <a class="krow" href="https://medium.com/@angela.shi/a-pdf-parser-for-rag-should-return-tables-not-text-38e8c7c97112"><span class="kl">5B</span><span class="kt">A PDF Parser for RAG Should Return Tables, Not Text</span></a>
+            <a class="krow" href="https://medium.com/@angela.shi/a-pdf-parser-for-rag-should-return-tables-not-text-38e8c7c97112"><span class="kl">5B</span><span class="kt">A PDF Parser for RAG Should Return Structured Data, Not Text</span></a>
             <div class="krow soon"><span class="kl">5bis</span><span class="kt">Azure Layout for the PDF Pages Your RAG Can&#x27;t Read <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
             <div class="krow soon"><span class="kl">5ter</span><span class="kt">Parse PDFs for RAG on Your Own Machine with Docling <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
             <div class="krow soon"><span class="kl">5quater</span><span class="kt">Make PDF Charts Searchable for RAG with a Vision LLM <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
             <div class="krow soon"><span class="kl">5quinquies</span><span class="kt">Why OCR Alone Isn&#x27;t Enough for Scanned PDFs in RAG <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
             <div class="krow soon"><span class="kl">5sexies</span><span class="kt">Make PDF Images Searchable for RAG Without Captioning Them All <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
             <a class="krow" href="https://medium.com/@angela.shi/rebuild-a-pdfs-table-of-contents-for-rag-3c4ce1d66a42"><span class="kl">5septies</span><span class="kt">Rebuild a PDF&#x27;s Table of Contents for RAG</span></a>
-            <div class="krow soon"><span class="kl">5octies</span><span class="kt">Building Document Structure with Loop Engineering: Recovering a PDF&#x27;s Outline from Body Typography for RAG <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">5nonies</span><span class="kt">Before Full Agentic RAG: Know How You Decide, and the Parsing Methods You Pick From <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">5octies</span><span class="kt">PDF Heading Detection for RAG Without a Table of Contents <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">5nonies</span><span class="kt">PDF Parsing Methods for RAG: Which One for Which Document <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
             <a class="krow" href="https://medium.com/@angela.shi/for-rag-on-enterprise-pdfs-structure-beats-fixed-size-chunking-b3e058cd6feb"><span class="kl"><span class="fr">Lecture</span><span class="en">Reading</span></span><span class="kt">I Tested Pinecone&#x27;s Chunking Strategies on a Real PDF</span></a>
           </div>
         </div>
@@ -209,27 +215,23 @@
         <div class="chap">
           <div class="chead soon"><span class="kl">9</span><span class="kt">RAG Pipeline for PDFs: From Demo to Production <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
           <div class="kids">
-            <div class="krow soon"><span class="kl">9bis</span><span class="kt">Prompt Engineering Isn&#x27;t Enough: How Four Bricks of Context Engineering Stop RAG Hallucinations <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">9ter</span><span class="kt">Cut an Enterprise RAG Pipeline&#x27;s Latency and Cost by Calling the LLM Less, Not by Buying a Faster Model <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">9bis</span><span class="kt">Four Ways Naive RAG Fails on Real Documents <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">9ter</span><span class="kt">Reduce RAG Latency and Cost by Calling the LLM Less <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
           </div>
         </div>
         <div class="chap">
-          <div class="chead"><span class="kl">10</span><span class="kt"><span class="fr">Parsing adaptatif</span><span class="en">Adaptive parsing</span></span></div>
+          <div class="chead soon"><span class="kl">10</span><span class="kt">Adaptive PDF Parsing for RAG: Pay Only for the Pages That Need It <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+        </div>
+        <div class="chap">
+          <div class="chead soon"><span class="kl">11</span><span class="kt">How to Follow Cross-References in a RAG Pipeline <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+        </div>
+        <div class="chap">
+          <div class="chead soon"><span class="kl">12</span><span class="kt">How to Answer &#x27;List All&#x27; Questions With RAG <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+        </div>
+        <div class="chap">
+          <div class="chead soon"><span class="kl">13</span><span class="kt">Agentic RAG as a Workflow, Not an Autonomous Agent <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
           <div class="kids">
-            <div class="krow soon"><span class="kl">10A</span><span class="kt">Loop engineering with adaptive PDF parsing: start cheap, pay for a heavier parser only when the page needs it <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">10B</span><span class="kt">Loop engineering with adaptive parsing in action: flattened tables to Azure, figures to a vision LLM <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-          </div>
-        </div>
-        <div class="chap">
-          <div class="chead soon"><span class="kl">11</span><span class="kt">Loop engineering for cross-references: when RAG answers &#x27;see Section 7.2&#x27; instead of the actual answer <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-        </div>
-        <div class="chap">
-          <div class="chead soon"><span class="kl">12</span><span class="kt">Loop engineering for listing questions: when the answer is every passage, not the top one <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-        </div>
-        <div class="chap">
-          <div class="chead soon"><span class="kl">13</span><span class="kt">RAG workflow and loop engineering: the dispatcher that decides when to loop and when to stop <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-          <div class="kids">
-            <div class="krow soon"><span class="kl">13bis</span><span class="kt">Loop engineering for RAG: the small loops inside each step, the big loops across the pipeline <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">13bis</span><span class="kt">Loop Engineering for RAG: When to Retry and When to Stop <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
           </div>
         </div>
         </div>
@@ -240,10 +242,10 @@
         <div class="chap">
           <div class="chead"><span class="kl">14</span><span class="kt"><span class="fr">Le problème du corpus</span><span class="en">The corpus problem</span></span></div>
           <div class="kids">
-            <div class="krow soon"><span class="kl">14A</span><span class="kt">Three Kinds of RAG Corpus, and What It Costs to Build for the Wrong One <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">14B</span><span class="kt">Multi-Document RAG: A Folder of Unrelated PDFs Is One Long Document with a Nested Outline <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">14C</span><span class="kt">One Document Type, a Million Files: Structured Extraction into the SQL Table RAG Queries <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">14D</span><span class="kt">Parse the Folder, Not Just the PDFs: The Relational Tables RAG Needs on a Case File <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">14A</span><span class="kt">Three Types of Document Collections for RAG <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">14B</span><span class="kt">Multi-Document RAG for a Folder of Unrelated PDFs <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">14C</span><span class="kt">Multi-Document RAG for Thousands of Similar PDFs <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">14D</span><span class="kt">Multi-Document RAG for a Case File <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
           </div>
         </div>
         </div>
@@ -253,8 +255,8 @@
         <div class="chaps">
         <div class="chap flat">
             <a class="krow" href="https://medium.com/@angela.shi/enterprise-rag-should-help-experts-not-replace-them-f5edf25af880"><span class="kl">M1</span><span class="kt">Enterprise RAG Should Help Experts, Not Replace Them</span></a>
-            <div class="krow soon"><span class="kl">M2</span><span class="kt">Prompt, Context, Loop: The Three Engineering Layers Every RAG System Is Built On <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">M3</span><span class="kt">10 Positions for Enterprise RAG That Mainstream Tutorials Get Wrong <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">M2</span><span class="kt">Prompt, Context and Loop Engineering in RAG <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">M3</span><span class="kt">Enterprise RAG: 10 Things the Tutorials Get Wrong <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
         </div>
         </div>
       </div>
@@ -262,11 +264,11 @@
         <h3 class="ghead a">Bonus</h3>
         <div class="chaps">
         <div class="chap flat">
-            <div class="krow soon"><span class="kl">B00</span><span class="kt">RAG Is Not the Whole Toolkit: The NLP Techniques Real Problems Still Need <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">B01</span><span class="kt">Noisy Text in RAG: Typos, OCR, and the Gap Classical Spell-Check Leaves <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">B02</span><span class="kt">FAQ as RAG: When You Get to Design the Corpus <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">B03</span><span class="kt">A RAG That Says “Not in This Document” Has to Show Four Kinds of Evidence <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
-            <div class="krow soon"><span class="kl">B04</span><span class="kt">Tables in PDFs for RAG: Don’t Flatten the Grid <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">B00</span><span class="kt">Not Every Document Problem Needs RAG <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">B1</span><span class="kt">How to Handle Typos and OCR Errors in RAG <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">B2</span><span class="kt">How to Build an FAQ Chatbot With RAG <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">B3</span><span class="kt">How RAG Should Say &quot;I Don&#x27;t Know&quot; <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
+            <div class="krow soon"><span class="kl">B4</span><span class="kt">RAG Pipeline for Tables in PDF Documents <span class="soon-badge"><span class="fr">Bientôt</span><span class="en">Soon</span></span></span></div>
         </div>
         </div>
       </div>
@@ -277,6 +279,228 @@
             <a class="krow" href="https://medium.com/data-science-collective/snowflakes-one-page-sec-demo-treats-structured-filings-as-text-dea6e55bb116"><span class="kl"><span class="fr">Lecture</span><span class="en">Reading</span></span><span class="kt">Snowflake&#x27;s one-page SEC demo treats structured filings as text</span></a>
         </div>
         </div>
+      </div>
+      </div>
+      <div class="vpanel" id="vol-2">
+        <p class="vlede"><span class="fr">Word, Excel, PowerPoint et mail rejoignent le PDF, chacun avec son parseur. De nouvelles intentions arrivent : traduire, résumer, comparer, relire.</span><span class="en">Word, Excel, PowerPoint and mail join the PDF, each with its own parser. New intents arrive: translate, summarize, compare, proofread.</span></p>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie I · Lire tous les formats (brique 1)</span><span class="en">Part I · Document parsing across the spectrum (Brick 1)</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">1</span><span class="kt">The format spectrum</span></div>
+            <div class="krow soon"><span class="kl">2</span><span class="kt">USLM parsing</span></div>
+            <div class="krow soon"><span class="kl">3</span><span class="kt">Word parsing</span></div>
+            <div class="krow soon"><span class="kl">4</span><span class="kt">PowerPoint parsing</span></div>
+            <div class="krow soon"><span class="kl">5</span><span class="kt">Mail parsing</span></div>
+            <div class="krow soon"><span class="kl">6</span><span class="kt">Excel parsing</span></div>
+            <div class="krow soon"><span class="kl">7</span><span class="kt">Composite documents</span></div>
+            <div class="krow soon"><span class="kl">8</span><span class="kt">The cross-format contract</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie II · Au-delà du Q&amp;A : les autres intentions</span><span class="en">Part II · Pipelines beyond Q&amp;A (document-text intents)</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">9</span><span class="kt">Typed intents</span></div>
+            <div class="krow soon"><span class="kl">10</span><span class="kt">Translation</span></div>
+            <div class="krow soon"><span class="kl">11</span><span class="kt">Summarization</span></div>
+            <div class="krow soon"><span class="kl">12</span><span class="kt">Comparison</span></div>
+            <div class="krow soon"><span class="kl">13</span><span class="kt">Redaction</span></div>
+            <div class="krow soon"><span class="kl">13b</span><span class="kt">Proofreading</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie III · Excel comme jeu de données</span><span class="en">Part III · Excel as dataset</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">14</span><span class="kt">Sheet classification</span></div>
+            <div class="krow soon"><span class="kl">15</span><span class="kt">Multi-table sheets</span></div>
+            <div class="krow soon"><span class="kl">16</span><span class="kt">SQL agent</span></div>
+            <div class="krow soon"><span class="kl">17</span><span class="kt">Workbook schema</span></div>
+            <div class="krow soon"><span class="kl">18</span><span class="kt">Stats summary</span></div>
+            <div class="krow soon"><span class="kl">19</span><span class="kt">Dataset intents</span></div>
+            <div class="krow soon"><span class="kl">20</span><span class="kt">Table diff</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie IV · Router les intentions dans un dossier multi-format</span><span class="en">Part IV · Routing intents across mixed-format dossiers (the grouping ontology)</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">21</span><span class="kt">Grouping ontology</span></div>
+            <div class="krow soon"><span class="kl">22</span><span class="kt">Hierarchical indexing</span></div>
+            <div class="krow soon"><span class="kl">23</span><span class="kt">Group Q&amp;A</span></div>
+            <div class="krow soon"><span class="kl">24</span><span class="kt">Group production</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie V · En production</span><span class="en">Part V · Operating Volume 2 in production</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">25</span><span class="kt">Code architecture</span></div>
+            <div class="krow soon"><span class="kl">26</span><span class="kt">Multi-format corpus</span></div>
+            <div class="krow soon"><span class="kl">27</span><span class="kt">Validation &amp; lineage</span></div>
+            <div class="krow soon"><span class="kl">28</span><span class="kt">Validation tests</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Compagnons</span><span class="en">Companions</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">A01</span><span class="kt">Migrating from Volume 1</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="vpanel" id="vol-3">
+        <p class="vlede"><span class="fr">Le document n&#x27;est plus seulement lu, il est produit : formulaire rempli, tableau généré, fichier réécrit. Un catalogue d&#x27;outils que le moteur sait appeler.</span><span class="en">The document is no longer just read, it is produced: a form filled, a table generated, a file rewritten. A catalog of tools the engine knows how to call.</span></p>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie I · Outils</span><span class="en">Part I · Tools</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">1</span><span class="kt">What is a tool</span></div>
+            <div class="krow soon"><span class="kl">2</span><span class="kt">Documenting a tool</span></div>
+            <div class="krow soon"><span class="kl">3</span><span class="kt">The deterministic catalog</span></div>
+            <div class="krow soon"><span class="kl">4</span><span class="kt">LLM-augmented tools</span></div>
+            <div class="krow soon"><span class="kl">5</span><span class="kt">The conversion problem</span></div>
+            <div class="krow soon"><span class="kl">6</span><span class="kt">Scanned PDF to Word</span></div>
+            <div class="krow soon"><span class="kl">7</span><span class="kt">Format conversion</span></div>
+            <div class="krow soon"><span class="kl">8</span><span class="kt">Production question parsing</span></div>
+            <div class="krow soon"><span class="kl">9</span><span class="kt">Tool routing</span></div>
+            <div class="krow soon"><span class="kl">10</span><span class="kt">Retrieval as a tool</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie III · Assistant 360</span><span class="en">Part III · The 360 assistant</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">11</span><span class="kt">The typed plan</span></div>
+            <div class="krow soon"><span class="kl">12</span><span class="kt">Step-by-step execution</span></div>
+            <div class="krow soon"><span class="kl">13</span><span class="kt">Walkthrough: scanned PDF</span></div>
+            <div class="krow soon"><span class="kl">14</span><span class="kt">Walkthrough: regulatory form</span></div>
+            <div class="krow soon"><span class="kl">15</span><span class="kt">Walkthrough: renewal briefing</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie IV · Gouvernance</span><span class="en">Part IV · Governance</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">16</span><span class="kt">Rendering with provenance</span></div>
+            <div class="krow soon"><span class="kl">17</span><span class="kt">Tool security</span></div>
+            <div class="krow soon"><span class="kl">18</span><span class="kt">The safety UI</span></div>
+            <div class="krow soon"><span class="kl">19</span><span class="kt">GDPR on outputs</span></div>
+            <div class="krow soon"><span class="kl">20</span><span class="kt">Output evaluation</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="vpanel" id="vol-4">
+        <p class="vlede"><span class="fr">Un agent choisit ses actions, garde en mémoire ce qu&#x27;il a fait, et laisse une trace lisible. Boîte de verre : chaque étape est vérifiable et rejouable.</span><span class="en">An agent picks its actions, remembers what it did, and leaves a readable trail. Glass box: every step is verifiable and replayable.</span></p>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie I · L&#x27;agent en boîte de verre</span><span class="en">Part I · The glass-box agent on top of the bricks</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">1</span><span class="kt">The glass-box agent</span></div>
+            <div class="krow soon"><span class="kl">2</span><span class="kt">Methodology over model</span></div>
+            <div class="krow soon"><span class="kl">3</span><span class="kt">The reasoning chain</span></div>
+            <div class="krow soon"><span class="kl">4</span><span class="kt">Two-phase progression</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie II · Ce que 2026 a ajouté à l&#x27;architecture</span><span class="en">Part II · Architectural moves 2026 added on top of V1</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">5</span><span class="kt">The multi-agent pivot</span></div>
+            <div class="krow soon"><span class="kl">6</span><span class="kt">Planner / generator / evaluator</span></div>
+            <div class="krow soon"><span class="kl">7</span><span class="kt">Runtime tool-pulling</span></div>
+            <div class="krow soon"><span class="kl">8</span><span class="kt">Parallel sub-agents</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie III · Mémoire et apprentissage</span><span class="en">Part III · Memory and learning</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">9</span><span class="kt">The three memory types</span></div>
+            <div class="krow soon"><span class="kl">10</span><span class="kt">Multi-scope memory</span></div>
+            <div class="krow soon"><span class="kl">10bis</span><span class="kt">Session memory</span></div>
+            <div class="krow soon"><span class="kl">11</span><span class="kt">Memory as decisions</span></div>
+            <div class="krow soon"><span class="kl">12</span><span class="kt">Memory drift</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie IV · Autonomie bornée et couche d&#x27;audit</span><span class="en">Part IV · Bounded autonomy and the audit layer</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">13</span><span class="kt">The silent ten percent</span></div>
+            <div class="krow soon"><span class="kl">14</span><span class="kt">Bounded autonomy</span></div>
+            <div class="krow soon"><span class="kl">15</span><span class="kt">The trace table</span></div>
+            <div class="krow soon"><span class="kl">16</span><span class="kt">The dispatcher contract</span></div>
+            <div class="krow soon"><span class="kl">17</span><span class="kt">Per-decision evaluation</span></div>
+            <div class="krow soon"><span class="kl">18</span><span class="kt">The review queue</span></div>
+            <div class="krow soon"><span class="kl">19</span><span class="kt">Auditing multi-agent</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie V · Frontières et production</span><span class="en">Part V · Frontiers and production</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">20</span><span class="kt">Long-running agents</span></div>
+            <div class="krow soon"><span class="kl">21</span><span class="kt">Tenant safety</span></div>
+            <div class="krow soon"><span class="kl">22</span><span class="kt">The compliance interface</span></div>
+            <div class="krow soon"><span class="kl">23</span><span class="kt">Cost &amp; chatbot UX</span></div>
+            <div class="krow soon"><span class="kl">24</span><span class="kt">Agentic onboarding</span></div>
+            <div class="krow soon"><span class="kl">24bis</span><span class="kt">Onboarding across sectors</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b">Bonus</h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">B01</span><span class="kt">The SQL agent continuum</span></div>
+            <div class="krow soon"><span class="kl">B03</span><span class="kt">Tool calling demystified</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="vpanel" id="vol-5">
+        <p class="vlede"><span class="fr">Un moteur, un parc d&#x27;apps : un geste par app, la même lecture derrière toutes, et un journal qui dit pourquoi un champ est resté vide.</span><span class="en">One engine, a park of apps: one gesture per app, the same parse behind all of them, and a logbook that says why a field came out empty.</span></p>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie I · Le hub</span><span class="en">Part I · The hub</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">1</span><span class="kt">You have the library, nobody can use it: the front is the missing half of document AI</span></div>
+            <div class="krow soon"><span class="kl">2</span><span class="kt">Parse once, use everywhere: the thirty-line dispatch behind a park of document apps</span></div>
+            <div class="krow soon"><span class="kl">3</span><span class="kt">Why is this field empty? The logbook view that answers it without a debugger</span></div>
+          </div>
+        </div>
+        </div>
+        <div class="group">
+          <h3 class="ghead b"><span class="fr">Partie II · Les apps, format par format</span><span class="en">Part II · The apps, format by format</span></h3>
+        <div class="chaps">
+          <div class="chap flat">
+            <div class="krow soon"><span class="kl">6</span><span class="kt">Stop asking for the name: the app that reads your documents first and asks only what none of them can say</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="vpanel" id="vol-6">
+        <p class="vlede"><span class="fr">Un poste de travail local qui indexe un dossier scanné et répond hors-ligne. Des données qui ne quittent pas la machine.</span><span class="en">A local workstation that indexes a scanned folder and answers offline. Data that never leaves the machine.</span></p>
+        <p class="vwait"><span class="fr">Le sommaire de ce volume est en cours d&#x27;écriture.</span><span class="en">The outline of this volume is being written.</span></p>
+      </div>
+      <div class="vpanel" id="vol-7">
+        <p class="vlede"><span class="fr">L&#x27;édition serveur, multi-tenant : stockage, authentification, facturation. Le même moteur, exploité à l&#x27;échelle.</span><span class="en">The server edition, multi-tenant: storage, authentication, billing. The same engine, run at scale.</span></p>
+        <p class="vwait"><span class="fr">Le sommaire de ce volume est en cours d&#x27;écriture.</span><span class="en">The outline of this volume is being written.</span></p>
       </div>
       <!-- PUBLIES:END -->
 

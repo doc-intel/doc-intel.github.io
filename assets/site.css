@@ -256,6 +256,27 @@ a.chead:hover .kt,a.krow:hover .kt{color:var(--blue-s);text-decoration:underline
 .soon-badge{display:inline-block;margin-left:8px;font-size:10px;font-weight:800;letter-spacing:.05em;
             text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--amber-b);color:var(--amber-s);vertical-align:middle}
 
+/* volumes : une tuile par volume, le sommaire du volume choisi dessous (site_liste_articles_publies.py).
+   Sans JavaScript, tous les panneaux s'affichent : la page reste lisible et complète. */
+.vswitch{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+.vtab{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);
+      border-radius:999px;padding:7px 14px;font:inherit;color:var(--ink2);cursor:pointer;transition:.15s}
+.vtab:hover{border-color:var(--muted)}
+.vtab .vt{font-family:var(--f-mono);font-size:10.5px;font-weight:800;letter-spacing:.08em;
+          text-transform:uppercase;color:var(--muted)}
+.vtab .vl{font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.vtab .vs{font-family:var(--f-mono);font-size:9.5px;font-weight:800;letter-spacing:.07em;
+          text-transform:uppercase;padding:2px 6px;border-radius:3px;background:var(--chip-bg);color:var(--muted)}
+.vtab .vs.live{background:var(--emer-b);color:var(--emer-s)}
+.vtab.active{border-color:var(--blue-s);box-shadow:inset 0 0 0 1px var(--blue-s);background:var(--bg)}
+.vtab.active .vt,.vtab.active .vl{color:var(--blue-s)}
+.vpanel + .vpanel{margin-top:44px;padding-top:34px;border-top:1px solid var(--line)}
+[data-vswitch] .vpanel,[data-vswitch] .vpanel + .vpanel{display:none;margin-top:0;padding-top:0;border-top:0}
+[data-vswitch] .vpanel.on{display:block}
+.vlede{max-width:none;color:var(--muted);font-size:15.5px;margin:0 0 6px}
+.vwait{color:var(--ink2);font-size:15px;margin:10px 0 0}
+@media(max-width:680px){.vtab{padding:6px 11px}.vtab .vl{font-size:13px}}
+
 /* filters */
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 30px}
 .filters button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px;
