@@ -18,6 +18,8 @@ import os, re, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent
 SRC = ROOT / "_src"
 BASE = "https://doc-intel.github.io"
+# Google Analytics: the ID lives in assets/mesure.js only; every page loads it (absolute path, any depth).
+MESURE = '<script src="/assets/mesure.js" defer></script>'
 OG_IMAGE = BASE + "/assets/img/electron/electron-pipeline.png"
 
 TOP = ["index.html", "articles.html", "apps.html"]
@@ -140,7 +142,7 @@ def set_head(html: str, title: str, desc: str, seo_block: str) -> str:
     if desc is not None:
         html = re.sub(r'<meta name="description" content=".*?">',
                       '<meta name="description" content="' + desc + '">', html, count=1, flags=re.S)
-    html = html.replace('</head>', seo_block + '\n' + THEME_INIT + '\n</head>', 1)
+    html = html.replace('</head>', seo_block + '\n' + THEME_INIT + '\n' + MESURE + '\n</head>', 1)
     return html
 
 
@@ -271,6 +273,7 @@ def build_root():
   // English is the default landing; French visitors can switch below or via the toggle.
   location.replace('en/');
 </script>
+<script src="/assets/mesure.js"></script>
 <meta http-equiv="refresh" content="0; url=en/">
 </head>
 <body style="font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:40rem;margin:12vh auto;padding:0 1.5rem;color:#0f172a">
