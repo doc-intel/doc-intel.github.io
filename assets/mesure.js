@@ -1,7 +1,7 @@
 // Google Analytics 4, loaded by every page of the site (build.py) and by the calendar (/advent/).
 // The measurement ID of the GA4 property goes here, and only here; empty, nothing is loaded.
 (function () {
-  var ID = "";
+  var ID = "G-0YDHDR4FWW";
   if (!ID || location.protocol === "file:") return;
   var s = document.createElement("script");
   s.async = true;
